@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+/'class Company{
+
+}'/
+
+class Ship{
+    MMSI
+    **IMO**
+    CallSignId
+    ShipName
+    **VesselTypeID** FK
+    NumEnergyGenerators
+    GeneratorsPower
+    CurrentCapacity
+    Draft
+}
+
+class VesselType{
+    **VesselTypeID**
+    Length
+    Width
+    maxCapacity
+}
+
+class ShipPosition{}
+
+class Container{
+    ContainerID
+    Payload
+    Tare
+    Gross
+    CheckDigit
+    ISOCode
+    isRefrigerated
+    temperatureKept
+}
+
+class CargoManifest{
+    **CargoManifestID**
+    **ContainerID**FK
+    ContainerGross
+    TypeOfTransport
+}
+
+class PositionInVehicule{
+    **CargoManifestID**
+    **ContainerID**
+    ContainerPositionInVehiculeX
+    ContainerPositionInVehiculeY
+}
+
+class PortsAndWareHouse{
+    Identification.
+    Name
+    Continent
+    Country
+    locationLatidude
+    LocationLongitude
+}
+
+class User{
+ Role
+}
+
+@enduml
