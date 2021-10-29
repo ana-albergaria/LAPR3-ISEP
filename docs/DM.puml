@@ -28,6 +28,8 @@ class FleetManager {}
 
 class TrafficManager {}
 
+
+
 class WarehouseStaff {}
 
 class WarehouseManager {}
@@ -43,16 +45,104 @@ class ShipChiefElecEngineer {}
 class TruckDriver {}
 /' End Roles '/
 
-class Ship {}
+class CargoManifest {
+    -cargoManifestId
+    /'-typeOfTransport'/
+}
 
-class CargoManifest {}
+class Ship {
+    -mmmsiCode
+    -shipName
+    -imoCode
+    -numEnergyGenerators
+    -generatorsPower
+    -callSignId
+    -currentCapacity /'added by us'/
+    -draft
+}
 
 class Warehouse {}
+
+class PositionInVehicle {
+    -containerPositionInVehiculeX
+    -containerPositionInVehiculeY
+    -containerPositionInVehiculeZ
+}
+
+class VesselType {
+    -vesselTypeId
+    -length
+    -width
+    -maxCapacity
+}
+
+class ShipPosition {
+    -baseDateTime
+    -latitude
+    -longitude
+    -sog
+    -cog
+    -heading
+    -position
+    -transceiver
+}
+
+/'CONFIRM'/
+class PortsAndWarehouses {
+    -identification
+    -name
+}
+
+class Country {
+    -countryDesignation
+    -continent
+}
+
+class PlaceLocation {
+    -locationLatitude
+    -locationLongitude
+}
+
+/'Classes not in the Data Model'/
+class Message {}
+
+class USCoastGuard {}
+
+class Quote {}
+/'End of Classes not in the Data Model'/
 
 
 Company "1" -- "*" Warehouse : has >
 Company "1" -- "1..*" Employee : employ >
 FleetManager "1" -- "1" Employee : is of >
+TrafficManager "1" -- "1" Employee : is of >
+WarehouseStaff "1" -- "1" Employee : is of >
+WarehouseManager "1" -- "1" Employee : is of >
+PortStaff "1" -- "1" Employee : is of >
+PortManager "1" -- "1" Employee : is of >
+ShipCaptain "1" -- "1" Employee : is of >
+ShipChiefElecEngineer "1" -- "1" Employee : is of >
+TruckDriver "1" -- "1" Employee : is of >
+
+/'Relations that lack multiplicity'/
+CargoManifest  -- Container /'as this relation exists, CargoManifest already has Container gross weight'/
+CargoManifest -- PositionInVehicle : contains >
+/'End of relations that lack multiplicity'/
+
+Container "1" -- "1" PositionInVehicle : has >
+Ship "*" -- "1" VesselType : is of >
+Ship "1" -- "1" ShipPosition : has >
+PortsAndWarehouses "1" -- "1" PlaceLocation : is located at >
+PlaceLocation -- Country : in a >
+
+/'Relations not in the Data Model'/
+Ship "1" -- "*" Message : sends >
+USCoastGuard "1" -- "*" Message : receives >
+Client -- Quote : wants >
+
+/'RELAÇÕES EM FALTA - DÚVIDAS
+Company -- Quote?
+'/
 
 
 /' DÚVIDAS
@@ -61,6 +151,7 @@ FleetManager "1" -- "1" Employee : is of >
 - isRefrigerated vai ser um método logo não se representa certo?
 - estado do Cargo Manifest
 
+- Ship sends Message - a Message contém info posicionamento, como representar?
 
 
 
@@ -70,5 +161,7 @@ FleetManager "1" -- "1" Employee : is of >
 - PERGUNTAS AO CLIENTE:
     Atributos das roles/people
 '/
+
+
 
 @enduml
