@@ -1,0 +1,74 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide empty methods
+hide empty attributes
+left to right direction
+
+class Company {
+    -designation
+}
+
+class Container {
+   -containerId
+   -payload
+   -tare
+   -gross
+   -isoCode
+   /'-isRefrigerated'/
+   /'-temperatureKept' - ESTE TALVEZ ADEQUA-SE'/
+}
+
+/' Roles '/
+class Employee {}
+
+class Client {}
+
+class FleetManager {}
+
+class TrafficManager {}
+
+class WarehouseStaff {}
+
+class WarehouseManager {}
+
+class PortStaff {}
+
+class PortManager {}
+
+class ShipCaptain {}
+
+class ShipChiefElecEngineer {}
+
+class TruckDriver {}
+/' End Roles '/
+
+class Ship {}
+
+class CargoManifest {}
+
+class Warehouse {}
+
+
+Company "1" -- "*" Warehouse : has >
+Company "1" -- "1..*" Employee : employ >
+FleetManager "1" -- "1" Employee : is of >
+
+
+/' DÚVIDAS
+- Containers can be transported by land or sea - representar?
+- checkDigit - Container, para que serve?
+- isRefrigerated vai ser um método logo não se representa certo?
+- estado do Cargo Manifest
+
+
+
+
+- NÃO ESQUECER DE VER SLIDES ESOFT , USER E ROLE!
+
+
+- PERGUNTAS AO CLIENTE:
+    Atributos das roles/people
+'/
+
+@enduml
