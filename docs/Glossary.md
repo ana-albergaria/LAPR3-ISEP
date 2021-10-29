@@ -8,3 +8,7 @@
 | **Payload**  | **Lotação** | The weight of the cargo of contents it can hold. |
 | **Tare** | **Tara** | The sole weight of the empty container. |
 | **Gross** | **Peso Bruto Total** | The weight of the container plus the maximum payload it can hold, that is, maximum total height of the container. |
+| **SOG** | **VAC** | Speed Over Ground |
+| **COG** | **PAC** | Course Over Ground: direction relative to absolute North(in degrees) |
+| **AIS Message** | **AIS Message** | Automatic identification system message are codes transmitted by radio to avoid collisions|
+

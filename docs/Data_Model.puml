@@ -6,11 +6,11 @@
 }'/
 
 class Ship{
-    MMSI
     **IMO**
+    MMSI
     CallSignId
     ShipName
-    **VesselTypeID** FK
+    VesselTypeID FK
     NumEnergyGenerators
     GeneratorsPower
     CurrentCapacity
@@ -24,44 +24,79 @@ class VesselType{
     maxCapacity
 }
 
-class ShipPosition{}
+class ShipPosition{
+    **BaseDateTime**
+    **Latitude**
+    **Longitude**
+    IMO FK
+    Sog
+    Cog
+    Heading
+    Position
+    Transceiver
+}
 
 class Container{
-    ContainerID
+    **ContainerID**
     Payload
     Tare
     Gross
     CheckDigit
     ISOCode
-    isRefrigerated
     temperatureKept
 }
+/'refrigeration state is ambigous'/
 
+/'manifest type(loading, unloading) changes its values'/
 class CargoManifest{
     **CargoManifestID**
     **ContainerID**FK
-    ContainerGross
+    IMO FK
     TypeOfTransport
 }
 
 class PositionInVehicule{
-    **CargoManifestID**
-    **ContainerID**
+    **CargoManifestID**FK
+    **ContainerID**FK
     ContainerPositionInVehiculeX
     ContainerPositionInVehiculeY
+    ContainerPositionInVehiculeZ
 }
 
 class PortsAndWareHouse{
-    Identification.
+    **Identification**
     Name
-    Continent
-    Country
-    locationLatidude
-    LocationLongitude
+    LocationLongitude FK
+    LocationLatitude FK
 }
 
-class User{
- Role
+class Country{
+    **Country**
+    Continent
 }
+
+class PlaceLocation{
+    **locationLatitude**
+    **LocationLongitude**
+    Country FK
+}
+
+
+class Truck{
+    truckID
+}
+
+
+Ship "1" -- "*" Container : transports >
+Container "1" -- "1" PositionInVehicule
+Ship "1" -- "1" ShipPosition
+Ship "*" -- "1" VesselType
+Ship "1" -- "*" CargoManifest
+CargoManifest  -- Container
+Truck -- CargoManifest
+Truck "*" -- "1" Container
+PortsAndWareHouse "1" -- "1" PlaceLocation
+PlaceLocation "*" -- "1" Country
+PortsAndWareHouse "1" -- "*" CargoManifest
 
 @enduml
