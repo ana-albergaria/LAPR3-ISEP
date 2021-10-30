@@ -142,7 +142,7 @@ Truck "*" -- "1" Container : transports >
 /'Relations that is in the Data Model but to be evaluated'/
 Ship "1" -- "*" CargoManifest
 Truck -- CargoManifest /' lacks multiplicity '/
-PortsAndWareHouse "1" -- "*" CargoManifest : delivered at >
+PortsAndWareHouse "1" -- "*" CargoManifest : delivered at <
 /'End of Relatiosn that is in the Data Model but to be evaluated'/
 
 /'Relations not in the Data Model'/
