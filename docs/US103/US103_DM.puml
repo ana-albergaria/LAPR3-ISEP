@@ -1,0 +1,42 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class TrafficManager{
+    -name
+}
+
+class Ship {
+    -mmmsiCode
+    -shipName
+    -imoCode
+    -numEnergyGenerators
+    -generatorsPower
+    -callSignId
+    -currentCapacity /'added by us'/
+    -draft
+}
+
+class ShipPosition {
+    -baseDateTime
+    -latitude
+    -longitude
+    -sog
+    -cog
+    -heading
+    -position
+    -transceiver
+}
+
+class Message {}
+
+
+Ship "1" -- "*" Message : sends >
+Ship "1" -- "1..*" ShipPosition : has >
+TrafficManager "1" -- "1..*" ShipPosition : controls >
+Company "1" -- "1..*" Ship : owns >
+
+
+
+
+@enduml
