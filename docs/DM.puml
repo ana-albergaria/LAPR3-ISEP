@@ -103,6 +103,8 @@ class PlaceLocation {
     -locationLongitude
 }
 
+class Truck {}
+
 /'Classes not in the Data Model'/
 class Message {}
 
@@ -133,12 +135,25 @@ Container "1" -- "1" PositionInVehicle : has >
 Ship "*" -- "1" VesselType : is of >
 Ship "1" -- "1" ShipPosition : has >
 PortsAndWarehouses "1" -- "1" PlaceLocation : is located at >
-PlaceLocation -- Country : in a >
+PlaceLocation "*" -- "1" Country : in a >
+Ship "1" -- "*" Container : transports >
+Truck "*" -- "1" Container : transports >
+
+/'Relations that is in the Data Model but to be evaluated'/
+Ship "1" -- "*" CargoManifest
+Truck -- CargoManifest /' lacks multiplicity '/
+PortsAndWareHouse "1" -- "*" CargoManifest : delivered at >
+/'End of Relatiosn that is in the Data Model but to be evaluated'/
 
 /'Relations not in the Data Model'/
 Ship "1" -- "*" Message : sends >
 USCoastGuard "1" -- "*" Message : receives >
 Client -- Quote : wants >
+
+
+
+
+
 
 /'RELAÇÕES EM FALTA - DÚVIDAS
 Company -- Quote?
@@ -157,9 +172,6 @@ Company -- Quote?
 
 - NÃO ESQUECER DE VER SLIDES ESOFT , USER E ROLE!
 
-
-- PERGUNTAS AO CLIENTE:
-    Atributos das roles/people
 '/
 
 
