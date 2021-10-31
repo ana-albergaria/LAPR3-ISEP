@@ -2,10 +2,10 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-actor "Traffic manager" as TM
+actor "Traffic Manager" as TM
 
 activate TM
-TM-> ":System" : wishes to import ships from a text file into a BST.
+TM-> ":System" : asks to import ships from a text file into a BST
 activate ":System"
 ":System" --> TM : asks for data(i.e., file path)
 TM-> ":System" : inserts needed data
