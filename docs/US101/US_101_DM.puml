@@ -30,7 +30,7 @@ class ShipPosition {
     -sog /'SOG - 5'/
     -cog /'COG - 6'/
     -heading /'Heading - 7'/
-    -transceiver /'TranscieverClass - 16'/
+    -transceiver /'TransceiverClass - 16'/
 }
 
 Company "1" -- "1..*" Ship : owns >
