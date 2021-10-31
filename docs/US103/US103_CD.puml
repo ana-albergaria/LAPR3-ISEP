@@ -1,0 +1,61 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+
+class Ship {
+    -mmmsiCode
+    -shipName
+    -imoCode
+    -callSignId
+    -currentCapacity /'added by us'/
+    -draft
+}
+
+class ShipPosition {
+    -baseDateTime
+    -latitude
+    -longitude
+    -sog
+    -cog
+    -heading
+    -position
+    -transceiver
+    -getBstShipPosition()
+}
+
+class BstShip {
+    -getShipByMmsiCode(mmsiCode)
+}
+
+class BstShipPosition {
+    -getPositinalMessages(initialDate, finalDate)
+}
+
+class ShowPositionalMessagesUI {}
+
+class ShowPositionalMessagesController {
+    -isValidShip(mmsiCode)
+    -showPositionalMessages(initialDate, finalDate)
+}
+
+class Company {
+    -designation
+    -getBstShip(mmsiCode)
+}
+
+/'Ship "1" -- "1..*" ShipPosition : has >'/
+/'Company "1" -- "1..*" Ship : owns >'/
+
+Company "1" -- "1" BstShip : uses >
+BstShip "1" -- "1..*" Ship : owns >
+Ship "1" -- "1" BstShipPosition : uses >
+BstShipPosition "1" -- "1..*" ShipPosition : has >
+ShowPositionalMessagesUI ..> ShowPositionalMessagesController
+ShowPositionalMessagesController ..> Company
+ShowPositionalMessagesController ..> BstShip
+ShowPositionalMessagesController ..> Ship
+ShowPositionalMessagesController ..> BstShipPosition
+
+
+@enduml
