@@ -6,6 +6,8 @@ actor "Unknown" as ADM
 participant ":TopNUI" as UI
 participant ":TopNController" as CTRL
 participant "ShipStore" as STORE
+participant "Company" as COMP
+participant "PositionStore" as POSITION
 participant "Ship" as SHIP
 
 
@@ -18,6 +20,9 @@ deactivate UI
 ADM -> UI : inserts requested data (initial, final)
 activate UI
 UI -> CTRL : List<E> getShipsByDate(initial, final)
+CTRL -> STORE : List<E> getShipsByDate(initial, final);
+STORE -> COMP : shipList = List<E> getShips();
+COMP -> POSITION : getTravelledDistance();
 UI -> ADM : returns ships within initial and final Base Date Time
 UI -> ADM : requests N ships to be sorted
 deactivate UI
@@ -25,6 +30,10 @@ deactivate UI
 ADM -> UI : inserts requested data (N)
 activate UI
 UI -> CTRL : List<E> sortNShips(shipList, N)
+CTRL -> STORE : sortedShips = List<E> sortNShips(shipList, N)
+STORE -> STORE : Map<vesselType, List<E> sortedShips>
+STORE -> COMP : getVesselType(code)
+COMP -> SHIP : getVesselType();
 UI -> ADM : returns sorted ships with the most km travelled and their meanSOG
 deactivate UI
 
