@@ -63,7 +63,14 @@ class PositionInVehicule{
     ContainerPositionInVehiculeZ
 }
 
-class PortsAndWareHouse{
+class Port {
+    **Identification**
+    Name
+    LocationLongitude FK
+    LocationLatitude FK
+}
+
+class Warehouse {
     **Identification**
     Name
     LocationLongitude FK
@@ -87,16 +94,21 @@ class Truck{
 }
 
 
-Ship "1" -- "*" Container : transports >
+Ship "1" -- "1..*" Container : transports >
 Container "1" -- "1" PositionInVehicule
 Ship "1" -- "1" ShipPosition
 Ship "*" -- "1" VesselType
-Ship "1" -- "*" CargoManifest
-CargoManifest  -- Container
-Truck -- CargoManifest
+Ship "1" -- "1..*" CargoManifest
+CargoManifest "1" -- "1..*" Container
+Truck "1" -- "1..*" CargoManifest
 Truck "*" -- "1" Container
-PortsAndWareHouse "1" -- "1" PlaceLocation
+Port "1" -- "1" PlaceLocation
+WareHouse "1" -- "1" PlaceLocation
 PlaceLocation "*" -- "1" Country
-PortsAndWareHouse "1" -- "*" CargoManifest
+Port "1" -- "*" CargoManifest
+WareHouse "1" -- "*" CargoManifest
+/'Relacoes N para N, falta relacao'/
+Truck "1..*" -- "1..*" Warehouse
+Ship "1..*" -- "1..*" Port
 
 @enduml
