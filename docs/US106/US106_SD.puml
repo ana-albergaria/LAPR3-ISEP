@@ -1,0 +1,35 @@
+@startuml
+autonumber
+'hide footbox
+actor "Unknown" as ADM
+
+participant ":TopNUI" as UI
+participant ":TopNController" as CTRL
+participant "ShipStore" as STORE
+participant "Ship" as SHIP
+
+
+activate ADM
+ADM -> UI : asks to see the top-N ships with the most km travelled and their meanSOG
+activate UI
+UI -> ADM : requests initial and final Base Date Time
+deactivate UI
+
+ADM -> UI : inserts requested data (initial, final)
+activate UI
+UI -> CTRL : List<E> getShipsByDate(initial, final)
+UI -> ADM : returns ships within initial and final Base Date Time
+UI -> ADM : requests N ships to be sorted
+deactivate UI
+
+ADM -> UI : inserts requested data (N)
+activate UI
+UI -> CTRL : List<E> sortNShips(shipList, N)
+UI -> ADM : returns sorted ships with the most km travelled and their meanSOG
+deactivate UI
+
+
+
+
+deactivate ADM
+@enduml

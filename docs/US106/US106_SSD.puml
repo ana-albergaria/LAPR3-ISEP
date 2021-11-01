@@ -1,0 +1,27 @@
+@startuml
+autonumber
+actor "Unknown" as OE
+
+activate OE
+OE -> ":System" : asks to see the top-N ships with the most km travelled and their meanSOG
+activate ":System"
+":System" --> OE : requests initial and final Base Date Time
+deactivate ":System"
+
+OE -> ":System" : types requested data
+activate ":System"
+
+":System" --> OE : returns ships within initial and final Base Date Time
+
+":System" --> OE : requests N ships to be sorted
+deactivate ":System"
+
+
+OE -> ":System" : inserts requested data
+activate ":System"
+
+":System" --> OE : returns sorted ships with the most km travelled and their meanSOG in a list
+deactivate ":System"
+deactivate OE
+
+@enduml
