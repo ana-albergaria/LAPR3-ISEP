@@ -14,27 +14,24 @@ participant "Ship" as SHIP
 activate ADM
 ADM -> UI : asks to see the top-N ships with the most km travelled and their meanSOG
 activate UI
-UI -> ADM : requests initial and final Base Date Time
+loop while top-N ships and meanSOGwant to be seen
+UI -> ADM : requests initial and final Base Date Time and N ships to be sorted
 deactivate UI
 
-ADM -> UI : inserts requested data (initial, final)
+ADM -> UI : inserts requested data (initial, final, N)
 activate UI
 UI -> CTRL : List<E> getShipsByDate(initial, final)
 CTRL -> STORE : List<E> getShipsByDate(initial, final);
 STORE -> COMP : shipList = List<E> getShips();
 COMP -> POSITION : getTravelledDistance();
-UI -> ADM : returns ships within initial and final Base Date Time
-UI -> ADM : requests N ships to be sorted
-deactivate UI
 
-ADM -> UI : inserts requested data (N)
-activate UI
 UI -> CTRL : List<E> sortNShips(shipList, N)
 CTRL -> STORE : sortedShips = List<E> sortNShips(shipList, N)
 STORE -> STORE : Map<vesselType, List<E> sortedShips>
 STORE -> COMP : getVesselType(code)
 COMP -> SHIP : getVesselType();
 UI -> ADM : returns sorted ships with the most km travelled and their meanSOG
+end
 deactivate UI
 
 
