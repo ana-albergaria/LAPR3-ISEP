@@ -21,7 +21,7 @@ TM -> "UI" : types the MMSI code
 activate "UI"
 UI -> CTRL : isValidShip(mmsiCode)
 activate CTRL
-CTRL -> COMP : bstShip = getBstShip(mmsiCode)
+CTRL -> COMP : bstShip = getBstShip()
 activate COMP
 deactivate COMP
 CTRL -> BstShip : ship = getShipByMmsiCode(mmsiCode)
