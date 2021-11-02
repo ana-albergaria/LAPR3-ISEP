@@ -28,11 +28,12 @@ public class ImportShipsController {
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) { //colocar as exceptions?
-        boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
+        /*boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
         if(existsVesselType)
             registerVesselTypeController.saveVesselType();
         createShipController.createShip(shipsFileDTO);
-        return createShipController.saveShip();
+        return createShipController.saveShip();*/
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

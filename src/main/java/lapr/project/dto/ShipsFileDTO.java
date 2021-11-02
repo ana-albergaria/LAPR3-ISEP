@@ -17,11 +17,21 @@ public class ShipsFileDTO {
 
     private String callSign;
 
-    public ShipsFileDTO(int mmsi, String vesselName, int imo, String callSign) {
+    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, int imo, String callSign) {
+        this.vesselTypeDTO = vesselTypeDTO;
+        this.positionDTO = positionDTO;
         this.mmsi=mmsi;
         this.vesselName=vesselName;
         this.imo=imo;
         this.callSign=callSign;
+    }
+
+    public VesselTypeDTO getVesselTypeDTO() {
+        return vesselTypeDTO;
+    }
+
+    public PositionDTO getPositionDTO() {
+        return positionDTO;
     }
 
     public int getMmsi() {
