@@ -20,8 +20,7 @@ public class ShipsFileUtils {
         dataLabels = new ArrayList<>();
     }
     public List<ShipsFileDTO> getShipsDataToDto(String filePath){
-        throw new UnsupportedOperationException("Not supported yet.");
-        /*File csvFile = new File(filePath);
+        File csvFile = new File(filePath);
         List<ShipsFileDTO> processedListData = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
             String line = bufferedReader.readLine();
@@ -35,13 +34,12 @@ public class ShipsFileUtils {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        return processedListData;*/
+        return processedListData;
     }
 
-    private  ShipsFileDTO attributesToDto(String[] shipData) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //return new ShipsFileDTO(vesselTypeToDto(shipData), positionToDto(shipData), Integer.parseInt(shipData[dataLabels.indexOf("MMSI")]), shipData[dataLabels.indexOf("VesselName")],
-        // Integer.parseInt(shipData[dataLabels.indexOf("IMO")]), shipData[dataLabels.indexOf("CallSign")]);
+    private  ShipsFileDTO attributesToDto(String[] shipData) throws ParseException {
+        return new ShipsFileDTO(vesselTypeToDto(shipData), positionToDto(shipData), Integer.parseInt(shipData[dataLabels.indexOf("MMSI")]), shipData[dataLabels.indexOf("VesselName")],
+                Integer.parseInt(shipData[dataLabels.indexOf("IMO")]), shipData[dataLabels.indexOf("CallSign")], Integer.parseInt(shipData[dataLabels.indexOf("VesselType")]));
     }
 
     private Date getDateOfString(String stringFormatDate){
@@ -53,7 +51,7 @@ public class ShipsFileUtils {
         }
     }
 
-    private VesselTypeDTO vesselTypeToDto(String[] data) {
+    private VesselTypeDTO vesselTypeToDto(String[] data) throws ParseException {
         int vesselTypeID = Integer.parseInt(data[dataLabels.indexOf("VesselType")]);
         int length = Integer.parseInt(data[dataLabels.indexOf("Length")]);
         int width = Integer.parseInt(data[dataLabels.indexOf("Width")]);
@@ -62,7 +60,7 @@ public class ShipsFileUtils {
         return new VesselTypeDTO(vesselTypeID,length,width,draft,cargo);
     }
 
-    private PositionDTO positionToDto(String[] data) {
+    private PositionDTO positionToDto(String[] data) throws ParseException {
         Date baseDateTime = getDateOfString(data[dataLabels.indexOf("BaseDateTime")]);
         double lat = Double.parseDouble(data[dataLabels.indexOf("LAT")]);
         double lon = Double.parseDouble(data[dataLabels.indexOf("LON")]);
@@ -70,8 +68,7 @@ public class ShipsFileUtils {
         double cog = Double.parseDouble(data[dataLabels.indexOf("COG")]);
         int heading = Integer.parseInt(data[dataLabels.indexOf("Heading")]);
         String transcieverClass = data[dataLabels.indexOf("TranscieverClass")];
-        throw new UnsupportedOperationException("Not supported yet.");
-        //return new PositionDTO(baseDateTime, lat, lon, sog, cog, heading, transcieverClass);
+        return new PositionDTO(baseDateTime, lat, lon, sog, cog, heading, transcieverClass);
     }
 
 }

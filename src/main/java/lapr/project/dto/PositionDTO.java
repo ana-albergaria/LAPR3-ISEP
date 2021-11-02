@@ -16,13 +16,16 @@ public class PositionDTO {
 
     private final int heading;
 
-    public PositionDTO(Date baseDateTime, double lat, double lon, double sog, double cog, int heading){
+    private final String transcieverClass;
+
+    public PositionDTO(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
         this.baseDateTime=baseDateTime;
         this.lat=lat;
         this.lon=lon;
         this.sog=sog;
         this.cog=cog;
         this.heading=heading;
+        this.transcieverClass=transcieverClass;
     }
 
     public Date getBaseDateTime() {
@@ -47,6 +50,10 @@ public class PositionDTO {
 
     public int getHeading() {
         return heading;
+    }
+
+    public String getTranscieverClass() {
+        return transcieverClass;
     }
 
     //+ toString ?

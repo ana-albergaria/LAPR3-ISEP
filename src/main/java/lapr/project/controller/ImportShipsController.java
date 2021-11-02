@@ -22,17 +22,19 @@ public class ImportShipsController {
      * @param company instance of company to be used.
      */
     public ImportShipsController(Company company){
-        this.company=company;
+        /*this.company=company;
         this.createShipController=new CreateShipController();
-        this.registerVesselTypeController=new RegisterVesselTypeController();
+        this.registerVesselTypeController=new RegisterVesselTypeController();*/
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) { //colocar as exceptions?
-        boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
+        /*boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
         if(existsVesselType)
             registerVesselTypeController.saveVesselType();
         createShipController.createShip(shipsFileDTO);
-        return createShipController.saveShip();
+        return createShipController.saveShip();*/
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
