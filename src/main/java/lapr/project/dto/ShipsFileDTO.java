@@ -17,13 +17,16 @@ public class ShipsFileDTO {
 
     private String callSign;
 
-    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, int imo, String callSign) {
+    private int vesselTypeID;
+
+    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, int imo, String callSign, int vesselTypeID) {
         this.vesselTypeDTO = vesselTypeDTO;
         this.positionDTO = positionDTO;
         this.mmsi=mmsi;
         this.vesselName=vesselName;
         this.imo=imo;
         this.callSign=callSign;
+        this.vesselTypeID=vesselTypeID;
     }
 
     public VesselTypeDTO getVesselTypeDTO() {
@@ -48,6 +51,10 @@ public class ShipsFileDTO {
 
     public String getCallSign() {
         return callSign;
+    }
+
+    public int getVesselTypeID() {
+        return vesselTypeID;
     }
 
     //faço um showAddedShip ?

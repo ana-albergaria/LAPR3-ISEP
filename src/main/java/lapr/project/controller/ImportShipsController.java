@@ -22,9 +22,10 @@ public class ImportShipsController {
      * @param company instance of company to be used.
      */
     public ImportShipsController(Company company){
-        this.company=company;
+        /*this.company=company;
         this.createShipController=new CreateShipController();
-        this.registerVesselTypeController=new RegisterVesselTypeController();
+        this.registerVesselTypeController=new RegisterVesselTypeController();*/
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) { //colocar as exceptions?
