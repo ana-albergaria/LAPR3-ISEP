@@ -41,5 +41,6 @@ Company "1" -- "1..*" VesselType : owns >
 Ship "1..*" -- "1" VesselType : is of >
 TrafficManager "1" -- "1..*" Ship : imports >
 Ship "1" -- "1..*" ShipPosition : has >
+Company "1" -- "1..*" Ship : manages >
 
 @enduml
