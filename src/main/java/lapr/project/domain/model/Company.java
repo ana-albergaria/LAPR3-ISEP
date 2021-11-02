@@ -1,6 +1,8 @@
-package lapr.project.model;
+package lapr.project.domain.model;
 
+import auth.AuthFacade;
 import lapr.project.store.VesselTypeStore;
+import org.apache.commons.lang3.StringUtils;
 
 public class Company {
 
@@ -8,6 +10,7 @@ public class Company {
      * The company designation.
      */
     private final String designation;
+    private AuthFacade authFacade;
 
     /**
      * The vessel type store.
@@ -16,8 +19,15 @@ public class Company {
 
 
     public Company(String designation){
+        if (StringUtils.isBlank(designation))
+            throw new IllegalArgumentException("Designation cannot be blank.");
+
         this.designation=designation;
         this.vesselTypeStore = new VesselTypeStore();
+    }
+
+    public String getDesignation() {
+        return designation;
     }
 
     /**
@@ -26,6 +36,10 @@ public class Company {
      */
     public VesselTypeStore getVesselTypeStore(){
         return vesselTypeStore;
+    }
+
+    public AuthFacade getAuthFacade() {
+        return authFacade;
     }
 
 }

@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.dto.ShipsFileDTO;
-import lapr.project.model.Company;
+import lapr.project.domain.model.Company;
 
 public class ImportShipsController {
 
