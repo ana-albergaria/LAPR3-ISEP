@@ -1,6 +1,5 @@
 @startuml
 
-@startuml
 autonumber
 actor TrafficManager as TM
 

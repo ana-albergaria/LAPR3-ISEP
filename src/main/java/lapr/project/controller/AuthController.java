@@ -27,6 +27,7 @@ public class AuthController {
         }
     }
 
+    /*
     public List<UserRoleDTO> getUserRoles()
     {
         if (this.app.getCurrentUserSession().isLoggedIn())
@@ -35,6 +36,7 @@ public class AuthController {
         }
         return null;
     }
+     */
 
     public void doLogout()
     {
