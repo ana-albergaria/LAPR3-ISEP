@@ -6,9 +6,8 @@ actor "TrafficManager" as RC
 participant ":TrafficManagerUI" as UI
 participant ":TrafficManagerController" as CTRL
 participant ":Company" as CP
-participant ": ClientStore" as CS
-participant "Auth\n:AuthFacade" as SESSAO
-participant "cl:\n Client" as CL
+participant ": ShipsBST" as CS
+participant ": " as CL
 
 
 activate RC

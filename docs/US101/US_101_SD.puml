@@ -60,7 +60,7 @@ SBST -> PBST** : create()
 activate PBST
 PBST --> SBST : shipPositions
 deactivate PBST
-SBST -> SHIP : create(mmsi, imo, callSign, shipName, draft, shipPositions, vesselType)
+SBST -> SHIP : create(mmsi, imo, callSign, shipName, draft, shipPositions, vesselType, energyPower)
 activate SHIP
 deactivate SHIP
 deactivate SBST

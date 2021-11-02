@@ -1,6 +1,6 @@
 package lapr.project.ui;
 
-import lapr.project.model.CalculatorExample;
+import lapr.project.domain.model.CalculatorExample;
 
 import java.io.IOException;
 import java.sql.SQLException;

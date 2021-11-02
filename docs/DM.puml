@@ -54,8 +54,6 @@ class Ship {
     -mmmsiCode
     -shipName
     -imoCode
-    -numEnergyGenerators
-    -generatorsPower
     -callSignId
     -draft
 }

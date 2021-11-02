@@ -75,6 +75,7 @@ public class User {
         return this.role;
     }
 
+
     @Override
     public int hashCode()
     {
