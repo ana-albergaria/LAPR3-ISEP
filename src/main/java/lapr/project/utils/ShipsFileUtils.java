@@ -38,8 +38,12 @@ public class ShipsFileUtils {
     }
 
     private  ShipsFileDTO attributesToDto(String[] shipData) throws ParseException {
-        return new ShipsFileDTO(vesselTypeToDto(shipData), positionToDto(shipData), Integer.parseInt(shipData[dataLabels.indexOf("MMSI")]), shipData[dataLabels.indexOf("VesselName")],
-                Integer.parseInt(shipData[dataLabels.indexOf("IMO")]), shipData[dataLabels.indexOf("CallSign")], Integer.parseInt(shipData[dataLabels.indexOf("VesselType")]));
+        return new ShipsFileDTO(vesselTypeToDto(shipData),
+                positionToDto(shipData),
+                Integer.parseInt(shipData[dataLabels.indexOf("MMSI")]),
+                shipData[dataLabels.indexOf("VesselName")],
+                Integer.parseInt(shipData[dataLabels.indexOf("IMO")]),
+                shipData[dataLabels.indexOf("CallSign")]);
     }
 
     private Date getDateOfString(String stringFormatDate){

@@ -14,7 +14,11 @@ public class ImportShipsController {
 
     private RegisterVesselTypeController registerVesselTypeController;
 
-    //+ construtor vazio para a instancia da company
+    private RegisterPositionController registerPositionController;
+
+    public ImportShipsController(){
+        this(App.getInstance().getCompany());
+    }
 
     /**
      * Constructor receiving the company as an argument.
@@ -22,19 +26,22 @@ public class ImportShipsController {
      * @param company instance of company to be used.
      */
     public ImportShipsController(Company company){
-        /*this.company=company;
+        this.company=company;
         this.createShipController=new CreateShipController();
-        this.registerVesselTypeController=new RegisterVesselTypeController();*/
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.registerVesselTypeController=new RegisterVesselTypeController();
+        this.registerPositionController=new RegisterPositionController();
     }
 
-    public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) { //colocar as exceptions?
-        /*boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
+    public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
+        boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
         if(existsVesselType)
             registerVesselTypeController.saveVesselType();
+        boolean existsPosition = registerPositionController.registerPosition(shipsFileDTO.getPositionDTO());
+        if (existsPosition)
+            registerPositionController.savePosition();
         createShipController.createShip(shipsFileDTO);
-        return createShipController.saveShip();*/
-        throw new UnsupportedOperationException("Not supported yet.");
+        return createShipController.saveShip();
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

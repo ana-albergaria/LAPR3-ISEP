@@ -17,16 +17,13 @@ public class ShipsFileDTO {
 
     private String callSign;
 
-    private int vesselTypeID;
-
-    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, int imo, String callSign, int vesselTypeID) {
+    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, int imo, String callSign) {
         this.vesselTypeDTO = vesselTypeDTO;
         this.positionDTO = positionDTO;
         this.mmsi=mmsi;
         this.vesselName=vesselName;
         this.imo=imo;
         this.callSign=callSign;
-        this.vesselTypeID=vesselTypeID;
     }
 
     public VesselTypeDTO getVesselTypeDTO() {
@@ -53,15 +50,8 @@ public class ShipsFileDTO {
         return callSign;
     }
 
-    public int getVesselTypeID() {
-        return vesselTypeID;
-    }
+    //showAddedShip (?)
 
-    //faço um showAddedShip ?
-
-    @Override
-    public String toString() {
-        return String.format("(...)%n"); //colocar a info que o TM quer ver
-    }
+    //toString (?)
 
 }

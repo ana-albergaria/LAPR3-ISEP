@@ -1,8 +1,10 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
-import lapr.project.store.VesselTypeStore;
+import lapr.project.domain.store.VesselTypeStore;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.Serializable;
 
 public class Company {
 
@@ -10,18 +12,17 @@ public class Company {
      * The company designation.
      */
     private final String designation;
-    private AuthFacade authFacade;
+    private final AuthFacade authFacade;
 
     /**
      * The vessel type store.
      */
     private final VesselTypeStore vesselTypeStore;
 
-
     public Company(String designation){
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");
-
+        this.authFacade=new AuthFacade();
         this.designation=designation;
         this.vesselTypeStore = new VesselTypeStore();
     }

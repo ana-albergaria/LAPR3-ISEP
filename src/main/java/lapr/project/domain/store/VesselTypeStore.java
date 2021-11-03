@@ -1,9 +1,11 @@
-package lapr.project.store;
+package lapr.project.domain.store;
 
+import lapr.project.domain.model.VesselType;
 import lapr.project.dto.VesselTypeDTO;
-import lapr.project.model.VesselType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VesselTypeStore {
 
@@ -11,6 +13,10 @@ public class VesselTypeStore {
      * List of vessel types.
      */
     private ArrayList<VesselType> vesselTypeList = new ArrayList<>();
+
+    public List<VesselType> getVesselTypesList(){
+        return vesselTypeList;
+    }
 
     /**
      * Creates a vessel type instance with all the arguments.
@@ -32,20 +38,22 @@ public class VesselTypeStore {
     public boolean validateVesselType(VesselType vesselType){
         if (vesselType==null)
             return false;
-        //+ ver se existe no auth
-        return false;
+        return !this.vesselTypeList.contains(vesselType);
     }
 
-    /*public boolean saveVesselType(VesselType vesselType){
+    public boolean saveVesselType(VesselType vesselType){
         if (!validateVesselType(vesselType))
             return false;
-        if (this.vesselTypeList.add(vesselType)){
-            return makeVesselType(vesselType.getVesselTypeID(), vesselType.getLength(), vesselType.getWidth()), vesselType.getDraft(), vesselType.getCargo());
-        }
-    }*/
+        return this.vesselTypeList.add(vesselType);
+    }
 
-    /*public boolean makeVesselType(int vesselTypeID, int length, int width, double draft, int cargo){
-        return auth.addVesselType(vesselTypeID,length,width,draft,cargo);
+    /*public VesselType getVesselTypeByCode(int vesselTypeID){
+        for (VesselType vesselType : vesselTypeList){
+            if (vesselType.getVesselTypeID()==vesselTypeID){
+                return vesselType;
+            }
+        }
+        throw new UnsupportedOperationException("Vessel Type not found!");
     }*/
 
 }

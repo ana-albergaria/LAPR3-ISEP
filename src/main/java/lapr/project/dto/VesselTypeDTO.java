@@ -40,6 +40,6 @@ public class VesselTypeDTO {
         return cargo;
     }
 
-    //+ toString ?
+    //toString (?)
 
 }

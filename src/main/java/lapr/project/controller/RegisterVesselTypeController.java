@@ -1,9 +1,9 @@
 package lapr.project.controller;
 
+import lapr.project.domain.model.Company;
+import lapr.project.domain.model.VesselType;
+import lapr.project.domain.store.VesselTypeStore;
 import lapr.project.dto.VesselTypeDTO;
-import lapr.project.model.Company;
-import lapr.project.model.VesselType;
-import lapr.project.store.VesselTypeStore;
 
 public class RegisterVesselTypeController {
 
@@ -13,6 +13,10 @@ public class RegisterVesselTypeController {
     private final Company company;
 
     private VesselType vesselType;
+
+    public RegisterVesselTypeController(){
+        this(App.getInstance().getCompany());
+    }
 
     public RegisterVesselTypeController(Company application){
         this.company=application;
@@ -32,9 +36,8 @@ public class RegisterVesselTypeController {
     }
 
     public boolean saveVesselType(){
-        /*VesselTypeStore store = this.company.getVesselTypeStore();
-        return store.saveVesselType(vesselType);*/
-        throw new UnsupportedOperationException("Not supported yet.");
+        VesselTypeStore store = this.company.getVesselTypeStore();
+        return store.saveVesselType(vesselType);
     }
 
 }
