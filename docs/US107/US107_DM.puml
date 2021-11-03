@@ -1,6 +1,8 @@
 @startuml
 
 skinparam classAttributeIconSize 0
+hide empty methods
+hide empty attributes
 
 class Company {
     -designation
