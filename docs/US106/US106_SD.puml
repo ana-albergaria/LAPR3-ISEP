@@ -3,11 +3,12 @@ autonumber
 'hide footbox
 actor "Unknown" as ADM
 
-participant ":TopNUI" as UI
-participant ":TopNController" as CTRL
+participant "TopNUI" as UI
+participant "TopNController" as CTRL
 participant "ShipStore" as STORE
 participant "Company" as COMP
 participant "PositionStore" as POSITION
+participant "BstShip" as BST
 participant "Ship" as SHIP
 
 
@@ -21,21 +22,48 @@ deactivate UI
 ADM -> UI : inserts requested data (initial, final, N)
 activate UI
 UI -> CTRL : List<E> getShipsByDate(initial, final)
+activate CTRL
 CTRL -> STORE : List<E> getShipsByDate(initial, final);
-STORE -> COMP : shipList = List<E> getShips();
-COMP -> POSITION : getTravelledDistance();
+activate STORE
+STORE -> COMP : shipList = List<E> getShips(initial, final);
+deactivate STORE
+activate COMP
+COMP -> BST : ship = getShipByBaseDateTime(initial, final)
+activate BST
+BST -> SHIP : getBaseDateTime()
+activate SHIP
+deactivate SHIP
+deactivate BST
+deactivate COMP
+CTRL -> UI : shipList
+deactivate CTRL
 
 UI -> CTRL : List<E> sortNShips(shipList, N)
+activate CTRL
 CTRL -> STORE : sortedShips = List<E> sortNShips(shipList, N)
-STORE -> STORE : Map<vesselType, List<E> sortedShips>
+activate STORE
+deactivate STORE
+UI -> CTRL : Map<String, List<E>> getShipWithMean(sortedShips)
+CTRL -> STORE : shipByVessel = Map<String, List<E>> getShipWithMean(sortedShips)
+activate STORE
+STORE -> SHIP : code = getCode();
+activate SHIP
+deactivate SHIP
 STORE -> COMP : getVesselType(code)
+activate COMP
 COMP -> SHIP : getVesselType();
+activate SHIP
+deactivate SHIP
+STORE -> COMP : getMeanSOG(code)
+COMP -> POSITION : getMeanSOG(code)
+activate POSITION
+deactivate POSITION
+deactivate COMP
+deactivate STORE
+CTRL -> UI : return shipByVessel
+deactivate CTRL
 UI -> ADM : returns sorted ships with the most km travelled and their meanSOG
-end
 deactivate UI
-
-
-
-
+end
 deactivate ADM
 @enduml
