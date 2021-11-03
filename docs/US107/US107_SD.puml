@@ -1,0 +1,42 @@
+@startuml
+
+
+autonumber
+actor "Traffic Manager" as TM
+
+participant "ShowPairsOfShipsUI" as UI
+participant "ShowPairsOfShipsController" as CTRL
+participant "Company" as COMP
+participant "bstShip:\nBstShip" as BstShip
+participant "ship:\nShip" as S
+participant "ShipPosition" as SP
+participant "bstShipPosition:\nBstShipPosition" as BstPosition
+
+
+activate TM
+TM -> "UI" : asks the pairs of ships with close departure/arrival coordinates
+activate "UI"
+UI -> CTRL : getPairsOfShip()
+activate CTRL
+CTRL -> COMP : bstShip = getBstShip()
+activate COMP
+deactivate COMP
+CTRL -> BstShip : getIntendedPairsOfShips()
+/'decide what kind of list'/
+activate BstShip
+BstShip -> BstShip :
+BstShip --> CTRL : listPairsOfShips
+deactivate BstShip
+CTRL --> UI : listPairsOfShips
+deactivate CTRL
+"UI" --> TM : shows successfully information
+
+deactivate "UI"
+
+
+
+
+
+deactivate TM
+
+@enduml

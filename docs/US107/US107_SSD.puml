@@ -6,7 +6,7 @@ actor TrafficManager as TM
 activate TM
 TM -> ":System" : asks the pairs of ships with close departure/arrival coordinates
 activate ":System"
-":System" --> TM :shows successfully information 
+":System" --> TM : shows successfully information
 
 
 deactivate TM
