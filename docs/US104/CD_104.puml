@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Company{
+
+}
+
+class Ship {
+
+}
+
+class ShipsBST{
+
+}
+
+class ShipPosition{
+}
+
+class ShipMovementsBST {
+}
+
+
+class MovementSummaryController {
+
+}
+
+
+MovementSummaryController ..> Company
+MovementSummaryController ..> ShipsBST
+Company "1" --> "*" Ship : knows
+Company "1" -- "1" ShipsBST : uses >
+ShipsBST ..> Ship
+Ship "1" -- "*" ShipPosition : sends >
+Ship "1" -- "1" ShipMovementsBST : uses >
+ShipMovementsBST ..> ShipPosition
+@enduml
