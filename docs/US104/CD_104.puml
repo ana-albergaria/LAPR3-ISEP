@@ -2,26 +2,43 @@
 skinparam classAttributeIconSize 0
 
 class Company{
-
+    +getShipBst()
 }
 
 class Ship {
-
+    +getName()
+    +getMovements()
 }
 
 class ShipsBST{
-
+    +findShipByMmsi(MMSI)
 }
 
 class ShipPosition{
+    +getLatitude()
+    +getLongitude()
+    +getBaseTime()
+    +getSog()
+    +getCog()
 }
 
 class ShipMovementsBST {
+    +getStartDate()
+    +getEndDate()
+    +getMaxSog()
+    +getMeanSog()
+    +getMeanCog()
+    +getDepartLatitude()
+    +getDepartLongitude()
+    +getArrivalLatitude()
+    +getArrivalLongitude()
+    +getTravelDistance()
+    +getDeltaDistance()
 }
 
 
 class MovementSummaryController {
-
++getShipMovementSummary(MMSI)
 }
 
 

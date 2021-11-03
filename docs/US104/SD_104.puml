@@ -27,11 +27,11 @@ deactivate CP
 activate CTRL
 CTRL -> CS : cl = getShipMovementSummary(MMSI)
 activate CS
-CS --> CS : ship = findShip(MMSI)
+CS --> CS : ship = findShipByMmsi(MMSI)
 CS --> CS : name = ship.getName()
-CS --> CS : startDate = ship.getStartDate()
-CS --> CS : endDate = ship.getEndDate()
 CS --> CS : movements = ship.getMovements()
+CS --> CS : startDate = movements.getStartDate()
+CS --> CS : endDate = movements.getEndDate()
 CS --> CS : maxSog = movements.getMaxSog()
 CS --> CS : meanSog = movements.getMeanSog()
 CS --> CS : meanCog = movements.getMeanCog()
