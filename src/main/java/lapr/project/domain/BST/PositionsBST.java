@@ -12,27 +12,29 @@ public class PositionsBST extends BST<ShipPosition> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<ShipPosition> getPositionalMessages(LocalDate initialDate, LocalDate finalDate) {
+    public List<ShipPosition> getPositionalMessages(Date initialDate, Date finalDate) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private void getPositionalMessages(Node<ShipPosition> node,
                                        List<String> listPositionalMessages,
-                                       LocalDate initialDate,
-                                       LocalDate finalDate) {
+                                       Date initialDate,
+                                       Date finalDate) {
         /*if(node == null)
             return;
 
         getPositionalMessages(node.getLeft(), listPositionalMessages, initialDate, finalDate);
 
-        LocalDate currentBaseDateTime = node.getElement().getBaseDateTime();
+        Date currentBaseDateTime = node.getElement().getBaseDateTime();
 
-        if( !(currentBaseDateTime.isBefore(initialDate) || currentBaseDateTime.isAfter(finalDate)) ) {
+        if( !(currentBaseDateTime.before(initialDate) || currentBaseDateTime.after(finalDate)) ) {
             listPositionalMessages.add(node.getElement().toString());
         }
 
         getPositionalMessages(node.getRight(), listPositionalMessages, initialDate, finalDate);
+        
          */
+
 
         //criar e retornar Map só no controller
 
