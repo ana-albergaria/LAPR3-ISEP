@@ -6,8 +6,8 @@
 }'/
 
 class Ship{
-    **IMO**
-    MMSI
+    **MMSI**
+    IMO
     CallSignId
     ShipName
     VesselTypeID FK
@@ -43,7 +43,17 @@ class Container{
     Gross
     CheckDigit
     ISOCode
+}
+
+class Refrigeration {
+    **ContainerID** FK
     temperatureKept
+}
+
+class EnergyPower{
+    **NumEnergyGenerators**
+    **MMSI** FK
+    GeneratorsPower
 }
 /'refrigeration state is ambigous'/
 
@@ -94,6 +104,8 @@ class Truck{
 }
 
 
+
+
 Ship "1" -- "1..*" Container : transports >
 Container "1" -- "1" PositionInVehicule
 Ship "1" -- "1" ShipPosition
@@ -110,5 +122,8 @@ WareHouse "1" -- "*" CargoManifest
 /'Relacoes N para N, falta relacao'/
 Truck "1..*" -- "1..*" Warehouse
 Ship "1..*" -- "1..*" Port
+Container "*" -- "0..1" Refrigeration
+Ship "1" -- "1" EnergyPower : has >
+EnergyPower "1" -- "0..*" Refrigeration
 
 @enduml

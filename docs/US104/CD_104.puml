@@ -4,6 +4,7 @@ skinparam classAttributeIconSize 0
 class Company{
     +getShipBst()
 }
+Interface BST{}
 
 class Ship {
     +getName()
@@ -22,7 +23,7 @@ class ShipPosition{
     +getCog()
 }
 
-class ShipMovementsBST {
+class PositionsBST {
     +getStartDate()
     +getEndDate()
     +getMaxSog()
@@ -48,6 +49,9 @@ Company "1" --> "*" Ship : knows
 Company "1" -- "1" ShipsBST : uses >
 ShipsBST ..> Ship
 Ship "1" -- "*" ShipPosition : sends >
-Ship "1" -- "1" ShipMovementsBST : uses >
-ShipMovementsBST ..> ShipPosition
+Ship "1" -- "1" PositionsBST : uses >
+PositionsBST ..> ShipPosition
+ShipsBST ..> BST
+PositionsBST ..> BST
+
 @enduml
