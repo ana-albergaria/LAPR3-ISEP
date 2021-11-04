@@ -2,7 +2,7 @@ package lapr.project.domain.model;
 
 import java.util.Date;
 
-public class Position {
+public class ShipPosition implements Comparable<ShipPosition> {
 
     private final Date baseDateTime;
 
@@ -18,7 +18,7 @@ public class Position {
 
     private final String transcieverClass;
 
-    public Position(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
+    public ShipPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
         checkBaseDateTime(baseDateTime);
         checkLat(lat);
         checkLon(lon);
@@ -98,4 +98,9 @@ public class Position {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public int compareTo(ShipPosition o) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //return baseDateTime.compareTo(o.getBaseDateTime());
+    }
 }

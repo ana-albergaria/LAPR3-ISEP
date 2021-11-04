@@ -2,7 +2,7 @@ package lapr.project.domain.model;
 
 import lapr.project.domain.BST.PositionsBST;
 
-public class Ship {
+public class Ship implements Comparable<Ship> {
 
     private final VesselType vesselType;
 
@@ -87,4 +87,9 @@ public class Ship {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public int compareTo(Ship o) {
+        throw new UnsupportedOperationException("Not supported yet.");
+        //return this.MMSI - o.MMSI;
+    }
 }
