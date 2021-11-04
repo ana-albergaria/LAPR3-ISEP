@@ -1,5 +1,7 @@
 package lapr.project.controller;
 
+
+import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
@@ -17,14 +19,14 @@ public class TopNController {
     /**
      * The binary search Tree with the ships imported from the file
      */
-    private ShipsBTS shipBST;
+    private ShipsBST shipBST;
 
     /**
      * empty constructor for the TopNController Class
      */
     public TopNController(){
         this.company= App.getInstance().getCompany();
-        this.shipBST = company.getShipBST();
+        this.shipBST = company.getBstShip();
     }
 
     /**
@@ -33,7 +35,7 @@ public class TopNController {
      */
     public TopNController(Company company) {
         this.company = company;
-        this.shipBST = company.getShipBST();
+        this.shipBST = company.getBstShip();
     }
 
     /**
