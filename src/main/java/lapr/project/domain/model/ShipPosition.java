@@ -38,6 +38,10 @@ public class ShipPosition implements Comparable<ShipPosition> {
         this.transcieverClass=transcieverClass;
     }
 
+    public int getMMSI() {
+        return MMSI;
+    }
+
     public Date getBaseDateTime() {
         return baseDateTime;
     }
