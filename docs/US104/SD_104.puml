@@ -7,6 +7,7 @@ participant ":TrafficManagerUI" as UI
 participant ":MovementSummaryController" as CTRL
 participant ": Company" as CP
 participant ": ShipsBST" as CS
+participant ": PositionsBST" as PB
 participant ": MovementsSummaryDTO" as CL
 
 
@@ -28,20 +29,47 @@ activate CTRL
 CTRL -> CS : cl = getShipMovementSummary(MMSI)
 activate CS
 CS --> CS : ship = findShipByMmsi(MMSI)
+activate CS
+deactivate CS
 CS --> CS : name = ship.getName()
+activate CS
+deactivate CS
 CS --> CS : movements = ship.getMovements()
-CS --> CS : startDate = movements.getStartDate()
-CS --> CS : endDate = movements.getEndDate()
-CS --> CS : maxSog = movements.getMaxSog()
-CS --> CS : meanSog = movements.getMeanSog()
-CS --> CS : meanCog = movements.getMeanCog()
-CS --> CS : departLatitute = movements.getDepartLatitude()
-CS --> CS : departLongitude = movements.getDepartLongitude()
-CS --> CS : arrivalLatitude = movements.getArrivalLatitude()
-CS --> CS : arrivalLongitude = movements.getArrivalLongitude()
-CS --> CS : travelledDistance = movements.getTravelledDistance()
-CS --> CS : deltaDistance = movements.getDeltaDistance()
-
+activate CS
+deactivate CS
+CS --> PB : startDate = movements.getStartDate()
+activate PB
+deactivate PB
+CS --> PB : endDate = movements.getEndDate()
+activate PB
+deactivate PB
+CS --> PB : maxSog = movements.getMaxSog()
+activate PB
+deactivate PB
+CS --> PB : meanSog = movements.getMeanSog()
+activate PB
+deactivate PB
+CS --> PB : meanCog = movements.getMeanCog()
+activate PB
+deactivate PB
+CS --> PB : departLatitute = movements.getDepartLatitude()
+activate PB
+deactivate PB
+CS --> PB : departLongitude = movements.getDepartLongitude()
+activate PB
+deactivate PB
+CS --> PB : arrivalLatitude = movements.getArrivalLatitude()
+activate PB
+deactivate PB
+CS --> PB : arrivalLongitude = movements.getArrivalLongitude()
+activate PB
+deactivate PB
+CS --> PB : travelledDistance = movements.getTravelledDistance()
+activate PB
+deactivate PB
+CS --> PB : deltaDistance = movements.getDeltaDistance()
+activate PB
+deactivate PB
 
 CS -->  CL** : summaryDto = create(MMSI, name, startDate, endDate, movement, maxSog, meanSog, meanCog, departLatitute\n, departLongitude, arrivalLatitude, arrivalLongitude, travelledDistance, deltaDistance)
 deactivate CL
