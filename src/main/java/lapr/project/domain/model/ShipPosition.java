@@ -39,8 +39,13 @@ public class ShipPosition implements Comparable<ShipPosition> {
         this.transcieverClass=transcieverClass;
     }
 
+
     public LocalDate getBaseDateTime() {
         return baseDateTime;
+    }
+
+    public int getMMSI() {
+        return MMSI;
     }
 
     public double getLat() {
