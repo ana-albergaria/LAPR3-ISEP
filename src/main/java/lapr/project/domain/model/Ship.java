@@ -16,6 +16,11 @@ public class Ship implements Comparable<Ship> {
 
     private String callSign;
 
+    /**
+     * The Ship's Positions' tree.
+     */
+    private final PositionsBST bstShipPosition;
+
     public Ship(VesselType vesselType, PositionsBST positionsBST, int MMSI,
                 String vesselName, int IMO, String callSign){
         checkVesselType(vesselType);
@@ -30,6 +35,7 @@ public class Ship implements Comparable<Ship> {
         this.vesselName=vesselName;
         this.IMO=IMO;
         this.callSign=callSign;
+        this.bstShipPosition = new PositionsBST();
     }
 
     public void checkVesselType(VesselType vesselType){
@@ -78,6 +84,15 @@ public class Ship implements Comparable<Ship> {
 
     public String getCallSign() {
         return callSign;
+    }
+
+    /**
+     * Returns the Ship's Positions' tree.
+     *
+     * @return the Ship's Positions' tree.
+     */
+    public PositionsBST getBstShipPosition() {
+        return bstShipPosition;
     }
 
     //toString (?)

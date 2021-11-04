@@ -28,31 +28,18 @@ public class ShipsBST extends BST<Ship> {
         if(node.getElement().getMMSI() < mmsiCode) {
             return getShipByMmsiCode(node.getRight(), mmsiCode);
         }
+        return node.getElement();
          */
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+
 
     public Ship getShipByMmsiCode(int mmsiCode)  {
-        // return getShipByMmsiCode(root, mmsiCode);
+        //return getShipByMmsiCode(root, mmsiCode);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * Method which validates the existence of a ship
-     * in the Ships' binary search tree.
-     * Returns true if it is stored in the tree, otherwise
-     * returns false.
-     *
-     * @param ship the ship to be searched
-     * @return true if the ship is stored in the tree,
-     *          otherwise returns false.
-     */
-    public boolean validateShip(Ship ship) {
-        /*Node<Ship> node = find(ship);
-        return node != null;
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     /**
      * Method to get all the ships within the Base Date Time gap

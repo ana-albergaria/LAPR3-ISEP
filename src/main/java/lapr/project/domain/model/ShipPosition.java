@@ -1,11 +1,12 @@
 package lapr.project.domain.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ShipPosition implements Comparable<ShipPosition> {
     private final int MMSI;
 
-    private final Date baseDateTime;
+    private final LocalDate baseDateTime;
 
     private final double lat;
 
@@ -19,7 +20,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
 
     private final String transcieverClass;
 
-    public ShipPosition(int mmsi, Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
+    public ShipPosition(int mmsi, LocalDate baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
         checkBaseDateTime(baseDateTime);
         checkLat(lat);
         checkLon(lon);
@@ -38,7 +39,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
         this.transcieverClass=transcieverClass;
     }
 
-    public Date getBaseDateTime() {
+    public LocalDate getBaseDateTime() {
         return baseDateTime;
     }
 
@@ -69,7 +70,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
     private void checkMMSI(int mmsi){
         //to develop
     }
-    private void checkBaseDateTime(Date baseDateTime){
+    private void checkBaseDateTime(LocalDate baseDateTime){
         //to develop
     }
 

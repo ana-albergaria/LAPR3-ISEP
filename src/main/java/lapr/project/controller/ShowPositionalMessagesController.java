@@ -1,8 +1,11 @@
 package lapr.project.controller;
 
+import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
+
+import java.util.Date;
 
 /** Controller class for showing the positional messages of a ship temporally organized
  * and associated with each of the ships
@@ -39,10 +42,16 @@ public class ShowPositionalMessagesController {
         this.company = company;
     }
 
+
     public boolean isValidShip(int mmsiCode) {
         ShipsBST bstShip = this.company.getBstShip();
         this.ship = bstShip.getShipByMmsiCode(mmsiCode);
-        return bstShip.validateShip(ship);
+        return ship != null;
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void showPositionalMessages(Date initialDate, Date finalDate) {
+        PositionsBST bstShipPosition = this.ship.getBstShipPosition();
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
