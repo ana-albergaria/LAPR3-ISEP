@@ -1,5 +1,6 @@
 package lapr.project.domain.model;
 
+
 import lapr.project.BSTesinf.BST;
 import org.junit.Before;
 import org.junit.Test;
