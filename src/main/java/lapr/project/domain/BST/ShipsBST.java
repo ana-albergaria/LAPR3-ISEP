@@ -11,20 +11,24 @@ public class ShipsBST extends BST<Ship> {
 
 
 
-    private Node<Ship> getShipByMmsiCode(Node<Ship> node, int mmsiCode) {
-        /*if(node != null) {
-            if(node.getElement().getMMSI() == mmsiCode) {
-                return node;
-            } else {
-
-            }
+    private Ship getShipByMmsiCode(Node<Ship> node, int mmsiCode) {
+        /*if(node == null)
+            return null;
+        if(node.getElement().getMMSI() == mmsiCode) {
+            return node.getElement();
+        }
+        if(node.getElement().getMMSI() > mmsiCode) {
+            return getShipByMmsiCode(node.getLeft(), mmsiCode);
+        }
+        if(node.getElement().getMMSI() < mmsiCode) {
+            return getShipByMmsiCode(node.getRight(), mmsiCode);
         }
          */
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Ship getShipByMmsiCode(int mmsiCode)  {
-        //root = getShipByMmsiCode(root, mmsiCode);
+        // return getShipByMmsiCode(root, mmsiCode);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
