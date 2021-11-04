@@ -1,10 +1,11 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
+import lapr.project.domain.BST.BstShip;
+import lapr.project.domain.BST.BstShipPosition;
 import lapr.project.domain.store.VesselTypeStore;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.Serializable;
 
 public class Company {
 
@@ -12,6 +13,10 @@ public class Company {
      * The company designation.
      */
     private final String designation;
+
+    /**
+     * The company's authfacade.
+     */
     private final AuthFacade authFacade;
 
     /**
@@ -19,16 +24,18 @@ public class Company {
      */
     private final VesselTypeStore vesselTypeStore;
 
+    /**
+     * The Ships' binary search tree.
+     */
+    private final BstShip bstShip;
+
     public Company(String designation){
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");
         this.authFacade=new AuthFacade();
         this.designation=designation;
         this.vesselTypeStore = new VesselTypeStore();
-    }
-
-    public String getDesignation() {
-        return designation;
+        this.bstShip = new BstShip();
     }
 
     /**
@@ -39,6 +46,14 @@ public class Company {
         return vesselTypeStore;
     }
 
+    public BstShip getBstShip() {
+        return bstShip;
+    }
+
+    /**
+     * Returns the Company's Authfacade.
+     * @return the Company's Authfacade.
+     */
     public AuthFacade getAuthFacade() {
         return authFacade;
     }

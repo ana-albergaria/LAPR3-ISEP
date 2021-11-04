@@ -9,7 +9,7 @@ participant ":Company" as CMP
 participant ":ShipsBST" as SBST
 participant ":Ship" as SHIP
 participant ":PositionBST" as PBST
-participant ":Position" as POS
+participant ":ShipPosition" as POS
 participant ":VesselTypeStore" as VTSTR
 participant ":VesselType" as VT
 
@@ -90,7 +90,7 @@ participant ":Company" as CMP
 participant ":ShipsBST" as SBST
 participant ":Ship" as SHIP
 participant ":PositionBST" as PBST
-participant ":Position" as POS
+participant ":ShipPosition" as POS
 participant ":VesselTypeStore" as VTSTR
 participant ":VesselType" as VT
 
