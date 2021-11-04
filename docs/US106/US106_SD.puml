@@ -5,7 +5,7 @@ actor "Unknown" as ADM
 
 participant "TopNUI" as UI
 participant "TopNController" as CTRL
-participant "ShipStore" as STORE
+participant "ShipBST" as STORE
 participant "Company" as COMP
 participant "PositionStore" as POSITION
 participant "PositionBST" as BST
@@ -24,6 +24,9 @@ ADM -> UI : inserts requested data (initial, final, N)
 activate UI
 UI -> CTRL : List<E> getShipsByDate(initial, final)
 activate CTRL
+CTRL -> COMP : shipBST = getShipsBST();
+activate COMP
+deactivate COMP
 CTRL -> STORE : List<E> getShipsByDate(initial, final);
 activate STORE
 STORE -> COMP : shipList = List<E> getShips(initial, final);
