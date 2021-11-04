@@ -8,7 +8,8 @@ participant "TopNController" as CTRL
 participant "ShipStore" as STORE
 participant "Company" as COMP
 participant "PositionStore" as POSITION
-participant "BstShip" as BST
+participant "PositionBST" as BST
+participant "Poistion" as POS
 participant "Ship" as SHIP
 
 
@@ -30,9 +31,9 @@ deactivate STORE
 activate COMP
 COMP -> BST : ship = getShipByBaseDateTime(initial, final)
 activate BST
-BST -> SHIP : getBaseDateTime()
-activate SHIP
-deactivate SHIP
+BST -> POS : getBaseDateTime()
+activate POS
+deactivate POS
 deactivate BST
 deactivate COMP
 CTRL -> UI : shipList
