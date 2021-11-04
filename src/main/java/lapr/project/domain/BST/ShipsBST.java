@@ -3,7 +3,7 @@ package lapr.project.domain.BST;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 
-public class BstShip extends BST<Ship> {
+public class ShipsBST extends BST<Ship> {
     public void createBstShip() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

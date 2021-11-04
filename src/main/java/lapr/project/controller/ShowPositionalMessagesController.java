@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.domain.BST.BstShip;
+import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 
@@ -40,7 +40,7 @@ public class ShowPositionalMessagesController {
     }
 
     public boolean isValidShip(int mmsiCode) {
-        BstShip bstShip = this.company.getBstShip();
+        ShipsBST bstShip = this.company.getBstShip();
         this.ship = bstShip.getShipByMmsiCode(mmsiCode);
         return bstShip.validateShip(ship);
         //throw new UnsupportedOperationException("Not supported yet.");

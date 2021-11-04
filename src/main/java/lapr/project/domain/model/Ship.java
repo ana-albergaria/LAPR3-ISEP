@@ -4,17 +4,17 @@ import lapr.project.domain.BST.PositionsBST;
 
 public class Ship implements Comparable<Ship> {
 
-    private final VesselType vesselType;
+    private VesselType vesselType;
 
-    private final PositionsBST positionsBST;
+    private PositionsBST positionsBST;
 
-    private final int MMSI;
+    private int MMSI;
 
-    private final String vesselName;
+    private String vesselName;
 
-    private final int IMO;
+    private int IMO;
 
-    private final String callSign;
+    private String callSign;
 
     public Ship(VesselType vesselType, PositionsBST positionsBST, int MMSI,
                 String vesselName, int IMO, String callSign){

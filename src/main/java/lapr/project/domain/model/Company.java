@@ -1,8 +1,7 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
-import lapr.project.domain.BST.BstShip;
-import lapr.project.domain.BST.BstShipPosition;
+import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.store.VesselTypeStore;
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,7 +26,7 @@ public class Company {
     /**
      * The Ships' binary search tree.
      */
-    private final BstShip bstShip;
+    private final ShipsBST bstShip;
 
     public Company(String designation){
         if (StringUtils.isBlank(designation))
@@ -35,7 +34,7 @@ public class Company {
         this.authFacade=new AuthFacade();
         this.designation=designation;
         this.vesselTypeStore = new VesselTypeStore();
-        this.bstShip = new BstShip();
+        this.bstShip = new ShipsBST();
     }
 
     /**
@@ -46,7 +45,7 @@ public class Company {
         return vesselTypeStore;
     }
 
-    public BstShip getBstShip() {
+    public ShipsBST getBstShip() {
         return bstShip;
     }
 
