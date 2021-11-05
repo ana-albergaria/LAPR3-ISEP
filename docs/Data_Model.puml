@@ -11,8 +11,6 @@ class Ship{
     CallSignId
     ShipName
     VesselTypeID FK
-    NumEnergyGenerators
-    GeneratorsPower
     CurrentCapacity
     Draft
 }
@@ -60,9 +58,10 @@ class EnergyPower{
 /'manifest type(loading, unloading) changes its values'/
 class CargoManifest{
     **CargoManifestID**
-    **ContainerID**FK
+    **locationId** FK
     IMO FK
     TypeOfTransport
+    Status
 }
 
 class PositionInVehicule{
@@ -74,14 +73,14 @@ class PositionInVehicule{
 }
 
 class Port {
-    **Identification**
+    **portId**
     Name
     LocationLongitude FK
     LocationLatitude FK
 }
 
 class Warehouse {
-    **Identification**
+    **warehouseId**
     Name
     LocationLongitude FK
     LocationLatitude FK
@@ -98,10 +97,20 @@ class PlaceLocation{
     Country FK
 }
 
+class ContainerInCargoManifest{
+    ** ContainerID ** FK PK
+    ** CargoManifestId **  FK PK
+}
 
-class Truck{
+
+/'class Truck{
     truckID
 }
+
+class Transports{
+    truckId FK
+    warehouseId FK
+}'/
 
 
 
@@ -111,17 +120,21 @@ Container "1" -- "1" PositionInVehicule
 Ship "1" -- "1" ShipPosition
 Ship "*" -- "1" VesselType
 Ship "1" -- "1..*" CargoManifest
-CargoManifest "1" -- "1..*" Container
-Truck "1" -- "1..*" CargoManifest
+CargoManifest "1" -- "1..*" ContainerInCargoManifest
+Container "*" -- "1" ContainerInCargoManifest
+/'Truck "1" -- "1..*" CargoManifest'/
+/'
 Truck "*" -- "1" Container
+'/
 Port "1" -- "1" PlaceLocation
-WareHouse "1" -- "1" PlaceLocation
+Warehouse "1" -- "1" PlaceLocation
 PlaceLocation "*" -- "1" Country
 Port "1" -- "*" CargoManifest
-WareHouse "1" -- "*" CargoManifest
+Warehouse "1" -- "*" CargoManifest
 /'Relacoes N para N, falta relacao'/
+/'
 Truck "1..*" -- "1..*" Warehouse
-Ship "1..*" -- "1..*" Port
+'/
 Container "*" -- "0..1" Refrigeration
 Ship "1" -- "1" EnergyPower : has >
 EnergyPower "1" -- "0..*" Refrigeration
