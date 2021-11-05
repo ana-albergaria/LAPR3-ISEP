@@ -3,6 +3,7 @@ package lapr.project.domain.BST;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.shared.Constants;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -93,6 +94,41 @@ public class PositionsBST extends BST<ShipPosition> {
             throw new IllegalArgumentException("List is empty");
         }
         return biggestElement().getLon();
+    }
+
+    public Double getDeltaDistance(){
+        ShipPosition start = smallestElement();
+        ShipPosition end = biggestElement();
+        return distanceBetweenInKm(start.getLat(), end.getLat(), start.getLon(), end.getLon());
+    }
+
+    public Double getTotalDistance(){
+        
+    }
+
+    /**
+     * This uses the ‘haversine’ formula to calculate the great-circle distance between two points – that is, the shortest distance over the earth’s surface – giving an ‘as-the-crow-flies’
+     * distance between the points (ignoring any hills they fly over, of course!).
+     *
+     * Reference: http://www.movable-type.co.uk/scripts/latlong.html
+     * @param lat1 latitude of the first point
+     * @param lat2 latitude of the second point
+     * @param lon1 longitude of the first point
+     * @param lon2 longitude of the second point
+     * @return the distance in kilometers of the two given points
+     */
+    protected Double distanceBetweenInKm(Double lat1, Double lat2, Double lon1, Double lon2){
+        double lat1Rad = Math.toRadians(lat1);
+        double lat2Rad = Math.toRadians(lat2);
+        double deltaLat = Math.toRadians(lat2-lat1);
+        double deltaLon = Math.toRadians(lon2-lon1);
+
+        double a = (Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)) +
+                    Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2) *
+                    Math.cos(lat1Rad) * Math.cos(lat2Rad);
+        Double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+
+        return (double) Math.round((Constants.RADIUS_OF_EARTH_IN_METERS * c)/1000);
     }
     /**
      * Method for getting the biggest element of the tree

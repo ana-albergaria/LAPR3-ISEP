@@ -11,5 +11,6 @@ public class Constants {
 
     public static final String PARAMS_FILENAME = "config.properties";
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
+    public static final Double RADIUS_OF_EARTH_IN_METERS = 6371000.0;
 }
 

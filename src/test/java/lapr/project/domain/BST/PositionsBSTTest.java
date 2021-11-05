@@ -17,13 +17,14 @@ public class PositionsBSTTest {
     PositionsBST instance;
     Date [] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
-            new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021")} ;
-    int [] mmsiCodes = {333333333, 111111111, 222222222};
-    double [] lats = {-30.033056, -42.033006, -55.022056};
-    double [] lons = {-51.230000, -47.223056, -46.233056};
-    double [] sogs = {25.4, 25.8, 31.7};
-    double [] cogs = {341.2, 330.3, 328.5};
-    int [] headings = {300, 302, 315};
+            new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2021")} ;
+    int [] mmsiCodes = {333333333, 111111111, 222222222, 123456789};
+    double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
+    double [] lons = {-51.230000, -47.223056, -46.233056, 24.092123};
+    double [] sogs = {25.4, 25.8, 31.7, 10.2};
+    double [] cogs = {341.2, 330.3, 328.5, 320.9};
+    int [] headings = {300, 302, 315, 300};
     String transcieverClass = "AIS";
 
     public PositionsBSTTest() throws ParseException {
@@ -131,7 +132,13 @@ public class PositionsBSTTest {
 
     @Test
     public void testDeltaDistance(){
-
+        double expected = 2807.0; //got from distance calculator in: http://www.movable-type.co.uk/scripts/latlong.html
+        System.out.println("delta distance");
+        System.out.println(instance.getDeltaDistance());
+        assertEquals("delta distance should be "+expected, expected, instance.getDeltaDistance(), 2);
+        instance.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
+        expected = 9968.0;
+        assertEquals("delta distance now should be "+expected, expected, instance.getDeltaDistance(), 2);
     }
 
 }
