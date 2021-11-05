@@ -12,7 +12,7 @@ public class Ship implements Comparable<Ship> {
 
     private String vesselName;
 
-    private int IMO;
+    private String IMO;
 
     private String callSign;
 
@@ -22,7 +22,7 @@ public class Ship implements Comparable<Ship> {
     private final PositionsBST bstShipPosition;
 
     public Ship(VesselType vesselType, PositionsBST positionsBST, int MMSI,
-                String vesselName, int IMO, String callSign){
+                String vesselName, String IMO, String callSign){
         checkVesselType(vesselType);
         checkPositionsBST(positionsBST);
         checkMMSI(MMSI);
@@ -54,7 +54,7 @@ public class Ship implements Comparable<Ship> {
         //to develop
     }
 
-    public void checkIMO(int IMO){
+    public void checkIMO(String IMO){
         //to develop
     }
 
@@ -78,7 +78,7 @@ public class Ship implements Comparable<Ship> {
         return vesselName;
     }
 
-    public int getIMO() {
+    public String getIMO() {
         return IMO;
     }
 
@@ -104,7 +104,6 @@ public class Ship implements Comparable<Ship> {
 
     @Override
     public int compareTo(Ship o) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //return this.MMSI - o.MMSI;
+        return this.MMSI - o.MMSI;
     }
 }
