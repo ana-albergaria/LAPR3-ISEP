@@ -100,9 +100,9 @@ public class PositionsBST extends BST<ShipPosition> {
         return distanceBetweenInKm(start.getLat(), end.getLat(), start.getLon(), end.getLon());
     }
 
-    public Double getTotalDistance(){
+    /*public Double getTotalDistance(){
         
-    }
+    }*/
 
     /**
      * This uses the ‘haversine’ formula to calculate the great-circle distance between two points – that is, the shortest distance over the earth’s surface – giving an ‘as-the-crow-flies’
