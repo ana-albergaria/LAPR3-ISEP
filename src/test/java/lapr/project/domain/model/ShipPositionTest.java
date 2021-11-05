@@ -44,17 +44,25 @@ public class ShipPositionTest {
 
     @Test
     public void getLat() {
+        double lat = -30.033056;
+        assertEquals(lat, s1.getLat(), 2);
     }
 
     @Test
     public void getLon() {
+        double lon = -51.230000;
+        assertEquals(lon, s1.getLon(), 2);
     }
 
     @Test
     public void getSog() {
+        double sog = 25.4;
+        assertEquals(sog, s1.getSog(), 2);
     }
 
     @Test
     public void getCog() {
+        double cog = 341.2;
+        assertEquals(cog, s1.getCog(), 2);
     }
 }
