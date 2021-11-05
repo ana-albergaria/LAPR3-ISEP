@@ -1,6 +1,7 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
+import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.store.VesselTypeStore;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +46,11 @@ public class Company {
         return vesselTypeStore;
     }
 
+    /**
+     * Returns the Ships' binary search tree.
+     *
+     * @return the Ships' binary search tree.
+     */
     public ShipsBST getBstShip() {
         return bstShip;
     }
