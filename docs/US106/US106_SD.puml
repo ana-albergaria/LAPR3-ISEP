@@ -29,10 +29,10 @@ activate COMP
 deactivate COMP
 CTRL -> STORE : List<E> getShipsByDate(initial, final);
 activate STORE
-STORE -> COMP : shipList = List<E> getShips(initial, final);
+STORE -> COMP : baseDateTime = getShipBaseDateTime(initial, final);
 deactivate STORE
 activate COMP
-COMP -> BST : ship = getShipByBaseDateTime(initial, final)
+COMP -> BST : baseDateTime = getShipBaseDateTime(initial, final)
 activate BST
 BST -> POS : getBaseDateTime()
 activate POS
@@ -53,12 +53,12 @@ activate STORE
 STORE -> SHIP : code = getCode();
 activate SHIP
 deactivate SHIP
-STORE -> COMP : getVesselType(code)
+STORE -> COMP : vesselType = getVesselType(code)
 activate COMP
 COMP -> SHIP : getVesselType();
 activate SHIP
 deactivate SHIP
-STORE -> COMP : getMeanSOG(code)
+STORE -> COMP : meanSOG = getMeanSOG(code)
 COMP -> POSITION : getMeanSOG(code)
 activate POSITION
 deactivate POSITION

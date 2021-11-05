@@ -14,12 +14,12 @@ public class TopNController {
     /**
      * The company associated to the Controller.
      */
-    private Company company;
+    private final Company company;
 
     /**
      * The binary search Tree with the ships imported from the file
      */
-    private ShipsBST shipBST;
+    private final ShipsBST shipBST;
 
     /**
      * empty constructor for the TopNController Class
@@ -31,7 +31,7 @@ public class TopNController {
 
     /**
      * Constructor for TopNController Class, receiving "company" as attribute
-     * @param company
+     * @param company instance of company
      */
     public TopNController(Company company) {
         this.company = company;
@@ -44,7 +44,7 @@ public class TopNController {
      * @param finalDate final Base Date Time
      * @return list with all the ships who belong in the time gap
      */
-    public List<Ship> getSipsByDate(Date initialDate, Date finalDate){
+    public List<Ship> getShipsByDate(Date initialDate, Date finalDate){
         return this.shipBST.getShipsByDate(initialDate, finalDate);
     }
 

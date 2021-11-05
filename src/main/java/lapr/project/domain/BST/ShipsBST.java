@@ -4,6 +4,7 @@ import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +46,27 @@ public class ShipsBST extends BST<Ship> {
      * Method to get all the ships within the Base Date Time gap
      * @param initialDate initial Base Date Time
      * @param finalDate final Base Date Time
-     * @return list with all the ships who belong in the time gap
      */
-    public List<Ship> getShipsByDate(Date initialDate, Date finalDate) {
+    private void getShipsByDate(Node<Ship> node, Date initialDate, Date finalDate, List<Ship> shipList) {
+        if(node==null) return;
+
+        /*if(node.getElement().getPositionsBST().getBaseDateTime().after(initialDate) && node.getElement().getPositionsBST().getBaseDateTime().before(finalDate)){
+            if (!shipList.contains(node.getElement())){
+                shipList.add(node.getElement());
+                getShipsByDate(node.getLeft(), initialDate, finalDate, shipList);
+                getShipsByDate(node.getRight(), initialDate, finalDate, shipList);
+            }
+        }
+
+         */
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<Ship> getShipsByDate(Date initialDate, Date finalDate) {
+
+        List<Ship> shipList = new ArrayList<>();
+        getShipsByDate(root, initialDate, finalDate, shipList);
+        return shipList;
     }
 
     /**
@@ -59,6 +77,7 @@ public class ShipsBST extends BST<Ship> {
     public void sortNShips(List<Ship> shipList, int number) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 
     /**
      * method to get the map with the ships associated by VesselType and sorted
