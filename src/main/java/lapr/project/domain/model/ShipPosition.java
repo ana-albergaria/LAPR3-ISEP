@@ -112,7 +112,6 @@ public class ShipPosition implements Comparable<ShipPosition> {
 
     @Override
     public int compareTo(ShipPosition o) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //return baseDateTime.compareTo(o.getBaseDateTime());
+        return baseDateTime.compareTo(o.getBaseDateTime());
     }
 }
