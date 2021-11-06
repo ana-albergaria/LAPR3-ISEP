@@ -33,6 +33,7 @@ public class ShipTest {
         //...
     }
 
+
     /**
      * Test to ensure compareTo() is functioning correctly.
      *      Situation 1: the MMSI codes are equal
