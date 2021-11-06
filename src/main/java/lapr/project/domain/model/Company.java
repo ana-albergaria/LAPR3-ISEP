@@ -27,7 +27,7 @@ public class Company {
     /**
      * The Ships' binary search tree.
      */
-    private final ShipsBST bstShip;
+    private final ShipsBST shipsBST;
 
     public Company(String designation){
         if (StringUtils.isBlank(designation))
@@ -35,7 +35,7 @@ public class Company {
         this.authFacade=new AuthFacade();
         this.designation=designation;
         this.vesselTypeStore = new VesselTypeStore();
-        this.bstShip = new ShipsBST();
+        this.shipsBST = new ShipsBST();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Company {
      * @return the Ships' binary search tree.
      */
     public ShipsBST getBstShip() {
-        return bstShip;
+        return shipsBST;
     }
 
     /**
