@@ -143,7 +143,15 @@ public class ShipPositionTest {
     }
 
 
-    //compareTo() - situation 1: the dates are equal
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 1: the dates are equal
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: two ships (s1 and s2) with the same date (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be zero.
+     */
    @Test
     public void compareToEqualDates() {
         int expRes = 0;
@@ -151,7 +159,15 @@ public class ShipPositionTest {
         assertEquals(expRes, res);
     }
 
-    //compareTo() - situation 2: date 1 > date 2
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 2: date 1 > date 2
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: one ship (s1) with a date greater than other (s2) (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be one.
+     */
     @Test
     public void compareToD1GreaterD2() {
         int expRes = 1;
@@ -159,7 +175,15 @@ public class ShipPositionTest {
         assertEquals(expRes, res);
     }
 
-    //compareTo() - situation 3: date 1 < date 2
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 3: date 1 < date 2
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: one ship (s1) with a mmsi less than other (s2) (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be minus one.
+     */
     @Test
     public void compareToD1LessD2() {
         int expRes = -1;

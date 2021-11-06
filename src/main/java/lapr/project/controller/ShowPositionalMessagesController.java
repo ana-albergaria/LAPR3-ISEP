@@ -42,13 +42,25 @@ public class ShowPositionalMessagesController {
         this.company = company;
     }
 
-
+    /**
+     * Method which verifies whether the MMSI code
+     * inserted by the user is already in the system,
+     * meaning whether the corresponding Ship is stored in the tree or not.
+     *
+     * Returns true if the ship exists in the tree,
+     * otherwise returns false
+     *
+     * @param mmsiCode the MMSI code inserted by the user
+     * @return true if the ship exists in the tree,
+     * otherwise returns false
+     */
     public boolean isValidShip(int mmsiCode) {
         ShipsBST bstShip = this.company.getBstShip();
         this.ship = bstShip.getShipByMmsiCode(mmsiCode);
         return ship != null;
         //throw new UnsupportedOperationException("Not supported yet.");
     }
+
 
     public void showPositionalMessages(Date initialDate, Date finalDate) {
         PositionsBST bstShipPosition = this.ship.getBstShipPosition();

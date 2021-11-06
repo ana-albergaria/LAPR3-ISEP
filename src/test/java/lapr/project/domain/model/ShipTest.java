@@ -33,7 +33,15 @@ public class ShipTest {
         //...
     }
 
-    //compareTo() - situation 1: the mmsi codes are equal
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 1: the MMSI codes are equal
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: two ships (s1 and s2) with the same MMSI (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be zero.
+     */
     @Test
     public void compareToEqualDates() {
         int expRes = 0;
@@ -41,7 +49,15 @@ public class ShipTest {
         assertEquals(expRes, res);
     }
 
-    //compareTo() - situation 2: mmsi 1 > mmsi 2
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 2: MMSI 1 > MMSI 2
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: one ship (s1) with a mmsi greater than other (s2) (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be one.
+     */
     @Test
     public void compareToMMSI1GreaterMMSI2() {
         int expRes = 1;
@@ -49,7 +65,15 @@ public class ShipTest {
         assertEquals(expRes, res);
     }
 
-    //compareTo() - situation 3: mmsi 1 < mmsi 2
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 3: MMSI 1 < MMSI 2
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: one ship (s1) with a mmsi less than other (s2) (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be minus one.
+     */
     @Test
     public void compareToMMSI1LessMMSI2() {
         int expRes = -1;

@@ -97,9 +97,35 @@ public class Ship implements Comparable<Ship> {
 
     //toString (?)
 
+
     @Override
-    public boolean equals(Object o){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String toString() {
+        return "Ship{" +
+                "vesselType=" + vesselType +
+                ", positionsBST=" + positionsBST +
+                ", MMSI=" + MMSI +
+                ", vesselName='" + vesselName + '\'' +
+                ", IMO='" + IMO + '\'' +
+                ", callSign='" + callSign + '\'' +
+                ", bstShipPosition=" + bstShipPosition +
+                '}';
+    }
+
+    //FALTA TESTES PARA O EQUALS!
+    @Override
+    public boolean equals(Object otherObject){
+        if(this == otherObject)
+            return true;
+
+        if(otherObject == null || this.getClass() != otherObject.getClass())
+            return false;
+
+        Ship otherShip = (Ship) otherObject;
+
+        if(this.MMSI == otherShip.MMSI)
+            return true;
+        else
+            return false;
     }
 
     @Override
