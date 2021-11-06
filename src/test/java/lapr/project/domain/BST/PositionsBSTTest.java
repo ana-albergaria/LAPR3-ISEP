@@ -19,12 +19,39 @@ public class PositionsBSTTest {
             new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2021")} ;
+
+    Date [] d2 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("15/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("13/03/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("03/01/2021")};
+
     int [] mmsiCodes = {333333333, 111111111, 222222222, 123456789};
+    int [] mmsiCodes2 = {333333333, 111111111, 222222222, 123456789, 444444444, 555555555,
+                        999999999, 888888888, 777777777, 666666666};
+
     double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
+    double [] lats2 = {-30.033056, -42.033006, -55.022056, 23.008721, 62.97875,
+                        72.96912, -22.033006, -70.022056, -29.00006,  60.008721};
+
     double [] lons = {-51.230000, -47.223056, -46.233056, 24.092123};
+    double [] lons2 = {-51.230000, -47.223056, -46.233056, 24.092123, 50.000000,
+                        60.000000, -30.000000, 20.000000, 10.000000, 12.123456};
+
     double [] sogs = {25.4, 25.8, 31.7, 10.2};
+    double [] sogs2 = {25.4, 25.8, 31.7, 10.2, 12.2, 14.2, 16.0, 18.0, 20.0, 22.0};
+
     double [] cogs = {341.2, 330.3, 328.5, 320.9};
+    double [] cogs2 = {341.2, 330.3, 328.5, 320.9, 300.0, 322.0, 330.0, 340.0, 350.0, 360.0};
+
     int [] headings = {300, 302, 315, 300};
+    int [] headings2 = {300, 302, 315, 300, 299, 300, 301, 302, 303, 304};
+
     String transcieverClass = "AIS";
 
     public PositionsBSTTest() throws ParseException {
@@ -66,7 +93,7 @@ public class PositionsBSTTest {
         System.out.println(instance.getMaxSog());
         assertEquals("Max Sog should be "+expected , expected, instance.getMaxSog());
     }
-
+/*
     @Test
     public void testMeanSog(){
         Double expected;
@@ -96,6 +123,8 @@ public class PositionsBSTTest {
 
         assertEquals("Mean cog should be "+expected, expected, instance.getMeanCog());
     }
+    
+ */
 
     @Test
     public void testDepartLatitude(){
@@ -141,4 +170,8 @@ public class PositionsBSTTest {
         assertEquals("delta distance now should be "+expected, expected, instance.getDeltaDistance(), 2);
     }
 
+    @Test
+    public void getPositionalMessages() {
+
+    }
 }

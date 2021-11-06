@@ -15,7 +15,7 @@ public class ShipsBST extends BST<Ship> {
     }
 
 
-    
+
     private Ship getShipByMmsiCode(Node<Ship> node, int mmsiCode) {
         if(node == null)
             return null;

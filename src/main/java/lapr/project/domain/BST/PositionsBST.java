@@ -11,10 +11,6 @@ public class PositionsBST extends BST<ShipPosition> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<ShipPosition> getPositionalMessages(Date initialDate, Date finalDate) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public Date getStartDate(){
         if(isEmpty()){
             throw new IllegalArgumentException("List is empty");
@@ -151,11 +147,20 @@ public class PositionsBST extends BST<ShipPosition> {
         return biggestElement(node.getRight());
     }
 
+    public List<ShipPosition> getPositionalMessages(Date initialDate, Date finalDate) {
+        List<ShipPosition> listPositionalMessages = new ArrayList<>();
+
+        getPositionalMessages(root, listPositionalMessages, initialDate, finalDate);
+
+        return listPositionalMessages;
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     private void getPositionalMessages(Node<ShipPosition> node,
-                                       List<String> listPositionalMessages,
+                                       List<ShipPosition> listPositionalMessages,
                                        Date initialDate,
                                        Date finalDate) {
-        /*if(node == null)
+        if(node == null)
             return;
 
         getPositionalMessages(node.getLeft(), listPositionalMessages, initialDate, finalDate);
@@ -163,12 +168,10 @@ public class PositionsBST extends BST<ShipPosition> {
         Date currentBaseDateTime = node.getElement().getBaseDateTime();
 
         if( !(currentBaseDateTime.before(initialDate) || currentBaseDateTime.after(finalDate)) ) {
-            listPositionalMessages.add(node.getElement().toString());
+            listPositionalMessages.add(node.getElement());
         }
 
         getPositionalMessages(node.getRight(), listPositionalMessages, initialDate, finalDate);
-
-         */
 
 
         //criar e retornar Map só no controller

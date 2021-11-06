@@ -106,6 +106,20 @@ public class ShipPosition implements Comparable<ShipPosition> {
     //+ toString ?
 
     @Override
+    public String toString() {
+        return "ShipPosition{" +
+                "MMSI=" + MMSI +
+                ", baseDateTime=" + baseDateTime +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", sog=" + sog +
+                ", cog=" + cog +
+                ", heading=" + heading +
+                ", transcieverClass='" + transcieverClass + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o){
         throw new UnsupportedOperationException("Not supported yet.");
     }
