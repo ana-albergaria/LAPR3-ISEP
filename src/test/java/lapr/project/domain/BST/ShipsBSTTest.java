@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ShipsBSTTest {
 
@@ -69,5 +71,26 @@ public class ShipsBSTTest {
         Ship result = shipsBST.getShipByMmsiCode(mmsiToBeTested);
 
         Assert.assertNull(result);
+    }
+
+    /**
+     * ensure the ships are correctly extrated to a list if they belong in the Base Date Time interval
+     */
+    @Test
+    public void getShipsByDateCorrect() {
+        VesselType vesselType2 = new VesselType(85, 294,32,13.6,79);
+        Ship testShip = new Ship(vesselType, positionsBST, mmsiCodes[4], vesselNames[4], imoCodes[4], callSigns[4]);
+        ShipPosition position1 = new ShipPosition(mmsiCodes[4], d1[4], 80, 100, 150, 250, 300, "JIRA");
+        Ship testShip2 = new Ship(vesselType2, positionsBST,mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]);
+        ShipPosition position2 = new ShipPosition(mmsiCodes[2], d1[2], 85, 90, 120, 255, 280, "JIRA");
+        Ship testShip3 = new Ship(vesselType2, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]);
+        ShipPosition position3 = new ShipPosition(mmsiCodes[1], d1[1], 70, 110, 140, 200, 250, "JIRA");
+
+        List<Ship> testList = shipsBST.getShipsByDate(new Date(), new Date());
+        List<Ship> expectedList = new ArrayList<>();
+        expectedList.add(testShip);
+        expectedList.add(testShip3);
+
+        Assert.assertEquals(expectedList, testList);
     }
 }

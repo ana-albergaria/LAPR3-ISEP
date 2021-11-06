@@ -53,8 +53,9 @@ public class TopNController {
      * @param shipList list with the ships belonging in the time gap
      * @param number number of ships to be sorted
      */
-    public void sortNShips(List<Ship> shipList, int number) {
-        this.shipBST.sortNShips(shipList, number);
+    public List<Ship> sortNShips(List<Ship> shipList, int number) {
+
+        return this.shipBST.sortNShips(shipList, number);
     }
 
     /**

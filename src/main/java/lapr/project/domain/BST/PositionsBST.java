@@ -26,10 +26,10 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getMaxSog(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        if(allPos == null){
-            return null;
+        if(isEmpty()){
+            throw new IllegalArgumentException("List is empty");
         }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         double max = allPos.get(0).getSog();
         for(ShipPosition pos : allPos){
             if(pos.getSog() > max)
@@ -39,10 +39,10 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getMeanCog(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        if(allPos == null){
+        if(isEmpty()){
             throw new IllegalArgumentException("List is empty");
         }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         double mean=0;
         for(ShipPosition pos : allPos){
             mean += pos.getCog();
@@ -51,10 +51,11 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getMeanSog(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        if(allPos == null){
+        if(isEmpty()){
             throw new IllegalArgumentException("List is empty");
         }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+
         double mean=0;
         for(ShipPosition pos : allPos){
             mean += pos.getSog();
@@ -91,14 +92,29 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getDeltaDistance(){
+        if(isEmpty()){
+            throw new IllegalArgumentException("List is empty");
+        }
         ShipPosition start = smallestElement();
         ShipPosition end = biggestElement();
         return distanceBetweenInKm(start.getLat(), end.getLat(), start.getLon(), end.getLon());
     }
 
-    /*public Double getTotalDistance(){
-        
-    }*/
+    public Double getTotalDistance(){
+        if(isEmpty()){
+            throw new IllegalArgumentException("List is empty");
+        }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+        double totalDist = 0;
+        for(int i = 0; i<allPos.size()-1; i++){
+            double latA = allPos.get(i).getLat();
+            double latB = allPos.get(i+1).getLat();
+            double lonA = allPos.get(i).getLon();
+            double lonB = allPos.get(i+1).getLon();
+            totalDist += distanceBetweenInKm(latA, latB, lonA, lonB);
+        }
+        return totalDist;
+    }
 
     /**
      * This uses the ‘haversine’ formula to calculate the great-circle distance between two points – that is, the shortest distance over the earth’s surface – giving an ‘as-the-crow-flies’
@@ -112,6 +128,12 @@ public class PositionsBST extends BST<ShipPosition> {
      * @return the distance in kilometers of the two given points
      */
     protected Double distanceBetweenInKm(Double lat1, Double lat2, Double lon1, Double lon2){
+        if(Objects.equals(lat1, lat2) && Objects.equals(lon1, lon2)){
+            return 0.0;
+        }
+        if(lat1 == null || lat2 == null || lon1 == null || lon2 == null){
+            throw new IllegalArgumentException("cannot calculate distance with a null value of latitude and/or longitude");
+        }
         double lat1Rad = Math.toRadians(lat1);
         double lat2Rad = Math.toRadians(lat2);
         double deltaLat = Math.toRadians(lat2-lat1);

@@ -3,11 +3,9 @@ package lapr.project.domain.BST;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
+import lapr.project.utils.ShipTravelledDistanceComparator;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShipsBST extends BST<Ship> {
     public void createBstShip() {
@@ -53,7 +51,9 @@ public class ShipsBST extends BST<Ship> {
             }
         }
 
+
          */
+
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -69,7 +69,13 @@ public class ShipsBST extends BST<Ship> {
      * @param shipList list with the ships belonging in the time gap
      * @param number number of ships to be sorted
      */
-    public void sortNShips(List<Ship> shipList, int number) {
+    public List<Ship> sortNShips(List<Ship> shipList, int number) {
+        /*
+        ShipTravelledDistanceComparator comparator = new ShipTravelledDistanceComparator();
+
+        Collections.sort(shipList, comparator);
+        return shipList.subList(0, number);
+        */
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -80,6 +86,19 @@ public class ShipsBST extends BST<Ship> {
      * @return map with the ships associated by VesselType and sorted
      */
     public Map<VesselType, List<Ship>> getShipWithMean(List<Ship> sortedShips) {
+        /*Map<VesselType, List<Ship>> map = new HashMap<>();
+
+        for (Ship x: sortedShips) {
+            if (map.containsKey(x.getVesselType())){
+                map.get(x.getVesselType()).add(x);        //falta só associar com meanSOG
+            } else {
+                map.keySet().add(x.getVesselType());
+            }
+        }
+
+        return map;
+
+         */
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
