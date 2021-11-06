@@ -71,9 +71,7 @@ public class PositionsBSTTest {
 
         for(int i=0; i<10;i++){
             ShipPosition sp = new ShipPosition(mmsiCode, d2[i], lats2[i], lons2[i], sogs2[i], cogs2[i], headings2[i], transcieverClass);
-            System.out.println(sp);
             longerInstance.insert(sp);
-
         }
     }
 
@@ -305,14 +303,7 @@ public class PositionsBSTTest {
 
         List<String> expList = new ArrayList<>();
 
-        List<String> list = longerInstance.getPositionalMessages(initialDate, initialDate);
-
-        /*System.out.println("LISTA");
-        for (String item : list) {
-            System.out.println(item);
-        }
-        System.out.println("END");
-         */
+        List<String> list = longerInstance.getPositionalMessages(initialDate, finalDate);
 
         assertEquals(expList, list);
     }

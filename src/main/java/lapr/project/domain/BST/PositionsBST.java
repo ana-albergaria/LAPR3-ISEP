@@ -172,15 +172,33 @@ public class PositionsBST extends BST<ShipPosition> {
         return biggestElement(node.getRight());
     }
 
+    /**
+     * Method which call its private method in order to
+     * obtain the list of positional messages of the ship chosen by the user.
+     *
+     * @param initialDate initial date
+     * @param finalDate final date
+     *
+     * @return the list of positional messages of the ship chosen by the user
+     */
     public List<String> getPositionalMessages(Date initialDate, Date finalDate) {
         List<String> listPositionalMessages = new ArrayList<>();
 
         getPositionalMessages(root, listPositionalMessages, initialDate, finalDate);
 
         return listPositionalMessages;
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Method for returning the positional messages of the ship
+     * chosen by the user in the wished period of time.
+     *
+     * @param node the node of the Positions' Tree
+     * @param listPositionalMessages list containing the positional messages
+     * @param initialDate the initial Date
+     * @param finalDate the final Date
+     *
+     */
     private void getPositionalMessages(Node<ShipPosition> node,
                                        List<String> listPositionalMessages,
                                        Date initialDate,

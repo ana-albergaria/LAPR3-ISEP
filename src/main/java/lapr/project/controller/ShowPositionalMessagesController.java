@@ -58,10 +58,15 @@ public class ShowPositionalMessagesController {
         ShipsBST bstShip = this.company.getBstShip();
         this.ship = bstShip.getShipByMmsiCode(mmsiCode);
         return ship != null;
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-
+    /**
+     * Calling method for returning the positional messages of the ship
+     * chosen by the user in the wished period of time.
+     *
+     * @param initialDate the initial Date
+     * @param finalDate the final Date
+     */
     public void showPositionalMessages(Date initialDate, Date finalDate) {
         PositionsBST bstShipPosition = this.ship.getBstShipPosition();
         //throw new UnsupportedOperationException("Not supported yet.");

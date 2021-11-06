@@ -13,7 +13,15 @@ public class ShipsBST extends BST<Ship> {
     }
 
 
-
+    /**
+     * Method which gets the Ship chosen by the user through
+     * the MMSI code
+     *
+     * @param node the node
+     * @param mmsiCode the MMSI code
+     *
+     * @return the Ship chosen by the user
+     */
     private Ship getShipByMmsiCode(Node<Ship> node, int mmsiCode) {
         if(node == null)
             return null;
@@ -29,7 +37,14 @@ public class ShipsBST extends BST<Ship> {
         return node.getElement();
     }
 
-
+    /**
+     * Method which calls its private method to obtain
+     * the ship chosen by the user
+     *
+     * @param mmsiCode the MMSI code
+     *
+     * @return Ship chosen by the user
+     */
     public Ship getShipByMmsiCode(int mmsiCode)  {
         return getShipByMmsiCode(root, mmsiCode);
     }
