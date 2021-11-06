@@ -127,7 +127,7 @@ public class PositionsBSTTest {
 
     @Test
     public void testTravelDistance(){
-
+        instance.getTotalDistance();
     }
 
     @Test

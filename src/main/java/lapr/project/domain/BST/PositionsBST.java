@@ -103,7 +103,11 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getTotalDistance(){
-        
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+        for(ShipPosition p: allPos){
+            System.out.println(p.getBaseDateTime());
+        }
+        return  null;
     }
 
     /**
