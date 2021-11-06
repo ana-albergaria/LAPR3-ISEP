@@ -42,9 +42,25 @@ class MovementSummaryController {
 +getShipMovementSummary(MMSI)
 }
 
+class MovementSummaryDto{
+    name
+    startDate
+    endDate
+    maxSog
+    meanSog
+    meanCog
+    departLatitude
+    departLongitude
+    arrivalLatitude
+    arrivalLongitude
+    travelledDist
+    deltaDist
+}
+
 
 MovementSummaryController ..> Company
 MovementSummaryController ..> ShipsBST
+MovementSummaryController -- MovementSummaryDto: creates >
 Company "1" --> "*" Ship : knows
 Company "1" -- "1" ShipsBST : uses >
 ShipsBST ..> Ship

@@ -134,6 +134,9 @@ public class PositionsBST extends BST<ShipPosition> {
         if(lat1 == null || lat2 == null || lon1 == null || lon2 == null){
             throw new IllegalArgumentException("cannot calculate distance with a null value of latitude and/or longitude");
         }
+        if(lat1 == 91 || lat2 == 91 || lon1 == 181 || lon2 == 181){
+            throw new IllegalArgumentException("Latitude and/or longitude not available");
+        }
         double lat1Rad = Math.toRadians(lat1);
         double lat2Rad = Math.toRadians(lat2);
         double deltaLat = Math.toRadians(lat2-lat1);
