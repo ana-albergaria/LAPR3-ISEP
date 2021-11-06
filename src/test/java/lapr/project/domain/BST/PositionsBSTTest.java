@@ -2,8 +2,10 @@ package lapr.project.domain.BST;
 
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.ShipPosition;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +32,7 @@ public class PositionsBSTTest {
     public PositionsBSTTest() throws ParseException {
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws ParseException {
         instance = new PositionsBST();
         for(int i=0; i<3;i++){
@@ -70,31 +72,31 @@ public class PositionsBSTTest {
     @Test
     public void testMeanSog(){
         Double expected;
-        Double sum=0.0;
-        for(double sog: sogs){
-            sum += sog;
+        double sum=0.0;
+        for(int i=0;i<3;i++){
+            sum += sogs[i];
         }
-        expected = sum/(double)sogs.length;
+        expected = sum/3.0;
         System.out.println("mean sog");
         System.out.println(instance.getMeanSog());
         System.out.println(expected);
 
-        assertEquals("Mean sog should be "+expected, expected, instance.getMeanSog());
+        Assertions.assertEquals(expected, instance.getMeanSog(), "Mean sog should be "+expected);
     }
 
     @Test
     public void testMeanCog(){
         Double expected;
         Double sum=0.0;
-        for(double cog: cogs){
-            sum += cog;
+        for(int i=0;i<3;i++){
+            sum += cogs[i];
         }
-        expected = sum/(double)cogs.length;
+        expected = sum/3.0;
         System.out.println("mean cog");
         System.out.println(instance.getMeanCog());
         System.out.println(expected);
 
-        assertEquals("Mean cog should be "+expected, expected, instance.getMeanCog());
+        Assertions.assertEquals(expected, instance.getMeanCog(), "Mean cog should be "+expected);
     }
 
     @Test
