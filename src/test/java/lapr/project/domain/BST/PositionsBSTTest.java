@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class PositionsBSTTest {
 
     PositionsBST instance;
+    PositionsBST longerInstance;
     Date [] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
@@ -22,17 +25,16 @@ public class PositionsBSTTest {
     Date [] d2 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
-            new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("02/04/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("15/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2021"),
-            new SimpleDateFormat("dd/MM/yyyy").parse("13/03/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2020"),
             new SimpleDateFormat("dd/MM/yyyy").parse("03/01/2021")};
 
     int [] mmsiCodes = {333333333, 111111111, 222222222, 123456789};
-    int [] mmsiCodes2 = {333333333, 111111111, 222222222, 123456789, 444444444, 555555555,
-                        999999999, 888888888, 777777777, 666666666};
+    int mmsiCode = 111111111;
 
     double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
     double [] lats2 = {-30.033056, -42.033006, -55.022056, 23.008721, 62.97875,
@@ -59,6 +61,7 @@ public class PositionsBSTTest {
     @BeforeEach
     public void setUp() throws ParseException {
         instance = new PositionsBST();
+        longerInstance = new PositionsBST();
         for(int i=0; i<3;i++){
             instance.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
         }
@@ -66,6 +69,12 @@ public class PositionsBSTTest {
         ShipPosition p2 = new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass);
         ShipPosition p3 = new ShipPosition(mmsiCodes[2], d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass);
 
+        for(int i=0; i<10;i++){
+            ShipPosition sp = new ShipPosition(mmsiCode, d2[i], lats2[i], lons2[i], sogs2[i], cogs2[i], headings2[i], transcieverClass);
+            System.out.println(sp);
+            longerInstance.insert(sp);
+
+        }
     }
 
     @Test
@@ -250,9 +259,61 @@ public class PositionsBSTTest {
         expected = 9968.0;
         assertEquals(expected, instance.getDeltaDistance(), 2, "delta distance now should be "+expected);
     }
+    //US103
+    @Test
+    public void getPositionalMessagesInAPeriod() throws ParseException {
+        Date initialDate = new SimpleDateFormat("dd/MM/yyyy").parse("02/12/2020");
+        Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021");
+        List<String> expList = new ArrayList<>();
+
+        ShipPosition sp1 = new ShipPosition(mmsiCode, d2[8], lats2[8], lons2[8], sogs2[8], cogs2[8], headings2[8], transcieverClass);
+        ShipPosition sp2 = new ShipPosition(mmsiCode, d2[4], lats2[4], lons2[4], sogs2[4], cogs2[4], headings2[4], transcieverClass);
+        ShipPosition sp3 = new ShipPosition(mmsiCode, d2[9], lats2[9], lons2[9], sogs2[9], cogs2[9], headings2[9], transcieverClass);
+        ShipPosition sp4 = new ShipPosition(mmsiCode, d2[0], lats2[0], lons2[0], sogs2[0], cogs2[0], headings2[0], transcieverClass);
+        ShipPosition sp5 = new ShipPosition(mmsiCode, d2[1], lats2[1], lons2[1], sogs2[1], cogs2[1], headings2[1], transcieverClass);
+        ShipPosition sp6 = new ShipPosition(mmsiCode, d2[2], lats2[2], lons2[2], sogs2[2], cogs2[2], headings2[2], transcieverClass);
+
+        expList.add(sp1.toString());
+        expList.add(sp2.toString());
+        expList.add(sp3.toString());
+        expList.add(sp4.toString());
+        expList.add(sp5.toString());
+        expList.add(sp6.toString());
+
+        List<String> list = longerInstance.getPositionalMessages(initialDate, finalDate);
+
+        assertEquals(expList, list);
+    }
 
     @Test
-    public void getPositionalMessages() {
+    public void getPositionalMessagesInADate() throws ParseException {
+        Date initialDate = new SimpleDateFormat("dd/MM/yyyy").parse("02/04/2021");
 
+        List<String> expList = new ArrayList<>();
+        ShipPosition sp1 = new ShipPosition(mmsiCode, d2[3], lats2[3], lons2[3], sogs2[3], cogs2[3], headings2[3], transcieverClass);
+        expList.add(sp1.toString());
+
+        List<String> list = longerInstance.getPositionalMessages(initialDate, initialDate);
+
+        assertEquals(expList, list);
+    }
+
+    @Test
+    public void getPositionalMessagesNotFoundInAPeriod() throws ParseException {
+        Date initialDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020");
+        Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2020");
+
+        List<String> expList = new ArrayList<>();
+
+        List<String> list = longerInstance.getPositionalMessages(initialDate, initialDate);
+
+        /*System.out.println("LISTA");
+        for (String item : list) {
+            System.out.println(item);
+        }
+        System.out.println("END");
+         */
+
+        assertEquals(expList, list);
     }
 }
