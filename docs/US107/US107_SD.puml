@@ -7,10 +7,14 @@ actor "Traffic Manager" as TM
 participant "ShowPairsOfShipsUI" as UI
 participant "ShowPairsOfShipsController" as CTRL
 participant "Company" as COMP
-participant "bstShip:\nBstShip" as BstShip
+participant "bstShip:\nShipsBST" as BstShip
 participant "ship:\nShip" as S
+participant "ship2\nShip" as S2
 participant "ShipPosition" as SP
-participant "bstShipPosition:\nBstShipPosition" as BstPosition
+participant "positionsBST:\nPositionsBST" as BstPosition
+participant "positionsBST2:\nPositionsBST" as BstPosition2
+participant "infoPair:\nTreeMap<<Integer, String>>" as TREEMAP
+participant "listPairsOfShips:\nList<TreeMap<Integer, String>>" as LIST
 
 
 activate TM
@@ -24,7 +28,64 @@ deactivate COMP
 CTRL -> BstShip : getIntendedPairsOfShips()
 /'decide what kind of list'/
 activate BstShip
-BstShip -> BstShip :
+BstShip -> BstShip : listOfShips = inOrder()
+activate BstShip
+deactivate BstShip
+loop for each Ship in ListOfShips
+BstShip --> TREEMAP** : create()
+BstShip -> S : positionsBST = getPositionsBST()
+activate S
+deactivate S
+BstShip -> BstPosition : travelledDistance = getTotalDistance()
+activate BstPosition
+deactivate BstPosition
+alt travelledDistance > 10
+loop hasNext()
+BstShip -> S2 : positionsBST2 = getPositionsBST()
+activate S2
+deactivate S2
+BstShip -> BstPosition2 : travelledDistance2 = getTotalDistance()
+alt travelledDistance != travelledDistance2
+BstShip -> BstPosition : arrivalLat = getArrivalLat()
+activate BstPosition
+deactivate BstPosition
+BstShip -> BstPosition : arrivalLog = getArrivalLog()
+activate BstPosition
+deactivate BstPosition
+BstShip -> BstPosition2 : arrivalLat2 = getArrivalLat()
+activate BstPosition2
+deactivate BstPosition2
+BstShip -> BstPosition2 : arrivalLog2 = getArrivalLog()
+activate BstPosition2
+deactivate BstPosition2
+BstShip -> BstPosition : arrivalDistance = distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2)
+alt arrivalDistance < 5
+BstShip -> BstPosition : depLat = getDepartureLat()
+activate BstPosition
+deactivate BstPosition
+BstShip -> BstPosition : depLog = getDepartureLog()
+activate BstPosition
+deactivate BstPosition
+BstShip -> BstPosition2 : depLat2 = getDepartureLat()
+activate BstPosition2
+deactivate BstPosition2
+BstShip -> BstPosition2 : depLog2 = getDepartureLog()
+activate BstPosition2
+deactivate BstPosition2
+BstShip -> BstPosition : depDistance = distanceBetweenInKm(depLat, depLat2, depLog, depLog2)
+activate BstPosition
+deactivate BstPosition
+alt depDistance < 5
+BstShip -> TREEMAP : put(travelledDistance2 - travelledDistance, stringWithAllInfo)
+activate TREEMAP
+deactivate TREEMAP
+end
+end
+end
+end
+BstShip -> LIST : add(infoPair)
+end
+
 BstShip --> CTRL : listPairsOfShips
 deactivate BstShip
 CTRL --> UI : listPairsOfShips
