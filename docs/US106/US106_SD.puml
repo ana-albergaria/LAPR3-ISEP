@@ -7,9 +7,8 @@ participant "TopNUI" as UI
 participant "TopNController" as CTRL
 participant "ShipBST" as STORE
 participant "Company" as COMP
-participant "PositionStore" as POSITION
 participant "PositionBST" as BST
-participant "Poistion" as POS
+participant "Position" as POS
 participant "Ship" as SHIP
 
 
@@ -29,16 +28,13 @@ activate COMP
 deactivate COMP
 CTRL -> STORE : List<E> getShipsByDate(initial, final);
 activate STORE
-STORE -> COMP : baseDateTime = getShipBaseDateTime(initial, final);
+STORE -> BST : baseDateTime = getShipBaseDateTime(code);
 deactivate STORE
-activate COMP
-COMP -> BST : baseDateTime = getShipBaseDateTime(initial, final)
 activate BST
 BST -> POS : getBaseDateTime()
 activate POS
 deactivate POS
 deactivate BST
-deactivate COMP
 CTRL -> UI : shipList
 deactivate CTRL
 
@@ -46,6 +42,9 @@ UI -> CTRL : List<E> sortNShips(shipList, N)
 activate CTRL
 CTRL -> STORE : sortedShips = List<E> sortNShips(shipList, N)
 activate STORE
+STORE -> BST : travelledDistance = getTotalDistance(code)
+activate BST
+deactivate BST
 deactivate STORE
 UI -> CTRL : Map<String, List<E>> getShipWithMean(sortedShips)
 CTRL -> STORE : shipByVessel = Map<String, List<E>> getShipWithMean(sortedShips)
@@ -53,16 +52,12 @@ activate STORE
 STORE -> SHIP : code = getCode();
 activate SHIP
 deactivate SHIP
-STORE -> COMP : vesselType = getVesselType(code)
-activate COMP
-COMP -> SHIP : getVesselType();
+STORE -> SHIP : getVesselType();
 activate SHIP
 deactivate SHIP
-STORE -> COMP : meanSOG = getMeanSOG(code)
-COMP -> POSITION : getMeanSOG(code)
-activate POSITION
-deactivate POSITION
-deactivate COMP
+STORE -> BST : getMeanSOG()
+activate BST
+deactivate BST
 deactivate STORE
 CTRL -> UI : return shipByVessel
 deactivate CTRL
@@ -70,4 +65,5 @@ UI -> ADM : returns sorted ships with the most km travelled and their meanSOG
 deactivate UI
 end
 deactivate ADM
+
 @enduml

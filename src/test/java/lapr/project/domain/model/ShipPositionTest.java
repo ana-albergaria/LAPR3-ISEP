@@ -1,6 +1,6 @@
 package lapr.project.domain.model;
 
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,13 +20,15 @@ import static org.junit.Assert.*;
 public class ShipPositionTest {
 
     Company company;
-    ShipPosition s1;
-    private Date dateR1;
+    ShipPosition s1, s2, s3, s4;
+    private Date dateR1, dateR3, dateR4;
 
     @Before
     public void setUp() throws ParseException {
         company = new Company("cargo shipping company");
         dateR1 = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2020");
+        dateR3 = new SimpleDateFormat("dd/MM/yyyy").parse("29/12/2020");
+        dateR4 = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2021);
         cal.set(Calendar.MONTH, Calendar.NOVEMBER);
@@ -40,6 +42,9 @@ public class ShipPositionTest {
         int heading = 300;
         String transcieverClass = "AIS";
         s1 = new ShipPosition(mmsi, d1, lat, lon, sog, cog, heading, transcieverClass);
+        s2 = new ShipPosition(mmsi, d1, lat, lon, sog, cog, heading, transcieverClass);
+        s3 = new ShipPosition(mmsi, dateR3, lat, lon, sog, cog, heading, transcieverClass);
+        s4 = new ShipPosition(mmsi, dateR4, lat, lon, sog, cog, heading, transcieverClass);
     }
 
     /**
@@ -79,6 +84,7 @@ public class ShipPositionTest {
         assertEquals(cog, s1.getCog(), 2);
     }
 
+    /*
     @Test(expected = IllegalArgumentException.class)
     public void ensureNullArgsNotAllowed() {
         ShipPosition shipPosition = new ShipPosition(211331640, null, 36.39094,
@@ -121,11 +127,13 @@ public class ShipPositionTest {
                 -181, 19.7, 145.5, 147, "B");
     }
 
+
     @Test(expected = IllegalArgumentException.class)
     public void createPositionWithLongitudeOver181() {
         ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
                 182, 19.7, 145.5, 147, "B");
     }
+    */
 
     @Test
     public void ensureMMSIHas9Digits() {
@@ -133,4 +141,55 @@ public class ShipPositionTest {
                 -122.71335, 19.7, 145.5, 147, "B");
         //Assert.assertTrue(shipPosition.getMMSI().length()==9);
     }
+
+
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 1: the dates are equal
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: two ships (s1 and s2) with the same date (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be zero.
+     */
+   @Test
+    public void compareToEqualDates() {
+        int expRes = 0;
+        int res = s1.compareTo(s2);
+        assertEquals(expRes, res);
+    }
+
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 2: date 1 > date 2
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: one ship (s1) with a date greater than other (s2) (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be one.
+     */
+    @Test
+    public void compareToD1GreaterD2() {
+        int expRes = 1;
+        int res = s1.compareTo(s3);
+        assertEquals(expRes, res);
+    }
+
+    /**
+     * Test to ensure compareTo() is functioning correctly.
+     *      Situation 3: date 1 < date 2
+     *
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:
+     * Arranje: one ship (s1) with a mmsi less than other (s2) (done in @Before)
+     * Act: s1 is compared to s2 using compareTo()
+     * Assert: the result should be minus one.
+     */
+    @Test
+    public void compareToD1LessD2() {
+        int expRes = -1;
+        int res = s1.compareTo(s4);
+        assertEquals(expRes, res);
+    }
+
+
 }
