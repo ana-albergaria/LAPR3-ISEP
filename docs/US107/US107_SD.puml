@@ -10,7 +10,7 @@ participant "Company" as COMP
 participant "bstShip:\nShipsBST" as BstShip
 participant "ship:\nShip" as S
 participant "ship2\nShip" as S2
-participant "ShipPosition" as SP
+/'participant "ShipPosition" as SP'/
 participant "positionsBST:\nPositionsBST" as BstPosition
 participant "positionsBST2:\nPositionsBST" as BstPosition2
 participant "infoPair:\nTreeMap<<Integer, String>>" as TREEMAP
@@ -39,13 +39,15 @@ deactivate S
 BstShip -> BstPosition : travelledDistance = getTotalDistance()
 activate BstPosition
 deactivate BstPosition
-alt travelledDistance > 10
+/'alteração alt em baixo: travelledDistance2 >= 10 em vez de > 10'/
+alt travelledDistance >= 10
 loop hasNext()
 BstShip -> S2 : positionsBST2 = getPositionsBST()
 activate S2
 deactivate S2
 BstShip -> BstPosition2 : travelledDistance2 = getTotalDistance()
-alt travelledDistance != travelledDistance2
+/'alteração alt em baixo: && travelledDistance2 >= 10'/
+alt travelledDistance != travelledDistance2 && travelledDistance2 >= 10
 BstShip -> BstPosition : arrivalLat = getArrivalLat()
 activate BstPosition
 deactivate BstPosition
@@ -76,6 +78,14 @@ BstShip -> BstPosition : depDistance = distanceBetweenInKm(depLat, depLat2, depL
 activate BstPosition
 deactivate BstPosition
 alt depDistance < 5
+
+BstShip -> BstPosition : numMovs = getPositionsBST().size()
+activate BstPosition
+deactivate BstPosition
+BstShip -> BstPosition2 : numMovs2 = getPositionsBST().size()
+activate BstPosition2
+deactivate BstPosition2
+
 BstShip -> TREEMAP : put(travelledDistance2 - travelledDistance, stringWithAllInfo)
 activate TREEMAP
 deactivate TREEMAP
@@ -84,6 +94,9 @@ end
 end
 end
 BstShip -> LIST : add(infoPair)
+activate LIST
+deactivate LIST
+end
 end
 
 BstShip --> CTRL : listPairsOfShips
