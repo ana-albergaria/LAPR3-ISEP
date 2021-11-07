@@ -71,4 +71,5 @@ class MovementSummaryControllerTest {
         System.out.println(mSummary);
     }
      */
+
 }

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -32,10 +32,10 @@ public class ShowPositionalMessagesControllerTest {
     double [] cogs = {341.2, 330.3, 328.5, 320.9};
     int [] headings = {300, 302, 315, 300};
     String transcieverClass = "AIS";
-    Date[] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
-            new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
-            new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
-            new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2021")} ;
+    Date[] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/05/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("07/04/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("10/03/2021"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("13/02/2021")} ;
 
     public ShowPositionalMessagesControllerTest() throws ParseException {}
 
@@ -63,10 +63,15 @@ public class ShowPositionalMessagesControllerTest {
         comp.getBstShip().insert(s2);
         comp.getBstShip().insert(s3);
         comp.getBstShip().insert(s4);
+
+        for(int i=0; i<4;i++){
+            s1.getPositionsBST().insert(new ShipPosition(mmsi1, d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+        }
+
     }
 
     @Test
-    public void isValidShip() {
+    public void isValidShipWhenExistent() {
         ShowPositionalMessagesController ctrl = new ShowPositionalMessagesController(comp);
         int mmsiCode = 123456788;
         boolean result = ctrl.isValidShip(mmsiCode);
@@ -75,6 +80,40 @@ public class ShowPositionalMessagesControllerTest {
     }
 
     @Test
+    public void isValidShipWhenNonExistent() {
+        ShowPositionalMessagesController ctrl = new ShowPositionalMessagesController(comp);
+        int mmsiCode = 123000008;
+        boolean result = ctrl.isValidShip(mmsiCode);
+
+        Assertions.assertFalse(result);
+    }
+
+    @Test
     public void showPositionalMessages() {
+        ShowPositionalMessagesController ctrl = new ShowPositionalMessagesController(comp);
+        int mmsiCode = 123456789;
+        ctrl.isValidShip(mmsiCode);
+
+        Map<String, List<String>> expMap = new HashMap<>();
+        List<String> messages = new ArrayList<>();
+        ShipPosition sp1 = new ShipPosition(mmsiCode, d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass);
+        ShipPosition sp2 = new ShipPosition(mmsiCode, d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass);
+        ShipPosition sp3 = new ShipPosition(mmsiCode, d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass);
+        ShipPosition sp4 = new ShipPosition(mmsiCode, d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass);
+        messages.add(sp1.toString());
+        messages.add(sp2.toString());
+        messages.add(sp3.toString());
+        messages.add(sp4.toString());
+
+        expMap.put(s1.getVesselType().toString(), messages);
+
+        Map<String, List<String>> map = ctrl.showPositionalMessages(d1[3], d1[0]);
+
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+        }
+
+        assertEquals(expMap, map);
+
     }
 }
