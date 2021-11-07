@@ -58,7 +58,7 @@ public class ShipsBST extends BST<Ship> {
     private void getShipsByDate(Node<Ship> node, Date initialDate, Date finalDate, List<Ship> shipList) {
         if(node==null) return;
 
-        /*if(node.getElement().getPositionsBST().getBaseDateTime().after(initialDate) && node.getElement().getPositionsBST().getBaseDateTime().before(finalDate)){
+        if(node.getElement().getPositionsBST().getStartDate().after(initialDate) && node.getElement().getPositionsBST().getEndDate().before(finalDate)){
             if (!shipList.contains(node.getElement())){
                 shipList.add(node.getElement());
                 getShipsByDate(node.getLeft(), initialDate, finalDate, shipList);
@@ -67,9 +67,7 @@ public class ShipsBST extends BST<Ship> {
         }
 
 
-         */
-
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<Ship> getShipsByDate(Date initialDate, Date finalDate) {
@@ -85,13 +83,13 @@ public class ShipsBST extends BST<Ship> {
      * @param number number of ships to be sorted
      */
     public List<Ship> sortNShips(List<Ship> shipList, int number) {
-        /*
+
         ShipTravelledDistanceComparator comparator = new ShipTravelledDistanceComparator();
 
         Collections.sort(shipList, comparator);
         return shipList.subList(0, number);
-        */
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
@@ -101,7 +99,7 @@ public class ShipsBST extends BST<Ship> {
      * @return map with the ships associated by VesselType and sorted
      */
     public Map<VesselType, List<Ship>> getShipWithMean(List<Ship> sortedShips) {
-        /*Map<VesselType, List<Ship>> map = new HashMap<>();
+        Map<VesselType, List<Ship>> map = new HashMap<>();
 
         for (Ship x: sortedShips) {
             if (map.containsKey(x.getVesselType())){
@@ -113,7 +111,7 @@ public class ShipsBST extends BST<Ship> {
 
         return map;
 
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 }
