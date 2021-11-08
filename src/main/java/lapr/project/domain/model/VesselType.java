@@ -1,5 +1,7 @@
 package lapr.project.domain.model;
 
+import java.util.Objects;
+
 public class VesselType {
 
     /**
@@ -29,7 +31,7 @@ public class VesselType {
 
     public
     VesselType(int vesselTypeID, int length, int width, double draft, int cargo){
-        checkVesselTypeID(vesselTypeID);
+        //checkVesselTypeID(vesselTypeID);
         checkLength(length);
         checkWidth(width);
         checkDraft(draft);
@@ -61,24 +63,31 @@ public class VesselType {
         return cargo;
     }
 
-    private void checkVesselTypeID(int vesselTypeID){
-    //to develop
-    }
+    /*private void checkVesselTypeID(int vesselTypeID){
+    }*/
 
     private void checkLength(int length){
-    //to develop
+        if (length<=0){
+            throw new IllegalArgumentException("Length needs to be over 0.");
+        }
     }
 
     private void checkWidth(int width){
-    //to develop
+        if (width<=0){
+            throw new IllegalArgumentException("Width needs to be over 0.");
+        }
     }
 
     private void checkDraft(double draft){
-    //to develop
+        if (draft<=0){
+            throw new IllegalArgumentException("Draft needs to be over 0.");
+        }
     }
 
     private void checkCargo(int cargo){
-    //to develop
+        if (cargo<0){
+            throw new IllegalArgumentException("Cargo cannot be negative.");
+        }
     }
 
     //+ toString ?

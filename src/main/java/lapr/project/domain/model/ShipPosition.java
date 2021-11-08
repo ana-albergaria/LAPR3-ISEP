@@ -1,7 +1,10 @@
 package lapr.project.domain.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class ShipPosition implements Comparable<ShipPosition> {
     private final int MMSI;
@@ -24,7 +27,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
         checkBaseDateTime(baseDateTime);
         checkLat(lat);
         checkLon(lon);
-        checkSog(sog);
+        //checkSog(sog);
         checkCog(cog);
         checkHeading(heading);
         checkTranscieverClass(transcieverClass);
@@ -73,34 +76,55 @@ public class ShipPosition implements Comparable<ShipPosition> {
     }
 
     private void checkMMSI(int mmsi){
-        //to develop
+        if (Integer.toString(MMSI).length()!=9){
+            throw new IllegalArgumentException("MMSI must hold 9 digits.");
+        }
+        //ver se está no sistema?
     }
+
     private void checkBaseDateTime(Date baseDateTime){
-        //to develop
+        if (baseDateTime==null){
+            throw new IllegalArgumentException("Base Date Time cannot be null.");
+        }
+        //...?
     }
 
     private void checkLat(double lat){
-        //to develop
+        if (lat<-90 || (lat>90 && lat!=91)){
+            throw new IllegalArgumentException("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.");
+        }
     }
 
     private void checkLon(double lon){
-        //to develop
+        if (lat<-180 || (lat>180 && lat!=181)){
+            throw new IllegalArgumentException("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.");
+        }
     }
 
+    /*
     private void checkSog(double sog){
         //to develop
     }
+    */
 
     private void checkCog(double cog){
-        //to develop
+        if (cog<0 || cog>359){
+            throw new IllegalArgumentException("COG must be between 0 and 359.");
+        }
     }
 
     private void checkHeading(int heading){
-        //to develop
+        if (heading<0 || (heading>359 && heading!=511)){
+            throw new IllegalArgumentException("Heading must be between 0 and 359. It might also be 511 in case of being unavailable.");
+        }
     }
 
     private void checkTranscieverClass(String transcieverClass){
-        //to develop
+        if(Objects.isNull(transcieverClass)){
+            throw new IllegalArgumentException("Transciever Class cannot be null.");
+        }
+        if (StringUtils.isBlank(transcieverClass))
+            throw new IllegalArgumentException("Transciever Class cannot be blank.");
     }
 
     //+ toString ?
