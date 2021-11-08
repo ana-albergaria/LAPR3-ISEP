@@ -92,6 +92,18 @@ public class VesselType {
 
     //+ toString ?
 
+
+    @Override
+    public String toString() {
+        return "VesselType{" +
+                "vesselTypeID=" + vesselTypeID +
+                ", length=" + length +
+                ", width=" + width +
+                ", draft=" + draft +
+                ", cargo=" + cargo +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o){
         throw new UnsupportedOperationException("Not supported yet.");

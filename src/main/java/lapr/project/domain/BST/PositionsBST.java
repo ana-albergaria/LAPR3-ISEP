@@ -11,10 +11,6 @@ public class PositionsBST extends BST<ShipPosition> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<ShipPosition> getPositionalMessages(Date initialDate, Date finalDate) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public Date getStartDate(){
         if(isEmpty()){
             throw new IllegalArgumentException("List is empty");
@@ -30,10 +26,10 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getMaxSog(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        if(allPos == null){
-            return null;
+        if(isEmpty()){
+            throw new IllegalArgumentException("List is empty");
         }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         double max = allPos.get(0).getSog();
         for(ShipPosition pos : allPos){
             if(pos.getSog() > max)
@@ -43,10 +39,10 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getMeanCog(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        if(allPos == null){
+        if(isEmpty()){
             throw new IllegalArgumentException("List is empty");
         }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         double mean=0;
         for(ShipPosition pos : allPos){
             mean += pos.getCog();
@@ -55,10 +51,11 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getMeanSog(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        if(allPos == null){
+        if(isEmpty()){
             throw new IllegalArgumentException("List is empty");
         }
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+
         double mean=0;
         for(ShipPosition pos : allPos){
             mean += pos.getSog();
@@ -95,17 +92,28 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getDeltaDistance(){
+        if(isEmpty()){
+            throw new IllegalArgumentException("List is empty");
+        }
         ShipPosition start = smallestElement();
         ShipPosition end = biggestElement();
         return distanceBetweenInKm(start.getLat(), end.getLat(), start.getLon(), end.getLon());
     }
 
     public Double getTotalDistance(){
-        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-        for(ShipPosition p: allPos){
-            System.out.println(p.getBaseDateTime());
+        if(isEmpty()){
+            throw new IllegalArgumentException("List is empty");
         }
-        return  null;
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+        double totalDist = 0;
+        for(int i = 0; i<allPos.size()-1; i++){
+            double latA = allPos.get(i).getLat();
+            double latB = allPos.get(i+1).getLat();
+            double lonA = allPos.get(i).getLon();
+            double lonB = allPos.get(i+1).getLon();
+            totalDist += distanceBetweenInKm(latA, latB, lonA, lonB);
+        }
+        return totalDist;
     }
 
     /**
@@ -120,6 +128,15 @@ public class PositionsBST extends BST<ShipPosition> {
      * @return the distance in kilometers of the two given points
      */
     protected Double distanceBetweenInKm(Double lat1, Double lat2, Double lon1, Double lon2){
+        if(Objects.equals(lat1, lat2) && Objects.equals(lon1, lon2)){
+            return 0.0;
+        }
+        if(lat1 == null || lat2 == null || lon1 == null || lon2 == null){
+            throw new IllegalArgumentException("cannot calculate distance with a null value of latitude and/or longitude");
+        }
+        if(lat1 == 91 || lat2 == 91 || lon1 == 181 || lon2 == 181){
+            throw new IllegalArgumentException("Latitude and/or longitude not available");
+        }
         double lat1Rad = Math.toRadians(lat1);
         double lat2Rad = Math.toRadians(lat2);
         double deltaLat = Math.toRadians(lat2-lat1);
@@ -155,11 +172,40 @@ public class PositionsBST extends BST<ShipPosition> {
         return biggestElement(node.getRight());
     }
 
+    /**
+     * Method which call its private method in order to
+     * obtain the list of positional messages of the ship chosen by the user.
+     *
+     * @param initialDate initial date
+     * @param finalDate final date
+     *
+     * @return the list of positional messages of the ship chosen by the user
+     */
+    public List<String> getPositionalMessages(Date initialDate, Date finalDate) {
+        List<String> listPositionalMessages = new ArrayList<>();
+
+        getPositionalMessages(root, listPositionalMessages, initialDate, finalDate);
+
+        return listPositionalMessages;
+    }
+
+    /**
+     * Method for returning the positional messages of the ship
+     * chosen by the user in the wished period of time.
+     *
+     * @param node the node of the Positions' Tree
+     * @param listPositionalMessages list containing the positional messages
+     * @param initialDate the initial Date
+     * @param finalDate the final Date
+     *
+     */
     private void getPositionalMessages(Node<ShipPosition> node,
                                        List<String> listPositionalMessages,
                                        Date initialDate,
                                        Date finalDate) {
-        /*if(node == null)
+        //lançar exceções?
+
+        if(node == null)
             return;
 
         getPositionalMessages(node.getLeft(), listPositionalMessages, initialDate, finalDate);
@@ -172,13 +218,22 @@ public class PositionsBST extends BST<ShipPosition> {
 
         getPositionalMessages(node.getRight(), listPositionalMessages, initialDate, finalDate);
 
-         */
+    }
 
+    /**
+     * method to get the Base Date Time of a ship by it's MMSI
+     * @param shipMMSI ship's MMSI
+     * @return Base Date Time
+     */
+    public Date getShipDate(int shipMMSI){
+        Date shipDate = null;
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
 
-        //criar e retornar Map só no controller
-
-        throw new UnsupportedOperationException("Not supported yet.");
-
-
+        for (ShipPosition pos : allPos) {
+            if (pos.getMMSI() == shipMMSI) {
+                shipDate = pos.getBaseDateTime();
+            }
+        }
+        return shipDate;
     }
 }

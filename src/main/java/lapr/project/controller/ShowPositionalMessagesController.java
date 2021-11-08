@@ -4,8 +4,12 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
+import lapr.project.domain.model.VesselType;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /** Controller class for showing the positional messages of a ship temporally organized
  * and associated with each of the ships
@@ -55,16 +59,27 @@ public class ShowPositionalMessagesController {
      * otherwise returns false
      */
     public boolean isValidShip(int mmsiCode) {
-        ShipsBST bstShip = this.company.getBstShip();
-        this.ship = bstShip.getShipByMmsiCode(mmsiCode);
+        ShipsBST shipsBST = this.company.getBstShip();
+        this.ship = shipsBST.getShipByMmsiCode(mmsiCode);
         return ship != null;
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Calling method for returning the positional messages of the ship
+     * chosen by the user in the wished period of time.
+     *
+     * @param initialDate the initial Date
+     * @param finalDate the final Date
+     * @return a map containing information about the chosen ship and the positional messages
+     */
+    public Map<String, List<String>> showPositionalMessages(Date initialDate, Date finalDate) {
+        PositionsBST positionsBST = this.ship.getPositionsBST();
+        List<String> listPositionalMessages = positionsBST.getPositionalMessages(initialDate, finalDate);
+        VesselType vesselType = this.ship.getVesselType();
+        Map<String, List<String>> messagesWithVesselType = new HashMap<>();
+        messagesWithVesselType.put(vesselType.toString(), listPositionalMessages);
 
-    public void showPositionalMessages(Date initialDate, Date finalDate) {
-        PositionsBST bstShipPosition = this.ship.getBstShipPosition();
-        //throw new UnsupportedOperationException("Not supported yet.");
+       return messagesWithVesselType;
     }
 
 

@@ -5,16 +5,10 @@ import org.junit.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import lapr.project.BSTesinf.BST;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ShipPositionTest {
 
@@ -56,7 +50,7 @@ public class ShipPositionTest {
         cal.set(Calendar.MONTH, Calendar.NOVEMBER);
         cal.set(Calendar.DAY_OF_MONTH, 4);
         Date d1 = cal.getTime();
-        assertEquals("date should be equal", d1, s1.getBaseDateTime());
+        assertEquals("date should be equal", d1.toString(), s1.getBaseDateTime().toString());
     }
 
     @Test

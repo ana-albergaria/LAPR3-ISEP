@@ -43,6 +43,7 @@ public class ShipTest {
         //...
     }
 
+
     /**
      * Test to ensure Null Vessel Types are not allowed.
      */

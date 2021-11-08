@@ -10,6 +10,9 @@ public class Ship implements Comparable<Ship> {
 
     private VesselType vesselType;
 
+    /**
+     * The Ship's Positions' tree.
+     */
     private PositionsBST positionsBST;
 
     private int MMSI;
@@ -20,10 +23,6 @@ public class Ship implements Comparable<Ship> {
 
     private String callSign;
 
-    /**
-     * The Ship's Positions' tree.
-     */
-    private final PositionsBST bstShipPosition;
 
     public Ship(VesselType vesselType, PositionsBST positionsBST, int MMSI,
                 String vesselName, String IMO, String callSign){
@@ -39,7 +38,6 @@ public class Ship implements Comparable<Ship> {
         this.vesselName=vesselName;
         this.IMO=IMO;
         this.callSign=callSign;
-        this.bstShipPosition = new PositionsBST();
     }
 
     public void checkVesselType(VesselType vesselType){
@@ -85,6 +83,11 @@ public class Ship implements Comparable<Ship> {
         return vesselType;
     }
 
+    /**
+     * Returns the Ship's Positions' tree.
+     *
+     * @return the Ship's Positions' tree.
+     */
     public PositionsBST getPositionsBST() {
         return positionsBST;
     }
@@ -105,15 +108,6 @@ public class Ship implements Comparable<Ship> {
         return callSign;
     }
 
-    /**
-     * Returns the Ship's Positions' tree.
-     *
-     * @return the Ship's Positions' tree.
-     */
-    public PositionsBST getBstShipPosition() {
-        return bstShipPosition;
-    }
-
     @Override
     public String toString() {
         return "Ship{" +
@@ -122,8 +116,8 @@ public class Ship implements Comparable<Ship> {
                 ", MMSI=" + MMSI +
                 ", vesselName='" + vesselName + '\'' +
                 ", IMO='" + IMO + '\'' +
-                ", callSign='" + callSign + '\'' +
-                ", bstShipPosition=" + bstShipPosition +
+                ", callSign='" + callSign + //'\'' +
+                //", bstShipPosition=" + bstShipPosition +
                 '}';
     }
 
