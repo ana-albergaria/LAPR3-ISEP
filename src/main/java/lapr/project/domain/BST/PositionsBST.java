@@ -219,4 +219,21 @@ public class PositionsBST extends BST<ShipPosition> {
         getPositionalMessages(node.getRight(), listPositionalMessages, initialDate, finalDate);
 
     }
+
+    /**
+     * method to get the Base Date Time of a ship by it's MMSI
+     * @param shipMMSI ship's MMSI
+     * @return Base Date Time
+     */
+    public Date getShipDate(int shipMMSI){
+        Date shipDate = null;
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+
+        for (ShipPosition pos : allPos) {
+            if (pos.getMMSI() == shipMMSI) {
+                shipDate = pos.getBaseDateTime();
+            }
+        }
+        return shipDate;
+    }
 }
