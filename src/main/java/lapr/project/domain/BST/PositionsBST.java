@@ -203,6 +203,8 @@ public class PositionsBST extends BST<ShipPosition> {
                                        List<String> listPositionalMessages,
                                        Date initialDate,
                                        Date finalDate) {
+        //lançar exceções?
+
         if(node == null)
             return;
 
@@ -215,10 +217,6 @@ public class PositionsBST extends BST<ShipPosition> {
         }
 
         getPositionalMessages(node.getRight(), listPositionalMessages, initialDate, finalDate);
-
-
-        //criar e retornar Map só no controller
-
 
     }
 }
