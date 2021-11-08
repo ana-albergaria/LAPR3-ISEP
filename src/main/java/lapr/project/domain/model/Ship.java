@@ -34,7 +34,6 @@ public class Ship implements Comparable<Ship> {
         this.vesselName=vesselName;
         this.IMO=IMO;
         this.callSign=callSign;
-        //this.positionsBST = new PositionsBST();
     }
 
     public void checkVesselType(VesselType vesselType){

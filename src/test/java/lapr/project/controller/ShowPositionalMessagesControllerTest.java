@@ -25,7 +25,6 @@ public class ShowPositionalMessagesControllerTest {
     private String callSign;
     private Ship s1, s2, s3, s4;
 
-    int [] mmsiCodes = {333333333, 111111111, 222222222, 123456789};
     double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
     double [] lons = {-51.230000, -47.223056, -46.233056, 24.092123};
     double [] sogs = {25.4, 25.8, 31.7, 10.2};
@@ -45,29 +44,25 @@ public class ShowPositionalMessagesControllerTest {
         comp = new Company("Shipping company");
         vesselType = new VesselType(70, 294,32,13.6,79);
         PositionsBST positions = new PositionsBST();
-        for(int i=0; i<3;i++){
-            positions.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
-        }
         mmsi1 = 123456789;
+        for(int i=0; i<4;i++){
+            positions.insert(new ShipPosition(mmsi1, d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+        }
         mmsi3 = 123456788;
         mmsi4 = 123456790;
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
+        PositionsBST positions2 = new PositionsBST();
         s1 = new Ship(vesselType, positions, mmsi1, vesselName, imo, callSign);
-        s2 = new Ship(vesselType, positions, mmsi1, vesselName, imo, callSign);
-        s3 = new Ship(vesselType, positions, mmsi3, vesselName, imo, callSign);
-        s4 = new Ship(vesselType, positions, mmsi4, vesselName, imo, callSign);
+        s2 = new Ship(vesselType, positions2, mmsi1, vesselName, imo, callSign);
+        s3 = new Ship(vesselType, positions2, mmsi3, vesselName, imo, callSign);
+        s4 = new Ship(vesselType, positions2, mmsi4, vesselName, imo, callSign);
 
         comp.getBstShip().insert(s1);
         comp.getBstShip().insert(s2);
         comp.getBstShip().insert(s3);
         comp.getBstShip().insert(s4);
-
-        for(int i=0; i<4;i++){
-            s1.getPositionsBST().insert(new ShipPosition(mmsi1, d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
-        }
-
     }
 
     @Test
