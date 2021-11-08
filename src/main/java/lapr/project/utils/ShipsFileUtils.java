@@ -19,6 +19,7 @@ public class ShipsFileUtils {
     public ShipsFileUtils (){
         dataLabels = new ArrayList<>();
     }
+
     public List<ShipsFileDTO> getShipsDataToDto(String filePath){
         File csvFile = new File(filePath);
         List<ShipsFileDTO> processedListData = new ArrayList<>();
@@ -55,7 +56,7 @@ public class ShipsFileUtils {
         }
     }
 
-    private VesselTypeDTO vesselTypeToDto(String[] data) throws ParseException {
+    private VesselTypeDTO vesselTypeToDto(String[] data){
         int vesselTypeID = Integer.parseInt(data[dataLabels.indexOf("VesselType")]);
         int length = Integer.parseInt(data[dataLabels.indexOf("Length")]);
         int width = Integer.parseInt(data[dataLabels.indexOf("Width")]);
@@ -64,7 +65,7 @@ public class ShipsFileUtils {
         return new VesselTypeDTO(vesselTypeID,length,width,draft,cargo);
     }
 
-    private PositionDTO positionToDto(String[] data) throws ParseException {
+    private PositionDTO positionToDto(String[] data){
         Date baseDateTime = getDateOfString(data[dataLabels.indexOf("BaseDateTime")]);
         double lat = Double.parseDouble(data[dataLabels.indexOf("LAT")]);
         double lon = Double.parseDouble(data[dataLabels.indexOf("LON")]);

@@ -69,7 +69,7 @@ public class Ship implements Comparable<Ship> {
             throw new IllegalArgumentException("IMO cannot be blank.");
         if (IMO.length()!=10)
             throw new IllegalArgumentException("IMO must hold 10 characters.");
-        if (!IMO.substring(0,2).equals("IMO")) //????
+        if (!IMO.substring(0,3).equals("IMO")) //????
             throw new IllegalArgumentException("IMO code must begin with the letters IMO.");
         if (!NumberUtils.isParsable(IMO.substring(3)))
             throw new IllegalArgumentException("IMO must hold numeric digits starting from character 4.");

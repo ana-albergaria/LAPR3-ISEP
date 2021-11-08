@@ -76,7 +76,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
     }
 
     private void checkMMSI(int mmsi){
-        if (Integer.toString(MMSI).length()!=9){
+        if (Integer.toString(mmsi).length()!=9){
             throw new IllegalArgumentException("MMSI must hold 9 digits.");
         }
         //ver se está no sistema?
@@ -96,7 +96,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
     }
 
     private void checkLon(double lon){
-        if (lat<-180 || (lat>180 && lat!=181)){
+        if (lon<-180 || (lon>180 && lon!=181)){
             throw new IllegalArgumentException("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.");
         }
     }

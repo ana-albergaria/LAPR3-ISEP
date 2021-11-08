@@ -3,6 +3,10 @@ package lapr.project.domain.model;
 import lapr.project.domain.BST.PositionsBST;
 import org.junit.Before;
 import org.junit.Test;
+/*
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+ */
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
