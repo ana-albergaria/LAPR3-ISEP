@@ -161,7 +161,9 @@ public class ShipsBST extends BST<Ship> {
             listPairsOfShips.add(infoPair);
         }
         return listPairsOfShips;
+
          */
+
 
         throw new UnsupportedOperationException();
 
@@ -171,8 +173,6 @@ public class ShipsBST extends BST<Ship> {
         List<Ship> listShipsWithIntendedTD = new ArrayList<>();
         getShipsInOrderWithIntendedTD(root, listShipsWithIntendedTD);
         return listShipsWithIntendedTD;
-
-        //throw new UnsupportedOperationException();
     }
 
     private void getShipsInOrderWithIntendedTD(Node<Ship> node, List<Ship> listShipsWithIntendedTD) {
@@ -188,8 +188,6 @@ public class ShipsBST extends BST<Ship> {
             listShipsWithIntendedTD.add(node.getElement());
 
         getShipsInOrderWithIntendedTD(node.getRight(), listShipsWithIntendedTD);
-
-        //throw new UnsupportedOperationException();
     }
 
 }

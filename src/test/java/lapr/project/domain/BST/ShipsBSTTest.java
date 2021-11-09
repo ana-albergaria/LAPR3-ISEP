@@ -46,6 +46,10 @@ public class ShipsBSTTest {
     private PositionsBST positionsBST2;
     private PositionsBST positionsBST3;
     private PositionsBST positionsBST4;
+    double [] lats2 = {62.97875, 72.96912, -22.033006, -70.022056};
+    double [] lats3 = {-29.00006,  60.008721, 50.00003, 34.345321};
+    double [] lons2 = {50.000000, 60.000000, -30.000000, 20.000000};
+    double [] lons3 = {-29.00006,  60.008721, 50.00003, 34.345321};
 
     public ShipsBSTTest() throws ParseException {
     }
@@ -72,13 +76,10 @@ public class ShipsBSTTest {
         positionsBST3 = new PositionsBST();
         positionsBST4 = new PositionsBST();
 
-
-
-
         for(int i=0; i<4;i++){
             positionsBST1.insert(new ShipPosition(mmsiCodes[0], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
-            positionsBST2.insert(new ShipPosition(mmsiCodes[1], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
-            positionsBST3.insert(new ShipPosition(mmsiCodes[2], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST2.insert(new ShipPosition(mmsiCodes[1], d1[i], lats2[i], lons2[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST3.insert(new ShipPosition(mmsiCodes[2], d1[i], lats3[i], lons3[i], sogs[i], cogs[i], headings[i], transcieverClass));
         }
 
         positionsBST4.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
@@ -87,9 +88,6 @@ public class ShipsBSTTest {
         positionsList.add(positionsBST2);
         positionsList.add(positionsBST3);
         positionsList.add(positionsBST4);
-
-
-
 
         for(int i=0; i<4;i++){
             shipsBST2.insert(new Ship(vesselType, positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
@@ -102,7 +100,7 @@ public class ShipsBSTTest {
     }
 
     /**
-     * Test to ensure getShipByMmsiCode() is functioning correctly.
+     * US3 - Test to ensure getShipByMmsiCode() is functioning correctly.
      *      Situation 1: the user inserts a MMSI code existent in the system
      *          - the method returns the corresponding Ship
      */
@@ -117,7 +115,7 @@ public class ShipsBSTTest {
     }
 
     /**
-     * Test to ensure getShipByMmsiCode() is functioning correctly.
+     * US3 - Test to ensure getShipByMmsiCode() is functioning correctly.
      *      Situation 2: the user inserts a MMSI code NOT existent in the system
      *          - the method returns null
      */
@@ -163,12 +161,15 @@ public class ShipsBSTTest {
     }
 
 
+    /**
+     * US7 - Test to ensure getShipsInOrderWithIntendedTD works correctly.
+     */
     @Test
     void getShipsInOrderWithIntendedTD() {
 
         List<Ship> expList = new ArrayList<>();
         Ship s1 = new Ship(vesselType, positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]);
-        Ship s2 = new Ship(vesselType, positionsList.get(1), mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]);
+        Ship s2 = new Ship(vesselType, positionsList.get(2), mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]);
         Ship s3 = new Ship(vesselType, positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]);
         expList.add(s1);
         expList.add(s2);

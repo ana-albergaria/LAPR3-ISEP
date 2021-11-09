@@ -1,6 +1,8 @@
 package lapr.project.domain.BST;
 
+import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.VesselType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,6 +57,22 @@ public class PositionsBSTTest {
 
     String transcieverClass = "AIS";
 
+    /* for US7 */
+    private VesselType vesselType;
+    String [] vesselNames = {"VARAMO", "SAITA", "VARAMO", "HYUNDAI SINGAPURE"};
+    String [] imoCodes = {"IMO9395044", "IMO9395022", "IMO9395066", "IMO9395088"};
+    String [] callSigns = {"C4SQ2", "5BBA4", "C4SQ2", "5BZP3"};
+    private ShipsBST shipsBST2;
+    List<PositionsBST> positionsList;
+    private PositionsBST positionsBST1;
+    private PositionsBST positionsBST2;
+    private PositionsBST positionsBST3;
+    private PositionsBST positionsBST4;
+    double [] lats4 = {62.97875, 72.96912, -22.033006, -70.022056};
+    double [] lats3 = {-29.00006,  60.008721, 50.00003, 34.345321};
+    double [] lons4 = {50.000000, 60.000000, -30.000000, 20.000000};
+    double [] lons3 = {-29.00006,  60.008721, 50.00003, 34.345321};
+
     public PositionsBSTTest() throws ParseException {
     }
 
@@ -73,6 +91,36 @@ public class PositionsBSTTest {
             ShipPosition sp = new ShipPosition(mmsiCode, d2[i], lats2[i], lons2[i], sogs2[i], cogs2[i], headings2[i], transcieverClass);
             longerInstance.insert(sp);
         }
+
+        /* for US7 */
+
+        vesselType = new VesselType(70, 294,32,13.6,79);
+
+        shipsBST2 = new ShipsBST();
+        positionsList = new ArrayList<>();
+        positionsBST1 = new PositionsBST();
+        positionsBST2 = new PositionsBST();
+        positionsBST3 = new PositionsBST();
+        positionsBST4 = new PositionsBST();
+
+        for(int i=0; i<4;i++){
+            positionsBST1.insert(new ShipPosition(mmsiCodes[0], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST2.insert(new ShipPosition(mmsiCodes[1], d1[i], lats4[i], lons4[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST3.insert(new ShipPosition(mmsiCodes[2], d1[i], lats3[i], lons3[i], sogs[i], cogs[i], headings[i], transcieverClass));
+        }
+
+        positionsBST4.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
+
+        positionsList.add(positionsBST1);
+        positionsList.add(positionsBST2);
+        positionsList.add(positionsBST3);
+        positionsList.add(positionsBST4);
+
+        for(int i=0; i<4;i++){
+            shipsBST2.insert(new Ship(vesselType, positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
+        }
+
+        /* end for US7 */
     }
 
     @Test
@@ -306,5 +354,41 @@ public class PositionsBSTTest {
         List<String> list = longerInstance.getPositionalMessages(initialDate, finalDate);
 
         assertEquals(expList, list);
+    }
+
+    /**
+     * US7 - Test to ensure getArrivalDistance() works properly.
+     */
+    @Test
+    void getArrivalDistance() {
+        Double expRes = 10350.0;
+
+        Ship s1 = new Ship(vesselType, positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]);
+        Ship s2 = new Ship(vesselType, positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]);
+
+        PositionsBST positionsBST = s1.getPositionsBST();
+        PositionsBST positionsBST2 = s2.getPositionsBST();
+
+        Double res = positionsBST.getArrivalDistance(positionsBST2);
+
+        assertEquals(expRes, res);
+    }
+
+    /**
+     * US7 - Test to ensure getDepartureDistance() works properly.
+     */
+    @Test
+    void getDepartureDistance() {
+        Double expRes = 13510.0;
+
+        Ship s1 = new Ship(vesselType, positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]);
+        Ship s2 = new Ship(vesselType, positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]);
+
+        PositionsBST positionsBST = s1.getPositionsBST();
+        PositionsBST positionsBST2 = s2.getPositionsBST();
+
+        Double res = positionsBST.getDepartureDistance(positionsBST2);
+
+        assertEquals(expRes, res);
     }
 }
