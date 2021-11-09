@@ -29,12 +29,11 @@ public class Ship implements Comparable<Ship> {
         checkIMO(IMO);
         checkCallSign(callSign);
         this.vesselType=vesselType;
-        this.positionsBST=positionsBST;
         this.MMSI=MMSI;
         this.vesselName=vesselName;
         this.IMO=IMO;
         this.callSign=callSign;
-        this.positionsBST = new PositionsBST();
+        this.positionsBST = positionsBST;
     }
 
     public void checkVesselType(VesselType vesselType){
@@ -71,7 +70,7 @@ public class Ship implements Comparable<Ship> {
      * @return the Ship's Positions' tree.
      */
     public PositionsBST getPositionsBST() {
-        return positionsBST;
+        return this.positionsBST;
     }
 
     public int getMMSI() {

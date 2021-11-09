@@ -63,13 +63,11 @@ class MovementSummaryControllerTest {
 
     }
 
-    /*
     @Test
     public void integrationTestWithController(){
         MovementSummaryController controller = new MovementSummaryController(comp);
         MovementsSummaryDto mSummary = controller.getShipMovementsSummary(123456789);
         System.out.println(mSummary);
     }
-     */
 
 }

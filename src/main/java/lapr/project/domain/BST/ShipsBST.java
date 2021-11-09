@@ -8,6 +8,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 import java.util.*;
 
 public class ShipsBST extends BST<Ship> {
+
     public void createBstShip() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

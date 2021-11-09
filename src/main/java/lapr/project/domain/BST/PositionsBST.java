@@ -55,7 +55,6 @@ public class PositionsBST extends BST<ShipPosition> {
             throw new IllegalArgumentException("List is empty");
         }
         List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
-
         double mean=0;
         for(ShipPosition pos : allPos){
             mean += pos.getSog();
@@ -149,6 +148,7 @@ public class PositionsBST extends BST<ShipPosition> {
 
         return (double) Math.round((Constants.RADIUS_OF_EARTH_IN_METERS * c)/1000);
     }
+
     /**
      * Method for getting the biggest element of the tree
      * @return the shipPosition element with the biggest(newest) date
