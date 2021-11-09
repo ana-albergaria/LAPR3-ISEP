@@ -14,8 +14,8 @@ participant "ship2\nShip" as S2
 participant "positionsBST:\nPositionsBST" as BstPosition
 participant "positionsBST2:\nPositionsBST" as BstPosition2
 participant "listShipsWithIntendedTD:\nIterator<Ship>" as ITERATOR
-participant "infoPair:\nTreeMap<Integer, String>" as TREEMAP
-participant "listPairsOfShips:\nList<TreeMap<Integer, String>>" as LIST
+participant "infoPair:\nTreeMap<Double, String>" as TREEMAP
+participant "listPairsOfShips:\nList<TreeMap<Double, String>>" as LIST
 
 
 activate TM
@@ -109,14 +109,20 @@ activate BstPosition
 deactivate BstPosition
 alt depDistance < 5
 
-BstShip -> BstPosition : numMovs = getPositionsBST().size()
+BstShip -> BstPosition : numMovs = size()
 activate BstPosition
 deactivate BstPosition
-BstShip -> BstPosition2 : numMovs2 = getPositionsBST().size()
+BstShip -> BstPosition2 : numMovs2 = size()
 activate BstPosition2
 deactivate BstPosition2
 
-BstShip -> TREEMAP : put(travelledDistance2 - travelledDistance, stringWithAllInfo)
+note over BstShip, S
+The **diffTravDist** is the module of the difference
+between the Travelled Distances.
+The **allInfo** is a string containing the necessary info to show.
+end note
+
+BstShip -> TREEMAP : put(diffTravDist, allInfo)
 activate TREEMAP
 deactivate TREEMAP
 end

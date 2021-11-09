@@ -125,11 +125,15 @@ public class ShipsBST extends BST<Ship> {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<TreeMap<Integer, String>> getPairsOfShips() {
-        /*Iterator<Ship> listShipsWithIntendedTD = getShipsInOrderWithIntendedTD().iterator();
+    public List<TreeMap<Double, String>> getPairsOfShips() {
+        /*List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
+        String header = String.format("%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs Ship 1", "TravelDist Ship1", "Movs Ship 2", "TravelDist Ship2", "TravelDist Diff");
+
+
+        Iterator<Ship> listShipsWithIntendedTD = getShipsInOrderWithIntendedTD().iterator();
 
         while(listShipsWithIntendedTD.hasNext()) {
-            TreeMap<Integer, String> infoPair = new TreeMap<Integer, String>();
+            TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
             Ship ship = listShipsWithIntendedTD.next();
             PositionsBST positionsBST = ship.getPositionsBST();
             Double travelledDistance = positionsBST.getTotalDistance();
@@ -139,25 +143,26 @@ public class ShipsBST extends BST<Ship> {
                 PositionsBST positionsBST2 = ship2.getPositionsBST();
                 Double travelledDistance2 = positionsBST2.getTotalDistance();
 
-                if(travelledDistance != travelledDistance2) {
+                if(!Objects.equals(travelledDistance, travelledDistance2)) {
                     Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
 
                     if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
                         Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
 
                         if(depDistance <= Constants.LIMIT_COORDINATES) {
-
-                            //CONTINUAR !!!
-
+                            int numMovs = positionsBST.size(), numMovs2 = positionsBST2.size();
+                            double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
+                            String allInfo = String.format("%-25d%-25d%-25f%-25f%-25d%-25f%-25d%-25f%n", ship.getMMSI(), ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
+                            infoPair.put(diffTravDist, allInfo);
                         }
                     }
-
                 }
-
             }
-
+            listPairsOfShips.add(infoPair);
         }
+        return listPairsOfShips;
          */
+
         throw new UnsupportedOperationException();
 
     }

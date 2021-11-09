@@ -35,9 +35,9 @@ public class ShowPairsOfShipsController {
         this.company = company;
     }
 
-    public List<TreeMap<Integer, String>> getPairsOfShips() {
+    public List<TreeMap<Double, String>> getPairsOfShips() {
         ShipsBST shipsBST = this.company.getBstShip();
-        List<TreeMap<Integer, String>> listPairsOfShips = shipsBST.getPairsOfShips();
+        List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
         return listPairsOfShips;
         //throw new UnsupportedOperationException();
     }
