@@ -4,6 +4,7 @@ import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.VesselType;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShipsBSTTest {
@@ -37,6 +39,14 @@ public class ShipsBSTTest {
 
     private ShipsBST shipsBST;
 
+    /* for US7 */
+    private ShipsBST shipsBST2;
+    List<PositionsBST> positionsList;
+    private PositionsBST positionsBST1;
+    private PositionsBST positionsBST2;
+    private PositionsBST positionsBST3;
+    private PositionsBST positionsBST4;
+
     public ShipsBSTTest() throws ParseException {
     }
 
@@ -50,9 +60,44 @@ public class ShipsBSTTest {
             positionsBST.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
         }
         for(int i=0; i<4;i++){
-            //System.out.println(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
             shipsBST.insert(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
         }
+
+        /* for US7 */
+
+        shipsBST2 = new ShipsBST();
+        positionsList = new ArrayList<>();
+        positionsBST1 = new PositionsBST();
+        positionsBST2 = new PositionsBST();
+        positionsBST3 = new PositionsBST();
+        positionsBST4 = new PositionsBST();
+
+
+
+
+        for(int i=0; i<4;i++){
+            positionsBST1.insert(new ShipPosition(mmsiCodes[0], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST2.insert(new ShipPosition(mmsiCodes[1], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST3.insert(new ShipPosition(mmsiCodes[2], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+        }
+
+        positionsBST4.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
+
+        positionsList.add(positionsBST1);
+        positionsList.add(positionsBST2);
+        positionsList.add(positionsBST3);
+        positionsList.add(positionsBST4);
+
+
+
+
+        for(int i=0; i<4;i++){
+            shipsBST2.insert(new Ship(vesselType, positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
+        }
+
+        /* end for US7 */
+
+
 
     }
 
@@ -115,5 +160,23 @@ public class ShipsBSTTest {
 
 
         Assert.assertEquals(expectedList, test1);
+    }
+
+
+    @Test
+    void getShipsInOrderWithIntendedTD() {
+
+        List<Ship> expList = new ArrayList<>();
+        Ship s1 = new Ship(vesselType, positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]);
+        Ship s2 = new Ship(vesselType, positionsList.get(1), mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]);
+        Ship s3 = new Ship(vesselType, positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]);
+        expList.add(s1);
+        expList.add(s2);
+        expList.add(s3);
+
+
+        List<Ship> list = (List<Ship>) shipsBST2.getShipsInOrderWithIntendedTD();
+
+        Assertions.assertEquals(expList, list);
     }
 }

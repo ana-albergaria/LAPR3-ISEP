@@ -129,9 +129,9 @@ public class Ship implements Comparable<Ship> {
     @Override
     public String toString() {
         return "Ship{" +
-                "vesselType=" + vesselType +
+                "MMSI=" + MMSI +
+                ", vesselType=" + vesselType +
                 ", positionsBST=" + positionsBST +
-                ", MMSI=" + MMSI +
                 ", vesselName='" + vesselName + '\'' +
                 ", IMO='" + IMO + '\'' +
                 ", callSign='" + callSign + //'\'' +
