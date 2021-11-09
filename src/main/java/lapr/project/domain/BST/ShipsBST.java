@@ -126,17 +126,38 @@ public class ShipsBST extends BST<Ship> {
     }
 
     public List<TreeMap<Integer, String>> getPairsOfShips() {
-        Iterator<Ship> listShipsWithIntendedTD = getShipsInOrderWithIntendedTD().iterator();
+        /*Iterator<Ship> listShipsWithIntendedTD = getShipsInOrderWithIntendedTD().iterator();
+
         while(listShipsWithIntendedTD.hasNext()) {
             TreeMap<Integer, String> infoPair = new TreeMap<Integer, String>();
+            Ship ship = listShipsWithIntendedTD.next();
+            PositionsBST positionsBST = ship.getPositionsBST();
+            Double travelledDistance = positionsBST.getTotalDistance();
+
+            while(listShipsWithIntendedTD.hasNext()) {
+                Ship ship2 = listShipsWithIntendedTD.next();
+                PositionsBST positionsBST2 = ship2.getPositionsBST();
+                Double travelledDistance2 = positionsBST2.getTotalDistance();
+
+                if(travelledDistance != travelledDistance2) {
+                    Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
+
+                    if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
+                        Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
+
+                        if(depDistance <= Constants.LIMIT_COORDINATES) {
+
+                            //CONTINUAR !!!
+
+                        }
+                    }
+
+                }
+
+            }
 
         }
-
-
-
-
-
-
+         */
         throw new UnsupportedOperationException();
 
     }

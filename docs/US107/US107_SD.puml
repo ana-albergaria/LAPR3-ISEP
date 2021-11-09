@@ -13,6 +13,7 @@ participant "ship2\nShip" as S2
 /'participant "ShipPosition" as SP'/
 participant "positionsBST:\nPositionsBST" as BstPosition
 participant "positionsBST2:\nPositionsBST" as BstPosition2
+participant "listShipsWithIntendedTD:\nIterator<Ship>" as ITERATOR
 participant "infoPair:\nTreeMap<Integer, String>" as TREEMAP
 participant "listPairsOfShips:\nList<TreeMap<Integer, String>>" as LIST
 
@@ -29,6 +30,10 @@ CTRL -> BstShip : getPairsOfShips()
 /'decide what kind of list'/
 activate BstShip
 /'BstShip -> BstShip : listOfShips = inOrder() '/
+note over BstShip, S
+The **listShipsWithIntendedTD** contains only the ships
+with Travelled Distance >= 10.
+end note
 BstShip -> BstShip : getShipsInOrderWithIntendedTD()
 activate BstShip
 BstShip --> BstShip : listShipsWithIntendedTD
@@ -36,6 +41,13 @@ deactivate BstShip
 |||
 loop for each Ship in listShipsWithIntendedTD
 BstShip --> TREEMAP** : create()
+BstShip -> ITERATOR : ship = next()
+activate ITERATOR
+deactivate ITERATOR
+/'BstShip -> S : travelledDistance = getTravelledDistance()
+activate S
+deactivate S
+'/
 BstShip -> S : positionsBST = getPositionsBST()
 activate S
 deactivate S
@@ -43,41 +55,56 @@ BstShip -> BstPosition : travelledDistance = getTotalDistance()
 activate BstPosition
 deactivate BstPosition
 /'alteração alt em baixo: travelledDistance2 >= 10 em vez de > 10'/
-alt travelledDistance >= 10
+/'alt travelledDistance >= 10'/
 loop hasNext()
+BstShip -> ITERATOR : ship2 = next()
+activate ITERATOR
+deactivate ITERATOR
 BstShip -> S2 : positionsBST2 = getPositionsBST()
 activate S2
 deactivate S2
 BstShip -> BstPosition2 : travelledDistance2 = getTotalDistance()
+activate BstPosition2
+deactivate BstPosition2
+/'BstShip -> S2 : travelledDistance2 = getTravelledDistance()
+activate S2
+deactivate S2'/
 /'alteração alt em baixo: && travelledDistance2 >= 10'/
-alt travelledDistance != travelledDistance2 && travelledDistance2 >= 10
-BstShip -> BstPosition : arrivalLat = getArrivalLat()
+/'alt travelledDistance != travelledDistance2 && travelledDistance2 >= 10'/
+alt travelledDistance != travelledDistance2
+/'BstShip -> BstPosition : arrivalLat = getArrivalLatitude()
 activate BstPosition
 deactivate BstPosition
-BstShip -> BstPosition : arrivalLog = getArrivalLog()
+BstShip -> BstPosition : arrivalLog = getArrivalLongitude()
 activate BstPosition
 deactivate BstPosition
-BstShip -> BstPosition2 : arrivalLat2 = getArrivalLat()
+BstShip -> BstPosition2 : arrivalLat2 = getArrivalLatitude()
 activate BstPosition2
 deactivate BstPosition2
-BstShip -> BstPosition2 : arrivalLog2 = getArrivalLog()
+BstShip -> BstPosition2 : arrivalLog2 = getArrivalLongitude()
 activate BstPosition2
 deactivate BstPosition2
-BstShip -> BstPosition : arrivalDistance = distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2)
-alt arrivalDistance < 5
-BstShip -> BstPosition : depLat = getDepartureLat()
+BstShip -> BstPosition : arrivalDistance = distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2)'/
+BstShip -> BstPosition : arrivalDistance = getArrivalDistance(positionsBST2)
 activate BstPosition
 deactivate BstPosition
-BstShip -> BstPosition : depLog = getDepartureLog()
+alt arrivalDistance <= 5
+/'BstShip -> BstPosition : depLat = getDeparLatitude()
 activate BstPosition
 deactivate BstPosition
-BstShip -> BstPosition2 : depLat2 = getDepartureLat()
+BstShip -> BstPosition : depLog = getDepartLongitude()
+activate BstPosition
+deactivate BstPosition
+BstShip -> BstPosition2 : depLat2 = getDepartLatitude()
 activate BstPosition2
 deactivate BstPosition2
-BstShip -> BstPosition2 : depLog2 = getDepartureLog()
+BstShip -> BstPosition2 : depLog2 = getDepartLongitude()
 activate BstPosition2
 deactivate BstPosition2
 BstShip -> BstPosition : depDistance = distanceBetweenInKm(depLat, depLat2, depLog, depLog2)
+activate BstPosition
+deactivate BstPosition'/
+BstShip -> BstPosition : depDistance = getDepartureDistance(positionsBST2)
 activate BstPosition
 deactivate BstPosition
 alt depDistance < 5
@@ -99,7 +126,7 @@ end
 BstShip -> LIST : add(infoPair)
 activate LIST
 deactivate LIST
-end
+/'end'/
 end
 
 BstShip --> CTRL : listPairsOfShips

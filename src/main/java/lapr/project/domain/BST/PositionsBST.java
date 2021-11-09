@@ -1,6 +1,7 @@
 package lapr.project.domain.BST;
 
 import lapr.project.BSTesinf.BST;
+import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.shared.Constants;
 
@@ -235,5 +236,33 @@ public class PositionsBST extends BST<ShipPosition> {
             }
         }
         return shipDate;
+    }
+
+    public Double getArrivalDistance(PositionsBST positionsBST2) {
+        /*Double arrivalLat = this.getArrivalLatitude();
+        Double arrivalLog = this.getArrivalLongitude();
+
+        Double arrivalLat2 = positionsBST2.getArrivalLatitude();
+        Double arrivalLog2 = positionsBST2.getArrivalLongitude();
+
+        Double arrivalDistance = distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2);
+
+        return arrivalDistance;
+         */
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Double getDepartureDistance(PositionsBST positionsBST2) {
+        /*Double depLat = this.getDepartLatitude();
+        Double depLog = this.getDepartLongitude();
+
+        Double depLat2 = positionsBST2.getDepartLatitude();
+        Double depLog2 = positionsBST2.getDepartLongitude();
+
+        Double depDistance = distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
+
+        return depDistance;
+         */
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
