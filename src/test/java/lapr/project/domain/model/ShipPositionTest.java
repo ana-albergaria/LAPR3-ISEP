@@ -1,19 +1,14 @@
 package lapr.project.domain.model;
 
-
-import org.junit.*;
-
-/*
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
- */
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ShipPositionTest {
 
@@ -21,7 +16,7 @@ public class ShipPositionTest {
     ShipPosition s1, s2, s3, s4;
     private Date dateR1, dateR3, dateR4;
 
-    @Before
+    @BeforeEach
     public void setUp() throws ParseException {
         company = new Company("cargo shipping company");
         dateR1 = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2020");
@@ -55,7 +50,7 @@ public class ShipPositionTest {
         cal.set(Calendar.MONTH, Calendar.NOVEMBER);
         cal.set(Calendar.DAY_OF_MONTH, 4);
         Date d1 = cal.getTime();
-        assertEquals("date should be equal", d1.toString(), s1.getBaseDateTime().toString());
+        assertEquals( d1.toString(), s1.getBaseDateTime().toString(), "date should be equal");
     }
 
     @Test
@@ -85,100 +80,112 @@ public class ShipPositionTest {
     /**
      * Test to ensure Base Date Time cannot be null.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureNullDateNotAllowed() {
-        ShipPosition shipPosition = new ShipPosition(211331640, null, 36.39094,
-                -122.71335, 19.7, 145.5, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, null, 36.39094,
+                -122.71335, 19.7, 145.5, 147, "B"));
+        assertEquals("Base Date Time cannot be null.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Transciever Class cannot be null.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureNullTranscieverClassNotAllowed() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -122.71335, 19.7, 145.5, 147, null);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 147, null));
+        assertEquals("Transciever Class cannot be null.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Transciever Class cannot be empty.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureTranscieverClassNotEmpty() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -122.71335, 19.7, 145.5, 147, "");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 147, ""));
+        assertEquals("Transciever Class cannot be blank.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Latitude cannot be under -90.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithLatitudeUnderMinus90() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, -91,
-                -122.71335, 19.7, 145.5, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, -91,
+                -122.71335, 19.7, 145.5, 147, "B"));
+        assertEquals("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.", thrown.getMessage());
     }
 
     /**
      * Test to ensure latitude cannot de over 91.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithLatitudeOver91() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 92,
-                -122.71335, 19.7, 145.5, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 92,
+                -122.71335, 19.7, 145.5, 147, "B"));
+        assertEquals("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Longitude cannot be under -180.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithLongitudeUnderMinus180() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -181, 19.7, 145.5, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -181, 19.7, 145.5, 147, "B"));
+        assertEquals("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.", thrown.getMessage());
+
     }
 
     /**
      * Test to ensure longitude cannot be over 181.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithLongitudeOver181() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                182, 19.7, 145.5, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                182, 19.7, 145.5, 147, "B"));
+        assertEquals("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.", thrown.getMessage());
     }
 
     /**
      * Test to ensure cog cannot be under 0.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithCOGUnder0() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -122.71335, 19.7, -1, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, -1, 147, "B"));
+        assertEquals("COG must be between 0 and 359.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Heading cannot be over 359.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithCOGOver359() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -122.71335, 19.7, 360, 147, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 360, 147, "B"));
+        assertEquals("COG must be between 0 and 359.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Heading cannot be under 0.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithHeadingUnder0() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -122.71335, 19.7, 145.5, -1, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, -1, "B"));
+        assertEquals("Heading must be between 0 and 359. It might also be 511 in case of being unavailable.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Heading cannot be over 511.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createPositionWithHeadingOver511() {
-        ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
-                -122.71335, 19.7, 145.5, 512, "B");
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 512, "B"));
+        assertEquals("Heading must be between 0 and 359. It might also be 511 in case of being unavailable.", thrown.getMessage());
     }
 
     /**
@@ -188,7 +195,7 @@ public class ShipPositionTest {
     public void ensureMMSIHas9Digits() {
         ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
                 -122.71335, 19.7, 145.5, 147, "B");
-        Assert.assertTrue(String.valueOf(shipPosition.getMMSI()).length()==9);
+        assertTrue(String.valueOf(shipPosition.getMMSI()).length()==9);
     }
 
 

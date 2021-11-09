@@ -1,18 +1,15 @@
 package lapr.project.domain.model;
 
 import lapr.project.domain.BST.PositionsBST;
-import org.junit.Before;
-import org.junit.Test;
-/*
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
- */
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ShipTest {
 
@@ -26,7 +23,7 @@ public class ShipTest {
     private ShipPosition shipPosition;
     private Date dateR1;
 
-    @Before
+    @BeforeEach
     public void setUp() throws ParseException {
         vesselType = new VesselType(70, 294,32,13.6,79);
         positionsBST = new PositionsBST();
@@ -51,81 +48,91 @@ public class ShipTest {
     /**
      * Test to ensure Null Vessel Types are not allowed.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureNullVesselTypeNotAllowed(){
-        Ship ship = new Ship(null, positionsBST, mmsi1, vesselName, imo, callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(null, positionsBST, mmsi1, vesselName, imo, callSign));
+        assertEquals("Vessel Type cannot be null.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Empty Positions BST are not allowed.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureEmptyPositionsBSTNotAllowed(){
-        Ship ship = new Ship(vesselType, positionsBSTEmpty, mmsi1, vesselName, imo, callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBSTEmpty, mmsi1, vesselName, imo, callSign));
+        assertEquals("Positions BST cannot be empty.", thrown.getMessage());
     }
 
     /**
      * Test to ensure MMSI cannot have less than 9 digits.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureMMSIHasNotLessThan9Digits(){
-        Ship ship = new Ship(vesselType, positionsBST, 99999999, vesselName, imo, callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, 99999999, vesselName, imo, callSign));
+        assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
     }
 
     /**
      * Test to ensure MMSI cannot have more than 9 digits.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureMMSIHasNotMoreThan9Digits(){
-        Ship ship = new Ship(vesselType, positionsBST, 1000000000, vesselName, imo, callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, 1000000000, vesselName, imo, callSign));
+        assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
     }
 
     /**
      * Test to ensure Vessel Name cannot be null.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureNullVesselNameNotAllowed(){
-        Ship ship = new Ship(vesselType, positionsBST, mmsi1, null, imo, callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, mmsi1, null, imo, callSign));
+        assertEquals("Vessel type cannot be null.", thrown.getMessage());
     }
 
     /**
      * Test to ensure IMO cannot be blank.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureBlankIMONotAllowed(){
-        Ship ship = new Ship(vesselType, positionsBST, mmsi1, vesselName, "", callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, mmsi1, vesselName, "", callSign));
+        assertEquals("IMO cannot be blank.", thrown.getMessage());
     }
 
     /**
      * Test to ensure IMO cannot have less than 10 chars.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureIMOHasNotLessThan10Chars(){
-        Ship ship = new Ship(vesselType, positionsBST, mmsi1, vesselName, "IMO123456", callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, mmsi1, vesselName, "IMO123456", callSign));
+        assertEquals("IMO must hold 10 characters.", thrown.getMessage());
     }
 
     /**
      * Test to ensure IMO cannot have more than 10 chars.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureIMOHasNotMoreThan10Chars(){
-        Ship ship = new Ship(vesselType, positionsBST, mmsi1, vesselName, "IMO12345678", callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, mmsi1, vesselName, "IMO12345678", callSign));
+        assertEquals("IMO must hold 10 characters.", thrown.getMessage());
     }
 
     /**
      * Test to ensure the IMO code starts with "IMO".
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureIMOStartsWithIMO(){
-        Ship ship = new Ship(vesselType, positionsBST, mmsi1, vesselName, "ISO1234567", callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, mmsi1, vesselName, "ISO1234567", callSign));
+        assertEquals("IMO code must begin with the letters IMO.", thrown.getMessage());
     }
 
     /**
      * Test to ensure that the IMO code has only numeric digits after the "IMO" part.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void ensureIMOEndsWithNumbers(){
-        Ship ship = new Ship(vesselType, positionsBST, mmsi1, vesselName, "IMO12E4567", callSign);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(vesselType, positionsBST, mmsi1, vesselName, "IMO12E4567", callSign));
+        assertEquals("IMO must hold numeric digits starting from character 4.", thrown.getMessage());
     }
 
     /**
