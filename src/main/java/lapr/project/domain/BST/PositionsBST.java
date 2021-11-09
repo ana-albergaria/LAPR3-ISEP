@@ -203,6 +203,8 @@ public class PositionsBST extends BST<ShipPosition> {
                                        List<String> listPositionalMessages,
                                        Date initialDate,
                                        Date finalDate) {
+        //lançar exceções?
+
         if(node == null)
             return;
 
@@ -216,9 +218,22 @@ public class PositionsBST extends BST<ShipPosition> {
 
         getPositionalMessages(node.getRight(), listPositionalMessages, initialDate, finalDate);
 
+    }
 
-        //criar e retornar Map só no controller
+    /**
+     * method to get the Base Date Time of a ship by it's MMSI
+     * @param shipMMSI ship's MMSI
+     * @return Base Date Time
+     */
+    public Date getShipDate(int shipMMSI){
+        Date shipDate = null;
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
 
-
+        for (ShipPosition pos : allPos) {
+            if (pos.getMMSI() == shipMMSI) {
+                shipDate = pos.getBaseDateTime();
+            }
+        }
+        return shipDate;
     }
 }

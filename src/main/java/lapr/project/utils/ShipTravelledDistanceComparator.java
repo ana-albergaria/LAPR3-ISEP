@@ -8,8 +8,10 @@ public class ShipTravelledDistanceComparator implements Comparator<Ship> {
 
     @Override
     public int compare(Ship e1, Ship e2) {
-        //return Integer.compare(e1.getPositionsBST().getTotalDistance(), e2.getPositionsBST().getTotalDistance());
-        throw new UnsupportedOperationException("Not supported yet.");
+        int d1 = (int) Math.round(e1.getPositionsBST().getTotalDistance());
+        int d2 = (int) Math.round(e2.getPositionsBST().getTotalDistance());
+        return Integer.compare(d1, d2);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

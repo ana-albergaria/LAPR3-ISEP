@@ -17,6 +17,7 @@ public class ShipsBSTTest {
 
     /* Atributes for the Ship */
     private VesselType vesselType;
+    private VesselType vesselType2;
     private PositionsBST positionsBST;
 
     Date[] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
@@ -27,6 +28,12 @@ public class ShipsBSTTest {
     String [] vesselNames = {"VARAMO", "SAITA", "VARAMO", "HYUNDAI SINGAPURE"};
     String [] imoCodes = {"IMO9395044", "IMO9395022", "IMO9395066", "IMO9395088"};
     String [] callSigns = {"C4SQ2", "5BBA4", "C4SQ2", "5BZP3"};
+    double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
+    double [] lons = {-51.230000, -47.223056, -46.233056, 24.092123};
+    double [] sogs = {25.4, 25.8, 31.7, 10.2};
+    double [] cogs = {341.2, 330.3, 328.5, 320.9};
+    int [] headings = {300, 302, 315, 300};
+    String transcieverClass = "AIS";
 
     private ShipsBST shipsBST;
 
@@ -36,12 +43,17 @@ public class ShipsBSTTest {
     @BeforeEach
     public void setUp() {
         vesselType = new VesselType(70, 294,32,13.6,79);
+        vesselType2 = new VesselType(80, 250, 50, 25, 65);
         positionsBST = new PositionsBST();
         shipsBST = new ShipsBST();
+        for(int i=0; i<4;i++){
+            positionsBST.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+        }
         for(int i=0; i<4;i++){
             //System.out.println(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
             shipsBST.insert(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
         }
+
     }
 
     /**
@@ -76,23 +88,32 @@ public class ShipsBSTTest {
     /**
      * ensure the ships are correctly extrated to a list if they belong in the Base Date Time interval
      */
-    /*
-    @Test
-    public void getShipsByDateCorrect() {
-        VesselType vesselType2 = new VesselType(85, 294,32,13.6,79);
-        Ship testShip = new Ship(vesselType, positionsBST, mmsiCodes[4], vesselNames[4], imoCodes[4], callSigns[4]);
-        ShipPosition position1 = new ShipPosition(mmsiCodes[4], d1[4], 80, 100, 150, 250, 300, "JIRA");
-        Ship testShip2 = new Ship(vesselType2, positionsBST,mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]);
-        ShipPosition position2 = new ShipPosition(mmsiCodes[2], d1[2], 85, 90, 120, 255, 280, "JIRA");
-        Ship testShip3 = new Ship(vesselType2, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]);
-        ShipPosition position3 = new ShipPosition(mmsiCodes[1], d1[1], 70, 110, 140, 200, 250, "JIRA");
 
-        List<Ship> testList = shipsBST.getShipsByDate(new Date(), new Date());
+    @Test
+    public void getShipsByDateCorrect() throws ParseException {
+
+
+        List<Ship> testList = shipsBST.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("06/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("11/01/2021"));
         List<Ship> expectedList = new ArrayList<>();
-        expectedList.add(testShip);
-        expectedList.add(testShip3);
+        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
+
 
         Assert.assertEquals(expectedList, testList);
     }
+
+    /**
+     * ensure the shipList is ordered and only the top-N ships are in it
      */
+    @Test
+    public void sortNshipsCorrect() throws ParseException {
+        List<Ship> testList = shipsBST.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2021"));
+        List<Ship> test1 = shipsBST.sortNShips(testList, 2);
+        List<Ship> expectedList = new ArrayList<>();
+        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
+        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+
+
+        Assert.assertEquals(expectedList, test1);
+    }
 }
