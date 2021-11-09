@@ -3,6 +3,7 @@ package lapr.project.domain.BST;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
+import lapr.project.domain.shared.Constants;
 import lapr.project.utils.ShipTravelledDistanceComparator;
 
 import java.util.*;
@@ -123,4 +124,43 @@ public class ShipsBST extends BST<Ship> {
 
         //throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public List<TreeMap<Integer, String>> getPairsOfShips() {
+        /*Iterable<Ship> listShipsWithIntendedTD = getShipsInOrderWithIntendedTD();
+
+
+        TreeMap<Integer, String> infoPair = new TreeMap<Integer, String>();
+         */
+
+        throw new UnsupportedOperationException();
+
+    }
+
+    public Iterable<Ship> getShipsInOrderWithIntendedTD() {
+        /*List<Ship> listShipsWithIntendedTD = new ArrayList<>();
+        getShipsInOrderWithIntendedTD(root, listShipsWithIntendedTD);
+        return listShipsWithIntendedTD;
+         */
+        throw new UnsupportedOperationException();
+    }
+
+    private void getShipsInOrderWithIntendedTD(Node<Ship> node, List<Ship> listShipsWithIntendedTD) {
+        /*if(node == null) {
+            return;
+        }
+
+        getShipsInOrderWithIntendedTD(node.getLeft(), listShipsWithIntendedTD);
+
+        PositionsBST currentShipPositions = node.getElement().getPositionsBST();
+        Double currentTravelledDistance = currentShipPositions.getTotalDistance();
+
+        if(currentTravelledDistance >= Constants.LIMIT_TRAVELLED_DISTANCE)
+            listShipsWithIntendedTD.add(node.getElement());
+
+        getShipsInOrderWithIntendedTD(node.getRight(), listShipsWithIntendedTD);
+         */
+        throw new UnsupportedOperationException();
+    }
+
+
 }

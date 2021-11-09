@@ -7,13 +7,13 @@ actor "Traffic Manager" as TM
 participant "ShowPairsOfShipsUI" as UI
 participant "ShowPairsOfShipsController" as CTRL
 participant "Company" as COMP
-participant "bstShip:\nShipsBST" as BstShip
+participant "shipsBST:\nShipsBST" as BstShip
 participant "ship:\nShip" as S
 participant "ship2\nShip" as S2
 /'participant "ShipPosition" as SP'/
 participant "positionsBST:\nPositionsBST" as BstPosition
 participant "positionsBST2:\nPositionsBST" as BstPosition2
-participant "infoPair:\nTreeMap<<Integer, String>>" as TREEMAP
+participant "infoPair:\nTreeMap<Integer, String>" as TREEMAP
 participant "listPairsOfShips:\nList<TreeMap<Integer, String>>" as LIST
 
 
@@ -22,16 +22,19 @@ TM -> "UI" : asks the pairs of ships with close departure/arrival coordinates
 activate "UI"
 UI -> CTRL : getPairsOfShip()
 activate CTRL
-CTRL -> COMP : bstShip = getBstShip()
+CTRL -> COMP : shipsBST = getBstShip()
 activate COMP
 deactivate COMP
-CTRL -> BstShip : getIntendedPairsOfShips()
+CTRL -> BstShip : getPairsOfShips()
 /'decide what kind of list'/
 activate BstShip
-BstShip -> BstShip : listOfShips = inOrder()
+/'BstShip -> BstShip : listOfShips = inOrder() '/
+BstShip -> BstShip : getShipsInOrderWithIntendedTD()
 activate BstShip
+BstShip --> BstShip : listShipsWithIntendedTD
 deactivate BstShip
-loop for each Ship in ListOfShips
+|||
+loop for each Ship in listShipsWithIntendedTD
 BstShip --> TREEMAP** : create()
 BstShip -> S : positionsBST = getPositionsBST()
 activate S
