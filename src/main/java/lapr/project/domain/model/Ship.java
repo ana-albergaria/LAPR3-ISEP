@@ -108,6 +108,24 @@ public class Ship implements Comparable<Ship> {
         return callSign;
     }
 
+    /**
+     * Returns the total movements of the ship
+     *
+     * @return total movements of the ship
+     */
+    public int getTotalMovs() {
+        return this.positionsBST.size();
+    }
+
+    /**
+     * Returns the Travelled Distance of the ship
+     *
+     * @return the Travelled Distance of the Ship
+     */
+    public Double getTravelledDistance() {
+        return this.positionsBST.getTotalDistance();
+    }
+
     @Override
     public String toString() {
         return "Ship{" +
