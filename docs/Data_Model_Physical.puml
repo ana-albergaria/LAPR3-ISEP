@@ -6,7 +6,7 @@
 }'/
 
 class Ship{
-    **MMSI: NUMBER(9)**
+    **MMSI: Integer**
     ---
     **FK**_VesselTypeID: INTEGER
     IMO: varchar(10)
@@ -63,7 +63,7 @@ class EnergyPower{
 /'manifest type(loading, unloading) changes its values'/
 class CargoManifest{
     **CargoManifestID**:INTEGER
-    FK_**locationId**:INTEGER
+    FK_**port_id**:INTEGER
     ---
     FK_MMSI:NUMBER(9)
     TypeOfTransport:varchar(10)
@@ -128,7 +128,7 @@ class Transports{
 
 Ship "1" -- "1..*" Container : transports >
 Container "1" -- "1" PositionInVehicule
-Ship "1" -- "1" ShipPosition
+Ship "1" -- "1..*" ShipPosition
 Ship "*" -- "1" VesselType
 Ship "1" -- "1..*" CargoManifest
 CargoManifest "1" -- "1..*" ContainerInCargoManifest
