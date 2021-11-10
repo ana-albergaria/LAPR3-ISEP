@@ -36,7 +36,6 @@ public class ImportShipsController {
         this.company=company;
         this.ship=null;
         this.shipPosition=null;
-        //this.vesselType=null;
     }
 
     public boolean registerPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
@@ -69,24 +68,6 @@ public class ImportShipsController {
     public boolean saveShip(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    /*
-    public boolean registerVesselType(int vesselTypeID, int length, int width, double draft, int cargo){
-        VesselTypeStore store = this.company.getVesselTypeStore();
-        this.vesselType=store.registerVesselType(vesselTypeID, length, width, draft, cargo);
-        return store.validateVesselType(vesselType);
-    }
-
-    public boolean registerVesselType(VesselTypeDTO vesselTypeDTO){
-        VesselTypeStore store = this.company.getVesselTypeStore();
-        this.vesselType = store.registerVesselType(vesselTypeDTO);
-        return store.validateVesselType(vesselType);
-    }
-
-    public boolean saveVesselType(){
-        VesselTypeStore store = this.company.getVesselTypeStore();
-        return store.saveVesselType(vesselType);
-    }*/
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
         /*if (this.company.getBstShip().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship

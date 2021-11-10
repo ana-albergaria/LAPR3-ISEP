@@ -1,33 +1,27 @@
 package lapr.project.dto;
 
-import java.util.Date;
-import java.util.List;
-
 public class ShipsFileDTO {
-
-    VesselTypeDTO vesselTypeDTO;
 
     PositionDTO positionDTO;
 
-    private int mmsi;
+    private int mmsi, vesselType, length, width, cargo;
 
-    private String vesselName;
+    private double draft;
 
-    private String imo;
+    private String vesselName, imo, callSign;
 
-    private String callSign;
-
-    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, String imo, String callSign) {
-        this.vesselTypeDTO = vesselTypeDTO;
+    public ShipsFileDTO(PositionDTO positionDTO, int mmsi, String vesselName, String imo, String callSign,
+                        int vesselType, int length, int width, double draft, int cargo) {
         this.positionDTO = positionDTO;
         this.mmsi=mmsi;
         this.vesselName=vesselName;
         this.imo=imo;
         this.callSign=callSign;
-    }
-
-    public VesselTypeDTO getVesselTypeDTO() {
-        return vesselTypeDTO;
+        this.vesselType=vesselType;
+        this.length=length;
+        this.width=width;
+        this.draft=draft;
+        this.cargo=cargo;
     }
 
     public PositionDTO getPositionDTO() {
@@ -48,6 +42,26 @@ public class ShipsFileDTO {
 
     public String getCallSign() {
         return callSign;
+    }
+
+    public int getVesselType() {
+        return vesselType;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getCargo() {
+        return cargo;
+    }
+
+    public double getDraft() {
+        return draft;
     }
 
     //showAddedShip (?)
