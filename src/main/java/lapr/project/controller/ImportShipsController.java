@@ -1,7 +1,16 @@
 package lapr.project.controller;
 
+import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.model.Ship;
+import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.VesselType;
+import lapr.project.domain.store.VesselTypeStore;
+import lapr.project.dto.PositionDTO;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.domain.model.Company;
+import lapr.project.dto.VesselTypeDTO;
+
+import java.util.Date;
 
 public class ImportShipsController {
 
@@ -10,11 +19,11 @@ public class ImportShipsController {
      */
     private final Company company;
 
-    private CreateShipController createShipController;
+    private Ship ship;
 
-    private RegisterVesselTypeController registerVesselTypeController;
+    private ShipPosition shipPosition;
 
-    private RegisterPositionController registerPositionController;
+    private VesselType vesselType;
 
     public ImportShipsController(){
         this(App.getInstance().getCompany());
@@ -27,21 +36,74 @@ public class ImportShipsController {
      */
     public ImportShipsController(Company company){
         this.company=company;
-        this.createShipController=new CreateShipController();
-        this.registerVesselTypeController=new RegisterVesselTypeController();
-        this.registerPositionController=new RegisterPositionController();
+        this.ship=null;
+        this.shipPosition=null;
+        this.vesselType=null;
+    }
+
+    public boolean registerPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
+        PositionsBST positionsBST = this.ship.getPositionsBST();
+        this.shipPosition =  new ShipPosition(this.ship.getMMSI(),baseDateTime,lat,lon,sog,cog,heading,transcieverClass);
+        return positionsBST.lookForPosition(shipPosition);
+    }
+
+    public boolean registerPosition(PositionDTO positionDTO){
+        PositionsBST positionsBST = this.ship.getPositionsBST();
+        //como é que vou ir buscar a bst se o ship nao esta criado??
+        //tenho de o criar para ele ter positions bst a partir do mmsi
+        //se ele já existe eu nao o crio, só o vou buscar à ship bst pelo mmsi
+        this.shipPosition =  new ShipPosition(this.ship.getMMSI(), positionDTO.getBaseDateTime(), positionDTO.getLat(), positionDTO.getLon(),
+                positionDTO.getSog(), positionDTO.getCog(), positionDTO.getHeading(), positionDTO.getTranscieverClass());
+        return positionsBST.lookForPosition(shipPosition);
+    }
+
+    public boolean savePosition(){
+        PositionsBST positionsBST = this.ship.getPositionsBST();
+        return positionsBST.savePosition(shipPosition);
+    }
+
+    public boolean createShip(ShipsFileDTO shipsFileDTO){
+        this.ship = new Ship(null,null,shipsFileDTO.getMmsi(),shipsFileDTO.getVesselName(),shipsFileDTO.getImo(),shipsFileDTO.getCallSign());
+        return true;
+    }
+
+    public boolean saveShip(){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean registerVesselType(int vesselTypeID, int length, int width, double draft, int cargo){
+        VesselTypeStore store = this.company.getVesselTypeStore();
+        this.vesselType=store.registerVesselType(vesselTypeID, length, width, draft, cargo);
+        return store.validateVesselType(vesselType);
+    }
+
+    public boolean registerVesselType(VesselTypeDTO vesselTypeDTO){
+        VesselTypeStore store = this.company.getVesselTypeStore();
+        this.vesselType = store.registerVesselType(vesselTypeDTO);
+        return store.validateVesselType(vesselType);
+    }
+
+    public boolean saveVesselType(){
+        VesselTypeStore store = this.company.getVesselTypeStore();
+        return store.saveVesselType(vesselType);
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
-        boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
-        if(existsVesselType)
-            registerVesselTypeController.saveVesselType();
-        boolean existsPosition = registerPositionController.registerPosition(shipsFileDTO.getPositionDTO());
+        /*if (this.company.getBstShip().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship
+            createShip(shipsFileDTO);
+            boolean existsVesselType = registerVesselType(shipsFileDTO.getVesselTypeDTO());
+            if(existsVesselType)
+                saveVesselType();
+
+        } else {
+            //ir buscar o ship pelo mmsi
+            this.ship=this.company.getBstShip().getShipByMmsiCode(shipsFileDTO.getMmsi());
+        }
+        boolean existsPosition = registerPosition(shipsFileDTO.getPositionDTO());
         if (existsPosition)
-            registerPositionController.savePosition();
-        createShipController.createShip(shipsFileDTO);
-        return createShipController.saveShip();
-        //throw new UnsupportedOperationException("Not supported yet.");
+            savePosition();
+        return saveShip();*/
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

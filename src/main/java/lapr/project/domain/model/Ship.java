@@ -108,6 +108,10 @@ public class Ship implements Comparable<Ship> {
         return callSign;
     }
 
+    public void setPositionsBST(PositionsBST positionsBST) {
+        this.positionsBST = positionsBST;
+    }
+
     /**
      * Returns the total movements of the ship
      *

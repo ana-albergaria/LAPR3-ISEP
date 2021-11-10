@@ -13,11 +13,11 @@ public class ShipsFileDTO {
 
     private String vesselName;
 
-    private int imo;
+    private String imo;
 
     private String callSign;
 
-    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, int imo, String callSign) {
+    public ShipsFileDTO(VesselTypeDTO vesselTypeDTO, PositionDTO positionDTO, int mmsi, String vesselName, String imo, String callSign) {
         this.vesselTypeDTO = vesselTypeDTO;
         this.positionDTO = positionDTO;
         this.mmsi=mmsi;
@@ -42,7 +42,7 @@ public class ShipsFileDTO {
         return vesselName;
     }
 
-    public int getImo() {
+    public String getImo() {
         return imo;
     }
 

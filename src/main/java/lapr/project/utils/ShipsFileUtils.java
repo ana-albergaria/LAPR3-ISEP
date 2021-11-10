@@ -43,7 +43,7 @@ public class ShipsFileUtils {
                 positionToDto(shipData),
                 Integer.parseInt(shipData[dataLabels.indexOf("MMSI")]),
                 shipData[dataLabels.indexOf("VesselName")],
-                Integer.parseInt(shipData[dataLabels.indexOf("IMO")]),
+                shipData[dataLabels.indexOf("IMO")],
                 shipData[dataLabels.indexOf("CallSign")]);
     }
 
