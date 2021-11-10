@@ -1,7 +1,8 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
-import lapr.project.domain.BST.ShipsBST;
+import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.store.ShipStore;
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -20,14 +21,14 @@ public class Company {
     /**
      * The Ships' binary search tree.
      */
-    private final ShipsBST shipsBST;
+    private final ShipStore shipsStore;
 
     public Company(String designation){
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");
         this.authFacade=new AuthFacade();
         this.designation=designation;
-        this.shipsBST = new ShipsBST();
+        this.shipsStore = new ShipStore();
     }
 
     /**
@@ -35,8 +36,8 @@ public class Company {
      *
      * @return the Ships' binary search tree.
      */
-    public ShipsBST getBstShip() {
-        return shipsBST;
+    public ShipStore getShipStore() {
+        return shipsStore;
     }
 
     /**

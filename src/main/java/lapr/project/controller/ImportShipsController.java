@@ -55,16 +55,16 @@ public class ImportShipsController {
 
     public boolean saveShip(){
         this.ship.setPositionsBST(positionsBST);
-        return this.company.getBstShip().saveShip(ship);
+        return this.company.getShipStore().saveShip(ship);
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
-        if (this.company.getBstShip().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship logo tem de se criar
+        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship logo tem de se criar
             this.ship = new Ship(null,shipsFileDTO.getMmsi(),shipsFileDTO.getVesselName(),shipsFileDTO.getImo(),shipsFileDTO.getCallSign(),
                     shipsFileDTO.getVesselType(),shipsFileDTO.getLength(),shipsFileDTO.getWidth(),shipsFileDTO.getDraft(),shipsFileDTO.getCargo());
         } else {
             //ir buscar o ship pelo mmsi
-            this.ship=this.company.getBstShip().getShipByMmsiCode(shipsFileDTO.getMmsi());
+            this.ship=this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
         }
         boolean existsPosition = registerPosition(shipsFileDTO.getPositionDTO());
         if (!existsPosition)
