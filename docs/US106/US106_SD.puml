@@ -32,9 +32,8 @@ STORE -> SHIP : positionBST = getPositionsBST()
 
 activate SHIP
 deactivate SHIP
-STORE -> BST : startDate = getStartDate()
+STORE -> BST : baseDateTime = getShipDate(mmsi)
 activate BST
-STORE -> BST : endDate = getEndDate()
 deactivate STORE
 BST -> POS : getBaseDateTime()
 activate POS
@@ -44,24 +43,24 @@ deactivate POS
 CTRL -> UI : shipList
 deactivate CTRL
 
-UI -> CTRL : List<E> sortNShips(shipList, N)
+UI -> CTRL : Map<VesselType, Map<Ship, Set<Double>>> getShipWithMean(listShip, num)
 activate CTRL
-CTRL -> STORE : sortedShips = List<E> sortNShips(shipList, N)
+CTRL -> STORE : shipByVessel = Map<VesselType, Map<Ship, Set<Double>>> getShipWithMean(listShip, num)
 activate STORE
-STORE -> BST : travelledDistance = getTotalDistance(code)
-activate BST
-deactivate BST
-deactivate STORE
-UI -> CTRL : Map<String, List<E>> getShipWithMean(sortedShips)
-CTRL -> STORE : shipByVessel = Map<String, List<E>> getShipWithMean(sortedShips)
-activate STORE
-STORE -> SHIP : code = getCode()
-activate SHIP
-deactivate SHIP
+STORE -> STORE : List<E> sortNShips(shipList)
 STORE -> SHIP : getVesselType()
 activate SHIP
 deactivate SHIP
-STORE -> BST : getMeanSOG()
+
+STORE -> SHIP : positionBST = getPositionsBST()
+activate SHIP
+deactivate SHIP
+
+STORE -> BST : totalDistance = getTotalDistance()
+activate BST
+deactivate BST
+
+STORE -> BST : meanSOG = getMeanSOG()
 activate BST
 deactivate BST
 deactivate STORE

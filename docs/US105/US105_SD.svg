@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="981px" preserveAspectRatio="none" style="width:2201px;height:981px;background:#FFFFFF;" version="1.1" viewBox="0 0 2201 981" width="2201px" zoomAndPan="magnify"><defs><filter height="300%" id="fih3u4ts8ype4" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="786.0859" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="99.6094"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="748.7344" style="stroke:#A80036;stroke-width:1.0;" width="10" x="693.5" y="121.9609"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="181.4063" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1095.5" y="177.6641"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="225.4609" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1095.5" y="389.4219"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="195.1094" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1095.5" y="645.2344"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="90.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1551.5" y="268.3672"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="164.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1551.5" y="419.7734"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="164.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1551.5" y="675.5859"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1894.5" y="208.0156"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="60.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1991" y="450.125"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="97.0547" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1991" y="705.9375"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="2149.5" y="298.7188"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="741.7344" style="stroke:#000000;stroke-width:2.0;" width="2177.5" x="10" y="136.9609"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="51" x2="51" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="698" x2="698" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1100" x2="1100" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1556" x2="1556" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1899.5" x2="1899.5" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1995.5" x2="1995.5" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="2087.5" x2="2087.5" y1="89.6094" y2="895.6953"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="2154.5" x2="2154.5" y1="89.6094" y2="895.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="20" y="86.5332">Unknown</text><ellipse cx="51.5" cy="15" fill="#FEFECE" filter="url(#fih3u4ts8ype4)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M51.5,23 L51.5,50 M38.5,31 L64.5,31 M51.5,50 L38.5,65 M51.5,50 L64.5,65 " fill="none" filter="url(#fih3u4ts8ype4)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="20" y="909.2285">Unknown</text><ellipse cx="51.5" cy="922.3047" fill="#FEFECE" filter="url(#fih3u4ts8ype4)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M51.5,930.3047 L51.5,957.3047 M38.5,938.3047 L64.5,938.3047 M51.5,957.3047 L38.5,972.3047 M51.5,957.3047 L64.5,972.3047 " fill="none" filter="url(#fih3u4ts8ype4)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="63" x="665" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="672" y="74.5332">AllListUI</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="63" x="665" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="672" y="916.2285">AllListUI</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="113" x="1042" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="1049" y="74.5332">AllListController</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="113" x="1042" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="1049" y="916.2285">AllListController</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="69" x="1520" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="1527" y="74.5332">ShipBST</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="69" x="1520" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="1527" y="916.2285">ShipBST</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="74" x="1860.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="1867.5" y="74.5332">Company</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="74" x="1860.5" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="1867.5" y="916.2285">Company</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="91" x="1948.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="1955.5" y="74.5332">PositionBST</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="91" x="1948.5" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="1955.5" y="916.2285">PositionBST</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="64" x="2053.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="2060.5" y="74.5332">Position</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="64" x="2053.5" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="2060.5" y="916.2285">Position</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="42" x="2131.5" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="2138.5" y="74.5332">Ship</text><rect fill="#FEFECE" filter="url(#fih3u4ts8ype4)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="42" x="2131.5" y="894.6953"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="2138.5" y="916.2285">Ship</text><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="786.0859" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="99.6094"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="748.7344" style="stroke:#A80036;stroke-width:1.0;" width="10" x="693.5" y="121.9609"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="181.4063" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1095.5" y="177.6641"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="225.4609" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1095.5" y="389.4219"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="195.1094" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1095.5" y="645.2344"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="90.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1551.5" y="268.3672"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="164.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1551.5" y="419.7734"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="164.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1551.5" y="675.5859"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1894.5" y="208.0156"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="60.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1991" y="450.125"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="97.0547" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1991" y="705.9375"/><rect fill="#FFFFFF" filter="url(#fih3u4ts8ype4)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="2149.5" y="298.7188"/><polygon fill="#A80036" points="681.5,117.9609,691.5,121.9609,681.5,125.9609,685.5,121.9609" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="687.5" y1="121.9609" y2="121.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="63.5" y="117.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="607" x="74.5" y="117.1045">asks to list for all ships the MMSI, the total number of movements, Travelled Distance and Delta Distance</text><path d="M10,136.9609 L83,136.9609 L83,144.9609 L73,154.9609 L10,154.9609 L10,136.9609 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="741.7344" style="stroke:#000000;stroke-width:2.0;" width="2177.5" x="10" y="136.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="28" x="25" y="151.4561">loop</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="238" x="98" y="150.3799">[while traffic manager wants to check data]</text><polygon fill="#A80036" points="1083.5,173.6641,1093.5,177.6641,1083.5,181.6641,1087.5,177.6641" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="703.5" x2="1089.5" y1="177.6641" y2="177.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="710.5" y="172.8076">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124" x="721.5" y="172.8076">List&lt;E&gt; getAllShips()</text><polygon fill="#A80036" points="1882.5,204.0156,1892.5,208.0156,1882.5,212.0156,1886.5,208.0156" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1105.5" x2="1888.5" y1="208.0156" y2="208.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="1112.5" y="203.1592">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="149" x="1123.5" y="203.1592">shipBST = getShipsBST()</text><polygon fill="#A80036" points="1539.5,264.3672,1549.5,268.3672,1539.5,272.3672,1543.5,268.3672" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1105.5" x2="1545.5" y1="268.3672" y2="268.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="1112.5" y="263.5107">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1123.5" y="263.5107">allShip = List&lt;E&gt; getAllShips()</text><polygon fill="#A80036" points="2137.5,294.7188,2147.5,298.7188,2137.5,302.7188,2141.5,298.7188" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="2143.5" y1="298.7188" y2="298.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="1568.5" y="293.8623">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="108" x="1579.5" y="293.8623">mmsi = getMMSI()</text><polygon fill="#A80036" points="714.5,355.0703,704.5,359.0703,714.5,363.0703,710.5,359.0703" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="708.5" x2="1099.5" y1="359.0703" y2="359.0703"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="720.5" y="354.2139">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39" x="731.5" y="354.2139">allShip</text><polygon fill="#A80036" points="1083.5,385.4219,1093.5,389.4219,1083.5,393.4219,1087.5,389.4219" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="703.5" x2="1089.5" y1="389.4219" y2="389.4219"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="710.5" y="384.5654">7</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="362" x="721.5" y="384.5654">Map&lt;mmsi, List&lt;Double&gt;&gt; sortedByTravelledDistance(allShip)</text><polygon fill="#A80036" points="1539.5,415.7734,1549.5,419.7734,1539.5,423.7734,1543.5,419.7734" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1105.5" x2="1545.5" y1="419.7734" y2="419.7734"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="1112.5" y="414.917">8</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="416" x="1123.5" y="414.917">allMap = Map&lt;mmsi, List&lt;Double&gt;&gt; sortedByTravelledDistance(allShip)</text><polygon fill="#A80036" points="1979,446.125,1989,450.125,1979,454.125,1983,450.125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1985" y1="450.125" y2="450.125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="1568.5" y="445.2686">9</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="219" x="1579.5" y="445.2686">travelledDistance = getTotalDistance()</text><polygon fill="#A80036" points="1979,476.4766,1989,480.4766,1979,484.4766,1983,480.4766" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1985" y1="480.4766" y2="480.4766"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="475.6201">10</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="152" x="1586.5" y="475.6201">numOfMovements = size()</text><polygon fill="#A80036" points="1984,506.8281,1994,510.8281,1984,514.8281,1988,510.8281" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1990" y1="510.8281" y2="510.8281"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="505.9717">11</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="1586.5" y="505.9717">deltaDistance = getDeltaDistance()</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1603.5" y1="541.1797" y2="541.1797"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1603.5" x2="1603.5" y1="541.1797" y2="554.1797"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1562.5" x2="1603.5" y1="554.1797" y2="554.1797"/><polygon fill="#A80036" points="1572.5,550.1797,1562.5,554.1797,1572.5,558.1797,1568.5,554.1797" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="536.3232">12</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="294" x="1586.5" y="536.3232">void sortByTravelledDistance(node, allMap, allShip)</text><polygon fill="#A80036" points="714.5,580.5313,704.5,584.5313,714.5,588.5313,710.5,584.5313" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="708.5" x2="1094.5" y1="584.5313" y2="584.5313"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="720.5" y="579.6748">13</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="38" x="738.5" y="579.6748">allMap</text><polygon fill="#A80036" points="67.5,610.8828,57.5,614.8828,67.5,618.8828,63.5,614.8828" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="61.5" x2="692.5" y1="614.8828" y2="614.8828"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="73.5" y="610.0264">14</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="239" x="91.5" y="610.0264">show ships ordered by Travelled Distance</text><polygon fill="#A80036" points="1083.5,641.2344,1093.5,645.2344,1083.5,649.2344,1087.5,645.2344" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="703.5" x2="1089.5" y1="645.2344" y2="645.2344"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="710.5" y="640.3779">15</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="355" x="728.5" y="640.3779">Map&lt;mmsi, List&lt;Double&gt;&gt; sortedByTotalMovements(allShip)</text><polygon fill="#A80036" points="1539.5,671.5859,1549.5,675.5859,1539.5,679.5859,1543.5,675.5859" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1105.5" x2="1545.5" y1="675.5859" y2="675.5859"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1112.5" y="670.7295">16</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="355" x="1130.5" y="670.7295">Map&lt;mmsi, List&lt;Double&gt;&gt; sortedByTotalMovements(allShip)</text><polygon fill="#A80036" points="1979,701.9375,1989,705.9375,1979,709.9375,1983,705.9375" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1985" y1="705.9375" y2="705.9375"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="701.0811">17</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="219" x="1586.5" y="701.0811">travelledDistance = getTotalDistance()</text><polygon fill="#A80036" points="1979,732.2891,1989,736.2891,1979,740.2891,1983,736.2891" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1985" y1="736.2891" y2="736.2891"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="731.4326">18</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="152" x="1586.5" y="731.4326">numOfMovements = size()</text><polygon fill="#A80036" points="1979,762.6406,1989,766.6406,1979,770.6406,1983,766.6406" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1985" y1="766.6406" y2="766.6406"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="761.7842">19</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="1586.5" y="761.7842">deltaDistance = getDeltaDistance()</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1561.5" x2="1603.5" y1="801.9922" y2="801.9922"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1603.5" x2="1603.5" y1="801.9922" y2="814.9922"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1556.5" x2="1603.5" y1="814.9922" y2="814.9922"/><polygon fill="#A80036" points="1566.5,810.9922,1556.5,814.9922,1566.5,818.9922,1562.5,814.9922" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="1568.5" y="797.1357">20</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="301" x="1586.5" y="797.1357">void sortedByTotalMovements(node, allMap, allShip)</text><polygon fill="#A80036" points="714.5,836.3438,704.5,840.3438,714.5,844.3438,710.5,840.3438" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="708.5" x2="1099.5" y1="840.3438" y2="840.3438"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="720.5" y="835.4873">21</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="38" x="738.5" y="835.4873">allMap</text><polygon fill="#A80036" points="67.5,866.6953,57.5,870.6953,67.5,874.6953,63.5,870.6953" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="61.5" x2="697.5" y1="870.6953" y2="870.6953"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="14" x="73.5" y="865.8389">22</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="295" x="91.5" y="865.8389">show ships ordered by Total Number of Movements</text><!--MD5=[58c26a9673669779fa53fc29c25591bd]
+@startuml
+autonumber
+'hide footbox
+actor "Unknown" as ADM
+
+participant "AllListUI" as UI
+participant "AllListController" as CTRL
+participant "ShipBST" as STORE
+participant "Company" as COMP
+participant "PositionBST" as BST
+participant "Position" as POS
+participant "Ship" as SHIP
+
+
+activate ADM
+ADM -> UI : asks to list for all ships the MMSI, the total number of movements, Travelled Distance and Delta Distance
+activate UI
+loop while traffic manager wants to check data
+UI -> CTRL : List<E> getAllShips()
+activate CTRL
+CTRL -> COMP : shipBST = getShipsBST()
+activate COMP
+deactivate COMP
+CTRL -> STORE : allShip = List<E> getAllShips()
+activate STORE
+STORE -> SHIP : mmsi = getMMSI()
+activate SHIP
+deactivate SHIP
+CTRL -> UI : allShip
+deactivate STORE
+deactivate CTRL
+
+UI -> CTRL : Map<mmsi, List<Double>> sortedByTravelledDistance(allShip)
+activate CTRL
+CTRL -> STORE : allMap = Map<mmsi, List<Double>> sortedByTravelledDistance(allShip)
+activate STORE
+STORE -> BST : travelledDistance = getTotalDistance()
+activate BST
+STORE -> BST : numOfMovements = size()
+STORE -> BST : deltaDistance = getDeltaDistance()
+deactivate BST
+STORE -> STORE : void sortByTravelledDistance(node, allMap, allShip)
+CTRL -> UI : allMap
+deactivate STORE
+UI -> ADM : show ships ordered by Travelled Distance
+deactivate CTRL
+
+UI -> CTRL : Map<mmsi, List<Double>> sortedByTotalMovements(allShip)
+activate CTRL
+CTRL -> STORE : Map<mmsi, List<Double>> sortedByTotalMovements(allShip)
+activate STORE
+STORE -> BST : travelledDistance = getTotalDistance()
+activate BST
+STORE -> BST : numOfMovements = size()
+STORE -> BST : deltaDistance = getDeltaDistance()
+STORE -> STORE : void sortedByTotalMovements(node, allMap, allShip)
+deactivate BST
+CTRL -> UI : allMap
+
+deactivate STORE
+
+deactivate CTRL
+UI -> ADM : show ships ordered by Total Number of Movements
+deactivate UI
+end
+deactivate ADM
+
+@enduml
+
+@startuml
+autonumber
+actor "Unknown" as ADM
+
+participant "AllListUI" as UI
+participant "AllListController" as CTRL
+participant "ShipBST" as STORE
+participant "Company" as COMP
+participant "PositionBST" as BST
+participant "Position" as POS
+participant "Ship" as SHIP
+
+
+activate ADM
+ADM -> UI : asks to list for all ships the MMSI, the total number of movements, Travelled Distance and Delta Distance
+activate UI
+loop while traffic manager wants to check data
+UI -> CTRL : List<E> getAllShips()
+activate CTRL
+CTRL -> COMP : shipBST = getShipsBST()
+activate COMP
+deactivate COMP
+CTRL -> STORE : allShip = List<E> getAllShips()
+activate STORE
+STORE -> SHIP : mmsi = getMMSI()
+activate SHIP
+deactivate SHIP
+CTRL -> UI : allShip
+deactivate STORE
+deactivate CTRL
+
+UI -> CTRL : Map<mmsi, List<Double>> sortedByTravelledDistance(allShip)
+activate CTRL
+CTRL -> STORE : allMap = Map<mmsi, List<Double>> sortedByTravelledDistance(allShip)
+activate STORE
+STORE -> BST : travelledDistance = getTotalDistance()
+activate BST
+STORE -> BST : numOfMovements = size()
+STORE -> BST : deltaDistance = getDeltaDistance()
+deactivate BST
+STORE -> STORE : void sortByTravelledDistance(node, allMap, allShip)
+CTRL -> UI : allMap
+deactivate STORE
+UI -> ADM : show ships ordered by Travelled Distance
+deactivate CTRL
+
+UI -> CTRL : Map<mmsi, List<Double>> sortedByTotalMovements(allShip)
+activate CTRL
+CTRL -> STORE : Map<mmsi, List<Double>> sortedByTotalMovements(allShip)
+activate STORE
+STORE -> BST : travelledDistance = getTotalDistance()
+activate BST
+STORE -> BST : numOfMovements = size()
+STORE -> BST : deltaDistance = getDeltaDistance()
+STORE -> STORE : void sortedByTotalMovements(node, allMap, allShip)
+deactivate BST
+CTRL -> UI : allMap
+
+deactivate STORE
+
+deactivate CTRL
+UI -> ADM : show ships ordered by Total Number of Movements
+deactivate UI
+end
+deactivate ADM
+
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 14:26:11 BST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>
