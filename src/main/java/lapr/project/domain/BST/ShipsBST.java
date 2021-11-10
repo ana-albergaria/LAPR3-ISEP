@@ -4,7 +4,9 @@ import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
 import lapr.project.domain.shared.Constants;
+import lapr.project.utils.ShipDeltaDistanceComparato;
 import lapr.project.utils.ShipTravelledDistanceComparator;
+
 
 import java.util.*;
 
@@ -59,8 +61,6 @@ public class ShipsBST extends BST<Ship> {
      */
     private void getShipsByDate(Node<Ship> node, Date initialDate, Date finalDate, List<Ship> shipList) {
         if(node==null) return;
-        Date x = node.getElement().getPositionsBST().getStartDate();
-        Date y = node.getElement().getPositionsBST().getEndDate();
 
         if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate) && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
             if (!shipList.contains(node.getElement())){
@@ -84,14 +84,14 @@ public class ShipsBST extends BST<Ship> {
     /**
      * method to sort the ships with the most km travelled
      * @param shipList list with the ships belonging in the time gap
-     * @param number number of ships to be sorted
      */
-    public List<Ship> sortNShips(List<Ship> shipList, int number) {
+    public List<Ship> sortNShips(List<Ship> shipList) {
 
         ShipTravelledDistanceComparator comparator = new ShipTravelledDistanceComparator();
 
+
         Collections.sort(shipList, comparator);
-        return shipList.subList(0, number);
+        return shipList;
 
         //throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -99,23 +99,37 @@ public class ShipsBST extends BST<Ship> {
 
     /**
      * method to get the map with the ships associated by VesselType and sorted
-     * @param sortedShips list with the sorted ships by most km travelled
+     * @param listShip list with the sorted ships by most km travelled
      * @return map with the ships associated by VesselType and sorted
      */
-    public Map<VesselType, Set<Ship>> getShipWithMean(Set<Ship> sortedShips) {
-        Map<VesselType, Set<Ship>> map = new HashMap<>();
-        Set<Ship> setter = new HashSet<>(sortedShips);
+    public Map<VesselType, Map<Ship, Set<Double>>> getShipWithMean(List<Ship> listShip, int number) {
+        Map<VesselType,  Map<Ship, Set<Double>>> map = new HashMap<>();
+        Map<Ship, Set<Double>> shipMap = new HashMap<>();
+        Set<Double> setter = new HashSet<>();
         VesselType vessel = null;
 
-        for (Ship x: sortedShips) {
+        listShip = sortNShips(listShip);
+
+        for (Ship x: listShip) {
             if (!map.containsKey(x.getVesselType())){
+                shipMap = new HashMap<>();
                 vessel = x.getVesselType();
                 setter = new HashSet<>();
-                setter.add(x);
-                map.put(vessel, setter);    //falta só associar com meanSOG
+                setter.add(x.getPositionsBST().getTotalDistance());
+                setter.add(x.getPositionsBST().getMeanSog());
+                if (shipMap.size() <= number) {
+                    shipMap.put(x, setter);
+                    map.put(vessel, shipMap);
+                }
             } else {
-                setter = map.get(x.getVesselType());
-                setter.add(x);
+                shipMap = map.get(x.getVesselType());
+                setter = shipMap.get(x);
+                setter.add(x.getPositionsBST().getTotalDistance());
+                setter.add(x.getPositionsBST().getMeanSog());
+                if (shipMap.size() <= number) {
+                    shipMap.put(x, setter);
+                    map.put(vessel, shipMap);
+                }
             }
         }
 
@@ -124,6 +138,88 @@ public class ShipsBST extends BST<Ship> {
 
         //throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    /**
+     * method to get all the ships in the BST
+     * @return list with all the ships in the BST
+     */
+    public List<Ship> getAllShips() {
+        List<Ship> allShip = new ArrayList<>();
+
+        getAllShips(root, allShip);
+
+        return allShip;
+    }
+
+    public void getAllShips(Node<Ship> node, List<Ship> list) {
+        if (node == null) return;
+
+        if (list.contains(node.getElement())){
+            getAllShips(node.getRight(), list);
+            getAllShips(node.getLeft(), list);
+        } else {
+            list.add(node.getElement());
+            getAllShips(node.getRight(), list);
+            getAllShips(node.getLeft(), list);
+        }
+    }
+
+    /**
+     * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
+     * of all the ships sorted By Total Travelled Distance
+     * @param list list with all the ships
+     * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
+     * of all the ships sorted By Total Travelled Distance
+     */
+    public Map<Integer, Set<Double>> sortedByTravelledDistance(List<Ship> list) {
+        Map<Integer, Set<Double>> mapByTravelled = new LinkedHashMap<>();
+        sortedByTravelledDistance(root, mapByTravelled, list);
+        return mapByTravelled;
+    }
+
+    public void sortedByTravelledDistance(Node<Ship> node, Map<Integer, Set<Double>> map, List<Ship> list) {
+        ShipTravelledDistanceComparator comparator = new ShipTravelledDistanceComparator();
+        Collections.sort(list, comparator);
+
+        for (Ship x : list) {
+            if (!map.containsKey(x.getMMSI())) {
+                Set<Double> setter = new LinkedHashSet<>();
+                setter.add(x.getPositionsBST().getDeltaDistance());
+                setter.add(x.getPositionsBST().getTotalDistance());
+                setter.add((double) x.getPositionsBST().size());
+                map.put(x.getMMSI(), setter);
+            }
+        }
+    }
+
+    /**
+     * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
+     * of all the ships sorted By Total Movements
+     * @param list list with all the ships
+     * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
+     *  of all the ships sorted By Total Movements
+     */
+    public Map<Integer, Set<Double>> sortedByTotalMovements(List<Ship> list) {
+        Map<Integer, Set<Double>> mapByMovements = new LinkedHashMap<>();
+        sortedByTotalMovements(root, mapByMovements, list);
+        return mapByMovements;
+    }
+
+    public void  sortedByTotalMovements(Node<Ship> node, Map<Integer, Set<Double>> map, List<Ship> list) {
+        ShipDeltaDistanceComparato comparator = new ShipDeltaDistanceComparato();
+        Collections.sort(list, comparator);
+
+        for (Ship x : list) {
+            if (!map.containsKey(x.getMMSI())) {
+                Set<Double> setter = new HashSet<>();
+                setter.add(x.getPositionsBST().getDeltaDistance());
+                setter.add(x.getPositionsBST().getTotalDistance());
+                setter.add((double) x.getPositionsBST().size());
+                map.put(x.getMMSI(), setter);
+            }
+        }
+    }
+
 
     public List<TreeMap<Double, String>> getPairsOfShips() {
         /*List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();

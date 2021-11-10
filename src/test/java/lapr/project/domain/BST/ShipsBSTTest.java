@@ -10,17 +10,18 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ShipsBSTTest {
 
     /* Atributes for the Ship */
     private VesselType vesselType;
     private VesselType vesselType2;
-    private PositionsBST positionsBST;
+    private PositionsBST posBST;
+    private PositionsBST posBST1;
+    private PositionsBST posBST2;
+    private PositionsBST posBST3;
+    private PositionsBST posBST4;
 
     Date[] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
@@ -58,14 +59,27 @@ public class ShipsBSTTest {
     public void setUp() {
         vesselType = new VesselType(70, 294,32,13.6,79);
         vesselType2 = new VesselType(80, 250, 50, 25, 65);
-        positionsBST = new PositionsBST();
+        posBST = new PositionsBST();
+        posBST1 = new PositionsBST();
+        posBST2 = new PositionsBST();
+        posBST3 = new PositionsBST();
         shipsBST = new ShipsBST();
-        for(int i=0; i<4;i++){
-            positionsBST.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
-        }
-        for(int i=0; i<4;i++){
-            shipsBST.insert(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
-        }
+
+        posBST.insert(new ShipPosition(mmsiCodes[0], d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass));
+        posBST.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
+        posBST1.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
+        posBST1.insert(new ShipPosition(mmsiCodes[2], d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass));
+        posBST2.insert(new ShipPosition(mmsiCodes[2], d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass));
+        posBST2.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
+        posBST3.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
+        posBST3.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
+
+        //System.out.println(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
+        shipsBST.insert(new Ship(vesselType, posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
+        shipsBST.insert(new Ship(vesselType, posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        shipsBST.insert(new Ship(vesselType, posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
+        shipsBST.insert(new Ship(vesselType, posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3]));
+
 
         /* for US7 */
 
@@ -107,7 +121,7 @@ public class ShipsBSTTest {
     @Test
     public void getShipByExistentMmsiCode() {
         int mmsiToBeTested = 123456789;
-        Ship expShip = new Ship(vesselType, positionsBST, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3]);
+        Ship expShip = new Ship(vesselType, posBST, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3]);
 
         Ship ship = shipsBST.getShipByMmsiCode(mmsiToBeTested);
 
@@ -138,8 +152,8 @@ public class ShipsBSTTest {
 
         List<Ship> testList = shipsBST.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("06/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("11/01/2021"));
         List<Ship> expectedList = new ArrayList<>();
-        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
-        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
+        expectedList.add(new Ship(vesselType, posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        expectedList.add(new Ship(vesselType, posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
 
 
         Assert.assertEquals(expectedList, testList);
@@ -150,14 +164,149 @@ public class ShipsBSTTest {
      */
     @Test
     public void sortNshipsCorrect() throws ParseException {
-        List<Ship> testList = shipsBST.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("14/01/2021"));
-        List<Ship> test1 = shipsBST.sortNShips(testList, 2);
-        List<Ship> expectedList = new ArrayList<>();
-        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
-        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        List<Ship> testList = new LinkedList<>();
+        testList.add(new Ship(vesselType, posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
+        testList.add(new Ship(vesselType, posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        testList.add(new Ship(vesselType, posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
+        testList.add(new Ship(vesselType, posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3]));
 
+        List<Ship> test1 = shipsBST.sortNShips(testList);
+
+        List<Ship> expectedList = new LinkedList<>();
+        expectedList.add(new Ship(vesselType, posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
+        expectedList.add(new Ship(vesselType, posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3]));
+        expectedList.add(new Ship(vesselType, posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        expectedList.add(new Ship(vesselType, posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
 
         Assert.assertEquals(expectedList, test1);
+    }
+
+    /**
+     * ensure the ships are associated with the correct vessel type
+     */
+   /* @Test
+    public void getMapWithTopNAssociatedWithVesselType(){
+        Map<VesselType, Set<Ship>> testMap = new HashMap<VesselType, Set<Ship>>();
+        Set<Ship> expectedList = new HashSet<>();
+        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
+        expectedList.add(new Ship(vesselType2, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        testMap = shipsBST.getShipWithMean(expectedList);
+
+        Set<Ship> vesselTypeList1 = new HashSet<>();
+        vesselTypeList1.add(new Ship(vesselType, positionsBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
+        Set<Ship> vesselTypeList2 = new HashSet<>();
+        vesselTypeList2.add(new Ship(vesselType2, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+
+        Map<VesselType, Set<Ship>> expectedMap = new HashMap<VesselType, Set<Ship>>(){ {
+            put(vesselType, vesselTypeList1);
+            put(vesselType2, vesselTypeList2);
+
+        }
+        };
+
+        Assert.assertEquals(testMap, expectedMap);
+    }
+
+    */
+
+    /**
+     * ensure all the ships are int the List
+     */
+    @Test
+    public void getAllShipsMMSI() {
+        List<Ship> expectedList = new ArrayList<>();
+        for (int i=0; i<4; i++) {
+            expectedList.add(new Ship(vesselType, posBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
+        }
+
+        List<Ship> actualList = shipsBST.getAllShips();
+
+        Assert.assertEquals(expectedList, actualList);
+    }
+
+
+    @Test
+    public void mapOrderedByTravelledDistance() {
+        Set<Double> l1 = new HashSet<>();
+        Ship s1 = shipsBST.getShipByMmsiCode(mmsiCodes[0]);
+        l1.add(s1.getPositionsBST().getTotalDistance());
+        l1.add(s1.getPositionsBST().getDeltaDistance());
+        l1.add((double) s1.getPositionsBST().size());
+
+        Set<Double> l2 = new HashSet<>();
+        Ship s2 = shipsBST.getShipByMmsiCode(mmsiCodes[1]);
+        l2.add(s2.getPositionsBST().getTotalDistance());
+        l2.add(s2.getPositionsBST().getDeltaDistance());
+        l2.add((double) s2.getPositionsBST().size());
+
+        Set<Double> l3 = new HashSet<>();
+        Ship s3 = shipsBST.getShipByMmsiCode(mmsiCodes[2]);
+        l3.add(s3.getPositionsBST().getTotalDistance());
+        l3.add(s3.getPositionsBST().getDeltaDistance());
+        l3.add((double) s3.getPositionsBST().size());
+
+        Set<Double> l4 = new HashSet<>();
+        Ship s4 = shipsBST.getShipByMmsiCode(mmsiCodes[3]);
+        l4.add(s4.getPositionsBST().getTotalDistance());
+        l4.add(s4.getPositionsBST().getDeltaDistance());
+        l4.add((double) s4.getPositionsBST().size());
+
+        Map<Integer, Set<Double>> expectedMap = new LinkedHashMap<Integer, Set<Double>>(){
+            {
+
+                put(mmsiCodes[2], l3);
+                put(mmsiCodes[3], l4);
+                put(mmsiCodes[1], l2);
+                put(mmsiCodes[0], l1);
+
+            }
+        };
+
+        List<Ship> expectedList = new ArrayList<>();
+        expectedList.add(new Ship(vesselType, posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
+        expectedList.add(new Ship(vesselType, posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        expectedList.add(new Ship(vesselType, posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2]));
+        expectedList.add(new Ship(vesselType, posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3]));
+
+        Map<Integer, Set<Double>> actualMap = shipsBST.sortedByTravelledDistance(expectedList);
+
+        Assert.assertEquals(expectedMap, actualMap);
+    }
+
+    @Test
+    public void mapOrderedByMovements() {
+        Set<Double> l1 = new HashSet<>();
+        Ship s1 = shipsBST.getShipByMmsiCode(mmsiCodes[0]);
+        l1.add(s1.getPositionsBST().getTotalDistance());
+        l1.add(s1.getPositionsBST().getDeltaDistance());
+        l1.add((double) s1.getPositionsBST().size());
+
+        Set<Double> l2 = new HashSet<>();
+        Ship s2 = shipsBST.getShipByMmsiCode(mmsiCodes[1]);
+        l2.add(s2.getPositionsBST().getTotalDistance());
+        l2.add(s2.getPositionsBST().getDeltaDistance());
+        l2.add((double) s2.getPositionsBST().size());
+
+        Set<Double> l3 = new HashSet<>();
+        Ship s3 = shipsBST.getShipByMmsiCode(mmsiCodes[2]);
+        l3.add(s3.getPositionsBST().getTotalDistance());
+        l3.add(s3.getPositionsBST().getDeltaDistance());
+        l3.add((double) s3.getPositionsBST().size());
+
+        Set<Double> l4 = new HashSet<>();
+        Ship s4 = shipsBST.getShipByMmsiCode(mmsiCodes[3]);
+        l4.add(s4.getPositionsBST().getTotalDistance());
+        l4.add(s4.getPositionsBST().getDeltaDistance());
+        l4.add((double) s4.getPositionsBST().size());
+
+        Map<Integer, Set<Double>> expectedMap = new LinkedHashMap<Integer, Set<Double>>(){
+            {
+                put(mmsiCodes[1], l2);
+                put(mmsiCodes[2], l3);
+                put(mmsiCodes[3], l4);
+                put(mmsiCodes[0], l1);
+            }
+        };
     }
 
 
