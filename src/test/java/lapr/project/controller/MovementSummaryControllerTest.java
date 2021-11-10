@@ -4,7 +4,6 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
-import lapr.project.domain.model.VesselType;
 import lapr.project.dto.MovementsSummaryDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import java.util.Date;
 
 class MovementSummaryControllerTest {
     private Company comp;
-    private VesselType vesselType;
     private int mmsi1, mmsi3, mmsi4;
     private String vesselName;
     private String imo;
@@ -40,7 +38,6 @@ class MovementSummaryControllerTest {
     @BeforeEach
     public void setUp(){
         comp = new Company("Shipping company");
-        vesselType = new VesselType(70, 294,32,13.6,79);
         PositionsBST positions = new PositionsBST();
         for(int i=0; i<3;i++){
             positions.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
@@ -51,10 +48,10 @@ class MovementSummaryControllerTest {
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
-        s1 = new Ship(vesselType, positions, mmsi1, vesselName, imo, callSign);
-        s2 = new Ship(vesselType, positions, mmsi1, vesselName, imo, callSign);
-        s3 = new Ship(vesselType, positions, mmsi3, vesselName, imo, callSign);
-        s4 = new Ship(vesselType, positions, mmsi4, vesselName, imo, callSign);
+        s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s2 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s3 = new Ship(positions, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s4 = new Ship(positions, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,79);
 
         comp.getBstShip().insert(s1);
         comp.getBstShip().insert(s2);

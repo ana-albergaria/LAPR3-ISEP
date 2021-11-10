@@ -1,5 +1,7 @@
 @startuml
 
+@startuml
+
 skinparam classAttributeIconSize 0
 
 
@@ -25,18 +27,22 @@ class ShipPosition {
 }
 
 class ShipsBST {
-    +getShipByMmsiCode(mmsiCode)
+    +getPairsOfShips()
+    +getShipsInOrderWithIntendedTD()
+    +fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, \ntravelledDistance, positionsBST, ship1MMSI, indexShip)
 }
 
 class PositionsBST {
-    +getPositinalMessages(initialDate, finalDate)
+    +getTotalDistance()
+    +getArrivalDistance()
+    +getDepartureDistance()
+    +size()
 }
 
-class ShowPositionalMessagesUI {}
+class ShowPairsOfShipsUI {}
 
-class ShowPositionalMessagesController {
-    +isValidShip(mmsiCode)
-    +showPositionalMessages(initialDate, finalDate)
+class ShowPairsOfShipsController {
+
 }
 
 class Company {
@@ -51,11 +57,10 @@ Company "1" -- "1" ShipsBST : uses >
 ShipsBST "1" -- "1..*" Ship : owns >
 Ship "1" -- "1" PositionsBST : uses >
 PositionsBST "1" -- "1..*" ShipPosition : has >
-ShowPositionalMessagesUI ..> ShowPositionalMessagesController
-ShowPositionalMessagesController ..> Company
-ShowPositionalMessagesController ..> ShipsBST
-ShowPositionalMessagesController ..> Ship
-ShowPositionalMessagesController ..> PositionsBST
-
+ShowPairsOfShipsUI ..> ShowPairsOfShipsController
+ShowPairsOfShipsController ..> Company
+ShowPairsOfShipsController ..> ShipsBST
+ShowPairsOfShipsController ..> Ship
+ShowPairsOfShipsController ..> PositionsBST
 
 @enduml

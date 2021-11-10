@@ -4,7 +4,6 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
-import lapr.project.domain.model.VesselType;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -72,14 +71,14 @@ public class ShowPositionalMessagesController {
      * @param finalDate the final Date
      * @return a map containing information about the chosen ship and the positional messages
      */
-    public Map<String, List<String>> showPositionalMessages(Date initialDate, Date finalDate) {
+    public Map<Integer, List<String>> showPositionalMessages(Date initialDate, Date finalDate) {
         PositionsBST positionsBST = this.ship.getPositionsBST();
         List<String> listPositionalMessages = positionsBST.getPositionalMessages(initialDate, finalDate);
-        VesselType vesselType = this.ship.getVesselType();
-        Map<String, List<String>> messagesWithVesselType = new HashMap<>();
-        messagesWithVesselType.put(vesselType.toString(), listPositionalMessages);
+        Integer vesselType = this.ship.getVesselTypeID();
+        Map<Integer, List<String>> messagesWithVesselType = new HashMap<>();
+        messagesWithVesselType.put(vesselType, listPositionalMessages);
 
-       return messagesWithVesselType;
+        return messagesWithVesselType;
     }
 
 
