@@ -380,26 +380,39 @@ public class ShipsBSTTest {
      */
     @Test
     void fillTreeMapForEachShip() {
-        Iterator<Ship> listShipsWithIntendedTD = shipsBST3.inOrder().iterator();
+        List<Ship> listShipsWithIntendedTD = (List<Ship>) shipsBST3.inOrder();
+
 
         TreeMap<Double, String> expInfoPair = new TreeMap<>(Collections.reverseOrder());
         expInfoPair.put(18.0, String.format("%-15d%-15d%-15f%-15f%-15d%-15f%-15d%-15f%n", 111111111, 222222222, 5.0, 0.0, 4, 24.0, 4, 6.0));
 
 
         TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
-
-        Ship ship = listShipsWithIntendedTD.next();
+        Ship ship = listShipsWithIntendedTD.get(0);
+        int indexShip = listShipsWithIntendedTD.indexOf(ship);
 
         PositionsBST positionsBST = ship.getPositionsBST();
         Double travelledDistance = positionsBST.getTotalDistance();
 
-        shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI());
+        shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
 
-        /*for (Map.Entry<Double, String> entry : infoPair.entrySet()) {
+        for (Map.Entry<Double, String> entry : infoPair.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
         }
-         */
 
         Assertions.assertEquals(expInfoPair, infoPair);
+    }
+
+    @Test
+    void getPairsOfShips() {
+        List<TreeMap<Double, String>> listPairsOfShips = shipsBST3.getPairsOfShips();
+
+
+        for (TreeMap<Double, String> item : listPairsOfShips) {
+            for (Map.Entry<Double, String> entry : item.entrySet()) {
+                System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
+            }
+        }
+
     }
 }

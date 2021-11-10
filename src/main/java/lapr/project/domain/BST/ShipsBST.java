@@ -1,6 +1,7 @@
 package lapr.project.domain.BST;
 
 
+
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
@@ -9,6 +10,7 @@ import lapr.project.utils.ShipDeltaDistanceComparato;
 import lapr.project.utils.ShipTravelledDistanceComparator;
 
 
+import java.awt.font.FontRenderContext;
 import java.util.*;
 
 public class ShipsBST extends BST<Ship> {
@@ -223,39 +225,41 @@ public class ShipsBST extends BST<Ship> {
 
 
     public List<TreeMap<Double, String>> getPairsOfShips() {
-        /*List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
+        List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
         String header = String.format("%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs Ship 1", "TravelDist Ship1", "Movs Ship 2", "TravelDist Ship2", "TravelDist Diff");
 
 
-        Iterator<Ship> listShipsWithIntendedTD = getShipsInOrderWithIntendedTD().iterator();
+        List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD();
 
-        while(listShipsWithIntendedTD.hasNext()) {
+        for (Ship ship : listShipsWithIntendedTD) {
             TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
 
-            Ship ship = listShipsWithIntendedTD.next();
             PositionsBST positionsBST = ship.getPositionsBST();
             Double travelledDistance = positionsBST.getTotalDistance();
+            int indexShip = listShipsWithIntendedTD.indexOf(ship);
 
-            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI());
+            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
 
             listPairsOfShips.add(infoPair);
         }
         return listPairsOfShips;
 
-         */
-        throw new UnsupportedOperationException();
+
+        //throw new UnsupportedOperationException();
 
     }
 
-    public void fillTreeMapForEachShip(Iterator<Ship> listShipsWithIntendedTD,
+    public void fillTreeMapForEachShip(List<Ship> listShipsWithIntendedTD,
                                     TreeMap<Double, String> infoPair,
                                     Double travelledDistance,
                                     PositionsBST positionsBST,
-                                    int ship1MMSI) {
+                                    int ship1MMSI, int indexShip) {
 
 
-        while(listShipsWithIntendedTD.hasNext()) {
-            Ship ship2 = listShipsWithIntendedTD.next();
+        for (int i = indexShip+1; i < listShipsWithIntendedTD.size(); i++) {
+
+            Ship ship2 = listShipsWithIntendedTD.get(indexShip+i);
+
             PositionsBST positionsBST2 = ship2.getPositionsBST();
             Double travelledDistance2 = positionsBST2.getTotalDistance();
 
