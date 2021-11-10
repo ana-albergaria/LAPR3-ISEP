@@ -21,6 +21,7 @@ public class ImportShipsControllerTest {
 
     @BeforeEach
     public void SetUp() {
+        comp = new Company("Company");
         this.shipsOfFile = Collections.emptyList();
         this.shipsOfFileExp = Collections.emptyList();
         /*file1 = new File("data-ships&ports/bships.csv");

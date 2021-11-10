@@ -12,7 +12,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 import java.awt.font.FontRenderContext;
 import java.util.*;
 
-public class ShipsBST extends BST<Ship> {
+public class ShipBST extends BST<Ship> {
 
     public void createBstShip() {
         throw new UnsupportedOperationException("Not supported yet.");
