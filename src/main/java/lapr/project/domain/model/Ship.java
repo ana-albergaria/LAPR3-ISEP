@@ -154,10 +154,6 @@ public class Ship implements Comparable<Ship> {
         return callSign;
     }
 
-    public void setPositionsBST(PositionsBST positionsBST) {
-        this.positionsBST = positionsBST;
-    }
-
     public int getVesselTypeID() {
         return vesselTypeID;
     }
@@ -176,6 +172,10 @@ public class Ship implements Comparable<Ship> {
 
     public int getCargo() {
         return cargo;
+    }
+
+    public void setPositionsBST(PositionsBST positionsBST) {
+        this.positionsBST = positionsBST;
     }
 
     /**

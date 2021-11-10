@@ -255,7 +255,7 @@ public class PositionsBST extends BST<ShipPosition> {
         return distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
     }
 
-    public boolean lookForPosition(ShipPosition shipPosition){
+    public boolean hasPosition(ShipPosition shipPosition){
         List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         for (ShipPosition pos : allPos) {
             if (pos == shipPosition) {
@@ -268,7 +268,7 @@ public class PositionsBST extends BST<ShipPosition> {
     public boolean validatePosition(ShipPosition shipPosition) {
         if (shipPosition == null)
             return false;
-        return !lookForPosition(shipPosition);
+        return !hasPosition(shipPosition);
     }
 
     public boolean savePosition(ShipPosition shipPosition){
