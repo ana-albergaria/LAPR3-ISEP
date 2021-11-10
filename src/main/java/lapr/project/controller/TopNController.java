@@ -50,21 +50,11 @@ public class TopNController {
     }
 
     /**
-     * method to sort the ships with the most km travelled
-     * @param shipList list with the ships belonging in the time gap
-     * @param number number of ships to be sorted
-     */
-    public List<Ship> sortNShips(List<Ship> shipList, int number) {
-
-        return this.shipBST.sortNShips(shipList, number);
-    }
-
-    /**
      * method to get the map with the ships associated by VesselType and sorted
      * @param sortedShips list with the sorted ships by most km travelled
      * @return map with the ships associated by VesselType and sorted
      */
-    public Map<VesselType, Set<Ship>> getShipWithMean(Set<Ship> sortedShips) {
-        return this.shipBST.getShipWithMean(sortedShips);
+    public Map<VesselType,  Map<Ship, Set<Double>>> getShipWithMean(List<Ship> sortedShips, int number) {
+        return this.shipBST.getShipWithMean(sortedShips, number);
     }
 }
