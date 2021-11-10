@@ -173,11 +173,11 @@ public class ShipsBST extends BST<Ship> {
      */
     public Map<Integer, Set<Double>> sortedByTravelledDistance(List<Ship> list) {
         Map<Integer, Set<Double>> mapByTravelled = new LinkedHashMap<>();
-        sortedByTravelledDistance(root, mapByTravelled, list);
+        sortedByTravelledDistance(mapByTravelled, list);
         return mapByTravelled;
     }
 
-    public void sortedByTravelledDistance(Node<Ship> node, Map<Integer, Set<Double>> map, List<Ship> list) {
+    public void sortedByTravelledDistance(Map<Integer, Set<Double>> map, List<Ship> list) {
         ShipTravelledDistanceComparator comparator = new ShipTravelledDistanceComparator();
         Collections.sort(list, comparator);
 

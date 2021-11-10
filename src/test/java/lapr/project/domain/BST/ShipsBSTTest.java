@@ -224,30 +224,45 @@ public class ShipsBSTTest {
     /**
      * ensure the ships are associated with the correct vessel type
      */
-   /* @Test
+    @Test
     public void getMapWithTopNAssociatedWithVesselType(){
-        Map<VesselType, Set<Ship>> testMap = new HashMap<VesselType, Set<Ship>>();
-        Set<Ship> expectedList = new HashSet<>();
-        expectedList.add(new Ship(vesselType, positionsBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
-        expectedList.add(new Ship(vesselType2, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
-        testMap = shipsBST.getShipWithMean(expectedList);
+        Ship ship1 = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79);
+        Ship ship2 = new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,67);
+        Map<Integer, Map<Ship, Set<Double>>> testMap = new HashMap<Integer, Map<Ship, Set<Double>>>();
+        List<Ship> expectedList = new LinkedList<>();
+        expectedList.add(ship1);
+        expectedList.add(ship2);
+        testMap = shipsBST.getShipWithMean(expectedList, 2);
 
-        Set<Ship> vesselTypeList1 = new HashSet<>();
-        vesselTypeList1.add(new Ship(vesselType, positionsBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0]));
-        Set<Ship> vesselTypeList2 = new HashSet<>();
-        vesselTypeList2.add(new Ship(vesselType2, positionsBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1]));
+        Set<Double> shipInfo1 = new HashSet<>();
+        shipInfo1.add(ship1.getPositionsBST().getTotalDistance());
+        shipInfo1.add(ship1.getPositionsBST().getMeanSog());
+        Set<Double> shipInfo2 = new HashSet<>();
+        shipInfo2.add(ship2.getPositionsBST().getTotalDistance());
+        shipInfo2.add(ship2.getPositionsBST().getMeanSog());
 
-        Map<VesselType, Set<Ship>> expectedMap = new HashMap<VesselType, Set<Ship>>(){ {
-            put(vesselType, vesselTypeList1);
-            put(vesselType2, vesselTypeList2);
+        Map<Ship, Set<Double>> insideMap1 = new HashMap<Ship, Set<Double>>(){ {
+            put(ship1, shipInfo1);
 
         }
+        };
+        Map<Ship, Set<Double>> insideMap2 = new HashMap<Ship, Set<Double>>(){ {
+            put(ship2, shipInfo2);
+
+        }
+        };
+
+        Map<Integer, Map<Ship, Set<Double>>> expectedMap = new HashMap<Integer, Map<Ship, Set<Double>>>() {
+            {
+                put(ship1.getVesselTypeID(), insideMap1);
+                put(ship2.getVesselTypeID(), insideMap2);
+            }
         };
 
         Assert.assertEquals(testMap, expectedMap);
     }
 
-    */
+
 
     /**
      * ensure all the ships are int the List
@@ -267,42 +282,44 @@ public class ShipsBSTTest {
 
     @Test
     public void mapOrderedByTravelledDistance() {
-        Set<Double> l1 = new HashSet<>();
+        Set<Double> l1 = new LinkedHashSet<>();
         Ship s1 = shipsBST.getShipByMmsiCode(mmsiCodes[0]);
         l1.add(s1.getPositionsBST().getTotalDistance());
         l1.add(s1.getPositionsBST().getDeltaDistance());
         l1.add((double) s1.getPositionsBST().size());
+        System.out.println(s1.getPositionsBST().getTotalDistance());
 
-        Set<Double> l2 = new HashSet<>();
+        Set<Double> l2 = new LinkedHashSet<>();
         Ship s2 = shipsBST.getShipByMmsiCode(mmsiCodes[1]);
         l2.add(s2.getPositionsBST().getTotalDistance());
         l2.add(s2.getPositionsBST().getDeltaDistance());
         l2.add((double) s2.getPositionsBST().size());
+        System.out.println(s2.getPositionsBST().getTotalDistance());
 
-        Set<Double> l3 = new HashSet<>();
+        Set<Double> l3 = new LinkedHashSet<>();
         Ship s3 = shipsBST.getShipByMmsiCode(mmsiCodes[2]);
         l3.add(s3.getPositionsBST().getTotalDistance());
         l3.add(s3.getPositionsBST().getDeltaDistance());
         l3.add((double) s3.getPositionsBST().size());
+        System.out.println(s3.getPositionsBST().getTotalDistance());
 
-        Set<Double> l4 = new HashSet<>();
+        Set<Double> l4 = new LinkedHashSet<>();
         Ship s4 = shipsBST.getShipByMmsiCode(mmsiCodes[3]);
         l4.add(s4.getPositionsBST().getTotalDistance());
         l4.add(s4.getPositionsBST().getDeltaDistance());
         l4.add((double) s4.getPositionsBST().size());
+        System.out.println(s4.getPositionsBST().getTotalDistance());
 
         Map<Integer, Set<Double>> expectedMap = new LinkedHashMap<Integer, Set<Double>>(){
             {
-
                 put(mmsiCodes[2], l3);
                 put(mmsiCodes[3], l4);
                 put(mmsiCodes[1], l2);
                 put(mmsiCodes[0], l1);
-
             }
         };
 
-        List<Ship> expectedList = new ArrayList<>();
+        List<Ship> expectedList = new LinkedList<>();
         expectedList.add(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79));
         expectedList.add(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,79));
         expectedList.add(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,79));
