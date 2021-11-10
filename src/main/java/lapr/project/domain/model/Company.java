@@ -17,7 +17,6 @@ public class Company {
      */
     private final AuthFacade authFacade;
 
-
     /**
      * The Ships' binary search tree.
      */
@@ -30,7 +29,6 @@ public class Company {
         this.designation=designation;
         this.shipsBST = new ShipsBST();
     }
-
 
     /**
      * Returns the Ships' binary search tree.

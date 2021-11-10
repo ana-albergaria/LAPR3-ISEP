@@ -15,16 +15,13 @@ class Ship {
     -imo /'IMO - 9'/
     -callSign /'CallSign - 10'/
     -shipName /'VesselName - 8'/
+    -vesselType
+    -length
+    -width
     -draft /'Draft - 14'/
+    -cargo
     '-shipPositions /'BST que guarda Positions'/
     '-vesselType /'objeto do tipo VesselType'/
-}
-
-class VesselType{
-    -vesselTypeID /'VesselType - 11'/
-    -length /'Length - 12'/
-    -width /'Width - 13'/
-    -maxCapacity /'Cargo - 15'/
 }
 
 class ShipPosition {
@@ -37,8 +34,6 @@ class ShipPosition {
     -transceiver /'TransceiverClass - 16'/
 }
 
-Company "1" -- "1..*" VesselType : owns >
-Ship "1..*" -- "1" VesselType : is of >
 TrafficManager "1" -- "1..*" Ship : imports >
 Ship "1" -- "1..*" ShipPosition : has >
 Company "1" -- "1..*" Ship : manages >

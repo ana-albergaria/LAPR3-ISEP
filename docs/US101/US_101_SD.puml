@@ -4,73 +4,56 @@ autonumber
 actor "Traffic Manager" as TM
 participant ":ImportShipsUI  " as UI
 participant ":ImportShipsController" as CTRL
+participant ":TestFileUtils" as TFU
 participant ":Company" as CMP
 participant ":ShipsBST" as SBST
 participant ":Ship" as SHIP
 participant ":PositionBST" as PBST
 participant ":Position" as POS
-participant ":VesselTypeStore" as VTSTR
-participant ":VesselType" as VT
-
-'FALTAM AS VALIDAÇÕES
 
 activate TM
 TM -> UI : asks to import ships from a text file into a BST
 activate UI
-UI --> TM : asks for data(i.e., file path)
+UI -> CTRL** : create()
+UI --> TM : asks for data(i.e., pathOfFile)
 deactivate UI
-
 TM -> UI : types requested data
 activate UI
-UI -> CTRL : importShips(file path)
+UI -> TFU** : create()
+activate TFU
+UI -> TFU : List<ShipsFileDTO>shipsOfFile = getShipsDataToDTO(pathOfFile)
+deactivate TFU
+UI -> CTRL : importShipsFromFile(shipsFileDTO)
 activate CTRL
-CTRL -> CMP : shipsBST = getShipsBST()
+alt for each ShipsFileDTO of the list
+alt if ship doesn't exist in the system
+CTRL --> SHIP** : create(positionsBST, mmsi, vesselName, IMO, callSign, vesselType, leength, width, draft, cargo)
+else if ship already exists in the system
+CTRL -> CMP : getBstShip()
 activate CMP
-CMP --> CTRL : shipsBST
+CMP --> CTRL : ShipsBST
 deactivate CMP
-CTRL -> CMP : vesselTypeStore = getVesselTypeStore()
-activate CMP
-CMP --> CTRL : vesselTypeStore
-deactivate CMP
-loop for each line of the file
-CTRL -> SBST : ship = getShipByMMSI(mmsi)
+CTRL -> SBST : getShipByMmsiCode(shipsFileDTO.getMmsi());
 activate SBST
-SBST --> CTRL : ship
+SBST --> CTRL : Ship
 deactivate SBST
-alt if ship == null
-CTRL -> VTSTR : vesselType = getVesselTypeByID(vesselTypeID)
-activate VTSTR
-VTSTR --> CTRL : vesselType
-deactivate VTSTR
-alt if vesselType == null
-CTRL -> VTSTR : createVesselType(vesselTypeID, length, width, maxCapacity)
-activate VTSTR
-VTSTR --> VT : create(vesselTypeID, length, width, maxCapacity)
-activate VT
-deactivate VT
-deactivate VTSTR
 end
-CTRL -> SBST : createShip(mmsi, imo, callSign, shipName, draft, vesselTypeID)
-activate SBST
-SBST -> VTSTR : vesselType = getVesselTypeByID(vesselTypeID)
-activate VTSTR
-VTSTR --> SBST : vesselType
-deactivate VTSTR
-SBST -> PBST** : create()
-activate PBST
-PBST --> SBST : shipPositions
-deactivate PBST
-SBST -> SHIP : create(mmsi, imo, callSign, shipName, draft, shipPositions, vesselType, energyPower)
+CTRL --> POS** : create(mmsi, baseDateTime, lat, lon)
+alt if position doesn't exist in the system
+CTRL -> SHIP : getPositionsBST()
 activate SHIP
+SHIP -> CTRL : PositionBST
 deactivate SHIP
-deactivate SBST
-end
-CTRL -> PBST : createPosition(baseDateTime, latitude, longitude, sog, cog, heading, transceiver)
+CTRL -> PBST : savePosition(shipPosition)
 activate PBST
-PBST -> POS : create(baseDateTime, latitude, longitude, sog, cog, heading, transceiver)
-activate POS
-deactivate POS
+|||
 deactivate PBST
+CTRL -> SHIP : setPositionsBST(positionsBST)
+activate SHIP
+|||
+deactivate SHIP
+CTRL -> SBST : saveShip(ship)
+end
 end
 CTRL --> UI : result
 deactivate CTRL
