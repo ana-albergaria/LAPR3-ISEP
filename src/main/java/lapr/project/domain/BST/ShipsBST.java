@@ -3,7 +3,6 @@ package lapr.project.domain.BST;
 
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
-import lapr.project.domain.model.VesselType;
 import lapr.project.domain.shared.Constants;
 import lapr.project.utils.ShipDeltaDistanceComparato;
 import lapr.project.utils.ShipTravelledDistanceComparator;
@@ -103,18 +102,18 @@ public class ShipsBST extends BST<Ship> {
      * @param listShip list with the sorted ships by most km travelled
      * @return map with the ships associated by VesselType and sorted
      */
-    public Map<VesselType, Map<Ship, Set<Double>>> getShipWithMean(List<Ship> listShip, int number) {
-        Map<VesselType,  Map<Ship, Set<Double>>> map = new HashMap<>();
+    public Map<Integer, Map<Ship, Set<Double>>> getShipWithMean(List<Ship> listShip, int number) {
+        Map<Integer,  Map<Ship, Set<Double>>> map = new HashMap<>();
         Map<Ship, Set<Double>> shipMap = new HashMap<>();
         Set<Double> setter = new HashSet<>();
-        VesselType vessel = null;
+        Integer vessel = null;
 
         listShip = sortNShips(listShip);
 
         for (Ship x: listShip) {
-            if (!map.containsKey(x.getVesselType())){
+            if (!map.containsKey(x.getVesselTypeID())){
                 shipMap = new HashMap<>();
-                vessel = x.getVesselType();
+                vessel = x.getVesselTypeID();
                 setter = new HashSet<>();
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add(x.getPositionsBST().getMeanSog());
@@ -123,7 +122,7 @@ public class ShipsBST extends BST<Ship> {
                     map.put(vessel, shipMap);
                 }
             } else {
-                shipMap = map.get(x.getVesselType());
+                shipMap = map.get(x.getVesselTypeID());
                 setter = shipMap.get(x);
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add(x.getPositionsBST().getMeanSog());

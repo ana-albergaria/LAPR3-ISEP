@@ -4,7 +4,6 @@ package lapr.project.controller;
 import lapr.project.domain.BST.ShipsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
-import lapr.project.domain.model.VesselType;
 
 import java.util.Date;
 import java.util.List;
@@ -54,7 +53,7 @@ public class TopNController {
      * @param sortedShips list with the sorted ships by most km travelled
      * @return map with the ships associated by VesselType and sorted
      */
-    public Map<VesselType,  Map<Ship, Set<Double>>> getShipWithMean(List<Ship> sortedShips, int number) {
+    public Map<Integer,  Map<Ship, Set<Double>>> getShipWithMean(List<Ship> sortedShips, int number) {
         return this.shipBST.getShipWithMean(sortedShips, number);
     }
 }

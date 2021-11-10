@@ -8,8 +8,6 @@ import java.util.Objects;
 
 public class Ship implements Comparable<Ship> {
 
-    private VesselType vesselType;
-
     /**
      * The Ship's Positions' tree.
      */
@@ -23,27 +21,54 @@ public class Ship implements Comparable<Ship> {
 
     private String callSign;
 
+    /**
+     * The vessel type ID.
+     */
+    private int vesselTypeID;
 
-    public Ship(VesselType vesselType, PositionsBST positionsBST, int MMSI,
-                String vesselName, String IMO, String callSign) {
-        checkVesselType(vesselType);
+    /**
+     * The ship length.
+     */
+    private int length;
+
+    /**
+     * The ship width.
+     */
+    private int width;
+
+    /**
+     * The ship draft.
+     */
+    private double draft;
+
+    /**
+     * The ship cargo.
+     */
+    private int cargo;
+
+
+
+    public Ship(PositionsBST positionsBST, int MMSI,
+                String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, int cargo) {
         checkPositionsBST(positionsBST);
         checkMMSI(MMSI);
         checkVesselName(vesselName);
         checkIMO(IMO);
+        checkLength(length);
+        checkWidth(width);
+        checkDraft(draft);
+        checkCargo(cargo);
         //checkCallSign(callSign);
-        this.vesselType = vesselType;
         this.MMSI = MMSI;
         this.vesselName = vesselName;
         this.IMO = IMO;
         this.callSign = callSign;
         this.positionsBST = positionsBST;
-    }
-
-    public void checkVesselType(VesselType vesselType){
-        if(Objects.isNull(vesselType)){
-            throw new IllegalArgumentException("Vessel Type cannot be null.");
-        }
+        this.vesselTypeID=vesselTypeID;
+        this.length=length;
+        this.width=width;
+        this.draft=draft;
+        this.cargo=cargo;
     }
 
     public void checkPositionsBST(PositionsBST positionsBST){
@@ -75,13 +100,34 @@ public class Ship implements Comparable<Ship> {
             throw new IllegalArgumentException("IMO must hold numeric digits starting from character 4.");
     }
 
+    private void checkLength(int length){
+        if (length<=0){
+            throw new IllegalArgumentException("Length needs to be over 0.");
+        }
+    }
+
+    private void checkWidth(int width){
+        if (width<=0){
+            throw new IllegalArgumentException("Width needs to be over 0.");
+        }
+    }
+
+    private void checkDraft(double draft){
+        if (draft<=0){
+            throw new IllegalArgumentException("Draft needs to be over 0.");
+        }
+    }
+
+    private void checkCargo(int cargo){
+        if (cargo<0){
+            throw new IllegalArgumentException("Cargo cannot be negative.");
+        }
+    }
+
     /*public void checkCallSign(String callSign){
         //to develop
     }*/
 
-    public VesselType getVesselType() {
-        return vesselType;
-    }
 
     /**
      * Returns the Ship's Positions' tree.
@@ -108,6 +154,26 @@ public class Ship implements Comparable<Ship> {
         return callSign;
     }
 
+    public int getVesselTypeID() {
+        return vesselTypeID;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public double getDraft(){
+        return draft;
+    }
+
+    public int getCargo() {
+        return cargo;
+    }
+
     /**
      * Returns the total movements of the ship
      *
@@ -130,11 +196,16 @@ public class Ship implements Comparable<Ship> {
     public String toString() {
         return "Ship{" +
                 "MMSI=" + MMSI +
-                ", vesselType=" + vesselType +
+                ", vesselType=" +
                 ", positionsBST=" + positionsBST +
                 ", vesselName='" + vesselName + '\'' +
                 ", IMO='" + IMO + '\'' +
-                ", callSign='" + callSign + //'\'' +
+                ", callSign='" + callSign +
+                "vesselTypeID=" + vesselTypeID +
+                ", length=" + length +
+                ", width=" + width +
+                ", draft=" + draft +
+                ", cargo=" + cargo + //'\'' +
                 //", bstShipPosition=" + bstShipPosition +
                 '}';
     }
@@ -161,3 +232,4 @@ public class Ship implements Comparable<Ship> {
         return this.MMSI - o.MMSI;
     }
 }
+

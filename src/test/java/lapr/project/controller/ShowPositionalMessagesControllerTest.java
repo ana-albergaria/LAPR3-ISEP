@@ -4,7 +4,6 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
-import lapr.project.domain.model.VesselType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import static org.junit.Assert.*;
 public class ShowPositionalMessagesControllerTest {
 
     private Company comp;
-    private VesselType vesselType;
     private int mmsi1, mmsi3, mmsi4;
     private String vesselName;
     private String imo;
@@ -42,7 +40,6 @@ public class ShowPositionalMessagesControllerTest {
     @BeforeEach
     public void setUp() throws Exception {
         comp = new Company("Shipping company");
-        vesselType = new VesselType(70, 294,32,13.6,79);
         PositionsBST positions = new PositionsBST();
         mmsi1 = 123456789;
         for(int i=0; i<4;i++){
@@ -55,10 +52,10 @@ public class ShowPositionalMessagesControllerTest {
         callSign = "C4SQ2";
         PositionsBST positions2 = new PositionsBST();
         positions2.insert(new ShipPosition(mmsi1, d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
-        s1 = new Ship(vesselType, positions, mmsi1, vesselName, imo, callSign);
-        s2 = new Ship(vesselType, positions2, mmsi1, vesselName, imo, callSign);
-        s3 = new Ship(vesselType, positions2, mmsi3, vesselName, imo, callSign);
-        s4 = new Ship(vesselType, positions2, mmsi4, vesselName, imo, callSign);
+        s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s2 = new Ship(positions2, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s3 = new Ship(positions2, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s4 = new Ship(positions2, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,79);
 
         comp.getBstShip().insert(s1);
         comp.getBstShip().insert(s2);
@@ -90,7 +87,7 @@ public class ShowPositionalMessagesControllerTest {
         int mmsiCode = 123456789;
         ctrl.isValidShip(mmsiCode);
 
-        Map<String, List<String>> expMap = new HashMap<>();
+        Map<Integer, List<String>> expMap = new HashMap<>();
         List<String> messages = new ArrayList<>();
         ShipPosition sp1 = new ShipPosition(mmsiCode, d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass);
         ShipPosition sp2 = new ShipPosition(mmsiCode, d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass);
@@ -101,11 +98,11 @@ public class ShowPositionalMessagesControllerTest {
         messages.add(sp3.toString());
         messages.add(sp4.toString());
 
-        expMap.put(s1.getVesselType().toString(), messages);
+        expMap.put(s1.getVesselTypeID(), messages);
 
-        Map<String, List<String>> map = ctrl.showPositionalMessages(d1[3], d1[0]);
+        Map<Integer, List<String>> map = ctrl.showPositionalMessages(d1[3], d1[0]);
 
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+        for (Map.Entry<Integer, List<String>> entry : map.entrySet()) {
             System.out.println(entry.getKey() + ":" + entry.getValue().toString());
         }
 

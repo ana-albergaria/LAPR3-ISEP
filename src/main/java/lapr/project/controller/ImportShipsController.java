@@ -12,8 +12,6 @@ public class ImportShipsController {
 
     private CreateShipController createShipController;
 
-    private RegisterVesselTypeController registerVesselTypeController;
-
     private RegisterPositionController registerPositionController;
 
     public ImportShipsController(){
@@ -28,14 +26,13 @@ public class ImportShipsController {
     public ImportShipsController(Company company){
         this.company=company;
         this.createShipController=new CreateShipController();
-        this.registerVesselTypeController=new RegisterVesselTypeController();
         this.registerPositionController=new RegisterPositionController();
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
-        boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
-        if(existsVesselType)
-            registerVesselTypeController.saveVesselType();
+        //boolean existsVesselType = registerVesselTypeController.registerVesselType(shipsFileDTO.getVesselTypeDTO());
+        //if(existsVesselType)
+          //  registerVesselTypeController.saveVesselType();
         boolean existsPosition = registerPositionController.registerPosition(shipsFileDTO.getPositionDTO());
         if (existsPosition)
             registerPositionController.savePosition();
