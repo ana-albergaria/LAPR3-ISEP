@@ -1,0 +1,43 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class ImportShipsUI {}
+
+class ImportShipsController {
+
+}
+
+class Company {
+
+}
+
+class Ship {
+
+}
+
+class ShipPosition {
+
+}
+
+class ShipsBST {
+
+}
+
+class PositionsBST {
+
+}
+
+Company "1" -- "1" ShipsBST : uses >
+ShipsBST "1" -- "1..*" Ship : owns >
+Ship "1" -- "1" PositionsBST : uses >
+PositionsBST "1" -- "1..*" ShipPosition : has >
+ImportShipsUI ..> ImportShipsController
+ImportShipsController ..> Company
+ImportShipsController ..> ShipsBST
+ImportShipsController ..> Ship
+ImportShipsController ..> PositionsBST
+ImportShipsController ..> ShipPosition
+
+
+@enduml

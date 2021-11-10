@@ -9,7 +9,7 @@ participant ":Company" as CMP
 participant ":ShipsBST" as SBST
 participant ":Ship" as SHIP
 participant ":PositionBST" as PBST
-participant ":Position" as POS
+participant ":ShipPosition" as POS
 
 activate TM
 TM -> UI : asks to import ships from a text file into a BST
@@ -53,6 +53,9 @@ activate SHIP
 |||
 deactivate SHIP
 CTRL -> SBST : saveShip(ship)
+activate SBST
+|||
+deactivate SBST
 end
 end
 CTRL --> UI : result
