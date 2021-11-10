@@ -10,10 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ShipsBSTTest {
 
@@ -46,10 +43,27 @@ public class ShipsBSTTest {
     private PositionsBST positionsBST2;
     private PositionsBST positionsBST3;
     private PositionsBST positionsBST4;
+
+
     double [] lats2 = {62.97875, 72.96912, -22.033006, -70.022056};
     double [] lats3 = {-29.00006,  60.008721, 50.00003, 34.345321};
     double [] lons2 = {50.000000, 60.000000, -30.000000, 20.000000};
     double [] lons3 = {-29.00006,  60.008721, 50.00003, 34.345321};
+
+    double [] closeLats1 = {53.32055555, 53.32055550, 53.1861111, 53.2555};
+    double [] closeLats2 = {53.1861211, 53.32055545, 53.32055300, 53.2455};
+    double [] closeLats3 = {53.1861220, 53.1861300, 53.2001211, 53.2000};
+    double [] closeLons1 = {-1.72972222, -1.69998000, -1.72972322, -1.70097222};
+    double [] closeLons2 = {-1.69997222, -1.72972522, -1.72972422, -1.69997300};
+    double [] closeLons3 = {-1.69997300,  -1.72972223, -1.72975222, -1.69997252};
+
+    private ShipsBST shipsBST3;
+    List<PositionsBST> positionsList2;
+    private PositionsBST positionsBST5;
+    private PositionsBST positionsBST6;
+    private PositionsBST positionsBST7;
+    private PositionsBST positionsBST8;
+
 
     public ShipsBSTTest() throws ParseException {
     }
@@ -91,6 +105,34 @@ public class ShipsBSTTest {
 
         for(int i=0; i<4;i++){
             shipsBST2.insert(new Ship(vesselType, positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
+        }
+
+        /* more for US7 */
+
+        shipsBST3 = new ShipsBST();
+        positionsList2 = new ArrayList<>();
+        positionsBST5 = new PositionsBST();
+        positionsBST6 = new PositionsBST();
+        positionsBST7 = new PositionsBST();
+        positionsBST8 = new PositionsBST();
+
+        for(int i=0; i<4;i++){
+            positionsBST5.insert(new ShipPosition(mmsiCodes[0], d1[i], closeLats1[i], closeLons1[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST6.insert(new ShipPosition(mmsiCodes[1], d1[i], closeLats2[i], closeLons2[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positionsBST7.insert(new ShipPosition(mmsiCodes[2], d1[i], closeLats3[i], closeLons3[i], sogs[i], cogs[i], headings[i], transcieverClass));
+        }
+
+        positionsBST8.insert(new ShipPosition(mmsiCodes[3], d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
+
+        positionsList2.add(positionsBST5);
+        positionsList2.add(positionsBST6);
+        positionsList2.add(positionsBST7);
+        positionsList2.add(positionsBST8);
+
+
+
+        for(int i=0; i<4;i++){
+            shipsBST3.insert(new Ship(vesselType, positionsList2.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
         }
 
         /* end for US7 */
@@ -179,5 +221,33 @@ public class ShipsBSTTest {
         List<Ship> list = (List<Ship>) shipsBST2.getShipsInOrderWithIntendedTD();
 
         Assertions.assertEquals(expList, list);
+    }
+
+    /**
+     * US7 - Test to ensure fillTreeMapEachShip() works correctly.
+     */
+    @Test
+    void fillTreeMapForEachShip() {
+        Iterator<Ship> listShipsWithIntendedTD = shipsBST3.inOrder().iterator();
+
+        TreeMap<Double, String> expInfoPair = new TreeMap<>(Collections.reverseOrder());
+        expInfoPair.put(18.0, String.format("%-15d%-15d%-15f%-15f%-15d%-15f%-15d%-15f%n", 111111111, 222222222, 5.0, 0.0, 4, 24.0, 4, 6.0));
+
+
+        TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
+
+        Ship ship = listShipsWithIntendedTD.next();
+
+        PositionsBST positionsBST = ship.getPositionsBST();
+        Double travelledDistance = positionsBST.getTotalDistance();
+
+        shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI());
+
+        /*for (Map.Entry<Double, String> entry : infoPair.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
+        }
+         */
+
+        Assertions.assertEquals(expInfoPair, infoPair);
     }
 }

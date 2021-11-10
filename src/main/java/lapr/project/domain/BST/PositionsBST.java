@@ -245,11 +245,7 @@ public class PositionsBST extends BST<ShipPosition> {
         Double arrivalLat2 = positionsBST2.getArrivalLatitude();
         Double arrivalLog2 = positionsBST2.getArrivalLongitude();
 
-        Double arrivalDistance = distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2);
-
-        return arrivalDistance;
-
-        //throw new UnsupportedOperationException("Not supported yet.");
+        return distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2);
     }
 
     public Double getDepartureDistance(PositionsBST positionsBST2) {
@@ -259,10 +255,6 @@ public class PositionsBST extends BST<ShipPosition> {
         Double depLat2 = positionsBST2.getDepartLatitude();
         Double depLog2 = positionsBST2.getDepartLongitude();
 
-        Double depDistance = distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
-
-        return depDistance;
-
-        //throw new UnsupportedOperationException("Not supported yet.");
+        return distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
     }
 }

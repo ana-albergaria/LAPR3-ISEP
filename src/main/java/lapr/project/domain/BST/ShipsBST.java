@@ -1,5 +1,6 @@
 package lapr.project.domain.BST;
 
+
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.VesselType;
@@ -134,39 +135,51 @@ public class ShipsBST extends BST<Ship> {
 
         while(listShipsWithIntendedTD.hasNext()) {
             TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
+
             Ship ship = listShipsWithIntendedTD.next();
             PositionsBST positionsBST = ship.getPositionsBST();
             Double travelledDistance = positionsBST.getTotalDistance();
 
-            while(listShipsWithIntendedTD.hasNext()) {
-                Ship ship2 = listShipsWithIntendedTD.next();
-                PositionsBST positionsBST2 = ship2.getPositionsBST();
-                Double travelledDistance2 = positionsBST2.getTotalDistance();
+            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI());
 
-                if(!Objects.equals(travelledDistance, travelledDistance2)) {
-                    Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
-
-                    if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
-                        Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
-
-                        if(depDistance <= Constants.LIMIT_COORDINATES) {
-                            int numMovs = positionsBST.size(), numMovs2 = positionsBST2.size();
-                            double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
-                            String allInfo = String.format("%-25d%-25d%-25f%-25f%-25d%-25f%-25d%-25f%n", ship.getMMSI(), ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
-                            infoPair.put(diffTravDist, allInfo);
-                        }
-                    }
-                }
-            }
             listPairsOfShips.add(infoPair);
         }
         return listPairsOfShips;
 
          */
-
-
         throw new UnsupportedOperationException();
 
+    }
+
+    public void fillTreeMapForEachShip(Iterator<Ship> listShipsWithIntendedTD,
+                                    TreeMap<Double, String> infoPair,
+                                    Double travelledDistance,
+                                    PositionsBST positionsBST,
+                                    int ship1MMSI) {
+
+
+        while(listShipsWithIntendedTD.hasNext()) {
+            Ship ship2 = listShipsWithIntendedTD.next();
+            PositionsBST positionsBST2 = ship2.getPositionsBST();
+            Double travelledDistance2 = positionsBST2.getTotalDistance();
+
+            if(!Objects.equals(travelledDistance, travelledDistance2)) {
+
+                Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
+
+                if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
+
+                    Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
+
+                    if(depDistance <= Constants.LIMIT_COORDINATES) {
+                        int numMovs = positionsBST.size(), numMovs2 = positionsBST2.size();
+                        double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
+                        String allInfo = String.format("%-15d%-15d%-15f%-15f%-15d%-15f%-15d%-15f%n", ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
+                        infoPair.put(diffTravDist, allInfo);
+                    }
+                }
+            }
+        }
     }
 
     public Iterable<Ship> getShipsInOrderWithIntendedTD() {
