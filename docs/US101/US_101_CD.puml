@@ -5,11 +5,15 @@ skinparam classAttributeIconSize 0
 class ImportShipsUI {}
 
 class ImportShipsController {
-
+- registerPosition(PositionDTO positionDTO)
+- saveShip()
+-
 }
 
 class Company {
-
+- designation
+- shipsBST
+- getBstShip()
 }
 
 class Ship {

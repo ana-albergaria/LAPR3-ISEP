@@ -40,11 +40,11 @@ public class ImportShipsController {
         this.positionsBST=null;
     }
 
-    public boolean registerPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
+    /*public boolean registerPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
         PositionsBST positionsBST = this.ship.getPositionsBST();
         this.shipPosition =  new ShipPosition(this.ship.getMMSI(),baseDateTime,lat,lon,sog,cog,heading,transcieverClass);
         return positionsBST.hasPosition(shipPosition);
-    }
+    }*/
 
     public boolean registerPosition(PositionDTO positionDTO){
         PositionsBST positionsBST = this.ship.getPositionsBST();
