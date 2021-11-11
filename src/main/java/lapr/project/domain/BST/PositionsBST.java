@@ -258,7 +258,7 @@ public class PositionsBST extends BST<ShipPosition> {
     public boolean hasPosition(ShipPosition shipPosition){
         List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         for (ShipPosition pos : allPos) {
-            if (pos == shipPosition) {
+            if (pos.equals(shipPosition)) {
                 return true;
             }
         }

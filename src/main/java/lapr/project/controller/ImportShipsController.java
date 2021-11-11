@@ -44,26 +44,21 @@ public class ImportShipsController {
         return positionsBST.hasPosition(shipPosition);
     }*/
 
-    public boolean registerPosition(PositionDTO positionDTO){
-        PositionsBST positionsBST = this.ship.getPositionsBST();
-        this.shipPosition =  new ShipPosition(this.ship.getMMSI(), positionDTO.getBaseDateTime(), positionDTO.getLat(), positionDTO.getLon(),
-                positionDTO.getSog(), positionDTO.getCog(), positionDTO.getHeading(), positionDTO.getTranscieverClass());
-        return positionsBST.hasPosition(shipPosition);
-    }
-
-    public void createPosition(PositionDTO positionDTO, int mmsi){
-        this.shipPosition =  new ShipPosition(mmsi, positionDTO.getBaseDateTime(), positionDTO.getLat(), positionDTO.getLon(),
-                positionDTO.getSog(), positionDTO.getCog(), positionDTO.getHeading(), positionDTO.getTranscieverClass());
-    }
-
     public boolean saveShip(){
-        this.ship.setPositionsBST(positionsBST);
         if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI())==null){
-            this.company.getShipStore().saveShip(ship);
+            this.company.getShipStore().saveShip(new Ship(this.ship.getPositionsBST(), this.ship.getMMSI(),
+                    this.ship.getVesselName(), this.ship.getIMO(), this.ship.getCallSign(), this.ship.getVesselTypeID(),
+                    this.ship.getLength(), this.ship.getWidth(), this.ship.getDraft(), this.ship.getCargo()));
             return true;
-        } else if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI())!=null && !this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).getPositionsBST().hasPosition(this.shipPosition)){
-            this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).setPositionsBST(this.positionsBST);
-            return true;
+        } else if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI())!=null){
+            //AQUI
+            if (!this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).getPositionsBST().hasPosition(this.shipPosition)) {
+                positionsBST.savePosition(shipPosition);
+                this.ship.setPositionsBST(positionsBST);
+                this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).setPositionsBST(this.positionsBST);
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -72,30 +67,48 @@ public class ImportShipsController {
         if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship logo tem de se criar
             try {
                 this.ship = this.company.getShipStore().createShip(shipsFileDTO);
+                this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
+                        shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
+                        shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
+                        shipsFileDTO.getPositionDTO().getHeading(), shipsFileDTO.getPositionDTO().getTranscieverClass());
             }catch (IllegalArgumentException e){
                 System.out.println("NOT ADDED : " + e);
                 return false;
             }
+            return saveShip();
         } else {
             //ir buscar o ship pelo mmsi
             try{
-                this.ship=this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
+                this.ship=new Ship(this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getPositionsBST(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getMMSI(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getVesselName(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getIMO(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getCallSign(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getVesselTypeID(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getLength(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getWidth(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getDraft(),
+                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getCargo());
+                this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
+                        shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
+                        shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
+                        shipsFileDTO.getPositionDTO().getHeading(), shipsFileDTO.getPositionDTO().getTranscieverClass());
             }catch (IllegalArgumentException e){
                 System.out.println("NOT ADDED : " + e);
                 return false;
             }
         }
         try {
-            boolean existsPosition = registerPosition(shipsFileDTO.getPositionDTO());
-            if (!existsPosition)
-                this.positionsBST = this.ship.getPositionsBST();
-            positionsBST.savePosition(shipPosition);
-            return saveShip();
+            this.positionsBST=this.ship.getPositionsBST();
+            if (!(positionsBST.hasPosition(shipPosition))) {
+                return saveShip();//AQUI
+            }
         }catch (IllegalArgumentException e){
             System.out.println("NOT ADDED : " + e);
+            return false;
         }
-        return false;
         //se a posicao nao existe entao é adicionada
+        return false;
     }
 
 }

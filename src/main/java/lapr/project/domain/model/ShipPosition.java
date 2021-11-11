@@ -153,7 +153,9 @@ public class ShipPosition implements Comparable<ShipPosition> {
                 lat == otherShipPosition.lat &&
                 lon == otherShipPosition.lon &&
                 sog == otherShipPosition.sog &&
-                cog == otherShipPosition.cog;
+                cog == otherShipPosition.cog &&
+                heading == otherShipPosition.heading &&
+                transcieverClass.equals(otherShipPosition.transcieverClass);
     }
 
     @Override
