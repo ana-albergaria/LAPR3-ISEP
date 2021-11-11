@@ -1,0 +1,39 @@
+
+--Country table:
+--Should pass
+INSERT INTO COUNTRY (country_name, continent) VALUES ('Brazil', 'South America');
+INSERT INTO COUNTRY (country_name, continent) VALUES ('Portugal', 'Europe');
+INSERT INTO COUNTRY (country_name, continent) VALUES ('Chile', 'South America');
+INSERT INTO COUNTRY (country_name, continent) VALUES ('United Kingdom', 'Europe');
+--should fail: repeating primary key
+INSERT INTO COUNTRY (country_name, continent) VALUES ('United Kingdom', 'Europe');
+INSERT INTO COUNTRY (country_name, continent) VALUES ('Portugal', 'Europe');
+--should  fail: null argument
+INSERT INTO COUNTRY (country_name, continent) VALUES (null, 'South America');
+INSERT INTO COUNTRY (country_name, continent) VALUES ('Bolivia', null);
+
+--Place Location table
+--should pass:
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (72.3344,55.2222,'Brazil');
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (72.4444,51.2222,'Portugal');
+-- should fail: not registered foreign key in table country
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (72.3344,55.1222,'South Africa');
+-- should fail: latitude and longitude toguether as key are already existent
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (72.3344,55.2222,'United Kingdom');
+-- should fail: null arguments:
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (null,55.2222,'United Kingdom');
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (72.3344,null,'United Kingdom');
+INSERT INTO PLACELOCATION (locationLatitude, locationLongitude, country) VALUES (72.3344,55.2222,null);
+
+--Port table
+--should pass:
+INSERT INTO PORT (port_id, name, locationLatitude, locationLongitude)
+VALUES(29021, 'Rio grande', 72.3344, 55.2222);
+-- should fail: repeated primary key
+INSERT INTO PORT (port_id, name, locationLatitude, locationLongitude)
+VALUES(29021, 'Lisboa', 72.4444, 55.2222);
+-- should fail: foreign key reference not existent
+INSERT INTO PORT (port_id, name, locationLatitude, locationLongitude)
+VALUES(29031, 'Lisboa', 72.8444, 55.2222);
+INSERT INTO PORT (port_id, name, locationLatitude, locationLongitude)
+VALUES(29041, 'Lisboa', 72.4444, 55.2022);

@@ -63,8 +63,8 @@ class EnergyPower{
 /'manifest type(loading, unloading) changes its values'/
 class CargoManifest{
     **CargoManifestID**:INTEGER
-    FK_**port_id**:INTEGER
     ---
+    FK_**port_id**:INTEGER
     FK_MMSI:NUMBER(9)
     TypeOfTransport:varchar(10)
     Status:varchar(10)
