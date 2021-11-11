@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.domain.BST.ShipsBST;
+import lapr.project.domain.BST.ShipBST;
 import lapr.project.domain.model.Company;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class ShowPairsOfShipsController {
     }
 
     public List<TreeMap<Double, String>> getPairsOfShips() {
-        ShipsBST shipsBST = this.company.getBstShip();
+        ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
         List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
         return listPairsOfShips;
         //throw new UnsupportedOperationException();

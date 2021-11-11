@@ -12,7 +12,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 import java.awt.font.FontRenderContext;
 import java.util.*;
 
-public class ShipsBST extends BST<Ship> {
+public class ShipBST extends BST<Ship> {
 
     public void createBstShip() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -304,6 +304,29 @@ public class ShipsBST extends BST<Ship> {
             listShipsWithIntendedTD.add(node.getElement());
 
         getShipsInOrderWithIntendedTD(node.getRight(), listShipsWithIntendedTD);
+    }
+
+    public boolean hasShip(Ship ship){
+        List<Ship> allShip = (List<Ship>) inOrder();
+        for (Ship ship1 : allShip) {
+            if (ship1==ship){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validateShip(Ship ship){
+        if (ship==null)
+            return false;
+        return !hasShip(ship);
+    }
+
+    public boolean saveShip(Ship ship){
+        if (!validateShip(ship))
+            return false;
+        this.insert(ship);
+        return true;
     }
 
 }

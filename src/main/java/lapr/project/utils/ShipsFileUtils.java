@@ -39,12 +39,16 @@ public class ShipsFileUtils {
     }
 
     private  ShipsFileDTO attributesToDto(String[] shipData) throws ParseException {
-        return new ShipsFileDTO(vesselTypeToDto(shipData),
-                positionToDto(shipData),
+        return new ShipsFileDTO(positionToDto(shipData),
                 Integer.parseInt(shipData[dataLabels.indexOf("MMSI")]),
                 shipData[dataLabels.indexOf("VesselName")],
-                Integer.parseInt(shipData[dataLabels.indexOf("IMO")]),
-                shipData[dataLabels.indexOf("CallSign")]);
+                shipData[dataLabels.indexOf("IMO")],
+                shipData[dataLabels.indexOf("CallSign")],
+                Integer.parseInt(shipData[dataLabels.indexOf("VesselType")]),
+                Integer.parseInt(shipData[dataLabels.indexOf("Length")]),
+                Integer.parseInt(shipData[dataLabels.indexOf("Width")]),
+                Double.parseDouble(shipData[dataLabels.indexOf("Draft")]),
+                Integer.parseInt(shipData[dataLabels.indexOf("Cargo")]));
     }
 
     private Date getDateOfString(String stringFormatDate){
@@ -54,15 +58,6 @@ public class ShipsFileUtils {
         } catch(ParseException p){
             return null;
         }
-    }
-
-    private VesselTypeDTO vesselTypeToDto(String[] data){
-        int vesselTypeID = Integer.parseInt(data[dataLabels.indexOf("VesselType")]);
-        int length = Integer.parseInt(data[dataLabels.indexOf("Length")]);
-        int width = Integer.parseInt(data[dataLabels.indexOf("Width")]);
-        double draft = Double.parseDouble(data[dataLabels.indexOf("Draft")]); //????????
-        int cargo = Integer.parseInt(data[dataLabels.indexOf("Cargo")]);
-        return new VesselTypeDTO(vesselTypeID,length,width,draft,cargo);
     }
 
     private PositionDTO positionToDto(String[] data){

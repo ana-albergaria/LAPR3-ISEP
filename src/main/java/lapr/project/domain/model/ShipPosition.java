@@ -75,9 +75,8 @@ public class ShipPosition implements Comparable<ShipPosition> {
     }
 
     private void checkMMSI(int mmsi){
-        if (Integer.toString(mmsi).length()!=9){
+        if (Integer.toString(mmsi).length()!=9)
             throw new IllegalArgumentException("MMSI must hold 9 digits.");
-        }
         //ver se está no sistema?
     }
 
@@ -85,7 +84,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
         if (baseDateTime==null){
             throw new IllegalArgumentException("Base Date Time cannot be null.");
         }
-        //...?
+        //mais...?
     }
 
     private void checkLat(double lat){

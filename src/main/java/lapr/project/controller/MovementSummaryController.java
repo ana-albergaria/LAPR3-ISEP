@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.domain.BST.PositionsBST;
-import lapr.project.domain.BST.ShipsBST;
+import lapr.project.domain.BST.ShipBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.dto.MovementsSummaryDto;
@@ -30,7 +30,7 @@ public class MovementSummaryController {
     }
 
     public MovementsSummaryDto getShipMovementsSummary(int MMSI){
-        ShipsBST shipBst = this.company.getBstShip();
+        ShipBST shipBst = this.company.getShipStore().getShipsBstMmsi();
         Ship currentShip = shipBst.getShipByMmsiCode(MMSI);
         PositionsBST shipMovements = currentShip.getPositionsBST();
         String name = currentShip.getVesselName();

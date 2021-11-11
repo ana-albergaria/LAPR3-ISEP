@@ -8,9 +8,6 @@ import lapr.project.domain.shared.Constants;
 import java.util.*;
 
 public class PositionsBST extends BST<ShipPosition> {
-    public void createBstShipPosition() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     public Date getStartDate(){
         if(isEmpty()){
@@ -257,4 +254,28 @@ public class PositionsBST extends BST<ShipPosition> {
 
         return distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
     }
+
+    public boolean hasPosition(ShipPosition shipPosition){
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+        for (ShipPosition pos : allPos) {
+            if (pos == shipPosition) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validatePosition(ShipPosition shipPosition) {
+        if (shipPosition == null)
+            return false;
+        return !hasPosition(shipPosition);
+    }
+
+    public boolean savePosition(ShipPosition shipPosition){
+        if (!validatePosition(shipPosition))
+            return false;
+        this.insert(shipPosition);
+        return true;
+    }
+
 }

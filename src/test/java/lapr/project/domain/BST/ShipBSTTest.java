@@ -13,7 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ShipsBSTTest {
+public class ShipBSTTest {
 
     /* Atributes for the Ship */
     private PositionsBST posBST;
@@ -37,10 +37,10 @@ public class ShipsBSTTest {
     int [] headings = {300, 302, 315, 300};
     String transcieverClass = "AIS";
 
-    private ShipsBST shipsBST;
+    private ShipBST shipsBST;
 
     /* for US7 */
-    private ShipsBST shipsBST2;
+    private ShipBST shipsBST2;
     List<PositionsBST> positionsList;
     private PositionsBST positionsBST1;
     private PositionsBST positionsBST2;
@@ -60,7 +60,7 @@ public class ShipsBSTTest {
     double [] closeLons2 = {-1.69997222, -1.72972522, -1.72972422, -1.69997300};
     double [] closeLons3 = {-1.69997300,  -1.72972223, -1.72975222, -1.69997252};
 
-    private ShipsBST shipsBST3;
+    private ShipBST shipsBST3;
     List<PositionsBST> positionsList2;
     private PositionsBST positionsBST5;
     private PositionsBST positionsBST6;
@@ -68,7 +68,7 @@ public class ShipsBSTTest {
     private PositionsBST positionsBST8;
 
 
-    public ShipsBSTTest() throws ParseException {
+    public ShipBSTTest() throws ParseException {
     }
 
     @BeforeEach
@@ -77,7 +77,7 @@ public class ShipsBSTTest {
         posBST1 = new PositionsBST();
         posBST2 = new PositionsBST();
         posBST3 = new PositionsBST();
-        shipsBST = new ShipsBST();
+        shipsBST = new ShipBST();
 
         posBST.insert(new ShipPosition(mmsiCodes[0], d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass));
         posBST.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
@@ -97,7 +97,7 @@ public class ShipsBSTTest {
 
         /* for US7 */
 
-        shipsBST2 = new ShipsBST();
+        shipsBST2 = new ShipBST();
         positionsList = new ArrayList<>();
         positionsBST1 = new PositionsBST();
         positionsBST2 = new PositionsBST();
@@ -123,7 +123,7 @@ public class ShipsBSTTest {
 
         /* more for US7 */
 
-        shipsBST3 = new ShipsBST();
+        shipsBST3 = new ShipBST();
         positionsList2 = new ArrayList<>();
         positionsBST5 = new PositionsBST();
         positionsBST6 = new PositionsBST();

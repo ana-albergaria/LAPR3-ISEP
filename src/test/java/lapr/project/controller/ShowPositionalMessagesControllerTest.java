@@ -57,10 +57,10 @@ public class ShowPositionalMessagesControllerTest {
         s3 = new Ship(positions2, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,79);
         s4 = new Ship(positions2, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,79);
 
-        comp.getBstShip().insert(s1);
-        comp.getBstShip().insert(s2);
-        comp.getBstShip().insert(s3);
-        comp.getBstShip().insert(s4);
+        comp.getShipStore().getShipsBstMmsi().insert(s1);
+        comp.getShipStore().getShipsBstMmsi().insert(s2);
+        comp.getShipStore().getShipsBstMmsi().insert(s3);
+        comp.getShipStore().getShipsBstMmsi().insert(s4);
     }
 
     @Test
