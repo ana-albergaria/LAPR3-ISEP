@@ -22,8 +22,6 @@ public class ImportShipsController {
 
     private PositionsBST positionsBST;
 
-    //private VesselType vesselType;
-
     public ImportShipsController(){
         this(App.getInstance().getCompany());
     }
