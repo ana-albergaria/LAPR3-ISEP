@@ -32,7 +32,7 @@ create table vesselType(
 create table ship(
 	mmsi integer constraint pk_ship PRIMARY KEY NOT NULL,
 	vesselTypeId integer UNIQUE NOT NULL,
-	imo varchar(10) UNIQUE NOT NULL,
+	imo varchar(10) UNIQUE NOT NULL check(imo like 'IMO%'),
 	callSign varchar(4) UNIQUE NOT NULL,
 	shipName varchar(30) NOT NULL,
 	currentCapacity numeric(6,2),
@@ -88,7 +88,8 @@ create table refrigeration(
 	container_id integer NOT NULL,
 	temperatureKept numeric(5,2),
 
-	constraint fk_regrigeration_container FOREIGN KEY (container_id) references container(container_id)
+	constraint fk_regrigeration_container FOREIGN KEY (container_id) references container(container_id),
+	constraint pk_refrigeration PRIMARY KEY (container_id, temperatureKept)
 );
 
 create table positionInVehicule(
