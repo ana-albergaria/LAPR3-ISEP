@@ -304,28 +304,24 @@ public class ShipBSTTest {
         l1.add(s1.getPositionsBST().getTotalDistance());
         l1.add(s1.getPositionsBST().getDeltaDistance());
         l1.add((double) s1.getPositionsBST().size());
-        System.out.println(s1.getPositionsBST().getTotalDistance());
 
         Set<Double> l2 = new LinkedHashSet<>();
         Ship s2 = shipsBST.getShipByMmsiCode(mmsiCodes[1]);
         l2.add(s2.getPositionsBST().getTotalDistance());
         l2.add(s2.getPositionsBST().getDeltaDistance());
         l2.add((double) s2.getPositionsBST().size());
-        System.out.println(s2.getPositionsBST().getTotalDistance());
 
         Set<Double> l3 = new LinkedHashSet<>();
         Ship s3 = shipsBST.getShipByMmsiCode(mmsiCodes[2]);
         l3.add(s3.getPositionsBST().getTotalDistance());
         l3.add(s3.getPositionsBST().getDeltaDistance());
         l3.add((double) s3.getPositionsBST().size());
-        System.out.println(s3.getPositionsBST().getTotalDistance());
 
         Set<Double> l4 = new LinkedHashSet<>();
         Ship s4 = shipsBST.getShipByMmsiCode(mmsiCodes[3]);
         l4.add(s4.getPositionsBST().getTotalDistance());
         l4.add(s4.getPositionsBST().getDeltaDistance());
         l4.add((double) s4.getPositionsBST().size());
-        System.out.println(s4.getPositionsBST().getTotalDistance());
 
         Map<Integer, Set<Double>> expectedMap = new LinkedHashMap<Integer, Set<Double>>(){
             {
@@ -336,13 +332,8 @@ public class ShipBSTTest {
             }
         };
 
-        List<Ship> expectedList = new LinkedList<>();
-        expectedList.add(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79));
-        expectedList.add(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,79));
-        expectedList.add(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,79));
-        expectedList.add(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,79));
 
-        Map<Integer, Set<Double>> actualMap = shipsBST.sortedByTravelledDistance(expectedList);
+        Map<Integer, Set<Double>> actualMap = shipsBST.sortedByTravelledDistance();
 
         Assert.assertEquals(expectedMap, actualMap);
     }
@@ -381,6 +372,10 @@ public class ShipBSTTest {
                 put(mmsiCodes[0], l1);
             }
         };
+
+        Map<Integer, Set<Double>> actualMap = shipsBST.sortedByTotalMovements();
+
+        Assert.assertEquals(expectedMap, actualMap);
     }
 
 
