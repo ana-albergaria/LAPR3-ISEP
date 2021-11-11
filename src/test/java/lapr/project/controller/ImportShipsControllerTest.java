@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.domain.model.Company;
+import lapr.project.domain.model.Ship;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.utils.ShipsFileUtils;
 import org.junit.Assert;
@@ -35,15 +36,15 @@ public class ImportShipsControllerTest {
     public void testCorrectlyImportedFromExistingFile() {
         ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
         shipsOfFile = shipsFileUtils.getShipsDataToDto(fileTest.toString());
-        List<ShipsFileDTO> addedShips = new ArrayList<>();
+        List<Ship> addedShips = new ArrayList<>();
         for (int i = 0; i < shipsOfFile.size(); i++) {
             if (ctrl.importShipFromFile(shipsOfFile.get(i)))
-                addedShips.add(shipsOfFile.get(i));
+                addedShips.add(this.comp.getShipStore().createShip(shipsOfFile.get(i)));
         }
         shipsOfFileExp = shipsFileUtils.getShipsDataToDto(expFileTest.toString());
-        List<ShipsFileDTO> expAddedShips = new ArrayList<>();
+        List<Ship> expAddedShips = new ArrayList<>();
         for (int i = 0; i < shipsOfFileExp.size(); i++) {
-            expAddedShips.add(shipsOfFileExp.get(i));
+            expAddedShips.add(this.comp.getShipStore().createShip(shipsOfFileExp.get(i)));
         }
         Assert.assertEquals(expAddedShips, addedShips);
     }*/

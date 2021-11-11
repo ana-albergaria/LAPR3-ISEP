@@ -83,20 +83,23 @@ public class ShowPositionalMessagesController {
         if (!file.exists())
             file.createNewFile();
 
+        FileWriter fw = new FileWriter(file, true);
+        BufferedWriter bw = new BufferedWriter(fw);
         try {
             file.delete();
-            FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.write(String.format("Vessel Name: %s\n", this.ship.getVesselName()));
-            bw.write(String.format("Vessel Type ID: %d\n", this.ship.getVesselTypeID()));
-            bw.write(String.format("MMSI: %d\n\n", this.ship.getMMSI()));
+            bw.write(String.format("Vessel Name: %s%n", this.ship.getVesselName()));
+            bw.write(String.format("Vessel Type ID: %d%n", this.ship.getVesselTypeID()));
+            bw.write(String.format("MMSI: %d%n", this.ship.getMMSI()));
             for (String shipPosition : listPositionalMessages) {
                 bw.write(shipPosition);
             }
-            bw.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println(e.getMessage());
+        } finally {
+            bw.close();
+            fw.close();
         }
     }
 }

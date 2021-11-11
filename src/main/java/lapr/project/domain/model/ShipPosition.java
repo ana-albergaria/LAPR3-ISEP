@@ -27,7 +27,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
         checkBaseDateTime(baseDateTime);
         checkLat(lat);
         checkLon(lon);
-        //checkSog(sog);
+        checkSog(sog);
         checkCog(cog);
         checkHeading(heading);
         checkTranscieverClass(transcieverClass);
@@ -100,11 +100,12 @@ public class ShipPosition implements Comparable<ShipPosition> {
         }
     }
 
-    /*
+    //TESTAR
     private void checkSog(double sog){
-        //to develop
+        if (cog<0){
+            throw new IllegalArgumentException("SOG must be positive.");
+        }
     }
-    */
 
     private void checkCog(double cog){
         if (cog<0 || cog>359){

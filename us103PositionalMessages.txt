@@ -1,7 +1,6 @@
 Vessel Name: VARAMO
 Vessel Type ID: 70
 MMSI: 123456789
-
 >> SHIP POSITION
 Base Date Time: 13/02/2021 00:00:00
 Latitude: 23,008721

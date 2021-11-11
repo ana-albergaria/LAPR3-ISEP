@@ -1,6 +1,7 @@
 package lapr.project.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class PositionDTO {
 
@@ -55,6 +56,14 @@ public class PositionDTO {
     public String getTranscieverClass() {
         return transcieverClass;
     }
+
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PositionDTO that = (PositionDTO) o;
+        return Double.compare(that.lat, lat) == 0 && Double.compare(that.lon, lon) == 0 && Double.compare(that.sog, sog) == 0 && Double.compare(that.cog, cog) == 0 && heading == that.heading && Objects.equals(baseDateTime, that.baseDateTime) && Objects.equals(transcieverClass, that.transcieverClass);
+    }*/
 
     //+ toString ?
 

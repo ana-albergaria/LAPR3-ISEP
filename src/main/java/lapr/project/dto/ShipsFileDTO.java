@@ -1,5 +1,7 @@
 package lapr.project.dto;
 
+import java.util.Objects;
+
 public class ShipsFileDTO {
 
     PositionDTO positionDTO;
@@ -62,6 +64,17 @@ public class ShipsFileDTO {
 
     public double getDraft() {
         return draft;
+    }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null || this.getClass() != otherObject.getClass()) return false;
+        ShipsFileDTO otherShipsFileDTO = (ShipsFileDTO) otherObject;
+        if (this.getMmsi()==otherShipsFileDTO.getMmsi() && this.getPositionDTO()==otherShipsFileDTO.getPositionDTO())
+            return true;
+        else
+            return false;
     }
 
     //showAddedShip (?)
