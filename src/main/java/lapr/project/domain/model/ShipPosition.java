@@ -102,7 +102,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
 
     //TESTAR
     private void checkSog(double sog){
-        if (cog<0){
+        if (sog<0){
             throw new IllegalArgumentException("SOG must be positive.");
         }
     }

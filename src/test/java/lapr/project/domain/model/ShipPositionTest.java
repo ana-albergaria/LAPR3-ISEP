@@ -127,14 +127,17 @@ public class ShipPositionTest {
         assertEquals("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.", thrown.getMessage());
     }
 
-    /**
-     * Test to ensure latitude cannot de over 91.
-     */
+
     @Test
-    public void createPositionWithLatitude91() {
-        ShipPosition pos = new ShipPosition(211331640, dateR1, 91,
+    public void checkCreatePositionWithLatitude90() {
+      new ShipPosition(211331640, dateR1, 90,
                 -122.71335, 19.7, 145.5, 147, "B");
-        assertEquals(91, pos.getLat());
+    }
+
+    @Test
+    public void checkCreatePositionWithLatitudeMinus90() {
+       new ShipPosition(211331640, dateR1, -90,
+                -122.71335, 19.7, 145.5, 147, "B");
     }
 
     /**
@@ -158,6 +161,34 @@ public class ShipPositionTest {
         assertEquals("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.", thrown.getMessage());
     }
 
+    @Test
+    public void createPositionWithLongitude180() {
+        new ShipPosition(211331640, dateR1, 36.39094,
+                180, 19.7, 145.5, 147, "B");
+    }
+
+    @Test
+    public void createPositionWithLongitudeminus180() {
+        new ShipPosition(211331640, dateR1, 36.39094,
+                -180, 19.7, 145.5, 147, "B");
+    }
+
+    /**
+     * Test to ensure sog cannot be under 0.
+     */
+    @Test
+    public void createPositionWithSogUnder0() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, -2, 0, 147, "B"));
+        assertEquals("SOG must be positive.", thrown.getMessage());
+    }
+
+    @Test
+    public void createPositionWithSog0() {
+        new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 0, 0, 147, "B");
+    }
+
     /**
      * Test to ensure cog cannot be under 0.
      */
@@ -178,6 +209,12 @@ public class ShipPositionTest {
         assertEquals("COG must be between 0 and 359.", thrown.getMessage());
     }
 
+    @Test
+    public void createPositionWithCOGOequals359() {
+        new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 359, 147, "B");
+    }
+
     /**
      * Test to ensure Heading cannot be under 0.
      */
@@ -196,6 +233,18 @@ public class ShipPositionTest {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(211331640, dateR1, 36.39094,
                 -122.71335, 19.7, 145.5, 512, "B"));
         assertEquals("Heading must be between 0 and 359. It might also be 511 in case of being unavailable.", thrown.getMessage());
+    }
+
+    @Test
+    public void createPositionWithHeadingequals0() {
+         new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 0, "B");
+    }
+
+    @Test
+    public void createPositionWithHeadingequals359() {
+        new ShipPosition(211331640, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 359, "B");
     }
 
     /**
