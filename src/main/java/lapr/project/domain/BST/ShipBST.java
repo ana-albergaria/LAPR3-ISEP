@@ -169,12 +169,12 @@ public class ShipBST extends BST<Ship> {
     /**
      * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Travelled Distance
-     * @param list list with all the ships
      * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Travelled Distance
      */
-    public Map<Integer, Set<Double>> sortedByTravelledDistance(List<Ship> list) {
+    public Map<Integer, Set<Double>> sortedByTravelledDistance() {
         Map<Integer, Set<Double>> mapByTravelled = new LinkedHashMap<>();
+        List<Ship> list = getAllShips();
         sortedByTravelledDistance(mapByTravelled, list);
         return mapByTravelled;
     }
@@ -197,12 +197,12 @@ public class ShipBST extends BST<Ship> {
     /**
      * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Movements
-     * @param list list with all the ships
      * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
      *  of all the ships sorted By Total Movements
      */
-    public Map<Integer, Set<Double>> sortedByTotalMovements(List<Ship> list) {
+    public Map<Integer, Set<Double>> sortedByTotalMovements() {
         Map<Integer, Set<Double>> mapByMovements = new LinkedHashMap<>();
+        List<Ship> list = getAllShips();
         sortedByTotalMovements(root, mapByMovements, list);
         return mapByMovements;
     }
