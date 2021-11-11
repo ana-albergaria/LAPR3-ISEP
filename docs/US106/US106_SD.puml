@@ -24,7 +24,7 @@ ADM -> UI : inserts requested data (initial, final, N)
 activate UI
 UI -> CTRL : List<E> getShipsByDate(initial, final)
 activate CTRL
-CTRL -> COMP : shipBST = getShipStore().getShipsBstMmsi()
+CTRL -> COMP : shipBST = getShipStore()
         activate COMP
         COMP -> SHSTR : getShipsBstMmsi()
         activate SHSTR
