@@ -5,6 +5,10 @@ import lapr.project.domain.BST.ShipBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +53,7 @@ public class ShowPositionalMessagesController {
      * Method which verifies whether the MMSI code
      * inserted by the user is already in the system,
      * meaning whether the corresponding Ship is stored in the tree or not.
-     *
+     * <p>
      * Returns true if the ship exists in the tree,
      * otherwise returns false
      *
@@ -68,18 +72,31 @@ public class ShowPositionalMessagesController {
      * chosen by the user in the wished period of time.
      *
      * @param initialDate the initial Date
-     * @param finalDate the final Date
+     * @param finalDate   the final Date
      * @return a map containing information about the chosen ship and the positional messages
      */
-    public Map<Integer, List<String>> showPositionalMessages(Date initialDate, Date finalDate) {
+    public void showPositionalMessages(Date initialDate, Date finalDate) throws IOException {
         PositionsBST positionsBST = this.ship.getPositionsBST();
         List<String> listPositionalMessages = positionsBST.getPositionalMessages(initialDate, finalDate);
-        Integer vesselType = this.ship.getVesselTypeID();
-        Map<Integer, List<String>> messagesWithVesselType = new HashMap<>();
-        messagesWithVesselType.put(vesselType, listPositionalMessages);
 
-        return messagesWithVesselType;
+        File file = new File("us103PositionalMessages.txt");
+        if (!file.exists())
+            file.createNewFile();
+
+        try {
+            file.delete();
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(String.format("Vessel Name: %s\n", this.ship.getVesselName()));
+            bw.write(String.format("Vessel Type ID: %d\n", this.ship.getVesselTypeID()));
+            bw.write(String.format("MMSI: %d\n\n", this.ship.getMMSI()));
+            for (String shipPosition : listPositionalMessages) {
+                bw.write(shipPosition);
+            }
+            bw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
-
-
 }

@@ -2,6 +2,7 @@ package lapr.project.domain.model;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -129,16 +130,11 @@ public class ShipPosition implements Comparable<ShipPosition> {
 
     @Override
     public String toString() {
-        return "ShipPosition{" +
-                "MMSI=" + MMSI +
-                ", baseDateTime=" + baseDateTime +
-                ", lat=" + lat +
-                ", lon=" + lon +
-                ", sog=" + sog +
-                ", cog=" + cog +
-                ", heading=" + heading +
-                ", transcieverClass='" + transcieverClass + '\'' +
-                '}';
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        return String.format(">> SHIP POSITION%nBase Date Time: %s%n" +
+                "Latitude: %f%nLongitude: %f%nSpeed Over Ground (SOG): %f%nCourse Over Ground (COG): %f%n" +
+                "Transciever Class: %s%n%n", sdf.format(baseDateTime), lat, lon, sog, cog, heading, transcieverClass);
     }
 
     @Override
