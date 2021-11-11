@@ -254,6 +254,10 @@ public class ShipsBST extends BST<Ship> {
                                     PositionsBST positionsBST,
                                     int ship1MMSI, int indexShip) {
 
+        /*if(indexShip == listShipsWithIntendedTD.size()-1)
+            return;
+         */
+
 
         for (int i = indexShip+1; i < listShipsWithIntendedTD.size(); i++) {
 

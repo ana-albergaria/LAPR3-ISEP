@@ -1,5 +1,7 @@
 package lapr.project.domain.BST;
 
+import lapr.project.controller.ImportShipsController;
+import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import org.junit.Assert;
@@ -148,6 +150,8 @@ public class ShipsBSTTest {
         }
 
         /* end for US7 */
+        Company company = new Company("Cargo Shipping Company");
+        ImportShipsController importCtrl = new ImportShipsController(company);
 
 
 
