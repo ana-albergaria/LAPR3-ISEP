@@ -195,9 +195,22 @@ public class ShipPositionTest {
     public void ensureMMSIHas9Digits() {
         ShipPosition shipPosition = new ShipPosition(211331640, dateR1, 36.39094,
                 -122.71335, 19.7, 145.5, 147, "B");
-        assertTrue(String.valueOf(shipPosition.getMMSI()).length()==9);
+        assertEquals(9, String.valueOf(shipPosition.getMMSI()).length());
     }
 
+    @Test
+    public void checkMoreThen9DigitsMmsiException() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(2113316402, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 147, "B"));
+        assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
+    }
+
+    @Test
+    public void checkLessThen9DigitsMmsiException() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(2113316, dateR1, 36.39094,
+                -122.71335, 19.7, 145.5, 147, "B"));
+        assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
+    }
 
     /**
      * Test to ensure compareTo() is functioning correctly.
@@ -247,5 +260,31 @@ public class ShipPositionTest {
         assertEquals(expRes, res);
     }
 
+    @Test
+    public void testEqualsSameObject(){
+        assertEquals(s1, s1);
+    }
 
+    @Test
+    public void testEqualsSameAtts(){
+        ShipPosition shipPos = new ShipPosition(s1.getMMSI(), s1.getBaseDateTime(), s1.getLat(), s1.getLon(), s1.getSog(), s1.getCog(), s1.getHeading(), s1.getTranscieverClass());
+        assertEquals(s1, shipPos);
+    }
+
+    @Test
+    public void testNotEqualsSameClass(){
+        ShipPosition shipPos = new ShipPosition(123457779, s1.getBaseDateTime(), s1.getLat(), s1.getLon(), s1.getSog(), s1.getCog(), s1.getHeading(), s1.getTranscieverClass());
+        assertNotEquals(s1, shipPos);
+    }
+
+    @Test
+    public void testNotEqualsDiffClass(){
+        String notShipPos = "not a ship pos";
+        assertNotEquals(s1, notShipPos);
+    }
+
+    @Test
+    public void testNotEqualsNull(){
+        assertNotEquals(s1, null);
+    }
 }

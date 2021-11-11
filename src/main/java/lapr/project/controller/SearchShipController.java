@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
+import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.store.ShipStore;
 
 public class SearchShipController {
@@ -18,15 +19,26 @@ public class SearchShipController {
         this.company= App.getInstance().getCompany();
     }
     /**
-     * empty constructor for the  Class
+     * Constructor with company parameter
      */
     public SearchShipController(Company comp){
         this.company= comp;
     }
 
-    public Ship getShipInfoByAnyCode(String code){
+
+    public String getShipInfoByAnyCode(String code){
         ShipStore shipStore = company.getShipStore();
-        return shipStore.getShipByAnyCode(code);
+        return shipDetailsToString(shipStore.getShipByAnyCode(code));
+    }
+
+    public String shipDetailsToString(Ship ship){
+        String details = String.format("Ship details:\n MMSI:%d\nCallSign:%s\nIMO:%s\nVesselType:%d\nVesselName:%s\nLenght:%d\nWidth:%d\nDraft:%f\n Cargo:%d\n",
+                ship.getMMSI(), ship.getCallSign(), ship.getIMO(), ship.getVesselTypeID(), ship.getVesselName(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo());
+        details = details.concat("Ship Positions:\n");
+        for(ShipPosition p : ship.getPositionsBST().inOrder()){
+            details = details.concat(String.format("%s\n", p.toString()));
+        }
+        return details;
     }
 
 }

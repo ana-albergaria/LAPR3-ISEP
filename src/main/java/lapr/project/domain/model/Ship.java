@@ -13,38 +13,38 @@ public class Ship implements Comparable<Ship> {
      */
     private PositionsBST positionsBST;
 
-    private int MMSI;
+    private final int MMSI;
 
-    private String vesselName;
+    private final String vesselName;
 
-    private String IMO;
+    private final String IMO;
 
-    private String callSign;
+    private final String callSign;
 
     /**
      * The vessel type ID.
      */
-    private int vesselTypeID;
+    private final int vesselTypeID;
 
     /**
      * The ship length.
      */
-    private int length;
+    private final int length;
 
     /**
      * The ship width.
      */
-    private int width;
+    private final int width;
 
     /**
      * The ship draft.
      */
-    private double draft;
+    private final double draft;
 
     /**
      * The ship cargo.
      */
-    private int cargo;
+    private final int cargo;
 
 
 
@@ -201,7 +201,7 @@ public class Ship implements Comparable<Ship> {
     public String toString() {
         return "Ship{" +
                 "MMSI=" + MMSI +
-                ", vesselType=" +
+                ", vesselType=" + vesselTypeID +
                 ", positionsBST=" + positionsBST +
                 ", vesselName='" + vesselName + '\'' +
                 ", IMO='" + IMO + '\'' +

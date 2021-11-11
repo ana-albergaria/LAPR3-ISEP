@@ -142,12 +142,26 @@ public class ShipPosition implements Comparable<ShipPosition> {
     }
 
     @Override
-    public boolean equals(Object o){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean equals(Object otherObject){
+        if(this == otherObject)
+            return true;
+
+        if(otherObject == null || this.getClass() != otherObject.getClass())
+            return false;
+
+        ShipPosition otherShipPosition = (ShipPosition) otherObject;
+
+        return baseDateTime.equals(otherShipPosition.baseDateTime) &&
+                MMSI == otherShipPosition.MMSI &&
+                lat == otherShipPosition.lat &&
+                lon == otherShipPosition.lon &&
+                sog == otherShipPosition.sog &&
+                cog == otherShipPosition.cog;
     }
 
     @Override
     public int compareTo(ShipPosition o) {
         return baseDateTime.compareTo(o.getBaseDateTime());
     }
+
 }

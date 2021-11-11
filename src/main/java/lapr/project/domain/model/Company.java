@@ -1,7 +1,6 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
-import lapr.project.domain.BST.ShipBST;
 import lapr.project.domain.store.ShipStore;
 import org.apache.commons.lang3.StringUtils;
 
