@@ -128,6 +128,16 @@ public class ShipPositionTest {
     }
 
     /**
+     * Test to ensure latitude cannot de over 91.
+     */
+    @Test
+    public void createPositionWithLatitude91() {
+        ShipPosition pos = new ShipPosition(211331640, dateR1, 91,
+                -122.71335, 19.7, 145.5, 147, "B");
+        assertEquals(91, pos.getLat());
+    }
+
+    /**
      * Test to ensure Longitude cannot be under -180.
      */
     @Test
