@@ -8,8 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ShipTest {
 
@@ -220,6 +219,37 @@ public class ShipTest {
         assertEquals("Cargo cannot be negative.", thrown.getMessage());
     }
 
+    @Test
+    public void testEqualsMethod(){
+        String notShipObj =  "abc";
+        assertNotEquals(s1, notShipObj);
+        assertNotEquals(null, s1);
+    }
+
+    @Test
+    public void testGetLength(){
+        assertEquals(s1.getLength(), 294);
+    }
+
+    @Test
+    public void testGetWidth(){
+        assertEquals(s1.getWidth(), 32);
+    }
+
+    @Test
+    public void testGetDraft(){
+        assertEquals(s1.getDraft(), 13.6);
+    }
+
+    @Test
+    public void testGetCargo(){
+        assertEquals(s1.getCargo(), 79);
+    }
+
+    @Test
+    public void testGetTotalMovs(){
+        assertEquals(s1.getTotalMovs(), positionsBST.size());
+    }
 
 
 }

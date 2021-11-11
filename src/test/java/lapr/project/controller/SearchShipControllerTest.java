@@ -69,19 +69,21 @@ class SearchShipControllerTest {
     @Test
     public void checkSearchShipWithAnyCodeImo(){
         SearchShipController controller = new SearchShipController(comp);
-        Ship expected = s2;
+        String expected = controller.shipDetailsToString(s2);
         assertEquals(expected, controller.getShipInfoByAnyCode(("IMO9395044")));
     }
+
     @Test
     public void checkSearchShipWithAnyCodeMmsi(){
         SearchShipController controller = new SearchShipController(comp);
-        Ship expected = s1;
+        String expected = controller.shipDetailsToString(s1);
         assertEquals(expected, controller.getShipInfoByAnyCode(Integer.toString(mmsi1)));
     }
+
     @Test
     public void checkSearchShipWithAnyCodeCallSign(){
         SearchShipController controller = new SearchShipController(comp);
-        Ship expected = s3;
+        String expected = controller.shipDetailsToString(s3);
         assertEquals(expected, controller.getShipInfoByAnyCode(("CGSQ2")));
     }
 }
