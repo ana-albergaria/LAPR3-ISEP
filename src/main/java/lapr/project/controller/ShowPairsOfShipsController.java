@@ -42,9 +42,10 @@ public class ShowPairsOfShipsController {
     public List<TreeMap<Double, String>> getPairsOfShips() throws IOException {
         String header = String.format("%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs Ship 1", "TravelDist Ship1", "Movs Ship 2", "TravelDist Ship2", "TravelDist Diff");
 
-        File file = new File("us107PairsOfShips.txt");
+        /*File file = new File("us107PairsOfShips.txt");
         if(!file.exists())
             file.createNewFile();
+
 
         try {
             FileWriter fw = new FileWriter(file, true);
@@ -55,7 +56,12 @@ public class ShowPairsOfShipsController {
             //return true;
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            bw.close();
+            fw.close();
         }
+         */
+
 
         ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
         List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
