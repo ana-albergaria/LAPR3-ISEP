@@ -7,6 +7,7 @@ participant "TopNUI" as UI
 participant "TopNController" as CTRL
 participant "ShipBST" as STORE
 participant "Company" as COMP
+participant "ShipStore" as SHSTR
 participant "PositionBST" as BST
 participant "Position" as POS
 participant "Ship" as SHIP
@@ -23,9 +24,12 @@ ADM -> UI : inserts requested data (initial, final, N)
 activate UI
 UI -> CTRL : List<E> getShipsByDate(initial, final)
 activate CTRL
-CTRL -> COMP : shipBST = getShipsBST()
-activate COMP
-deactivate COMP
+CTRL -> COMP : shipBST = getShipStore()
+        activate COMP
+        COMP -> SHSTR : getShipsBstMmsi()
+        activate SHSTR
+        deactivate SHSTR
+        deactivate COMP
 CTRL -> STORE : List<E> getShipsByDate(initial, final)
 activate STORE
 STORE -> SHIP : positionBST = getPositionsBST()

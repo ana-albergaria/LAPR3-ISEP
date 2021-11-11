@@ -24,12 +24,15 @@ class ShipPosition {
     -getSOG()
 }
 
+class ShipStore {
+    -getShipsBstMmsi()
+}
+
 
 class TopNUI {}
 
 class TopNController {
     -getShipByBaseDateTime(initialBaseDate, finalBaseDate)
-    -sortNShips(shipList, N)
     -getShipWithMean(sortedShips)
 }
 
@@ -41,15 +44,16 @@ class ShipsBST{
 
 class PositionBST{
     -getShipBaseDateTime(code)
-    -getMeanSOG(code)
+    -getMeanSOG()
     -getTotalDistance()
 }
 class Company {
-    -getShipsBST()
+    -getShipStore()
 }
 
 
-Company "1" -- "1" ShipsBST : uses >
+Company "1" -- "1" ShipStore : uses >
+ShipStore ..> ShipsBST
 ShipsBST ..> PositionBST
 ShipsBST "1" -- "1..*" Ship : owns >
 TopNUI ..> TopNController
