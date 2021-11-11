@@ -67,7 +67,7 @@ class MovementSummaryControllerTest {
                 s1.getPositionsBST().getMeanCog(), s1.getPositionsBST().getDepartLatitude(), s1.getPositionsBST().getDepartLongitude(),
                 s1.getPositionsBST().getArrivalLatitude(), s1.getPositionsBST().getArrivalLongitude(), s1.getPositionsBST().getTotalDistance(), s1.getPositionsBST().getDeltaDistance());
         MovementSummaryController controller = new MovementSummaryController(comp);
-        MovementsSummaryDto mSummary = controller.getShipMovementsSummary(123456789);
+        MovementsSummaryDto mSummary = controller.getShipMovementsSummary("123456789");
         Assertions.assertEquals(expect.toString(), mSummary.toString());
     }
 

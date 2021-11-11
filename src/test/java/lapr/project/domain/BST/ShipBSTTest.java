@@ -427,6 +427,18 @@ public class ShipBSTTest {
         Assertions.assertEquals(expInfoPair, infoPair);
     }
 
+    @Test
+    public void checkHasShipTrue(){
+        Ship shipToFind = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79);
+        Assertions.assertTrue(shipsBST.hasShip(shipToFind));
+    }
+
+    @Test
+    public void checkHasShipFalse(){
+        Ship shipToFind = new Ship(posBST, 987654321, vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79);
+        Assertions.assertFalse(shipsBST.hasShip(shipToFind));
+    }
+
     /*@Test
     void getPairsOfShips() {
         ImportShipsController importCtrl = new ImportShipsController(comp);
