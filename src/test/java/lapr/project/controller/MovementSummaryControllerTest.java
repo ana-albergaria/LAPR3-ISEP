@@ -5,16 +5,16 @@ import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.dto.MovementsSummaryDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class MovementSummaryControllerTest {
     private Company comp;
-    private int mmsi1, mmsi3, mmsi4;
+    private int mmsi1,mmsi2, mmsi3, mmsi4;
     private String vesselName;
     private String imo;
     private String callSign;
@@ -40,16 +40,17 @@ class MovementSummaryControllerTest {
         comp = new Company("Shipping company");
         PositionsBST positions = new PositionsBST();
         for(int i=0; i<3;i++){
-            positions.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
+            positions.insert(new ShipPosition(mmsiCodes[0], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
         }
         mmsi1 = 123456789;
+        mmsi2 = 123456780;
         mmsi3 = 123456788;
         mmsi4 = 123456790;
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
         s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s2 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s2 = new Ship(positions, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,79);
         s3 = new Ship(positions, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,79);
         s4 = new Ship(positions, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,79);
 
@@ -62,9 +63,12 @@ class MovementSummaryControllerTest {
 
     @Test
     public void integrationTestWithController(){
+        MovementsSummaryDto expect = new MovementsSummaryDto(vesselName, d1[0], d1[2], s1.getPositionsBST().getMaxSog(), s1.getPositionsBST().getMeanSog(),
+                s1.getPositionsBST().getMeanCog(), s1.getPositionsBST().getDepartLatitude(), s1.getPositionsBST().getDepartLongitude(),
+                s1.getPositionsBST().getArrivalLatitude(), s1.getPositionsBST().getArrivalLongitude(), s1.getPositionsBST().getTotalDistance(), s1.getPositionsBST().getDeltaDistance());
         MovementSummaryController controller = new MovementSummaryController(comp);
         MovementsSummaryDto mSummary = controller.getShipMovementsSummary(123456789);
-        System.out.println(mSummary);
+        Assertions.assertEquals(expect.toString(), mSummary.toString());
     }
 
 }
