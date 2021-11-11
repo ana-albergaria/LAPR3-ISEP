@@ -4,11 +4,14 @@ import lapr.project.controller.ImportShipsController;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.dto.ShipsFileDTO;
+import lapr.project.utils.ShipsFileUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -67,6 +70,10 @@ public class ShipBSTTest {
     private PositionsBST positionsBST7;
     private PositionsBST positionsBST8;
 
+    private Company comp;
+    private List<ShipsFileDTO> shipsOfFile, shipsOfFileExp;
+    private File /*file1, file2,*/ fileTest, expFileTest;
+    private ImportShipsController ctrl;
 
     public ShipBSTTest() throws ParseException {
     }
@@ -150,8 +157,14 @@ public class ShipBSTTest {
         }
 
         /* end for US7 */
-        Company company = new Company("Cargo Shipping Company");
-        ImportShipsController importCtrl = new ImportShipsController(company);
+        comp = new Company("Company");
+        this.shipsOfFile = Collections.emptyList();
+        this.shipsOfFileExp = Collections.emptyList();
+        fileTest = new File("data-ships&ports/testFile.csv");
+        expFileTest = new File("data-ships&ports/expImpTestFile.csv");
+        this.ctrl = new ImportShipsController(comp);
+
+
 
 
 
@@ -421,7 +434,16 @@ public class ShipBSTTest {
 
     @Test
     void getPairsOfShips() {
-        List<TreeMap<Double, String>> listPairsOfShips = shipsBST3.getPairsOfShips();
+        ImportShipsController importCtrl = new ImportShipsController(comp);
+        ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
+        shipsOfFile = shipsFileUtils.getShipsDataToDto(fileTest.toString());
+        List<ShipsFileDTO> addedShips = new ArrayList<>();
+        for (int i = 0; i < shipsOfFile.size(); i++) {
+            if (ctrl.importShipFromFile(shipsOfFile.get(i)))
+                addedShips.add(shipsOfFile.get(i));
+        }
+
+        List<TreeMap<Double, String>> listPairsOfShips = comp.getShipStore().getShipsBstMmsi().getPairsOfShips();
 
 
         for (TreeMap<Double, String> item : listPairsOfShips) {

@@ -37,7 +37,7 @@ public class ImportShipsController {
         this.company=companyy;
         this.ship=null;
         this.shipPosition=null;
-        this.positionsBST=null;
+        this.positionsBST=new PositionsBST();
     }
 
     /*public boolean registerPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
@@ -53,6 +53,11 @@ public class ImportShipsController {
         return positionsBST.hasPosition(shipPosition);
     }
 
+    public void createPosition(PositionDTO positionDTO, int mmsi){
+        this.shipPosition =  new ShipPosition(mmsi, positionDTO.getBaseDateTime(), positionDTO.getLat(), positionDTO.getLon(),
+                positionDTO.getSog(), positionDTO.getCog(), positionDTO.getHeading(), positionDTO.getTranscieverClass());
+    }
+
     public boolean saveShip(){
         this.ship.setPositionsBST(positionsBST);
         return this.company.getShipStore().saveShip(ship);
@@ -60,7 +65,9 @@ public class ImportShipsController {
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
         if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship logo tem de se criar
-            this.ship = new Ship(null,shipsFileDTO.getMmsi(),shipsFileDTO.getVesselName(),shipsFileDTO.getImo(),shipsFileDTO.getCallSign(),
+            createPosition(shipsFileDTO.getPositionDTO(), shipsFileDTO.getMmsi());
+            this.positionsBST.savePosition(shipPosition);
+            this.ship = new Ship(positionsBST,shipsFileDTO.getMmsi(),shipsFileDTO.getVesselName(),shipsFileDTO.getImo(),shipsFileDTO.getCallSign(),
                     shipsFileDTO.getVesselType(),shipsFileDTO.getLength(),shipsFileDTO.getWidth(),shipsFileDTO.getDraft(),shipsFileDTO.getCargo());
         } else {
             //ir buscar o ship pelo mmsi
