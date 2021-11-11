@@ -432,7 +432,7 @@ public class ShipBSTTest {
         Assertions.assertEquals(expInfoPair, infoPair);
     }
 
-    @Test
+    /*@Test
     void getPairsOfShips() {
         ImportShipsController importCtrl = new ImportShipsController(comp);
         ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
@@ -452,5 +452,5 @@ public class ShipBSTTest {
             }
         }
 
-    }
+    }*/
 }
