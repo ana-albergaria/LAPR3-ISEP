@@ -243,7 +243,7 @@ public class ShipTest {
 
     @Test
     public void testGetCargo(){
-        assertEquals(s1.getCargo(), 79);
+        assertEquals(s1.getCargo(), "79");
     }
 
     @Test
