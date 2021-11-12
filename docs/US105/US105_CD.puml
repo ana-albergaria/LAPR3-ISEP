@@ -25,36 +25,37 @@ class ShipPosition {
     -transceiver
 }
 
+class ShipStore {
+    -getShipsBstMmsi()
+}
 
-class TopNUI {}
 
-class TopNController {
-    -getAllShips()
-    -sortedByTravelledDistance(allShip)
-    -sortedByTotalMovements(allMap)
+class AllShipUI {}
+
+class AllShipMMSIController {
+    -sortedByTravelledDistance()
+    -sortedByTotalMovements()
 }
 
 class ShipsBST{
     -getAllShips()
-    -sortedByTravelledDistance(allShip)
-    -sortedByTravelledDistance(node, allMap, allShip)
-    -sortByTotalMovements(allMap)
-    -sortByTotalMovements(node, allMap, allShip)
+    -sortedByTravelledDistance()
+    -sortByTotalMovements()
 }
 
 class PositionBST{
     -size()
     -getTotalDistance()
-    -getTotalMovements()
+    -size()
     -getDeltaDistance()
 }
 class Company {
-    -getShipsBST()
+    -getShipStore()
 }
 
 
-Company "1" -- "1" ShipsBST : uses >
-ShipsBST ..> PositionBST
+Company "1" -- "1" ShipStore : uses >
+ShipStore ..> ShipsBST
 ShipsBST "1" -- "1..*" Ship : owns >
 TopNUI ..> TopNController
 TopNController ..> ShipsBST

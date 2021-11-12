@@ -6,11 +6,11 @@ package lapr.project.domain.shared;
  * @author Ana Albergaria <1201518@isep.ipp.pt> inspired in class by: Paulo Maio <pam@isep.ipp.pt>
  */
 public class Constants {
-    public static final String ROLE_ADMIN = "ADMINISTRATOR";
+    public static final String ROLE_TRAFFIC_MANAGER = "TRAFFIC MANAGER";
 
 
     public static final String PARAMS_FILENAME = "config.properties";
-    public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
+    public static final String PARAMS_COMPANY_DESIGNATION = "Cargo company";
     public static final Double RADIUS_OF_EARTH_IN_METERS = 6371000.0;
     public static final Double LIMIT_TRAVELLED_DISTANCE = 10.0;
     public static final Double LIMIT_COORDINATES = 5.0;

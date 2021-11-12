@@ -10,6 +10,8 @@ import lapr.project.dto.ShipsFileDTO;
 import lapr.project.dto.mapper.PositionMapper;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 public class ShipStore {
 
     private ShipBST shipsBstMmsi = new ShipBST();
@@ -21,6 +23,7 @@ public class ShipStore {
         PositionMapper positionMapper = new PositionMapper();
         ShipPosition shipPosition = positionMapper.toDomain(shipsFileDTO.getPositionDTO(), shipsFileDTO.getMmsi());
         positionsBST.insert(shipPosition);
+
         return new Ship(positionsBST, shipsFileDTO.getMmsi(), shipsFileDTO.getVesselName(), shipsFileDTO.getImo(), shipsFileDTO.getCallSign(),
                 shipsFileDTO.getVesselType(), shipsFileDTO.getLength(), shipsFileDTO.getWidth(), shipsFileDTO.getDraft(), shipsFileDTO.getCargo());
     }

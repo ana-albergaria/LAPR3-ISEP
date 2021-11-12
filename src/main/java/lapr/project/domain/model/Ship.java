@@ -46,8 +46,6 @@ public class Ship implements Comparable<Ship> {
      */
     private final String cargo;
 
-
-
     public Ship(PositionsBST positionsBST, int MMSI,
                 String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, String cargo) {
         checkPositionsBST(positionsBST);
@@ -70,6 +68,27 @@ public class Ship implements Comparable<Ship> {
         this.draft=draft;
         this.cargo=cargo;
     }
+
+    /*public Ship(int MMSI,
+                String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, int cargo) {
+        checkMMSI(MMSI);
+        checkVesselName(vesselName);
+        checkIMO(IMO);
+        checkLength(length);
+        checkWidth(width);
+        checkDraft(draft);
+        checkCargo(cargo);
+        //checkCallSign(callSign);
+        this.MMSI = MMSI;
+        this.vesselName = vesselName;
+        this.IMO = IMO;
+        this.callSign = callSign;
+        this.vesselTypeID=vesselTypeID;
+        this.length=length;
+        this.width=width;
+        this.draft=draft;
+        this.cargo=cargo;
+    }*/
 
     public void checkPositionsBST(PositionsBST positionsBST){
         if (positionsBST.isEmpty()){

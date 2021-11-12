@@ -64,8 +64,9 @@ public class ShipBST extends BST<Ship> {
     private void getShipsByDate(Node<Ship> node, Date initialDate, Date finalDate, List<Ship> shipList) {
         if(node==null) return;
 
+        if (!shipList.contains(node.getElement())){
         if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate) && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
-            if (!shipList.contains(node.getElement())){
+
                 shipList.add(node.getElement());
 
             }
@@ -73,7 +74,6 @@ public class ShipBST extends BST<Ship> {
         getShipsByDate(node.getLeft(), initialDate, finalDate, shipList);
         getShipsByDate(node.getRight(), initialDate, finalDate, shipList);
 
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<Ship> getShipsByDate(Date initialDate, Date finalDate) {
@@ -95,7 +95,6 @@ public class ShipBST extends BST<Ship> {
         Collections.sort(shipList, comparator);
         return shipList;
 
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
@@ -106,8 +105,8 @@ public class ShipBST extends BST<Ship> {
      */
     public Map<Integer, Map<Ship, Set<Double>>> getShipWithMean(List<Ship> listShip, int number) {
         Map<Integer,  Map<Ship, Set<Double>>> map = new HashMap<>();
-        Map<Ship, Set<Double>> shipMap = new HashMap<>();
-        Set<Double> setter = new HashSet<>();
+        Map<Ship, Set<Double>> shipMap ;
+        Set<Double> setter ;
         Integer vessel = null;
 
         listShip = sortNShips(listShip);
@@ -123,22 +122,12 @@ public class ShipBST extends BST<Ship> {
                     shipMap.put(x, setter);
                     map.put(vessel, shipMap);
                 }
-            } else {
-                shipMap = map.get(x.getVesselTypeID());
-                setter = shipMap.get(x);
-                setter.add(x.getPositionsBST().getTotalDistance());
-                setter.add(x.getPositionsBST().getMeanSog());
-                if (shipMap.size() <= number) {
-                    shipMap.put(x, setter);
-                    map.put(vessel, shipMap);
-                }
             }
         }
 
         return map;
 
 
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -156,10 +145,7 @@ public class ShipBST extends BST<Ship> {
     public void getAllShips(Node<Ship> node, List<Ship> list) {
         if (node == null) return;
 
-        if (list.contains(node.getElement())){
-            getAllShips(node.getRight(), list);
-            getAllShips(node.getLeft(), list);
-        } else {
+        if (!list.contains(node.getElement())){
             list.add(node.getElement());
             getAllShips(node.getRight(), list);
             getAllShips(node.getLeft(), list);
@@ -169,12 +155,12 @@ public class ShipBST extends BST<Ship> {
     /**
      * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Travelled Distance
-     * @param list list with all the ships
      * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Travelled Distance
      */
-    public Map<Integer, Set<Double>> sortedByTravelledDistance(List<Ship> list) {
+    public Map<Integer, Set<Double>> sortedByTravelledDistance() {
         Map<Integer, Set<Double>> mapByTravelled = new LinkedHashMap<>();
+        List<Ship> list = getAllShips();
         sortedByTravelledDistance(mapByTravelled, list);
         return mapByTravelled;
     }
@@ -197,17 +183,17 @@ public class ShipBST extends BST<Ship> {
     /**
      * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Movements
-     * @param list list with all the ships
      * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
      *  of all the ships sorted By Total Movements
      */
-    public Map<Integer, Set<Double>> sortedByTotalMovements(List<Ship> list) {
+    public Map<Integer, Set<Double>> sortedByTotalMovements() {
         Map<Integer, Set<Double>> mapByMovements = new LinkedHashMap<>();
-        sortedByTotalMovements(root, mapByMovements, list);
+        List<Ship> list = getAllShips();
+        sortedByTotalMovements(mapByMovements, list);
         return mapByMovements;
     }
 
-    public void  sortedByTotalMovements(Node<Ship> node, Map<Integer, Set<Double>> map, List<Ship> list) {
+    public void  sortedByTotalMovements(Map<Integer, Set<Double>> map, List<Ship> list) {
         ShipDeltaDistanceComparato comparator = new ShipDeltaDistanceComparato();
         Collections.sort(list, comparator);
 
@@ -305,24 +291,11 @@ public class ShipBST extends BST<Ship> {
     public boolean hasShip(Ship ship){
         List<Ship> allShip = (List<Ship>) inOrder();
         for (Ship ship1 : allShip) {
-            if (ship1==ship){
+            if (ship1.equals(ship)){
                 return true;
             }
         }
         return false;
-    }
-
-    public boolean validateShip(Ship ship){
-        if (ship==null)
-            return false;
-        return !hasShip(ship);
-    }
-
-    public boolean saveShip(Ship ship){
-        if (!validateShip(ship))
-            return false;
-        this.insert(ship);
-        return true;
     }
 
 }
