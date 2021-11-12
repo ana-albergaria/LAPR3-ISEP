@@ -211,8 +211,6 @@ public class ShipBST extends BST<Ship> {
 
     public List<TreeMap<Double, String>> getPairsOfShips() {
         List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
-        String header = String.format("%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs Ship 1", "TravelDist Ship1", "Movs Ship 2", "TravelDist Ship2", "TravelDist Diff");
-
 
         List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD();
 
@@ -229,10 +227,6 @@ public class ShipBST extends BST<Ship> {
                 listPairsOfShips.add(infoPair);
         }
         return listPairsOfShips;
-
-
-        //throw new UnsupportedOperationException();
-
     }
 
     public void fillTreeMapForEachShip(List<Ship> listShipsWithIntendedTD,

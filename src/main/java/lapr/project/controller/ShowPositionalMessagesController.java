@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,10 +85,11 @@ public class ShowPositionalMessagesController {
         if (!file.exists())
             file.createNewFile();
 
-        FileWriter fw = new FileWriter(file, true);
+        FileWriter fw = new FileWriter(file, false);
         BufferedWriter bw = new BufferedWriter(fw);
         try {
-            file.delete();
+            //file.delete();
+            //Files.delete(Paths.get("us103PositionalMessages.txt"));
 
             bw.write(String.format("Vessel Name: %s%nVessel Type ID: %d%nMMSI: %d%n%n",
                     this.ship.getVesselName(), this.ship.getVesselTypeID(), this.ship.getMMSI()));
