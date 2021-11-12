@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /** Controller class for showing the positional messages of a ship temporally organized
@@ -40,31 +41,31 @@ public class ShowPairsOfShipsController {
     }
 
     public List<TreeMap<Double, String>> getPairsOfShips() throws IOException {
-        String header = String.format("%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs Ship 1", "TravelDist Ship1", "Movs Ship 2", "TravelDist Ship2", "TravelDist Diff");
+        ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
+        List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
+        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%-20s%n",
+                "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs1", "TravelDist1", "Movs2", "TravelDist2", "TravelDist Diff");
 
-        /*File file = new File("us107PairsOfShips.txt");
-        if(!file.exists())
+        File file = new File("us107ShowPairsOfShips.txt");
+        if (!file.exists())
             file.createNewFile();
 
-
+        FileWriter fw = new FileWriter(file, false);
+        BufferedWriter bw = new BufferedWriter(fw);
         try {
-            FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(header);
 
-            bw.close();
-            //return true;
-        } catch (IOException e) {
-            e.printStackTrace();
+            bw.write(header);
+            for (TreeMap<Double, String> item : listPairsOfShips) {
+                for (Map.Entry<Double, String> entry : item.entrySet()) {
+                    bw.write(entry.getValue());
+                }
+            }
+
         } finally {
             bw.close();
             fw.close();
         }
-         */
 
-
-        ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
-        List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
         return listPairsOfShips;
         //throw new UnsupportedOperationException();
     }

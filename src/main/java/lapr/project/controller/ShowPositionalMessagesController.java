@@ -88,8 +88,6 @@ public class ShowPositionalMessagesController {
         FileWriter fw = new FileWriter(file, false);
         BufferedWriter bw = new BufferedWriter(fw);
         try {
-            //file.delete();
-            //Files.delete(Paths.get("us103PositionalMessages.txt"));
 
             bw.write(String.format("Vessel Name: %s%nVessel Type ID: %d%nMMSI: %d%n%n",
                     this.ship.getVesselName(), this.ship.getVesselTypeID(), this.ship.getMMSI()));
