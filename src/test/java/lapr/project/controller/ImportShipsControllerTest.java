@@ -29,7 +29,7 @@ public class ImportShipsControllerTest {
         file2 = new File("data-ships&ports/sships.csv");*/
         fileTest = new File("data-ships&ports/testFile.csv");
         expFileTest = new File("data-ships&ports/expImpTestFile.csv");
-        fileTestPairsOfShips = new File("data-ships&ports/testImpShip366998510.csv");
+        //fileTestPairsOfShips = new File("data-ships&ports/testImpShip366998510.csv");
         this.ctrl = new ImportShipsController(comp);
     }
 
@@ -53,8 +53,7 @@ public class ImportShipsControllerTest {
         Assert.assertEquals(expAddedShips, addedShips);
     }
 
-    /*
-    @Test
+    /*@Test
     public void testarImpShip(){
         ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
         int j=0;
