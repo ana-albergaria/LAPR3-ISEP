@@ -365,7 +365,7 @@ public class PositionsBSTTest {
         PositionsBST positionsBST = s1.getPositionsBST();
         PositionsBST positionsBST2 = s2.getPositionsBST();
 
-        Double res = positionsBST.getArrivalDistance(positionsBST2);
+        Double res = (double) Math.round(positionsBST.getArrivalDistance(positionsBST2));
 
         assertEquals(expRes, res);
     }
@@ -383,7 +383,7 @@ public class PositionsBSTTest {
         PositionsBST positionsBST = s1.getPositionsBST();
         PositionsBST positionsBST2 = s2.getPositionsBST();
 
-        Double res = positionsBST.getDepartureDistance(positionsBST2);
+        Double res = (double) Math.round(positionsBST.getDepartureDistance(positionsBST2));
 
         assertEquals(expRes, res);
     }

@@ -144,7 +144,7 @@ public class PositionsBST extends BST<ShipPosition> {
                     Math.cos(lat1Rad) * Math.cos(lat2Rad);
         Double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
 
-        return (double) Math.round((Constants.RADIUS_OF_EARTH_IN_METERS * c)/1000);
+        return (Constants.RADIUS_OF_EARTH_IN_METERS * c)/1000;
     }
 
     /**
@@ -241,7 +241,15 @@ public class PositionsBST extends BST<ShipPosition> {
 
         Double arrivalLat2 = positionsBST2.getArrivalLatitude();
         Double arrivalLog2 = positionsBST2.getArrivalLongitude();
-
+        System.out.println("ARRIVAL COORDINATES");
+        this.getEndDate();
+        System.out.println(arrivalLat);
+        System.out.println(arrivalLog);
+        System.out.println();
+        positionsBST2.getEndDate();
+        System.out.println(arrivalLat2);
+        System.out.println(arrivalLog2);
+        System.out.println();
         return distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2);
     }
 
@@ -251,6 +259,16 @@ public class PositionsBST extends BST<ShipPosition> {
 
         Double depLat2 = positionsBST2.getDepartLatitude();
         Double depLog2 = positionsBST2.getDepartLongitude();
+
+        System.out.println("DEPART COORDINATES");
+        this.getEndDate();
+        System.out.println(depLat);
+        System.out.println(depLog);
+        System.out.println();
+        positionsBST2.getEndDate();
+        System.out.println(depLat2);
+        System.out.println(depLog2);
+        System.out.println();
 
         return distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
     }

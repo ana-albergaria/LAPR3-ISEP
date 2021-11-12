@@ -150,7 +150,7 @@ public class Ship implements Comparable<Ship> {
     }
 
     private void checkCargo(String cargo){
-        if (Integer.parseInt(cargo)<0 && !cargo.equals("NA")){
+        if (!cargo.equals("NA") && Integer.parseInt(cargo)<0){
             throw new IllegalArgumentException("Cargo cannot be negative.");
         }
     }
