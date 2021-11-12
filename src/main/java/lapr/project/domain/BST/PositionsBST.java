@@ -201,7 +201,6 @@ public class PositionsBST extends BST<ShipPosition> {
                                        List<String> listPositionalMessages,
                                        Date initialDate,
                                        Date finalDate) {
-        //lançar exceções?
 
         if(node == null)
             return;
@@ -241,15 +240,7 @@ public class PositionsBST extends BST<ShipPosition> {
 
         Double arrivalLat2 = positionsBST2.getArrivalLatitude();
         Double arrivalLog2 = positionsBST2.getArrivalLongitude();
-        System.out.println("ARRIVAL COORDINATES");
-        this.getEndDate();
-        System.out.println(arrivalLat);
-        System.out.println(arrivalLog);
-        System.out.println();
-        positionsBST2.getEndDate();
-        System.out.println(arrivalLat2);
-        System.out.println(arrivalLog2);
-        System.out.println();
+
         return distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2);
     }
 
@@ -259,16 +250,6 @@ public class PositionsBST extends BST<ShipPosition> {
 
         Double depLat2 = positionsBST2.getDepartLatitude();
         Double depLog2 = positionsBST2.getDepartLongitude();
-
-        System.out.println("DEPART COORDINATES");
-        this.getEndDate();
-        System.out.println(depLat);
-        System.out.println(depLog);
-        System.out.println();
-        positionsBST2.getEndDate();
-        System.out.println(depLat2);
-        System.out.println(depLog2);
-        System.out.println();
 
         return distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
     }
