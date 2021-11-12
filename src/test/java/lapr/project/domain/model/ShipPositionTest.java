@@ -53,24 +53,36 @@ public class ShipPositionTest {
         assertEquals( d1.toString(), s1.getBaseDateTime().toString(), "date should be equal");
     }
 
+    /**
+     * Test to ensure that getLat works correctly.
+     */
     @Test
     public void getLat() {
         double lat = -30.033056;
         assertEquals(lat, s1.getLat(), 2);
     }
 
+    /**
+     * Test to ensure that getLon works correctly.
+     */
     @Test
     public void getLon() {
         double lon = -51.230000;
         assertEquals(lon, s1.getLon(), 2);
     }
 
+    /**
+     * Test to ensure that getSog works correctly.
+     */
     @Test
     public void getSog() {
         double sog = 25.4;
         assertEquals(sog, s1.getSog(), 2);
     }
 
+    /**
+     * Test to ensure that getCog works correctly.
+     */
     @Test
     public void getCog() {
         double cog = 341.2;
@@ -127,13 +139,18 @@ public class ShipPositionTest {
         assertEquals("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.", thrown.getMessage());
     }
 
-
+    /**
+     * Test to ensure latitude can have value 90.
+     */
     @Test
     public void checkCreatePositionWithLatitude90() {
       new ShipPosition(211331640, dateR1, 90,
                 -122.71335, 19.7, 145.5, 147, "B");
     }
 
+    /**
+     * Test to ensure Latitude can have value -90.
+     */
     @Test
     public void checkCreatePositionWithLatitudeMinus90() {
        new ShipPosition(211331640, dateR1, -90,
@@ -161,12 +178,18 @@ public class ShipPositionTest {
         assertEquals("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure longitude can have value 180.
+     */
     @Test
     public void createPositionWithLongitude180() {
         new ShipPosition(211331640, dateR1, 36.39094,
                 180, 19.7, 145.5, 147, "B");
     }
 
+    /**
+     * Test to ensure longitude can have value -180.
+     */
     @Test
     public void createPositionWithLongitudeminus180() {
         new ShipPosition(211331640, dateR1, 36.39094,
@@ -183,6 +206,9 @@ public class ShipPositionTest {
         assertEquals("SOG must be positive.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure SOG can have value 0.
+     */
     @Test
     public void createPositionWithSog0() {
         new ShipPosition(211331640, dateR1, 36.39094,
@@ -209,6 +235,9 @@ public class ShipPositionTest {
         assertEquals("COG must be between 0 and 359.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure COG can have value 359.
+     */
     @Test
     public void createPositionWithCOGOequals359() {
         new ShipPosition(211331640, dateR1, 36.39094,
@@ -241,6 +270,9 @@ public class ShipPositionTest {
                 -122.71335, 19.7, 145.5, 0, "B");
     }
 
+    /**
+     * Test to ensure heading can have value 359.
+     */
     @Test
     public void createPositionWithHeadingequals359() {
         new ShipPosition(211331640, dateR1, 36.39094,
@@ -257,6 +289,9 @@ public class ShipPositionTest {
         assertEquals(9, String.valueOf(shipPosition.getMMSI()).length());
     }
 
+    /**
+     * Test to ensure MMSI cannot have more than 9 digits.
+     */
     @Test
     public void checkMoreThen9DigitsMmsiException() {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(2113316402, dateR1, 36.39094,
@@ -264,6 +299,9 @@ public class ShipPositionTest {
         assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure MMSI cannot have less than 9 digits.
+     */
     @Test
     public void checkLessThen9DigitsMmsiException() {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(2113316, dateR1, 36.39094,
@@ -319,29 +357,46 @@ public class ShipPositionTest {
         assertEquals(expRes, res);
     }
 
+    /**
+     * Test to ensure that a shipPosition is equal to the same object.
+     */
     @Test
     public void testEqualsSameObject(){
         assertEquals(s1, s1);
     }
 
+    /**
+     * Test to ensure that a shipPosition is equal to another one
+     * with the same attributes.
+     */
     @Test
     public void testEqualsSameAtts(){
         ShipPosition shipPos = new ShipPosition(s1.getMMSI(), s1.getBaseDateTime(), s1.getLat(), s1.getLon(), s1.getSog(), s1.getCog(), s1.getHeading(), s1.getTranscieverClass());
         assertEquals(s1, shipPos);
     }
 
+    /**
+     * Test to ensure that a shipPosition is not equal to another one,
+     * refering to a different ship.
+     */
     @Test
     public void testNotEqualsSameClass(){
         ShipPosition shipPos = new ShipPosition(123457779, s1.getBaseDateTime(), s1.getLat(), s1.getLon(), s1.getSog(), s1.getCog(), s1.getHeading(), s1.getTranscieverClass());
         assertNotEquals(s1, shipPos);
     }
 
+    /**
+     * Test to ensure that a shipPosition is not equal to an object of a different class.
+     */
     @Test
     public void testNotEqualsDiffClass(){
         String notShipPos = "not a ship pos";
         assertNotEquals(s1, notShipPos);
     }
 
+    /**
+     * Test to ensure that a shipPosition is not equal to a null one.
+     */
     @Test
     public void testNotEqualsNull(){
         assertNotEquals(s1, null);

@@ -42,18 +42,6 @@ public class ShipTest {
         //...
     }
 
-
-    /**
-     * Test to ensure Null Vessel Types are not allowed.
-     */
-    /*@Test
-    public void ensureNullVesselTypeNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 0, 294,32,13.6,79));
-        assertEquals("Vessel Type cannot be null.", thrown.getMessage());
-    }
-
-     */
-
     /**
      * Test to ensure Empty Positions BST are not allowed.
      */
@@ -219,6 +207,9 @@ public class ShipTest {
         assertEquals("Cargo cannot be negative.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure that the equals method works correctly.
+     */
     @Test
     public void testEqualsMethod(){
         String notShipObj =  "abc";
@@ -226,26 +217,41 @@ public class ShipTest {
         assertNotEquals(null, s1);
     }
 
+    /**
+     * Test to ensure that getLength works correctly.
+     */
     @Test
     public void testGetLength(){
         assertEquals(s1.getLength(), 294);
     }
 
+    /**
+     * Test to ensure that getWidth works correctly.
+     */
     @Test
     public void testGetWidth(){
         assertEquals(s1.getWidth(), 32);
     }
 
+    /**
+     * Test to ensure that getDraft works correctly.
+     */
     @Test
     public void testGetDraft(){
         assertEquals(s1.getDraft(), 13.6);
     }
 
+    /**
+     * Test to ensure that getCargo works correctly.
+     */
     @Test
     public void testGetCargo(){
         assertEquals(s1.getCargo(), "79");
     }
 
+    /**
+     * Test to ensure that getTotalMovs works correctly.
+     */
     @Test
     public void testGetTotalMovs(){
         assertEquals(s1.getTotalMovs(), positionsBST.size());

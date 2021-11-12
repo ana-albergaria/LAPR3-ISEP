@@ -32,6 +32,9 @@ public class ImportShipsControllerTest {
         this.ctrl = new ImportShipsController(comp);
     }
 
+    /**
+     * Test to ensure that the ships are imported correctly.
+     */
     @Test
     public void testCorrectlyImportedFromExistingFile() {
         ShipsFileUtils shipsFileUtils = new ShipsFileUtils();

@@ -255,6 +255,12 @@ public class PositionsBST extends BST<ShipPosition> {
         return distanceBetweenInKm(depLat, depLat2, depLog, depLog2);
     }
 
+    /**
+     * Method to check if a shipPosition already exists in the PositionsBST.
+     * @param shipPosition the shipPosition to search in the PositionsBST.
+     * @return true if the shipPosition already exists in the PositionsBST;
+     * false if the shipPosition doesn't exist in the PositionsBST.
+     */
     public boolean hasPosition(ShipPosition shipPosition){
         List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         for (ShipPosition pos : allPos) {
@@ -265,12 +271,24 @@ public class PositionsBST extends BST<ShipPosition> {
         return false;
     }
 
+    /**
+     * Method to check if a shipPosition is valid for insertion in a PositionsBST.
+     * @param shipPosition the shipPosition to be inserted.
+     * @return true if the shipPosition is valid to be inserted in a PositionsBST, that is, if the shipPosition isn't null and isn't already in the PositionsBST;
+     * false if the shipPosition isn't valid to be inserted in a PositionsBST, that is, if the shipPosition is null or already in the PositionsBST.
+     */
     public boolean validatePosition(ShipPosition shipPosition) {
         if (shipPosition == null)
             return false;
         return !hasPosition(shipPosition);
     }
 
+    /**
+     * Method to insert a shipPosition in a PositionsBST.
+     * @param shipPosition the shipPosition to be inserted.
+     * @return true if the shipPosition was successfully inserted in the PositionsBST;
+     * false if the shipPosition wasn't successfully inserted in the PositionsBST.
+     */
     public boolean savePosition(ShipPosition shipPosition){
         if (!validatePosition(shipPosition))
             return false;
