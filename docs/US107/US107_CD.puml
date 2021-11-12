@@ -41,7 +41,7 @@ class PositionsBST {
 class ShowPairsOfShipsUI {}
 
 class ShowPairsOfShipsController {
-
+    +getPairsOfShips()
 }
 
 class Company {

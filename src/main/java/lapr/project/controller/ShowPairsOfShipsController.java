@@ -43,6 +43,7 @@ public class ShowPairsOfShipsController {
     public List<TreeMap<Double, String>> getPairsOfShips() throws IOException {
         ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
         List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
+
         String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%n",
                 "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs1", "TravelDist1", "Movs2", "TravelDist2");
 
