@@ -245,13 +245,14 @@ public class ShipBST extends BST<Ship> {
             if(!Objects.equals(travelledDistance, travelledDistance2)) {
 
                 Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
+                System.out.println(arrivalDistance);
 
                 if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
 
                     Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
 
                     if(depDistance <= Constants.LIMIT_COORDINATES) {
-                        int numMovs = positionsBST.size(), numMovs2 = positionsBST2.size();
+                        int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1;
                         double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
                         String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n", ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
                         infoPair.put(diffTravDist, allInfo);
