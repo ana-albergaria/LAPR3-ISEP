@@ -245,10 +245,12 @@ public class ShipBST extends BST<Ship> {
             if(!Objects.equals(travelledDistance, travelledDistance2)) {
 
                 Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
+                System.out.println("Arrival " + arrivalDistance);
 
                 if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
 
                     Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
+                    System.out.println("Depart " + depDistance);
 
                     if(depDistance <= Constants.LIMIT_COORDINATES) {
                         int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1;

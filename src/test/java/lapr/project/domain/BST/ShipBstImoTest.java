@@ -98,4 +98,14 @@ class ShipBstImoTest {
         shipsBST.remove(toRemove);
         assertEquals(shipsBST.size(), qtd, "size should be = "+qtd);
     }
+
+    @Test
+    public void testRemoveNullElement(){
+        ShipBstImo shipBstImo = new ShipBstImo();
+        int currentSize = shipBstImo.size();
+        Ship notThere = new Ship(posBST, 987654321, vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+
+        shipBstImo.remove(notThere);
+        assertEquals(currentSize, shipBstImo.size());
+    }
 }

@@ -407,7 +407,7 @@ public class ShipBSTTest {
     /**
      * US7 - Test to ensure fillTreeMapEachShip() works correctly.
      */
-    @Test
+    /*@Test
     void fillTreeMapForEachShip() {
         List<Ship> listShipsWithIntendedTD = (List<Ship>) shipsBST3.inOrder();
 
@@ -430,7 +430,7 @@ public class ShipBSTTest {
         }
 
         Assertions.assertEquals(expInfoPair, infoPair);
-    }
+    }*/
 
     @Test
     public void checkHasShipTrue(){

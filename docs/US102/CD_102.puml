@@ -2,13 +2,15 @@
 skinparam classAttributeIconSize 0
 
 class Company{
-    +getShipBst()
+    +getShipStore()
 }
 Interface BST{}
 
+class ShipsStore{
+    +Ship findShipByAnyCode(code)
+}
 class Ship {
-    +getName()
-    +getMovements()
+    +getters
 }
 
 class ShipsBST{
@@ -16,46 +18,29 @@ class ShipsBST{
 }
 
 class ShipsBSTImo{
-    +findShipByMmsi(MMSI)
+    +findShipByImo(imo)
 }
 class ShipsBSTCallSign{
-     +findShipByMmsi(MMSI)
+     +findShipByCallsign(callsign)
  }
 
 class ShipPosition{
-    +getLatitude()
-    +getLongitude()
-    +getBaseTime()
-    +getSog()
-    +getCog()
+    +toString()
 }
 
 class PositionsBST {
-    +getStartDate()
-    +getEndDate()
-    +getMaxSog()
-    +getMeanSog()
-    +getMeanCog()
-    +getDepartLatitude()
-    +getDepartLongitude()
-    +getArrivalLatitude()
-    +getArrivalLongitude()
-    +getTravelDistance()
-    +getDeltaDistance()
+    +toString()
 }
 
 
 class searchShipController {
-}
-
-class ShipDto{
-
+    +String getShipInfoByAnyCode()
+    +String shipDetailsToString()
 }
 
 
 searchShipController ..> Company
 searchShipController ..> ShipsStore
-searchShipController -- MovementSummaryDto: creates >
 Company "1" --> "*" Ship : knows
 Company "1" -- "1" ShipsStore : uses >
 ShipsStore "1" -- "1" ShipsBSTCallSign : uses >
