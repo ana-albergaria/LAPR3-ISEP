@@ -1,7 +1,7 @@
 package lapr.project.domain.store;
 
 import lapr.project.domain.model.VesselType;
-import lapr.project.dto.VesselTypeDTO;
+//import lapr.project.dto.VesselTypeDTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,10 +30,11 @@ public class VesselTypeStore {
     public VesselType registerVesselType(int vesselTypeID, int length, int width, double draft, int cargo){
         return new VesselType(vesselTypeID, length, width, draft, cargo);
     }
-
+/*
     public VesselType registerVesselType(VesselTypeDTO vesselTypeDTO){
         return new VesselType(vesselTypeDTO.getVesselTypeID(), vesselTypeDTO.getLength(), vesselTypeDTO.getWidth(), vesselTypeDTO.getDraft(), vesselTypeDTO.getCargo());
     }
+ */
 
     public boolean validateVesselType(VesselType vesselType){
         if (vesselType==null)

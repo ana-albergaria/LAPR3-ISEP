@@ -3,7 +3,7 @@ package lapr.project.controller;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.VesselType;
 import lapr.project.domain.store.VesselTypeStore;
-import lapr.project.dto.VesselTypeDTO;
+//import lapr.project.dto.VesselTypeDTO;
 
 public class RegisterVesselTypeController {
 
@@ -22,7 +22,7 @@ public class RegisterVesselTypeController {
         this.company=application;
         this.vesselType=null;
     }
-
+    /*
     public boolean registerVesselType(int vesselTypeID, int length, int width, double draft, int cargo){
         VesselTypeStore store = this.company.getVesselTypeStore();
         this.vesselType=store.registerVesselType(vesselTypeID, length, width, draft, cargo);
@@ -39,5 +39,6 @@ public class RegisterVesselTypeController {
         VesselTypeStore store = this.company.getVesselTypeStore();
         return store.saveVesselType(vesselType);
     }
+     */
 
 }
