@@ -57,5 +57,7 @@ ShowPositionalMessagesController ..> ShipsBST
 ShowPositionalMessagesController ..> Ship
 ShowPositionalMessagesController ..> PositionsBST
 
+/'BST <|- PositionsBST'/
+
 
 @enduml

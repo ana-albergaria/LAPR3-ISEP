@@ -88,15 +88,11 @@ public class ShowPositionalMessagesController {
         try {
             file.delete();
 
-            bw.write(String.format("Vessel Name: %s%n", this.ship.getVesselName()));
-            bw.write(String.format("Vessel Type ID: %d%n", this.ship.getVesselTypeID()));
-            bw.write(String.format("MMSI: %d%n", this.ship.getMMSI()));
+            bw.write(String.format("Vessel Name: %s%nVessel Type ID: %d%nMMSI: %d%n%n",
+                    this.ship.getVesselName(), this.ship.getVesselTypeID(), this.ship.getMMSI()));
             for (String shipPosition : listPositionalMessages) {
                 bw.write(shipPosition);
             }
-        }
-        catch (IOException e) {
-            System.out.println(e.getMessage());
         } finally {
             bw.close();
             fw.close();

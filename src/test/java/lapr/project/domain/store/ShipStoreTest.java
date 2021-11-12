@@ -36,17 +36,17 @@ class ShipStoreTest {
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
-        s1 = new ShipsFileDTO(shipPosition, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s2 = new ShipsFileDTO(shipPosition, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s3 = new ShipsFileDTO(shipPosition, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s4 = new ShipsFileDTO(shipPosition, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s1 = new ShipsFileDTO(shipPosition, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s2 = new ShipsFileDTO(shipPosition, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s3 = new ShipsFileDTO(shipPosition, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s4 = new ShipsFileDTO(shipPosition, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
     }
     @Test
     void createShip() {
         ShipPosition expPosition = new ShipPosition(mmsi1, dateR1, 36.39094, -122.71335, 19.7, 145.5, 147, "B");
         PositionsBST positionsBST = new PositionsBST();
         positionsBST.insert(expPosition);
-        Ship expected = new Ship(positionsBST,mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        Ship expected = new Ship(positionsBST,mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
 
         assertEquals(expected, shipStore.createShip(s1));
     }

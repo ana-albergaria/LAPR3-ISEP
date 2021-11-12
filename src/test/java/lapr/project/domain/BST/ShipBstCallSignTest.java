@@ -64,10 +64,10 @@ class ShipBstCallSignTest {
         posBST3.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
 
         //System.out.println(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
-        shipsBST.insert(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79));
-        shipsBST.insert(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,79));
-        shipsBST.insert(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,79));
-        shipsBST.insert(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,79));
+        shipsBST.insert(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
 
     }
 
@@ -75,7 +75,7 @@ class ShipBstCallSignTest {
     @Test
     public void getShipbyCallSign() {
         String callsignToTest = "C4SQ2";
-        Ship expShip = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,79);
+        Ship expShip = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
 
         Ship ship = shipsBST.getShipByCallSign(callsignToTest);
 
@@ -87,11 +87,11 @@ class ShipBstCallSignTest {
        ShipBstCallSign newBst = new ShipBstCallSign();
         int i;
        for(i=0;i<4;i++){
-           newBst.insert(new Ship(posBST3, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,79));
+           newBst.insert(new Ship(posBST3, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
            assertEquals(newBst.size(), i+1, "size should be = "+(i+1));
        }
         for(i=0;i<4;i++){
-            newBst.insert(new Ship(posBST3, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,79));
+            newBst.insert(new Ship(posBST3, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
             assertEquals(newBst.size(), 4, "size should be = "+(i+1));
         }
     }

@@ -6,14 +6,14 @@ public class ShipsFileDTO {
 
     PositionDTO positionDTO;
 
-    private int mmsi, vesselType, length, width, cargo;
+    private int mmsi, vesselType, length, width;
 
     private double draft;
 
-    private String vesselName, imo, callSign;
+    private String vesselName, imo, callSign, cargo;
 
     public ShipsFileDTO(PositionDTO positionDTO, int mmsi, String vesselName, String imo, String callSign,
-                        int vesselType, int length, int width, double draft, int cargo) {
+                        int vesselType, int length, int width, double draft, String cargo) {
         this.positionDTO = positionDTO;
         this.mmsi=mmsi;
         this.vesselName=vesselName;
@@ -58,7 +58,7 @@ public class ShipsFileDTO {
         return width;
     }
 
-    public int getCargo() {
+    public String getCargo() {
         return cargo;
     }
 
@@ -77,6 +77,21 @@ public class ShipsFileDTO {
             return false;
     }
 
+    @Override
+    public String toString() {
+        return "ShipsFileDTO{" +
+                "positionDTO=" + positionDTO +
+                ", mmsi=" + mmsi +
+                ", vesselType=" + vesselType +
+                ", length=" + length +
+                ", width=" + width +
+                ", cargo=" + cargo +
+                ", draft=" + draft +
+                ", vesselName='" + vesselName + '\'' +
+                ", imo='" + imo + '\'' +
+                ", callSign='" + callSign + '\'' +
+                '}';
+    }
     //showAddedShip (?)
 
     //toString (?)

@@ -44,12 +44,12 @@ public class Ship implements Comparable<Ship> {
     /**
      * The ship cargo.
      */
-    private final int cargo;
+    private final String cargo;
 
 
 
     public Ship(PositionsBST positionsBST, int MMSI,
-                String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, int cargo) {
+                String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, String cargo) {
         checkPositionsBST(positionsBST);
         checkMMSI(MMSI);
         checkVesselName(vesselName);
@@ -118,8 +118,8 @@ public class Ship implements Comparable<Ship> {
         }
     }
 
-    private void checkCargo(int cargo){
-        if (cargo<0){
+    private void checkCargo(String cargo){
+        if (Integer.parseInt(cargo)<0 && !cargo.equals("NA")){
             throw new IllegalArgumentException("Cargo cannot be negative.");
         }
     }
@@ -170,7 +170,7 @@ public class Ship implements Comparable<Ship> {
         return draft;
     }
 
-    public int getCargo() {
+    public String getCargo() {
         return cargo;
     }
 

@@ -56,7 +56,7 @@ activate BstPosition
 deactivate BstPosition
 /'alteração alt em baixo: travelledDistance2 >= 10 em vez de > 10'/
 /'alt travelledDistance >= 10'/
-loop hasNext()
+loop for each Ship after ship in listShipsWithIntendedTD
 BstShip -> ITERATOR : ship2 = next()
 activate ITERATOR
 deactivate ITERATOR

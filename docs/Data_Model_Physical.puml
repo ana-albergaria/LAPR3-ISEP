@@ -36,6 +36,8 @@ class ShipPosition{
     Transceiver: varchar(20)
 }
 
+/' ShipPosition - BaseDateTime, MMSI'/
+
 class Container{
     **ContainerID**: INTEGER
     --

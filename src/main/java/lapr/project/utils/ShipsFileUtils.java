@@ -48,7 +48,7 @@ public class ShipsFileUtils {
                 Integer.parseInt(shipData[dataLabels.indexOf("Length")]),
                 Integer.parseInt(shipData[dataLabels.indexOf("Width")]),
                 Double.parseDouble(shipData[dataLabels.indexOf("Draft")]),
-                Integer.parseInt(shipData[dataLabels.indexOf("Cargo")]));
+                shipData[dataLabels.indexOf("Cargo")]);
     }
 
     private Date getDateOfString(String stringFormatDate){

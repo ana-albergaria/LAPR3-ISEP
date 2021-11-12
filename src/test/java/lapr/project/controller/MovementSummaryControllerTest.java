@@ -49,10 +49,10 @@ class MovementSummaryControllerTest {
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
-        s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s2 = new Ship(positions, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s3 = new Ship(positions, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,79);
-        s4 = new Ship(positions, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,79);
+        s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s2 = new Ship(positions, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s3 = new Ship(positions, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s4 = new Ship(positions, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
 
         comp.getShipStore().getShipsBstMmsi().insert(s1);
         comp.getShipStore().getShipsBstMmsi().insert(s2);

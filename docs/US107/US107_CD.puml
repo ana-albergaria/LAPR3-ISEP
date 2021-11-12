@@ -36,7 +36,6 @@ class PositionsBST {
     +getTotalDistance()
     +getArrivalDistance()
     +getDepartureDistance()
-    +size()
 }
 
 class ShowPairsOfShipsUI {}
@@ -48,6 +47,10 @@ class ShowPairsOfShipsController {
 class Company {
     -designation
     +getBstShip(mmsiCode)
+}
+
+class BST {
++size()
 }
 
 /'Ship "1" -- "1..*" ShipPosition : has >'/
@@ -62,5 +65,7 @@ ShowPairsOfShipsController ..> Company
 ShowPairsOfShipsController ..> ShipsBST
 ShowPairsOfShipsController ..> Ship
 ShowPairsOfShipsController ..> PositionsBST
+
+BST <|- PositionsBST
 
 @enduml
