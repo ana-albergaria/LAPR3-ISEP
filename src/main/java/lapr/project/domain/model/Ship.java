@@ -28,6 +28,9 @@ public class Ship implements Comparable<Ship> {
      */
     private final String IMO;
 
+    /**
+     * The Ship's call sign.
+     */
     private final String callSign;
 
     /**
@@ -145,42 +148,91 @@ public class Ship implements Comparable<Ship> {
         return this.positionsBST;
     }
 
+    /**
+     * Returns the Ship's MMSI.
+     *
+     * @return the Ship's MMSI.
+     */
     public int getMMSI() {
         return MMSI;
     }
 
+    /**
+     * Returns the Ship's vessel name.
+     *
+     * @return the Ship's vessel name.
+     */
     public String getVesselName() {
         return vesselName;
     }
 
+    /**
+     * Returns the Ship's IMO.
+     *
+     * @return the Ship's IMO.
+     */
     public String getIMO() {
         return IMO;
     }
 
+    /**
+     * Returns the Ship's call sign.
+     *
+     * @return the Ship's call sign.
+     */
     public String getCallSign() {
         return callSign;
     }
 
+    /**
+     * Returns the Ship's vessel type.
+     *
+     * @return the Ship's vessel type.
+     */
     public int getVesselTypeID() {
         return vesselTypeID;
     }
 
+    /**
+     * Returns the Ship's length.
+     *
+     * @return the Ship's length.
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * Returns the Ship's width.
+     *
+     * @return the Ship's width.
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Returns the Ship's draft.
+     *
+     * @return the Ship's draft.
+     */
     public double getDraft(){
         return draft;
     }
 
+    /**
+     * Returns the Ship's cargo.
+     *
+     * @return the Ship's cargo.
+     */
     public String getCargo() {
         return cargo;
     }
 
+    /**
+     * Method to update the Ship's positionsBST.
+     * @param positionsBST the new positionsBST.
+     */
     public void setPositionsBST(PositionsBST positionsBST) {
         this.positionsBST = positionsBST;
     }
@@ -204,6 +256,10 @@ public class Ship implements Comparable<Ship> {
         return this.positionsBST.getTotalDistance();
     }
 
+    /**
+     * Method toString.
+     * @return a String with the Ship attributes and its values.
+     */
     @Override
     public String toString() {
         return "Ship{" +
@@ -223,6 +279,13 @@ public class Ship implements Comparable<Ship> {
     }
 
     //FALTA TESTES PARA O EQUALS!
+
+    /**
+     * Method equals.
+     * @param otherObject the object to be compared with.
+     * @return true if a Ship is equal to the object in "otherObject";
+     * false if a Ship is equal to the object in "otherObject".
+     */
     @Override
     public boolean equals(Object otherObject){
         if(this == otherObject)
@@ -239,6 +302,11 @@ public class Ship implements Comparable<Ship> {
             return false;
     }
 
+    /**
+     * Method compareTo.
+     * @param o the Ship to be compared with.
+     * @return the difference between the two Ships' MMSI.
+     */
     @Override
     public int compareTo(Ship o) {
         return this.MMSI - o.MMSI;

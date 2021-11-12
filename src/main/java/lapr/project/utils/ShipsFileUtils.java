@@ -2,7 +2,6 @@ package lapr.project.utils;
 
 import lapr.project.dto.PositionDTO;
 import lapr.project.dto.ShipsFileDTO;
-import lapr.project.dto.VesselTypeDTO;
 
 import java.io.BufferedReader;
 import java.io.File;
