@@ -12,7 +12,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 import java.awt.font.FontRenderContext;
 import java.util.*;
 
-public class ShipBST extends BST<Ship> {
+public class ShipsBST extends BST<Ship> {
 
     public void createBstShip() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -64,9 +64,8 @@ public class ShipBST extends BST<Ship> {
     private void getShipsByDate(Node<Ship> node, Date initialDate, Date finalDate, List<Ship> shipList) {
         if(node==null) return;
 
-        if (!shipList.contains(node.getElement())){
         if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate) && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
-
+            if (!shipList.contains(node.getElement())){
                 shipList.add(node.getElement());
 
             }
@@ -74,6 +73,7 @@ public class ShipBST extends BST<Ship> {
         getShipsByDate(node.getLeft(), initialDate, finalDate, shipList);
         getShipsByDate(node.getRight(), initialDate, finalDate, shipList);
 
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<Ship> getShipsByDate(Date initialDate, Date finalDate) {
@@ -95,6 +95,7 @@ public class ShipBST extends BST<Ship> {
         Collections.sort(shipList, comparator);
         return shipList;
 
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
@@ -105,8 +106,8 @@ public class ShipBST extends BST<Ship> {
      */
     public Map<Integer, Map<Ship, Set<Double>>> getShipWithMean(List<Ship> listShip, int number) {
         Map<Integer,  Map<Ship, Set<Double>>> map = new HashMap<>();
-        Map<Ship, Set<Double>> shipMap ;
-        Set<Double> setter ;
+        Map<Ship, Set<Double>> shipMap = new HashMap<>();
+        Set<Double> setter = new HashSet<>();
         Integer vessel = null;
 
         listShip = sortNShips(listShip);
@@ -122,12 +123,22 @@ public class ShipBST extends BST<Ship> {
                     shipMap.put(x, setter);
                     map.put(vessel, shipMap);
                 }
+            } else {
+                shipMap = map.get(x.getVesselTypeID());
+                setter = shipMap.get(x);
+                setter.add(x.getPositionsBST().getTotalDistance());
+                setter.add(x.getPositionsBST().getMeanSog());
+                if (shipMap.size() <= number) {
+                    shipMap.put(x, setter);
+                    map.put(vessel, shipMap);
+                }
             }
         }
 
         return map;
 
 
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -145,7 +156,10 @@ public class ShipBST extends BST<Ship> {
     public void getAllShips(Node<Ship> node, List<Ship> list) {
         if (node == null) return;
 
-        if (!list.contains(node.getElement())){
+        if (list.contains(node.getElement())){
+            getAllShips(node.getRight(), list);
+            getAllShips(node.getLeft(), list);
+        } else {
             list.add(node.getElement());
             getAllShips(node.getRight(), list);
             getAllShips(node.getLeft(), list);
@@ -155,12 +169,12 @@ public class ShipBST extends BST<Ship> {
     /**
      * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Travelled Distance
+     * @param list list with all the ships
      * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Travelled Distance
      */
-    public Map<Integer, Set<Double>> sortedByTravelledDistance() {
+    public Map<Integer, Set<Double>> sortedByTravelledDistance(List<Ship> list) {
         Map<Integer, Set<Double>> mapByTravelled = new LinkedHashMap<>();
-        List<Ship> list = getAllShips();
         sortedByTravelledDistance(mapByTravelled, list);
         return mapByTravelled;
     }
@@ -183,17 +197,17 @@ public class ShipBST extends BST<Ship> {
     /**
      * method to get the MMSI, Total Travelled Distance, Delta Distance and Total Movements
      * of all the ships sorted By Total Movements
+     * @param list list with all the ships
      * @return map with MMSI, Total Travelled Distance, Delta Distance and Total Movements
      *  of all the ships sorted By Total Movements
      */
-    public Map<Integer, Set<Double>> sortedByTotalMovements() {
+    public Map<Integer, Set<Double>> sortedByTotalMovements(List<Ship> list) {
         Map<Integer, Set<Double>> mapByMovements = new LinkedHashMap<>();
-        List<Ship> list = getAllShips();
-        sortedByTotalMovements(mapByMovements, list);
+        sortedByTotalMovements(root, mapByMovements, list);
         return mapByMovements;
     }
 
-    public void  sortedByTotalMovements(Map<Integer, Set<Double>> map, List<Ship> list) {
+    public void  sortedByTotalMovements(Node<Ship> node, Map<Integer, Set<Double>> map, List<Ship> list) {
         ShipDeltaDistanceComparato comparator = new ShipDeltaDistanceComparato();
         Collections.sort(list, comparator);
 
@@ -211,6 +225,8 @@ public class ShipBST extends BST<Ship> {
 
     public List<TreeMap<Double, String>> getPairsOfShips() {
         List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
+        String header = String.format("%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%-25s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs Ship 1", "TravelDist Ship1", "Movs Ship 2", "TravelDist Ship2", "TravelDist Diff");
+
 
         List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD();
 
@@ -223,10 +239,13 @@ public class ShipBST extends BST<Ship> {
 
             fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
 
-            if(!infoPair.isEmpty())
-                listPairsOfShips.add(infoPair);
+            listPairsOfShips.add(infoPair);
         }
         return listPairsOfShips;
+
+
+        //throw new UnsupportedOperationException();
+
     }
 
     public void fillTreeMapForEachShip(List<Ship> listShipsWithIntendedTD,
@@ -235,9 +254,14 @@ public class ShipBST extends BST<Ship> {
                                     PositionsBST positionsBST,
                                     int ship1MMSI, int indexShip) {
 
-        for (int j = indexShip+1; j < listShipsWithIntendedTD.size(); j++) {
+        /*if(indexShip == listShipsWithIntendedTD.size()-1)
+            return;
+         */
 
-            Ship ship2 = listShipsWithIntendedTD.get(j);
+
+        for (int i = indexShip+1; i < listShipsWithIntendedTD.size(); i++) {
+
+            Ship ship2 = listShipsWithIntendedTD.get(indexShip+i);
 
             PositionsBST positionsBST2 = ship2.getPositionsBST();
             Double travelledDistance2 = positionsBST2.getTotalDistance();
@@ -245,17 +269,15 @@ public class ShipBST extends BST<Ship> {
             if(!Objects.equals(travelledDistance, travelledDistance2)) {
 
                 Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
-                System.out.println("Arrival " + arrivalDistance);
 
                 if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
 
                     Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
-                    System.out.println("Depart " + depDistance);
 
                     if(depDistance <= Constants.LIMIT_COORDINATES) {
-                        int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1;
+                        int numMovs = positionsBST.size(), numMovs2 = positionsBST2.size();
                         double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
-                        String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n", ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
+                        String allInfo = String.format("%-15d%-15d%-15f%-15f%-15d%-15f%-15d%-15f%n", ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
                         infoPair.put(diffTravDist, allInfo);
                     }
                 }
@@ -282,16 +304,6 @@ public class ShipBST extends BST<Ship> {
             listShipsWithIntendedTD.add(node.getElement());
 
         getShipsInOrderWithIntendedTD(node.getRight(), listShipsWithIntendedTD);
-    }
-
-    public boolean hasShip(Ship ship){
-        List<Ship> allShip = (List<Ship>) inOrder();
-        for (Ship ship1 : allShip) {
-            if (ship1.equals(ship)){
-                return true;
-            }
-        }
-        return false;
     }
 
 }
