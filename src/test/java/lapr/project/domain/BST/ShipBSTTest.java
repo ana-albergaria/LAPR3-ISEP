@@ -413,7 +413,7 @@ public class ShipBSTTest {
 
 
         TreeMap<Double, String> expInfoPair = new TreeMap<>(Collections.reverseOrder());
-        expInfoPair.put(18.0, String.format("%-15d%-15d%-15f%-15f%-15d%-15f%-15d%-15f%n", 111111111, 222222222, 5.0, 0.0, 4, 24.0, 4, 6.0));
+        expInfoPair.put(18.0, String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n", 111111111, 222222222, 5.0, 0.0, 4, 24.0, 4, 6.0));
 
 
         TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
@@ -450,7 +450,6 @@ public class ShipBSTTest {
         ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
         shipsOfFile = shipsFileUtils.getShipsDataToDto(fileTest.toString());
         List<ShipsFileDTO> addedShips = new ArrayList<>();
-        int cont = 0;
 
         for (int i = 0; i < shipsOfFile.size(); i++) {
             if (ctrl.importShipFromFile(shipsOfFile.get(i)))
