@@ -17,7 +17,7 @@ public class ImportShipsControllerTest {
 
     private Company comp;
     private List<ShipsFileDTO> shipsOfFile, shipsOfFileExp;
-    private File /*file1, file2,*/ fileTest, expFileTest;
+    private File /*file1, file2,*/ fileTest, expFileTest, fileTestPairsOfShips;
     private ImportShipsController ctrl;
 
     @BeforeEach
@@ -29,6 +29,7 @@ public class ImportShipsControllerTest {
         file2 = new File("data-ships&ports/sships.csv");*/
         fileTest = new File("data-ships&ports/testFile.csv");
         expFileTest = new File("data-ships&ports/expImpTestFile.csv");
+        fileTestPairsOfShips = new File("data-ships&ports/testImpShip366998510.csv");
         this.ctrl = new ImportShipsController(comp);
     }
 
@@ -51,4 +52,21 @@ public class ImportShipsControllerTest {
         }
         Assert.assertEquals(expAddedShips, addedShips);
     }
+
+    /*
+    @Test
+    public void testarImpShip(){
+        ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
+        int j=0;
+        shipsOfFile = shipsFileUtils.getShipsDataToDto(fileTestPairsOfShips.toString());
+        for (int i = 0; i < shipsOfFile.size(); i++) {
+            if (!ctrl.importShipFromFile(shipsOfFile.get(i))) {
+                System.out.println("NÃO IMPORTOU LINHA " + i + "\n");
+            } else{
+                j++;
+            }
+        }
+        System.out.println("TOTAL IMPORTADAS " + j + "\n");
+    }*/
+
 }

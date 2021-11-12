@@ -58,6 +58,19 @@ public class Ship implements Comparable<Ship> {
      */
     private final String cargo;
 
+    /**
+     * Constructs an instance of Ship receiving as a parameter the Ship's positions BST, MMSI, vessel name, IMO, call sign, vessel type, length, width, draft and cargo.
+     * @param positionsBST the Ship's positions BST.
+     * @param MMSI the Ship's MMSI
+     * @param vesselName the Ship's vessel name
+     * @param IMO the Ship's IMO
+     * @param callSign the Ship's call sign
+     * @param vesselTypeID the Ship's vessel type
+     * @param length the Ship's length
+     * @param width the Ship's width
+     * @param draft the Ship's draft
+     * @param cargo the Ship's cargo
+     */
     public Ship(PositionsBST positionsBST, int MMSI,
                 String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, String cargo) {
         checkPositionsBST(positionsBST);
@@ -81,12 +94,20 @@ public class Ship implements Comparable<Ship> {
         this.cargo=cargo;
     }
 
+    /**
+     * Checks if the Ship's positions BST is correct, and if not throws an error message.
+     * @param positionsBST the Ship's positions BST.
+     */
     public void checkPositionsBST(PositionsBST positionsBST){
         if (positionsBST.isEmpty()){
             throw new IllegalArgumentException("Positions BST cannot be empty.");
         }
     }
 
+    /**
+     * Checks if the Ship's MMSI is correct, and if not throws an error message.
+     * @param MMSI the Ship's MMSI.
+     */
     public void checkMMSI(int MMSI){
         if (Integer.toString(MMSI).length()!=9){
             throw new IllegalArgumentException("MMSI must hold 9 digits.");
