@@ -88,25 +88,7 @@ public class ShowPositionalMessagesControllerTest {
         int mmsiCode = 123456789;
         ctrl.isValidShip(mmsiCode);
 
-        /*
-        Map<Integer, List<String>> expMap = new HashMap<>();
-        List<String> messages = new ArrayList<>();
-        ShipPosition sp1 = new ShipPosition(mmsiCode, d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass);
-        ShipPosition sp2 = new ShipPosition(mmsiCode, d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass);
-        ShipPosition sp3 = new ShipPosition(mmsiCode, d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass);
-        ShipPosition sp4 = new ShipPosition(mmsiCode, d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass);
-        messages.add(sp1.toString());
-        messages.add(sp2.toString());
-        messages.add(sp3.toString());
-        messages.add(sp4.toString());
-
-        expMap.put(s1.getVesselTypeID(), messages);
-
-         */
-
         ctrl.showPositionalMessages(d1[3], d1[0]);
-
-
     }
 
 }

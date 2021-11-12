@@ -453,7 +453,7 @@ public class ShipBSTTest {
 
         for (int i = 0; i < shipsOfFile.size(); i++) {
             if (ctrl.importShipFromFile(shipsOfFile.get(i)))
-                System.out.println(shipsOfFile.get(i));
+                //System.out.println(shipsOfFile.get(i));
                 addedShips.add(shipsOfFile.get(i));
         }
 
