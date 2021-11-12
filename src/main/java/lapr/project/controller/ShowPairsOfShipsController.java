@@ -43,8 +43,8 @@ public class ShowPairsOfShipsController {
     public List<TreeMap<Double, String>> getPairsOfShips() throws IOException {
         ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
         List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
-        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%-20s%n",
-                "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs1", "TravelDist1", "Movs2", "TravelDist2", "TravelDist Diff");
+        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%n",
+                "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs1", "TravelDist1", "Movs2", "TravelDist2");
 
         File file = new File("us107ShowPairsOfShips.txt");
         if (!file.exists())
@@ -67,7 +67,6 @@ public class ShowPairsOfShipsController {
         }
 
         return listPairsOfShips;
-        //throw new UnsupportedOperationException();
     }
 
 
