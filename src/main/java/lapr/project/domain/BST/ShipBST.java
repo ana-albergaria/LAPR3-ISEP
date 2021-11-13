@@ -209,19 +209,24 @@ public class ShipBST extends BST<Ship> {
     }
 
 
+    /**
+     * Method to obtain the pairs of ships.
+     *
+     * @return the intended pairs of ships.
+     */
     public List<TreeMap<Double, String>> getPairsOfShips() {
         List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
 
-        List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD();
+        List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD(); //O(n)
 
-        for (Ship ship : listShipsWithIntendedTD) {
+        for (Ship ship : listShipsWithIntendedTD) { //O(n)
             TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
 
             PositionsBST positionsBST = ship.getPositionsBST();
-            Double travelledDistance = positionsBST.getTotalDistance();
+            Double travelledDistance = positionsBST.getTotalDistance(); //O(n)
             int indexShip = listShipsWithIntendedTD.indexOf(ship);
 
-            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
+            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip); //O(n^2)
 
             if(!infoPair.isEmpty())
                 listPairsOfShips.add(infoPair);
@@ -229,31 +234,41 @@ public class ShipBST extends BST<Ship> {
         return listPairsOfShips;
     }
 
+    /**
+     * Auxiliar method for getPairsOfShips to fill the ships with whom the current ship
+     * is close to for Us107
+     *
+     * @param listShipsWithIntendedTD list of ships with TD >= 10
+     * @param infoPair a map containing the info about the pair to be added to the final list
+     * @param travelledDistance travelled distance of the 1st ship
+     * @param positionsBST positions of the 1st ship
+     * @param ship1MMSI mmsi code of the 1st ship
+     * @param indexShip index of the first ship
+     */
     public void fillTreeMapForEachShip(List<Ship> listShipsWithIntendedTD,
                                     TreeMap<Double, String> infoPair,
                                     Double travelledDistance,
                                     PositionsBST positionsBST,
                                     int ship1MMSI, int indexShip) {
 
-        for (int j = indexShip+1; j < listShipsWithIntendedTD.size(); j++) {
+        for (int j = indexShip+1; j < listShipsWithIntendedTD.size(); j++) { //O(n^2)
 
             Ship ship2 = listShipsWithIntendedTD.get(j);
 
             PositionsBST positionsBST2 = ship2.getPositionsBST();
-            Double travelledDistance2 = positionsBST2.getTotalDistance();
+            Double travelledDistance2 = positionsBST2.getTotalDistance(); //O(n)
 
             if(!Objects.equals(travelledDistance, travelledDistance2)) {
-
-                Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
+                Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2); //O(h)
 
                 if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
-
-                    Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
+                    Double depDistance = positionsBST.getDepartureDistance(positionsBST2); //O(h)
 
                     if(depDistance <= Constants.LIMIT_COORDINATES) {
-                        int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1;
+                        int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1; //O(n)
                         double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
-                        String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n", ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
+                        String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n",
+                                ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
                         infoPair.put(diffTravDist, allInfo);
                     }
                 }
@@ -261,12 +276,27 @@ public class ShipBST extends BST<Ship> {
         }
     }
 
+    /**
+     * Method which calls its private method to
+     * obtain the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     *
+     * @return the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     */
     public Iterable<Ship> getShipsInOrderWithIntendedTD() {
         List<Ship> listShipsWithIntendedTD = new ArrayList<>();
         getShipsInOrderWithIntendedTD(root, listShipsWithIntendedTD);
         return listShipsWithIntendedTD;
     }
 
+    /**
+     * Method to obtain the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     *
+     * @return the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     */
     private void getShipsInOrderWithIntendedTD(Node<Ship> node, List<Ship> listShipsWithIntendedTD) {
         if(node == null) {
             return;
