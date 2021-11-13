@@ -235,13 +235,13 @@ public class PositionsBST extends BST<ShipPosition> {
     }
 
     public Double getArrivalDistance(PositionsBST positionsBST2) {
-        Double arrivalLat = this.getArrivalLatitude();
+        Double arrivalLat = this.getArrivalLatitude(); //Time Complexity to obtain the Latitudes and Longitudes: O(h)
         Double arrivalLog = this.getArrivalLongitude();
 
         Double arrivalLat2 = positionsBST2.getArrivalLatitude();
         Double arrivalLog2 = positionsBST2.getArrivalLongitude();
 
-        return distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2);
+        return distanceBetweenInKm(arrivalLat, arrivalLat2, arrivalLog, arrivalLog2); //O(1)
     }
 
     public Double getDepartureDistance(PositionsBST positionsBST2) {

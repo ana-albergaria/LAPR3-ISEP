@@ -212,16 +212,16 @@ public class ShipBST extends BST<Ship> {
     public List<TreeMap<Double, String>> getPairsOfShips() {
         List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
 
-        List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD();
+        List<Ship> listShipsWithIntendedTD = (List<Ship>) getShipsInOrderWithIntendedTD(); //O(n)
 
-        for (Ship ship : listShipsWithIntendedTD) {
+        for (Ship ship : listShipsWithIntendedTD) { //O(n)
             TreeMap<Double, String> infoPair = new TreeMap<>(Collections.reverseOrder());
 
             PositionsBST positionsBST = ship.getPositionsBST();
-            Double travelledDistance = positionsBST.getTotalDistance();
+            Double travelledDistance = positionsBST.getTotalDistance(); //O(n)
             int indexShip = listShipsWithIntendedTD.indexOf(ship);
 
-            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
+            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip); //O(n^2)
 
             if(!infoPair.isEmpty())
                 listPairsOfShips.add(infoPair);
@@ -235,25 +235,24 @@ public class ShipBST extends BST<Ship> {
                                     PositionsBST positionsBST,
                                     int ship1MMSI, int indexShip) {
 
-        for (int j = indexShip+1; j < listShipsWithIntendedTD.size(); j++) {
+        for (int j = indexShip+1; j < listShipsWithIntendedTD.size(); j++) { //O(n^2)
 
             Ship ship2 = listShipsWithIntendedTD.get(j);
 
             PositionsBST positionsBST2 = ship2.getPositionsBST();
-            Double travelledDistance2 = positionsBST2.getTotalDistance();
+            Double travelledDistance2 = positionsBST2.getTotalDistance(); //O(n)
 
             if(!Objects.equals(travelledDistance, travelledDistance2)) {
-
-                Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2);
+                Double arrivalDistance = positionsBST.getArrivalDistance(positionsBST2); //O(h)
 
                 if(arrivalDistance <= Constants.LIMIT_COORDINATES) {
-
-                    Double depDistance = positionsBST.getDepartureDistance(positionsBST2);
+                    Double depDistance = positionsBST.getDepartureDistance(positionsBST2); //O(h)
 
                     if(depDistance <= Constants.LIMIT_COORDINATES) {
-                        int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1;
+                        int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1; //O(n)
                         double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
-                        String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n", ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
+                        String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n",
+                                ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
                         infoPair.put(diffTravDist, allInfo);
                     }
                 }

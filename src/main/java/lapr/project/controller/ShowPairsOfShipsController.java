@@ -67,6 +67,7 @@ public class ShowPairsOfShipsController {
             fw.close();
         }
 
+
         return listPairsOfShips;
     }
 

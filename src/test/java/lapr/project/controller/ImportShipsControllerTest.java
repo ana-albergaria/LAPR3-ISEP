@@ -13,11 +13,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class ImportShipsControllerTest {
 
     private Company comp;
     private List<ShipsFileDTO> shipsOfFile, shipsOfFileExp;
-    private File /*file1, file2,*/ fileTest, expFileTest, fileTestPairsOfShips;
+    private File /*file1, file2,*/ fileTest, expFileTest, fileTestPairsOfShips, errorFile;
     private ImportShipsController ctrl;
 
     @BeforeEach
@@ -29,6 +32,7 @@ public class ImportShipsControllerTest {
         file2 = new File("data-ships&ports/sships.csv");*/
         fileTest = new File("data-ships&ports/testFile.csv");
         expFileTest = new File("data-ships&ports/expImpTestFile.csv");
+        errorFile = new File("data-ships&ports/error.csv");
         //fileTestPairsOfShips = new File("data-ships&ports/testImpShip366998510.csv");
         this.ctrl = new ImportShipsController(comp);
     }
@@ -68,4 +72,21 @@ public class ImportShipsControllerTest {
         System.out.println("TOTAL IMPORTADAS " + j + "\n");
     }*/
 
+    /*
+    @Test
+    public void saveShipException() {
+
+
+        ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
+        shipsOfFile = shipsFileUtils.getShipsDataToDto(errorFile.toString());
+        List<Ship> addedShips = new ArrayList<>();
+
+
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> ctrl.importShipFromFile(shipsOfFile.get(0)));
+        assertEquals("SOG must be positive.", thrown.getMessage());
+
+
+    }
+
+     */
 }
