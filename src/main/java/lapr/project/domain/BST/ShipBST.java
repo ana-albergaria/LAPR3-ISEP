@@ -209,6 +209,11 @@ public class ShipBST extends BST<Ship> {
     }
 
 
+    /**
+     * Method to obtain the pairs of ships.
+     *
+     * @return the intended pairs of ships.
+     */
     public List<TreeMap<Double, String>> getPairsOfShips() {
         List<TreeMap<Double, String>> listPairsOfShips = new ArrayList<>();
 
@@ -229,6 +234,17 @@ public class ShipBST extends BST<Ship> {
         return listPairsOfShips;
     }
 
+    /**
+     * Auxiliar method for getPairsOfShips to fill the ships with whom the current ship
+     * is close to for Us107
+     *
+     * @param listShipsWithIntendedTD list of ships with TD >= 10
+     * @param infoPair a map containing the info about the pair to be added to the final list
+     * @param travelledDistance travelled distance of the 1st ship
+     * @param positionsBST positions of the 1st ship
+     * @param ship1MMSI mmsi code of the 1st ship
+     * @param indexShip index of the first ship
+     */
     public void fillTreeMapForEachShip(List<Ship> listShipsWithIntendedTD,
                                     TreeMap<Double, String> infoPair,
                                     Double travelledDistance,
@@ -260,12 +276,27 @@ public class ShipBST extends BST<Ship> {
         }
     }
 
+    /**
+     * Method which calls its private method to
+     * obtain the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     *
+     * @return the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     */
     public Iterable<Ship> getShipsInOrderWithIntendedTD() {
         List<Ship> listShipsWithIntendedTD = new ArrayList<>();
         getShipsInOrderWithIntendedTD(root, listShipsWithIntendedTD);
         return listShipsWithIntendedTD;
     }
 
+    /**
+     * Method to obtain the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     *
+     * @return the list of ships in ascending order by the mmsi code
+     * and with Travelled Distance >= 10
+     */
     private void getShipsInOrderWithIntendedTD(Node<Ship> node, List<Ship> listShipsWithIntendedTD) {
         if(node == null) {
             return;

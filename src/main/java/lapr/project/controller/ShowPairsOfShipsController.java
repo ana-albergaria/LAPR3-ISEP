@@ -40,7 +40,7 @@ public class ShowPairsOfShipsController {
         this.company = company;
     }
 
-    public List<TreeMap<Double, String>> getPairsOfShips() throws IOException {
+    public void getPairsOfShips() throws IOException {
         ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
         List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
 
@@ -66,9 +66,6 @@ public class ShowPairsOfShipsController {
             bw.close();
             fw.close();
         }
-
-
-        return listPairsOfShips;
     }
 
 
