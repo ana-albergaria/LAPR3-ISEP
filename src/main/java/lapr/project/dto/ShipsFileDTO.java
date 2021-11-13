@@ -1,7 +1,5 @@
 package lapr.project.dto;
 
-import java.util.Objects;
-
 public class ShipsFileDTO {
 
     PositionDTO positionDTO;
@@ -92,8 +90,5 @@ public class ShipsFileDTO {
                 ", callSign='" + callSign + '\'' +
                 '}';
     }
-    //showAddedShip (?)
-
-    //toString (?)
 
 }
