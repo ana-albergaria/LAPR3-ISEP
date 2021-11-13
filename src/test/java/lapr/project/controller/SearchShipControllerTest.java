@@ -22,7 +22,7 @@ class SearchShipControllerTest {
     private String imo;
     private String callSign;
     private Ship s1, s2, s3, s4;
-
+    App app;
     double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
     double [] lons = {-51.230000, -47.223056, -46.233056, 24.092123};
     double [] sogs = {25.4, 25.8, 31.7, 10.2};
@@ -40,7 +40,8 @@ class SearchShipControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        comp = new Company("Shipping company");
+        app = App.getInstance();
+        comp = app.getCompany();
         shipStore = comp.getShipStore();
         PositionsBST positions = new PositionsBST();
         mmsi1 = 123456789;
@@ -75,7 +76,7 @@ class SearchShipControllerTest {
 
     @Test
     public void checkSearchShipWithAnyCodeMmsi(){
-        SearchShipController controller = new SearchShipController(comp);
+        SearchShipController controller = new SearchShipController();
         String expected = controller.shipDetailsToString(s1);
         assertEquals(expected, controller.getShipInfoByAnyCode(Integer.toString(mmsi1)));
     }

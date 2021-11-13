@@ -14,13 +14,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AllShipMMSIControllerTest {
-    private final Company comp = new Company("Shipping company");
+    App app = App.getInstance();
+    private final Company comp = app.getCompany();
     private final ShipStore store = comp.getShipStore();
     private PositionsBST posBST;
     private PositionsBST posBST1;
     private PositionsBST posBST2;
     private PositionsBST posBST3;
-
     Date[] d1 = {new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("07/01/2021"),
             new SimpleDateFormat("dd/MM/yyyy").parse("10/01/2021"),
@@ -108,7 +108,7 @@ public class AllShipMMSIControllerTest {
 
     @Test
     public void getSortedByTotalMovements() {
-        AllShipMMSIController controller = new AllShipMMSIController(comp);
+        AllShipMMSIController controller = new AllShipMMSIController();
         Set<Double> l1 = new HashSet<>();
         Ship s1 = store.getShipByAnyCode(String.valueOf(mmsiCodes[0]));
         l1.add(s1.getPositionsBST().getTotalDistance());

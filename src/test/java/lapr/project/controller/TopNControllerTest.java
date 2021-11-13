@@ -15,8 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TopNControllerTest {
-
-    private final Company comp = new Company("Shipping company");
+    App app = App.getInstance();
+    private final Company comp = app.getCompany();
     private final ShipStore store = comp.getShipStore();
     private PositionsBST posBST;
     private PositionsBST posBST1;
@@ -81,7 +81,7 @@ public class TopNControllerTest {
 
     @Test
     public void getShipWithMeanControllerTest() {
-        TopNController controller = new TopNController(comp);
+        TopNController controller = new TopNController();
 
         Ship ship1 = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
         Ship ship2 = new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,"67");
