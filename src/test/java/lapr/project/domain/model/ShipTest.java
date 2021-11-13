@@ -207,6 +207,15 @@ public class ShipTest {
         assertEquals("Cargo cannot be negative.", thrown.getMessage());
     }
 
+    @Test
+    public void ensureCargoIs0(){
+        new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"0");
+    }
+
+    @Test
+    public void ensureCargoIsNA(){
+        new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"NA");
+    }
     /**
      * Test to ensure that the equals method works correctly.
      */
@@ -223,6 +232,21 @@ public class ShipTest {
     @Test
     public void testGetLength(){
         assertEquals(s1.getLength(), 294);
+    }
+    /**
+     * Test to ensure that getLength works correctly.
+     */
+    @Test
+    public void testGetVesselTypeId(){
+        assertEquals(s1.getVesselTypeID(), 70);
+    }
+
+    /**
+     * Test to ensure that getLength works correctly.
+     */
+    @Test
+    public void testGetDistanceTravelled(){
+        assertEquals(s1.getTravelledDistance(), 0);
     }
 
     /**
