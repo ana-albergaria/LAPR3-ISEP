@@ -9,6 +9,7 @@ actor "Project Manager" as PM
 rectangle System {
 TM --> (UC 103 - Obtain the positional messages temporally \norganized associated with each ship)
 TM --> (UC 107 - Obtain pairs of ships with routes with close departure/arrival coordinates \nand different Travelled Distance)
+TM --> (UC 104 - As a traffic manager I wish to make a Summary of a ship's movements.)
 PM --> (UC 108 - Wants the team to develop the data model required to \nsupport all the functionality and to fulfill the purpose of the system to develop)
 }
 
