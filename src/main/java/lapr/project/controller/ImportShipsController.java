@@ -54,7 +54,7 @@ public class ImportShipsController {
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
-        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship logo tem de se criar
+        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){
             try {
                 this.ship = this.company.getShipStore().createShip(shipsFileDTO);
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
@@ -67,7 +67,6 @@ public class ImportShipsController {
             }
             return saveShip();
         } else {
-            //ir buscar o ship pelo mmsi
             try{
                 this.ship=this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
@@ -78,17 +77,15 @@ public class ImportShipsController {
                 System.out.println("NOT ADDED : " + e);
                 return false;
             }
-        }
-        try {
-            this.positionsBST=this.ship.getPositionsBST();
-            if (!(positionsBST.hasPosition(shipPosition))) {
-                return saveShip();//AQUI
+            try {
+                this.positionsBST=this.ship.getPositionsBST();
+                if (!(positionsBST.hasPosition(shipPosition))) {
+                    return saveShip();
+                }
+            }catch (IllegalArgumentException e){
+                System.out.println("NOT ADDED : " + e);
             }
-        }catch (IllegalArgumentException e){
-            System.out.println("NOT ADDED : " + e);
-            return false;
         }
-        //se a posicao nao existe entao é adicionada
         return false;
     }
 

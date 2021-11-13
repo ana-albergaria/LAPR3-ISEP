@@ -24,6 +24,10 @@ public class ShipsFileUtils {
         List<ShipsFileDTO> processedListData = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
             String line = bufferedReader.readLine();
+            if (line==null || !line.equals("MMSI,BaseDateTime,LAT,LON,SOG,COG,Heading,VesselName,IMO," +
+                    "CallSign,VesselType,Length,Width,Draft,Cargo,TranscieverClass")){
+                throw new IllegalArgumentException("Incompatible file format.");
+            }
             dataLabels = Arrays.asList(line.split(","));
             line = bufferedReader.readLine();
             while(line != null){

@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +19,7 @@ public class ImportShipsControllerTest {
 
     private Company comp;
     private List<ShipsFileDTO> shipsOfFile, shipsOfFileExp;
-    private File /*file1, file2,*/ fileTest, expFileTest, fileTestPairsOfShips;
+    private File file1, /*file2,*/ fileTest, expFileTest/*, fileTestPairsOfShips*/;
     private ImportShipsController ctrl;
 
     @BeforeEach
@@ -25,8 +27,8 @@ public class ImportShipsControllerTest {
         comp = new Company("Company");
         this.shipsOfFile = Collections.emptyList();
         this.shipsOfFileExp = Collections.emptyList();
-        /*file1 = new File("data-ships&ports/bships.csv");
-        file2 = new File("data-ships&ports/sships.csv");*/
+        file1 = new File("data-ships&ports/emptyFile.csv");
+        //file2 = new File("data-ships&ports/sships.csv");
         fileTest = new File("data-ships&ports/testFile.csv");
         expFileTest = new File("data-ships&ports/expImpTestFile.csv");
         //fileTestPairsOfShips = new File("data-ships&ports/testImpShip366998510.csv");
@@ -53,19 +55,23 @@ public class ImportShipsControllerTest {
         Assert.assertEquals(expAddedShips, addedShips);
     }
 
-    /*@Test
-    public void testarImpShip(){
+    @Test
+    public void testImpShip(){
         ShipsFileUtils shipsFileUtils = new ShipsFileUtils();
         int j=0;
-        shipsOfFile = shipsFileUtils.getShipsDataToDto(fileTestPairsOfShips.toString());
-        for (int i = 0; i < shipsOfFile.size(); i++) {
-            if (!ctrl.importShipFromFile(shipsOfFile.get(i))) {
-                System.out.println("NÃO IMPORTOU LINHA " + i + "\n");
-            } else{
-                j++;
+        try {
+            shipsOfFile = shipsFileUtils.getShipsDataToDto(file1.toString());
+            for (int i = 0; i < shipsOfFile.size(); i++) {
+                if (!ctrl.importShipFromFile(shipsOfFile.get(i))) {
+                    System.out.println("DIDN'T IMPORT LINE " + i + "\n");
+                } else {
+                    j++;
+                }
             }
+        } catch (IllegalArgumentException e){
+            System.out.println("NOT ADDED : " + e);
         }
-        System.out.println("TOTAL IMPORTADAS " + j + "\n");
-    }*/
+        System.out.println("TOTAL IMPORTED: " + j + "\n");
+    }
 
 }
