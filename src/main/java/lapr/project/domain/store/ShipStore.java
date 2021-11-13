@@ -51,7 +51,6 @@ public class ShipStore {
 
     public Ship getShipByAnyCode(String code){
         Ship result;
-
         if(code.substring(0,3).equalsIgnoreCase("imo")){
             result = shipBstImo.getShipByImo(code);
         }else if(code.length() == 9 && StringUtils.isNumeric(code)){

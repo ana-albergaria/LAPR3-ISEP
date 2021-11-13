@@ -47,6 +47,7 @@ public class MovementSummaryController {
         double travDist = shipMovements.getTotalDistance();
         double deltaDist = shipMovements.getDeltaDistance();
 
-        return new MovementsSummaryDto(name, startDate, endDate, maxSog, meanSog, meanCog, departLat, departLon, arrivalLat, arrivalLon, travDist, deltaDist);
+        return new MovementsSummaryDto(name, startDate, endDate, maxSog, meanSog,
+                meanCog, departLat, departLon, arrivalLat, arrivalLon, travDist, deltaDist);
     }
 }
