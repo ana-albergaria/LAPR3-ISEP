@@ -16,8 +16,8 @@ import java.util.*;
 
 public class TopNControllerTest {
     App app = App.getInstance();
-    private final Company comp = app.getCompany();
-    private final ShipStore store = comp.getShipStore();
+    private  Company comp;
+    private  ShipStore store;
     private PositionsBST posBST;
     private PositionsBST posBST1;
     private PositionsBST posBST2;
@@ -43,6 +43,8 @@ public class TopNControllerTest {
 
     @BeforeEach
     public void setUp() {
+        comp = app.getCompany();
+        store = comp.getShipStore();
         posBST = new PositionsBST();
         posBST1 = new PositionsBST();
         posBST2 = new PositionsBST();

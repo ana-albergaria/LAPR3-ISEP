@@ -19,7 +19,6 @@ class MovementSummaryControllerTest {
     private String imo;
     private String callSign;
     private Ship s1, s2, s3, s4;
-    App app;
 
     int [] mmsiCodes = {333333333, 111111111, 222222222, 123456789};
     double [] lats = {-30.033056, -42.033006, -55.022056, 23.008721};
@@ -38,8 +37,7 @@ class MovementSummaryControllerTest {
 
     @BeforeEach
     public void setUp(){
-        app = App.getInstance();
-        comp = app.getCompany();
+        comp = new Company("Shipping company");
         PositionsBST positions = new PositionsBST();
         for(int i=0; i<3;i++){
             positions.insert(new ShipPosition(mmsiCodes[0], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
@@ -76,7 +74,7 @@ class MovementSummaryControllerTest {
 
     @Test
     public void testSummaryDto(){
-       MovementSummaryController controller = new MovementSummaryController();
+       MovementSummaryController controller = new MovementSummaryController(comp);
        MovementsSummaryDto mSummary = controller.getShipMovementsSummary("123456789");
        Assertions.assertEquals(vesselName, mSummary.getName());
         Assertions.assertEquals(d1[0], mSummary.getStartDate());
