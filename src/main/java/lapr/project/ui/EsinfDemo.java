@@ -7,8 +7,10 @@ import lapr.project.dto.ShipsFileDTO;
 import lapr.project.utils.ShipsFileUtils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +31,24 @@ public class EsinfDemo {
         System.out.println(searchShipController.getShipInfoByAnyCode("IMO9193305"));
         System.out.println(searchShipController.getShipInfoByAnyCode("DHBN"));
 
+        //Show the Positional Messages of a Ship
+        //ATTENTION: The results will be put in a file named: "us103PositionalMessages"
+        ShowPositionalMessagesController showMessagesController = new ShowPositionalMessagesController();
+        boolean selectedShip = showMessagesController.isValidShip(366904940);
+        boolean wantsPeriod = false;
+        if(selectedShip) {
+            Date initialDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("31/12/2020 01:16:00");
+            if(wantsPeriod) {
+                Date finalDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("31/12/2020 01:19:00");
+                if(!finalDate.after(initialDate))
+                    throw new UnsupportedEncodingException("The final date can't be before or equal to initial Date!");
+                showMessagesController.showPositionalMessages(initialDate, finalDate);
+            } else {
+                showMessagesController.showPositionalMessages(initialDate, initialDate);
+            }
 
+        }
+        
         //Make a summary of the ships movement:
         MovementSummaryController movementSummaryController = new MovementSummaryController();
         System.out.println(movementSummaryController.getShipMovementsSummary("303296000"));
@@ -65,6 +84,7 @@ public class EsinfDemo {
         }
 
         //Get pair of ships to file.
+        //ATTENTION: The results will be put in a file named: "us107ShowPairsOfShips"
         ShowPairsOfShipsController showPairsOfShipsController = new ShowPairsOfShipsController(comp);
         showPairsOfShipsController.getPairsOfShips();
     }
