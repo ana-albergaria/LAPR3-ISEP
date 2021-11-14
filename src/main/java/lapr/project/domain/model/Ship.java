@@ -6,6 +6,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.Objects;
 
+/**
+ * Class to instantiate a new Ship
+ *
+ * @author Marta Ribeiro (1201592)
+ */
 public class Ship implements Comparable<Ship> {
 
     /**
@@ -81,7 +86,7 @@ public class Ship implements Comparable<Ship> {
         checkWidth(width);
         checkDraft(draft);
         checkCargo(cargo);
-        //checkCallSign(callSign);
+        checkCallSign(callSign);
         this.MMSI = MMSI;
         this.vesselName = vesselName;
         this.IMO = IMO;
@@ -114,12 +119,20 @@ public class Ship implements Comparable<Ship> {
         }
     }
 
+    /**
+     * Checks if the Ship's Vessel Name is correct, and if not throws an error message.
+     * @param vesselName the Ship's Vessel Name.
+     */
     public void checkVesselName(String vesselName){
         if(Objects.isNull(vesselName)){
             throw new IllegalArgumentException("Vessel type cannot be null.");
         }
     }
 
+    /**
+     * Checks if the Ship's IMO is correct, and if not throws an error message.
+     * @param IMO the Ship's IMO.
+     */
     public void checkIMO(String IMO){
         if (StringUtils.isBlank(IMO))
             throw new IllegalArgumentException("IMO cannot be blank.");
@@ -131,34 +144,55 @@ public class Ship implements Comparable<Ship> {
             throw new IllegalArgumentException("IMO must hold numeric digits starting from character 4.");
     }
 
+    /**
+     * Checks if the Ship's Length is correct, and if not throws an error message.
+     * @param length the Ship's Length.
+     */
     private void checkLength(int length){
         if (length<=0){
             throw new IllegalArgumentException("Length needs to be over 0.");
         }
     }
 
+    /**
+     * Checks if the Ship's Width is correct, and if not throws an error message.
+     * @param width the Ship's Width.
+     */
     private void checkWidth(int width){
         if (width<=0){
             throw new IllegalArgumentException("Width needs to be over 0.");
         }
     }
 
+    /**
+     * Checks if the Ship's Draft is correct, and if not throws an error message.
+     * @param draft the Ship's Draft.
+     */
     private void checkDraft(double draft){
         if (draft<=0){
             throw new IllegalArgumentException("Draft needs to be over 0.");
         }
     }
 
+    /**
+     * Checks if the Ship's Cargo is correct, and if not throws an error message.
+     * @param cargo the Ship's Cargo.
+     */
     private void checkCargo(String cargo){
         if (!cargo.equals("NA") && Integer.parseInt(cargo)<0){
             throw new IllegalArgumentException("Cargo cannot be negative.");
         }
     }
 
-    /*public void checkCallSign(String callSign){
-        //to develop
-    }*/
-
+    /**
+     * Checks if the Ship's Call Sign is correct, and if not throws an error message.
+     * @param callSign the Ship's Call Sign.
+     */
+    public void checkCallSign(String callSign){
+        if(Objects.isNull(callSign)){
+            throw new IllegalArgumentException("Call sign cannot be null.");
+        }
+    }
 
     /**
      * Returns the Ship's Positions' tree.
@@ -299,13 +333,11 @@ public class Ship implements Comparable<Ship> {
                 '}';
     }
 
-    //FALTA TESTES PARA O EQUALS!
-
     /**
      * Method equals.
      * @param otherObject the object to be compared with.
      * @return true if a Ship is equal to the object in "otherObject";
-     * false if a Ship is equal to the object in "otherObject".
+     * false if a Ship isn't equal to the object in "otherObject".
      */
     @Override
     public boolean equals(Object otherObject){

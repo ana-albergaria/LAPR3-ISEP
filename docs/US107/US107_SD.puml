@@ -73,7 +73,7 @@ end
 
 BstShip --> CTRL : listPairsOfShips
 deactivate BstShip
-CTRL --> UI : listPairsOfShips
+CTRL --> UI : result
 deactivate CTRL
 "UI" --> TM : shows successfully information
 

@@ -4,7 +4,11 @@ import auth.AuthFacade;
 import lapr.project.domain.store.ShipStore;
 import org.apache.commons.lang3.StringUtils;
 
-
+/**
+ * Class to instantiate a new ShipPosition
+ *
+ * @author Group 54
+ */
 public class Company {
 
     /**
@@ -22,6 +26,10 @@ public class Company {
      */
     private final ShipStore shipsStore;
 
+    /**
+     * Constructs an instance of Company receiving as a parameter the Company's designation
+     * @param designation the Company's designation
+     */
     public Company(String designation){
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");
