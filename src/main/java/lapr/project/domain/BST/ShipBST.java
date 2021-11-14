@@ -5,11 +5,10 @@ package lapr.project.domain.BST;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.shared.Constants;
-import lapr.project.utils.ShipDeltaDistanceComparato;
+import lapr.project.utils.ShipTotalMovementsComparator;
 import lapr.project.utils.ShipTravelledDistanceComparator;
 
 
-import java.awt.font.FontRenderContext;
 import java.util.*;
 
 public class ShipBST extends BST<Ship> {
@@ -65,7 +64,8 @@ public class ShipBST extends BST<Ship> {
         if(node==null) return;
 
         if (!shipList.contains(node.getElement())){
-        if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate) && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
+        if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate)
+                && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
 
                 shipList.add(node.getElement());
 
@@ -165,7 +165,7 @@ public class ShipBST extends BST<Ship> {
         return mapByTravelled;
     }
 
-    public void sortedByTravelledDistance(Map<Integer, Set<Double>> map, List<Ship> list) {
+    private void sortedByTravelledDistance(Map<Integer, Set<Double>> map, List<Ship> list) {
         ShipTravelledDistanceComparator comparator = new ShipTravelledDistanceComparator();
         Collections.sort(list, comparator);
 
@@ -193,8 +193,8 @@ public class ShipBST extends BST<Ship> {
         return mapByMovements;
     }
 
-    public void  sortedByTotalMovements(Map<Integer, Set<Double>> map, List<Ship> list) {
-        ShipDeltaDistanceComparato comparator = new ShipDeltaDistanceComparato();
+    private void  sortedByTotalMovements(Map<Integer, Set<Double>> map, List<Ship> list) {
+        ShipTotalMovementsComparator comparator = new ShipTotalMovementsComparator();
         Collections.sort(list, comparator);
 
         for (Ship x : list) {
