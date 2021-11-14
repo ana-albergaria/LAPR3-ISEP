@@ -243,11 +243,13 @@ public class ShipBSTTest {
     public void getMapWithTopNAssociatedWithVesselType(){
         Ship ship1 = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
         Ship ship2 = new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,"67");
+        Ship ship3 = new Ship(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 80, 220,20,13.2,"65");
         Map<Integer, Map<Ship, Set<Double>>> testMap = new HashMap<Integer, Map<Ship, Set<Double>>>();
         List<Ship> expectedList = new LinkedList<>();
         expectedList.add(ship1);
         expectedList.add(ship2);
-        testMap = shipsBST.getShipWithMean(expectedList, 2);
+        expectedList.add(ship3);
+        testMap = shipsBST.getShipWithMean(expectedList, 3);
 
         Set<Double> shipInfo1 = new HashSet<>();
         shipInfo1.add(ship1.getPositionsBST().getTotalDistance());
@@ -255,6 +257,9 @@ public class ShipBSTTest {
         Set<Double> shipInfo2 = new HashSet<>();
         shipInfo2.add(ship2.getPositionsBST().getTotalDistance());
         shipInfo2.add(ship2.getPositionsBST().getMeanSog());
+        Set<Double> shipInfo3 = new HashSet<>();
+        shipInfo3.add(ship3.getPositionsBST().getTotalDistance());
+        shipInfo3.add(ship3.getPositionsBST().getMeanSog());
 
         Map<Ship, Set<Double>> insideMap1 = new HashMap<Ship, Set<Double>>(){ {
             put(ship1, shipInfo1);
@@ -263,7 +268,7 @@ public class ShipBSTTest {
         };
         Map<Ship, Set<Double>> insideMap2 = new HashMap<Ship, Set<Double>>(){ {
             put(ship2, shipInfo2);
-
+            put(ship3, shipInfo3);
         }
         };
 
