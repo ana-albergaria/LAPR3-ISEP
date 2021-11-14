@@ -215,7 +215,7 @@ public class ShipBSTTest {
     }
 
     /**
-     * ensure the shipList is ordered and only the top-N ships are in it
+     * ensure the shipList is ordered
      */
     @Test
     public void sortNshipsCorrect() throws ParseException {
@@ -237,7 +237,7 @@ public class ShipBSTTest {
     }
 
     /**
-     * ensure the ships are associated with the correct vessel type
+     * ensure the ships are associated with the correct vessel type and map size is equal
      */
     @Test
     public void getMapWithTopNAssociatedWithVesselType(){
@@ -283,7 +283,7 @@ public class ShipBSTTest {
      * ensure all the ships are int the List
      */
     @Test
-    public void getAllShipsMMSI() {
+    public void getAllShipsNoDuplicates() {
         List<Ship> expectedList = new ArrayList<>();
         for (int i=0; i<4; i++) {
             expectedList.add(new Ship(posBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
@@ -329,13 +329,6 @@ public class ShipBSTTest {
                 put(mmsiCodes[0], l1);
             }
         };
-
-
-        List<Ship> expectedList = new LinkedList<>();
-        expectedList.add(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
 
 
         Map<Integer, Set<Double>> actualMap = shipsBST.sortedByTravelledDistance();

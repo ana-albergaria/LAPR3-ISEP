@@ -38,8 +38,8 @@ class TopNController {
 
 class ShipsBST{
     -getShipByBaseDateTime(initialBaseDate, finalBaseDate)
-    -sortNShips(shipList, N)
-    -getShipWithMean(sortedShips)
+    -sortNShips(shipList)
+    -getShipWithMean(sortedShips, N)
 }
 
 class PositionBST{
