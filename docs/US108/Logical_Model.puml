@@ -7,7 +7,7 @@
 
 class Ship{
     **MMSI** [int]
-    IMO [int]
+    IMO [String]
     CallSignId [String]
     ShipName [String]
     VesselTypeID FK [int]
@@ -26,12 +26,12 @@ class ShipPosition{
     **BaseDateTime** [Date]
     **Latitude** [double]
     **Longitude** [double]
-    IMO FK [int]
+    IMO FK [String]
     Sog [double]
     Cog [double]
     Heading [double]
     Position [double]
-    Transceiver [??] /'perguntar ao grupo'/
+    Transceiver [String] /'perguntar ao grupo'/
 }
 
 class Container{
@@ -59,7 +59,7 @@ class EnergyPower{
 class CargoManifest{
     **CargoManifestID** [int]
     **locationId** FK [int]
-    IMO FK [int]
+    IMO FK [String]
     TypeOfTransport [String]
     Status [String]
 }
