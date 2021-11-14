@@ -404,7 +404,6 @@ public class ShipBSTTest {
     void fillTreeMapForEachShip() {
         List<Ship> listShipsWithIntendedTD = (List<Ship>) shipsBST3.inOrder();
 
-
         TreeMap<Double, String> expInfoPair = new TreeMap<>(Collections.reverseOrder());
 
 
@@ -416,10 +415,6 @@ public class ShipBSTTest {
         Double travelledDistance = positionsBST.getTotalDistance();
 
         shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
-
-        for (Map.Entry<Double, String> entry : infoPair.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
-        }
 
         Assertions.assertEquals(expInfoPair.size(), infoPair.size());
     }
@@ -436,6 +431,9 @@ public class ShipBSTTest {
         Assertions.assertFalse(shipsBST.hasShip(shipToFind));
     }
 
+    /**
+     * US7 - Test to ensure getPairsOfShips() works correctly.
+     */
     @Test
     void getPairsOfShips() {
         ImportShipsController importCtrl = new ImportShipsController(comp);
@@ -445,20 +443,10 @@ public class ShipBSTTest {
 
         for (int i = 0; i < shipsOfFile.size(); i++) {
             if (ctrl.importShipFromFile(shipsOfFile.get(i)))
-                //System.out.println(shipsOfFile.get(i));
                 addedShips.add(shipsOfFile.get(i));
         }
 
         List<TreeMap<Double, String>> listPairsOfShips = comp.getShipStore().getShipsBstMmsi().getPairsOfShips();
-
-        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%-20s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs1", "TravelDist1", "Movs2", "TravelDist2", "TravelDist Diff");
-        System.out.print(header);
-        for (TreeMap<Double, String> item : listPairsOfShips) {
-            for (Map.Entry<Double, String> entry : item.entrySet()) {
-                //System.out.println("Value: " + entry.getValue() + "Key: " + entry.getKey());
-                System.out.println(entry.getValue() + "Key: " + entry.getKey());
-            }
-        }
 
         int expLength = 0;
 

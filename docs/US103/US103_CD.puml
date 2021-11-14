@@ -8,8 +8,11 @@ class Ship {
     -shipName
     -imoCode
     -callSignId
-    -currentCapacity /'added by us'/
     -draft
+    -vesselTypeID
+    -length
+    -width
+    -cargo
 }
 
 class ShipPosition {

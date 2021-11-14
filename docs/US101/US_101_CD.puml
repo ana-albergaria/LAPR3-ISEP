@@ -146,8 +146,8 @@ ImportShipsController ..> Ship
 ImportShipsController ..> PositionsBST
 ImportShipsController ..> ShipPosition
 ImportShipsController ..> ShipStore
-ShipBST ..> BST
-PositionsBST ..> BST
+BST <|- PositionsBST
+BST <|- ShipBST
 ShipsFileUtils ..> ShipsFileDTO
 ShipsFileUtils ..> PositionDTO
 ImportShipsController ..> ShipsFileDTO
