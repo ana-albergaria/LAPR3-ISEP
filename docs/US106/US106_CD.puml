@@ -60,16 +60,13 @@ ShipsBST "1" -- "1..*" Ship : owns >
 TopNUI ..> TopNController
 TopNController ..> ShipsBST
 TopNController ..> Company
+ShipsBST -> BST
+PositionBST -> BST
 /'ShipsBST ..> Ship'/
 /'PositionBST ..> ShipPosition'/
 Company ..> Ship
-<<<<<<< HEAD
-ShipsBST -|> BST
-PositionBST -|> BST
-=======
 Ship "1" -- "1" PositionBST : uses >
 PositionBST "1" -- "1..*" ShipPosition : has >
->>>>>>> 793832baaf62d938035fb9d681dfa06c408e774e
 
 
 @enduml
