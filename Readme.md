@@ -604,6 +604,235 @@ public Double getDepartureDistance(positionsBST2) {
 }
 ```
 
+# US 105 - List for all ships the MMSI, the total number of movements, Travelled Distance and Delta Distance
+
+## 1. Requirements Engineering
+
+
+### 1.1. User Story Description
+
+
+• US105: As a traffic manager I which to list for all ships the MMSI, the total number of
+movements, Travelled Distance and Delta Distance.
+
+### 1.2. Customer Specifications and Clarifications
+
+### 1.3. Acceptance Criteria
+
+* **AC1:** ordered by Travelled Distance and total number of movements
+  (descending/ascending).
+
+### 1.4. Found out Dependencies
+
+* US101: As a traffic manager, I which to import ships from a text file into a BST.
+* US102: As a traffic manager I which to search the details of a ship using any of its codes:
+  MMSI, IMO or Call Sign.
+* US104:  As a traffic manager I which to make a Summary of a ship's movements.
+
+
+### 1.5 Input and Output Data
+**Input Data:**
+
+* All Ships in BST
+
+**Output Data:**
+
+* for all ships the MMSI, the total number of movements, Travelled Distance and Delta Distance ordered by Travelled Distance and total number of movements
+  (descending/ascending).
+* (In)Success of the operation
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US105_SSD](./docs/US105/US105_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![105DM_excerpt](./docs/US105/105DM_excerpt.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+## 3. Design - User Story Realization
+
+
+## 3.2. Sequence Diagram (SD)
+
+![US105_SD](./docs/US105/US105_SD.svg)
+
+
+## 3.3. Class Diagram (CD)
+
+![US105_CD](./docs/US105/US105_CD.svg)
+
+
+# 4. Tests
+
+**ShipBSTTest**
+
+     @Test
+    public void getAllShipsNoDuplicates() {
+        *add all ships created to a List*
+
+        *assert using getAllShips*
+    }
+* Test 1: ensure all the ships in the BST are added to a List without duplicates.
+
+
+    @Test
+    public void mapOrderedByTravelledDistance() {
+        *add ship's Travelled Distance, Delta Distance and Total Movements to different LinkedHashSets*
+        *associate each Set to a Ship MMSI in a LinkedHashMap*
+
+        *assert using sortedByTravelledDistance()*
+    }
+* Test 2: ensure every Ship's Travelled Distance, Delta Distance and Total Movements are associated with it's MMSI and ordered by Travelled Distance (descending)
+
+
+     @Test
+    public void mapOrderedByMovements() {
+        *add ship's Travelled Distance, Delta Distance and Total Movements to different LinkedHashSets*
+        *associate each Set to a Ship MMSI in a LinkedHashMap*
+
+        *assert using sortedByTotalMovements()*
+    }
+* Test 3: ensure every Ship's Travelled Distance, Delta Distance and Total Movements are associated with it's MMSI and ordered by Total Movements (ascending)
+
+
+
+# US 106 - Top-N ships and MeanSOG
+
+## 1. Requirements Engineering
+
+
+### 1.1. User Story Description
+
+
+• US16:Get the top-N ships with the most kilometres travelled and their average speed
+(MeanSOG).
+
+### 1.2. Customer Specifications and Clarifications
+
+**From the client clarifications:**
+
+> **Question:** "...in the US106 when it says "in a period (initial/final Base Date Time) grouped by Vessel Type", does the traffic manager specify the initial and final Date that he wants to search in?"
+>
+> **Answer:** "Yes."
+
+
+-
+
+> **Question:** "Regarding both US106 and US107 should we assume that these functionalities will be used by the Traffic Manager or is it for another role in the company? This detail is not present, unlike in the other User Stories."
+>
+> **Answer:** "
+Yes, you can assume a Traffic Manager will be performing those tasks."
+
+
+
+### 1.3. Acceptance Criteria
+
+* **AC1:** ordered by Travelled Distance and total number of movements
+  (descending/ascending).
+
+
+### 1.4. Found out Dependencies
+
+* US101: As a traffic manager, I which to import ships from a text file into a BST.
+* US102: As a traffic manager I which to search the details of a ship using any of its codes:
+  MMSI, IMO or Call Sign.
+* US104:  As a traffic manager I which to make a Summary of a ship's movements.
+
+
+
+### 1.5 Input and Output Data
+**Input Data:**
+
+* Initial Base Date Time;
+* Final Base Date Time;
+* Number of ships to get;
+
+**Output Data:**
+
+* Top-N ships with the most km travelled and their meanSOG
+* (In)Success of the operation
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US106_SSD](./docs/US106/US106_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![106DM_excerpt](./docs/US106/106DM_excerpt.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+## 3. Design - User Story Realization
+
+
+
+## 3.2. Sequence Diagram (SD)
+
+![US106_SD](./docs/US106/US106_SD.svg)
+
+
+## 3.3. Class Diagram (CD)
+
+![US106_CD](./docs/US106/US106_CD.svg)
+
+
+# 4. Tests
+
+**ShipBSTTest**
+
+     @Test
+    public void getShipsByDateCorrect() throws ParseException {
+        *add N ships with different positionBST and different Base Date Time*
+
+        *assert using getShipsByDate(initilDate. finalDate)*
+    }
+* Test 1: ensures all the ships that fit in the Base Date Time gap are correctly obtained and put in an ArrayList.
+
+
+    @Test
+    public void sortNshipsCorrect() throws ParseException {
+        *add N ships to a LinkedList by order of TravelledDistance*
+        
+        *assert using sortNShips(List<Ship>)*
+    }
+* Test 2: ensures a list of Ships is ordered correctly by Travelled Distance.
+
+
+     @Test
+    public void getMapWithTopNAssociatedWithVesselType(){
+        *create HashMap with LinkedList associated with Ship*
+        *create HashMap with HashMap associated with vesselTypeId*
+        
+        *assert using getShipWithMean(List<Ship>, Integer topN)
+    }
+* Test 3: ensures every Vessel Type has Top-N Ships with the most Travelled Distance associated with it.
+
+
+
+
+
 
 
 
