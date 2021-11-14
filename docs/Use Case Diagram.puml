@@ -7,6 +7,9 @@ actor "Project Manager" as PM
 
 
 rectangle System {
+(UC 103 - Obtain the positional messages temporally \norganized associated with each ship) --> (UC 101 - Import ships from a text file into a BST) #brown;line.dashed;text:black : <<Include>>
+(UC 107 - Obtain pairs of ships with routes with close departure/arrival coordinates \nand different Travelled Distance) --> (UC 101 - Import ships from a text file into a BST) #brown;line.dashed;text:black : <<Include>>
+(UC 104 - As a traffic manager I wish to make a Summary of a ship's movements.) --> (UC 101 - Import ships from a text file into a BST) #brown;line.dashed;text:black : <<Include>>
 TM --> (UC 103 - Obtain the positional messages temporally \norganized associated with each ship)
 TM --> (UC 107 - Obtain pairs of ships with routes with close departure/arrival coordinates \nand different Travelled Distance)
 TM --> (UC 104 - As a traffic manager I wish to make a Summary of a ship's movements.)
