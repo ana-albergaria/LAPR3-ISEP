@@ -51,6 +51,7 @@ class Company {
     -getShipStore()
 }
 
+class BST{}
 
 Company "1" -- "1" ShipStore : uses >
 ShipStore ..> ShipsBST
@@ -62,6 +63,8 @@ TopNController ..> Company
 ShipsBST ..> Ship
 PositionBST ..> ShipPosition
 Company ..> Ship
+ShipsBST -|> BST
+PositionBST -|> BST
 
 
 @enduml

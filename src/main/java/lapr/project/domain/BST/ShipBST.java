@@ -119,9 +119,17 @@ public class ShipBST extends BST<Ship> {
                 setter = new HashSet<>();
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add(x.getPositionsBST().getMeanSog());
+
+                shipMap.put(x, setter);
+                map.put(vessel, shipMap);
+
+            } else {
+                shipMap = map.get(x.getVesselTypeID());
+                setter = new HashSet<>();
+                setter.add(x.getPositionsBST().getTotalDistance());
+                setter.add(x.getPositionsBST().getMeanSog());
                 if (shipMap.size() <= number) {
                     shipMap.put(x, setter);
-                    map.put(vessel, shipMap);
                 }
             }
         }
