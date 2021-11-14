@@ -32,7 +32,7 @@ class PositionsBST {
     +getPositinalMessages(initialDate, finalDate)
 }
 
-class ShowPositionalMessagesUI {}
+/'class ShowPositionalMessagesUI {}'/
 
 class ShowPositionalMessagesController {
     +isValidShip(mmsiCode)
@@ -41,7 +41,7 @@ class ShowPositionalMessagesController {
 
 class Company {
     -designation
-    +getBstShip(mmsiCode)
+    +getBstShip()
 }
 
 /'Ship "1" -- "1..*" ShipPosition : has >'/
@@ -51,13 +51,14 @@ Company "1" -- "1" ShipsBST : uses >
 ShipsBST "1" -- "1..*" Ship : owns >
 Ship "1" -- "1" PositionsBST : uses >
 PositionsBST "1" -- "1..*" ShipPosition : has >
-ShowPositionalMessagesUI ..> ShowPositionalMessagesController
+/'ShowPositionalMessagesUI ..> ShowPositionalMessagesController'/
 ShowPositionalMessagesController ..> Company
 ShowPositionalMessagesController ..> ShipsBST
 ShowPositionalMessagesController ..> Ship
 ShowPositionalMessagesController ..> PositionsBST
 
 BST <|- PositionsBST
+BST <|- ShipsBST
 
 
 @enduml

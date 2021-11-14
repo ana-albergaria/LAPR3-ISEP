@@ -14,10 +14,12 @@ activate ":System"
 deactivate ":System"
 TM -> ":System" : types initial date
 activate ":System"
+alt the user wants data in a period
 ":System" --> TM : requests final date of the ship's position
 deactivate ":System"
 TM -> ":System" : types the final date
 activate ":System"
+end
 ":System" --> TM : displays ship's positional messages
 deactivate ":System"
 

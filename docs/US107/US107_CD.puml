@@ -12,6 +12,7 @@ class Ship {
     -callSignId
     -currentCapacity /'added by us'/
     -draft
+    +getPositionsBST()
 }
 
 class ShipPosition {
@@ -38,7 +39,7 @@ class PositionsBST {
     +getDepartureDistance()
 }
 
-class ShowPairsOfShipsUI {}
+/'class ShowPairsOfShipsUI {}'/
 
 class ShowPairsOfShipsController {
     +getPairsOfShips()
@@ -46,7 +47,7 @@ class ShowPairsOfShipsController {
 
 class Company {
     -designation
-    +getBstShip(mmsiCode)
+    +getBstShip()
 }
 
 class BST {
@@ -60,12 +61,13 @@ Company "1" -- "1" ShipsBST : uses >
 ShipsBST "1" -- "1..*" Ship : owns >
 Ship "1" -- "1" PositionsBST : uses >
 PositionsBST "1" -- "1..*" ShipPosition : has >
-ShowPairsOfShipsUI ..> ShowPairsOfShipsController
+/'ShowPairsOfShipsUI ..> ShowPairsOfShipsController'/
 ShowPairsOfShipsController ..> Company
 ShowPairsOfShipsController ..> ShipsBST
 ShowPairsOfShipsController ..> Ship
 ShowPairsOfShipsController ..> PositionsBST
 
 BST <|- PositionsBST
+BST <|- ShipsBST
 
 @enduml

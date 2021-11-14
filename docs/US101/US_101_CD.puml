@@ -1,16 +1,15 @@
 @startuml
 
+hide empty methods
+hide empty attributes
+'left to right direction
 skinparam classAttributeIconSize 0
-
-class ImportShipsUI {}
 
 class ImportShipsController {
 - company
 - ship
 - shipPosition
 - positionsBST
-- registerPosition(positionDTO)
-- createPosition(positionDTO, mmsi)
 - saveShip()
 - importShipFromFile(shipsFileDTO)
 }
@@ -83,18 +82,77 @@ class PositionsBST {
 - savePosition(shipPosition)
 }
 
+class ShipsFileDTO{
+- positionDTO
+- mmsi
+- vesselType
+- length
+- width
+- draft
+- vesselName
+- imo
+- callSign
+- cargo
+- ShipsFileDTO(positionDTO, mmsi, vesselName, imo, callSign, vesselType, length, width, draft, cargo)
+- getPositionDTO()
+- getMmsi()
+- getVesselName()
+- getImo()
+- getCallSign()
+- getVesselType()
+- getLength()
+- getWidth()
+- getCargo()
+- getDraft()
+}
+
+class PositionDTO{
+- baseDateTime
+- lat
+- lon
+- sog
+- cog
+- heading
+- transcieverClass
+- PositionDTO(baseDateTime, lat, lon, sog, cog, heading, transcieverClass)
+- getBaseDateTime()
+- getLat()
+- getLon()
+- getSog()
+- getCog()
+- getHeading()
+- getTranscieverClass()
+}
+
+class ShipsFileUtils{
+- dataLabels
+- getShipsDataToDTO(filePath)
+- attributesToDTO(shipData)
+- getDateOfString(stringFormatDate)
+- positionToDTO(data)
+}
+
+Interface BST{
+}
+
 Company "1" -- "1" ShipStore : uses >
 ShipStore "1" -- "1" ShipBST : uses >
 ShipBST "1" -- "1..*" Ship : owns >
 Ship "1" -- "1" PositionsBST : uses >
 PositionsBST "1" -- "1..*" ShipPosition : has >
-ImportShipsUI ..> ImportShipsController
 ImportShipsController ..> Company
 ImportShipsController ..> ShipBST
 ImportShipsController ..> Ship
 ImportShipsController ..> PositionsBST
 ImportShipsController ..> ShipPosition
 ImportShipsController ..> ShipStore
+ShipBST ..> BST
+PositionsBST ..> BST
+ShipsFileUtils ..> ShipsFileDTO
+ShipsFileUtils ..> PositionDTO
+ImportShipsController ..> ShipsFileDTO
+ShipsFileDTO ..> PositionDTO
+
 
 
 @enduml

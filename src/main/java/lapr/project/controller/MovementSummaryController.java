@@ -35,6 +35,7 @@ public class MovementSummaryController {
         Ship currentShip = shipStore.getShipByAnyCode(code);
         PositionsBST shipMovements = currentShip.getPositionsBST();
         String name = currentShip.getVesselName();
+        int mmsi = currentShip.getMMSI();
         Date startDate = shipMovements.getStartDate();
         Date endDate = shipMovements.getEndDate();
         double maxSog = shipMovements.getMaxSog();
@@ -48,6 +49,6 @@ public class MovementSummaryController {
         double deltaDist = shipMovements.getDeltaDistance();
 
         return new MovementsSummaryDto(name, startDate, endDate, maxSog, meanSog,
-                meanCog, departLat, departLon, arrivalLat, arrivalLon, travDist, deltaDist);
+                meanCog, departLat, departLon, arrivalLat, arrivalLon, travDist, deltaDist, mmsi);
     }
 }

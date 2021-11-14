@@ -3,11 +3,8 @@ package lapr.project.controller;
 import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
-import lapr.project.dto.PositionDTO;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.domain.model.Company;
-
-import java.util.Date;
 
 public class ImportShipsController {
 
@@ -38,12 +35,6 @@ public class ImportShipsController {
         this.positionsBST=new PositionsBST();
     }
 
-    /*public boolean registerPosition(Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
-        PositionsBST positionsBST = this.ship.getPositionsBST();
-        this.shipPosition =  new ShipPosition(this.ship.getMMSI(),baseDateTime,lat,lon,sog,cog,heading,transcieverClass);
-        return positionsBST.hasPosition(shipPosition);
-    }*/
-
     public boolean saveShip(){
         if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI())==null){
             this.company.getShipStore().saveShip(new Ship(this.ship.getPositionsBST(), this.ship.getMMSI(),
@@ -58,13 +49,12 @@ public class ImportShipsController {
                 this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).setPositionsBST(this.positionsBST);
                 return true;
             }
-            return false;
         }
         return false;
     }
 
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
-        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){ //nao existe ship logo tem de se criar
+        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){
             try {
                 this.ship = this.company.getShipStore().createShip(shipsFileDTO);
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
@@ -77,18 +67,8 @@ public class ImportShipsController {
             }
             return saveShip();
         } else {
-            //ir buscar o ship pelo mmsi
             try{
-                this.ship=new Ship(this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getPositionsBST(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getMMSI(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getVesselName(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getIMO(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getCallSign(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getVesselTypeID(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getLength(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getWidth(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getDraft(),
-                        this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi()).getCargo());
+                this.ship=this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
                         shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
                         shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
@@ -97,17 +77,15 @@ public class ImportShipsController {
                 System.out.println("NOT ADDED : " + e);
                 return false;
             }
-        }
-        try {
-            this.positionsBST=this.ship.getPositionsBST();
-            if (!(positionsBST.hasPosition(shipPosition))) {
-                return saveShip();//AQUI
+            try {
+                this.positionsBST=this.ship.getPositionsBST();
+                if (!(positionsBST.hasPosition(shipPosition))) {
+                    return saveShip();
+                }
+            }catch (IllegalArgumentException e){
+                System.out.println("NOT ADDED : " + e);
             }
-        }catch (IllegalArgumentException e){
-            System.out.println("NOT ADDED : " + e);
-            return false;
         }
-        //se a posicao nao existe entao é adicionada
         return false;
     }
 
