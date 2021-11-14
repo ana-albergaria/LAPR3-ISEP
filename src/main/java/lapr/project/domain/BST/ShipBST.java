@@ -11,6 +11,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 
 import java.util.*;
 
+
 public class ShipBST extends BST<Ship> {
 
     public void createBstShip() {

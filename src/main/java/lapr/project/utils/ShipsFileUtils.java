@@ -11,6 +11,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * @author Marta Ribeiro (1201592)
+ */
 public class ShipsFileUtils {
 
     private List<String> dataLabels;

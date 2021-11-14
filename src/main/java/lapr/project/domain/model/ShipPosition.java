@@ -6,6 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Class to instantiate a new ShipPosition
+ *
+ * @author Marta Ribeiro (1201592)
+ */
 public class ShipPosition implements Comparable<ShipPosition> {
 
     /**
@@ -48,6 +53,17 @@ public class ShipPosition implements Comparable<ShipPosition> {
      */
     private final String transcieverClass;
 
+    /**
+     * Constructs an instance of ShipPosition receiving as a parameter the Ship's MMSI and the ShipPosition's base date time, latitude, longitude, SOG, COG, heading and transciever class.
+     * @param mmsi the Ship's MMSI
+     * @param baseDateTime the ShipPosition's base date time
+     * @param lat the ShipPosition's latitude
+     * @param lon the ShipPosition's longitude
+     * @param sog the ShipPosition's SOG
+     * @param cog the ShipPosition's COG
+     * @param heading the ShipPosition's heading
+     * @param transcieverClass the ShipPosition's transciever class
+     */
     public ShipPosition(int mmsi, Date baseDateTime, double lat, double lon, double sog, double cog, int heading, String transcieverClass){
         checkBaseDateTime(baseDateTime);
         checkLat(lat);
@@ -134,47 +150,72 @@ public class ShipPosition implements Comparable<ShipPosition> {
     private void checkMMSI(int mmsi){
         if (Integer.toString(mmsi).length()!=9)
             throw new IllegalArgumentException("MMSI must hold 9 digits.");
-        //ver se está no sistema?
     }
 
+    /**
+     * Checks if the ShipPosition's base date time is correct, and if not throws an error message.
+     * @param baseDateTime the ShipPosition's base date time.
+     */
     private void checkBaseDateTime(Date baseDateTime){
         if (baseDateTime==null){
             throw new IllegalArgumentException("Base Date Time cannot be null.");
         }
-        //mais...?
     }
 
+    /**
+     * Checks if the ShipPosition's latitude is correct, and if not throws an error message.
+     * @param lat the ShipPosition's latitude.
+     */
     private void checkLat(double lat){
         if (lat<-90 || (lat>90 && lat!=91)){
             throw new IllegalArgumentException("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.");
         }
     }
 
+    /**
+     * Checks if the ShipPosition's longitude is correct, and if not throws an error message.
+     * @param lon the ShipPosition's longitude.
+     */
     private void checkLon(double lon){
         if (lon<-180 || (lon>180 && lon!=181)){
             throw new IllegalArgumentException("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.");
         }
     }
 
-    //TESTAR
+    /**
+     * Checks if the ShipPosition's SOG is correct, and if not throws an error message.
+     * @param sog the ShipPosition's SOG.
+     */
     private void checkSog(double sog){
         if (sog<0){
             throw new IllegalArgumentException("SOG must be positive.");
         }
     }
 
+    /**
+     * Checks if the ShipPosition's COG is correct, and if not throws an error message.
+     * @param cog the ShipPosition's COG.
+     */
     private void checkCog(double cog){
         if (cog<0 || cog>359){
             throw new IllegalArgumentException("COG must be between 0 and 359.");
         }
     }
 
+    /**
+     * Checks if the ShipPosition's heading is correct, and if not throws an error message.
+     * @param heading the ShipPosition's heading.
+     */
     private void checkHeading(int heading){
         if (heading<0 || (heading>359 && heading!=511)){
             throw new IllegalArgumentException("Heading must be between 0 and 359. It might also be 511 in case of being unavailable.");
         }
     }
 
+    /**
+     * Checks if the ShipPosition's transciever class is correct, and if not throws an error message.
+     * @param transcieverClass the ShipPosition's transciever class.
+     */
     private void checkTranscieverClass(String transcieverClass){
         if(Objects.isNull(transcieverClass)){
             throw new IllegalArgumentException("Transciever Class cannot be null.");
@@ -182,8 +223,6 @@ public class ShipPosition implements Comparable<ShipPosition> {
         if (StringUtils.isBlank(transcieverClass))
             throw new IllegalArgumentException("Transciever Class cannot be blank.");
     }
-
-    //+ toString ?
 
     /**
      * Method toString.
@@ -202,7 +241,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
      * Method equals.
      * @param otherObject the object to be compared with.
      * @return true if a ShipPosition is equal to the object in "otherObject";
-     * false if a ShipPosition is equal to the object in "otherObject".
+     * false if a ShipPosition isn't equal to the object in "otherObject".
      */
     @Override
     public boolean equals(Object otherObject){
