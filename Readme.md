@@ -117,7 +117,7 @@ $ mvn test jacoco:report org.pitest:pitest-maven:mutationCoverage -DhistoryInput
 Each group should configure their database connection on the file:
 * src/main/resources/application.properties  
 
-## Relatory  
+# RELATORY
 
 # US_102 - to search the details of a ship using any of its codes: MMSI, IMO or Call Sign
 
@@ -292,7 +292,7 @@ n/a
 Situation 1: the user inserts a MMSI code existent in the system  
 
 1) an expected Ship object should be created  
-2) the MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)
+2) the MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)  
 3) an actual Ship object through calling the method  
 4) result: the method returns the corresponding Ship and the Ship objects are equal
 
@@ -545,10 +545,10 @@ n/a
 **Test 1:** Test to ensure getShipsInOrderWithIntendedTD works correctly.  
 Steps: 
 
-* an expected List<Ship> should be created    
-* the list should be filled with Ship objects in the intended order  
-* obtain the actual list through calling the method getShipsInOrderWithIntendedTD()  
-* result: the lists are equal  
+1) an expected List<Ship> should be created      
+2) the list should be filled with Ship objects in the intended order   
+3) obtain the actual list through calling the method getShipsInOrderWithIntendedTD()    
+4) result: the lists are equal    
 
 ```
 @Test
@@ -559,15 +559,15 @@ Steps:
 **Test 2:** Test to ensure fillTreeMapEachShip() works correctly.  
 Steps:
 
-* create or get a List<Ship> containing a list of Ship objects
-* create an expected descending TreeMap using Collections.reverseOrder()
-* create the actual descending TreeMap using Collections.reverseOrder()
-* obtain the first Ship object of the List<Ship> created
-* obtain the index of that Ship
-* obtain the PositionsBST of that Ship
-* obtain the Travelled Distance of that Ship
-* fill the actual TreeMap using the method fillTreeMapForEachShip using the objects and info obtained
-* result: the list should be equal or if empty, their sizes should be equal
+1) create or get a List<Ship> containing a list of Ship objects  
+2) create an expected descending TreeMap using Collections.reverseOrder()  
+3) create the actual descending TreeMap using Collections.reverseOrder()  
+4) obtain the first Ship object of the List<Ship> created  
+5) obtain the index of that Ship  
+6) obtain the PositionsBST of that Ship  
+7) obtain the Travelled Distance of that Ship  
+8) fill the actual TreeMap using the method fillTreeMapForEachShip using the objects and info obtained  
+9) result: the list should be equal or if empty, their sizes should be equal  
 
 ```
 @Test
@@ -576,10 +576,11 @@ Steps:
 ```  
 
 **Test 3:** Test to ensure getPairsOfShips() works correctly.  
-Steps:
-* create an expected List<TreeMap<Double, String>> containing the expected result if the result is not empty
-* create the actual through calling the method getPairsOfShips
-* result: the lists should be equal or its sizes, if the result is empty
+Steps:  
+
+1) create an expected List<TreeMap<Double, String>> containing the expected result if the result is not empty  
+2) create the actual through calling the method getPairsOfShips  
+3) result: the lists should be equal or its sizes, if the result is empty  
 
 ```
 @Test
@@ -592,11 +593,12 @@ OBSERVATION: To facilitate testing this method, we can import information in a .
 ### PositionsBST Class
 
 **Test 1:** Test to ensure getArrivalDistance(positionsBST2) works properly.  
-Steps:
-* create a double with the expected result
-* create 2 Ship objects with Ship Positions
-* obtain the actual result through calling the method
-* result: the results are equal
+Steps:  
+
+1) create a double with the expected result  
+2) create 2 Ship objects with Ship Positions  
+3) obtain the actual result through calling the method  
+4) result: the results are equal  
 
 ```
 public Double getArrivalDistance(positionsBST2) {
