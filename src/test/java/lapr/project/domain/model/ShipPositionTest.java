@@ -264,6 +264,9 @@ public class ShipPositionTest {
         assertEquals("Heading must be between 0 and 359. It might also be 511 in case of being unavailable.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure Heading can have value 0.
+     */
     @Test
     public void createPositionWithHeadingequals0() {
          new ShipPosition(211331640, dateR1, 36.39094,

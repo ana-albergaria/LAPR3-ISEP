@@ -207,11 +207,17 @@ public class ShipTest {
         assertEquals("Cargo cannot be negative.", thrown.getMessage());
     }
 
+    /**
+     * Test to ensure Cargo can be 0.
+     */
     @Test
     public void ensureCargoIs0(){
         new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"0");
     }
 
+    /**
+     * Test to ensure Cargo can be NA.
+     */
     @Test
     public void ensureCargoIsNA(){
         new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"NA");

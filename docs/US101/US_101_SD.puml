@@ -9,7 +9,6 @@ participant ":Company" as CMP
 participant ":ShipStore" as STORE
 participant ":ShipsBST" as SBST
 participant ":Ship" as SHIP
-participant ":PositionBST" as PBST
 participant ":ShipPosition" as POS
 
 activate TM

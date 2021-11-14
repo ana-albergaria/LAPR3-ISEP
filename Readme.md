@@ -119,6 +119,194 @@ Each group should configure their database connection on the file:
 
 ## Relatory  
 
+# US 101 - Import ships from a text file into a BST
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As a traffic manager, I wish to import ships from a text file into a BST
+
+### 1.2. Acceptance Criteria
+
+* no data lost.
+
+### 1.4. Found out Dependencies
+
+This US doesn't have any dependencies.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * text file path
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* operation success/failure
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+!![US_101_SSD](./docs/US101/US_101_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+The present US isn't held many times during the business. As the business grows, the company might import new ships to the software system, but probably these ships won't be added individually and will only be added once in a large amount of time.
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US_101_DM](./docs/US101/US_101_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_101_SD](./docs/US101/US_101_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US_101_CD](./docs/US101/US_101_CD.svg)
+
+# 4. Tests
+
+### ImportShipsController class test:
+
+**Test 1:** Test to check if the Ships are being imported respecting all the data restrictions.
+
+In order to test this, it's important to create two test .CSV files: one with ships to be imported (it's important that these ships have errors in their attribute values),
+and one with only the ships that, after the filtration, are actually imported.
+After using the importShipFromFile method (from the Controller) in the ships from the first file, 
+only the ones in the second file should be imported.
+
+**Test 2:** Test to check how many ships from a file are imported and which lines do not import.
+
+This test should import the Ships and print the number of the lines that do not import. It should also increment a counting variable everytime a line is imported and print it at the end.
+
+
+### Ship class tests:
+
+**Test 3:** Ensure empty Positions BST are not allowed
+
+**Test 4:** Ensure MMSI cannot have less than 9 digits.
+
+**Test 5:** Ensure MMSI cannot have more than 9 digits.
+
+**Test 6:** Ensure Vessel Name cannot be null.
+
+**Test 7:** Ensure IMO cannot be blank.
+
+**Test 8:** Ensure IMO cannot have less than 10 chars.
+
+**Test 9:** Ensure IMO cannot have more than 10 chars.
+
+**Test 10:** Ensure IMO starts with "IMO".
+
+**Test 11:** Ensure IMO has only numeric digits after the "IMO" part.
+
+**Test 12:** Ensure Length cannot be under or equal to 0.
+
+**Test 13:** Ensure Width cannot be under or equal to 0.
+
+**Test 14:** Ensure Draft cannot be under or equal to 0.
+
+**Test 15:** Ensure Cargo cannot be under or equal to 0.
+
+**Test 16:** Ensure Cargo can be 0.
+
+**Test 17:** Ensure Cargo can be NA.
+
+Tests 3 to 17 follow this format:
+
+```
+@Test
+    public void testName() {
+      IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi, vesselName, imo, callSign, vesselTypeID, length, width, draft, cargo));
+      assertEquals(".........", thrown.getMessage());
+    }
+```
+
+The only change in the tests are the test name, the attributes values and the assertEquals.
+
+
+### ShipPosition class tests:
+
+**Test 18:** Ensure Base Date Time cannot be null.
+
+**Test 19:** Ensure Transciever Class cannot be null.
+
+**Test 20:** Ensure Transciever Class cannot be empty.
+
+**Test 21:** Ensure Latitude cannot be under -90.
+
+**Test 22:** Ensure Latitude cannot be over 91.
+
+**Test 23:** Ensure Latitude can have value 90.
+
+**Test 24:** Ensure Latitude can have value -90.
+
+**Test 25:** Ensure Longitude cannot be under -180.
+
+**Test 26:** Ensure Longitude cannot be over 180.
+
+**Test 27:** Ensure Longitude can have value 180.
+
+**Test 28:** Ensure Longitude can have value -180.
+
+**Test 29:** Ensure SOG cannot be under 0.
+
+**Test 30:** Ensure SOG can have value 0.
+
+**Test 31:** Ensure COG cannot be under 0.
+
+**Test 32:** Ensure Heading cannot be over 359.
+
+**Test 33:** Ensure COG can have value 359.
+
+**Test 34:** Ensure Heading cannot be under 0.
+
+**Test 35:** Ensure Heading cannot be over 511.
+
+**Test 36:** Ensure Heading can have value 0.
+
+**Test 37:** Ensure Heading can have valie 359.
+
+**Test 38:** Ensure MMSI has 9 digits.
+
+**Test 39:** Ensure MMSI cannot have more than 9 digits.
+
+**Test 40:** Ensure MMSI cannot have less than 9 digits.
+
+Tests 18 to 40 follow this format:
+
+```
+@Test
+    public void testName() {
+      IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipPosition(mmsi, date, lat,
+                lon, sog, cog, heading, transcieverClass));
+      assertEquals(".........", thrown.getMessage());
+    }
+```
+
+The only change in the tests are the test name, the attributes values and the assertEquals.
+
+
+
 # US_102 - to search the details of a ship using any of its codes: MMSI, IMO or Call Sign
 
 ## 1. Requirements Engineering
