@@ -60,8 +60,8 @@ ShipsBST "1" -- "1..*" Ship : owns >
 TopNUI ..> TopNController
 TopNController ..> ShipsBST
 TopNController ..> Company
-ShipsBST -> BST
-PositionBST -> BST
+ShipsBST -|> BST
+PositionBST -|> BST
 /'ShipsBST ..> Ship'/
 /'PositionBST ..> ShipPosition'/
 Company ..> Ship

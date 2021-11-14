@@ -117,7 +117,7 @@ $ mvn test jacoco:report org.pitest:pitest-maven:mutationCoverage -DhistoryInput
 Each group should configure their database connection on the file:
 * src/main/resources/application.properties  
 
-## Relatory  
+# RELATORY
 
 # US 101 - Import ships from a text file into a BST
 
@@ -477,11 +477,12 @@ n/a
 
 **Test 1:** Test to ensure getShipByMmsiCode() is functioning correctly.
 
-Situation 1: the user inserts a MMSI code existent in the system
-- an expected Ship object should be created
-- the MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)
-- an actual Ship object through calling the method
-- result: the method returns the corresponding Ship and the Ship objects are equal
+Situation 1: the user inserts a MMSI code existent in the system  
+
+1) an expected Ship object should be created  
+2) the MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)  
+3) an actual Ship object through calling the method  
+4) result: the method returns the corresponding Ship and the Ship objects are equal
 
 ```
 @Test
@@ -491,10 +492,11 @@ Situation 1: the user inserts a MMSI code existent in the system
 
 **Test 2:** Test to ensure getShipByMmsiCode() is functioning correctly.
 
-Situation 2: the user inserts a MMSI code NON existent in the system
-* the invalid MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)
-* an actual Ship object through calling the method
-* result: the method returns null as the Ship with that MMSI doesn't exist
+Situation 2: the user inserts a MMSI code NON existent in the system  
+
+1) the invalid MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)  
+2) an actual Ship object through calling the method  
+3) result: the method returns null as the Ship with that MMSI doesn't exist  
 
 ```
 @Test
@@ -506,11 +508,12 @@ Situation 2: the user inserts a MMSI code NON existent in the system
 
 **Test 3:** Test to ensure getPositionalMessages() is functioning properly
 
-Situation 1: the user wishes to see ship positions in a period
-* two Date objects should be created with the initial and final date
-* an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)
-* the actual List object through calling the method getPositionalMessages()
-* result: the Lists should be equal
+Situation 1: the user wishes to see ship positions in a period  
+
+1) two Date objects should be created with the initial and final date  
+2) an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)  
+3) the actual List object through calling the method getPositionalMessages()  
+4) result: the Lists should be equal  
 
 ```
 @Test
@@ -521,10 +524,11 @@ Situation 1: the user wishes to see ship positions in a period
 **Test 4:** Test to ensure getPositionalMessages() is functioning properly
 
 Situation 2: the user wishes to see ship positions in a date
-* a Date object should be created
-* an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)
-* the actual List object through calling the method getPositionalMessages()
-* result: the Lists should be equal
+
+1) a Date object should be created  
+2) an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)  
+3) the actual List object through calling the method getPositionalMessages()  
+4) result: the Lists should be equal  
 
 ```
 @Test
@@ -535,10 +539,11 @@ Situation 2: the user wishes to see ship positions in a date
 **Test 5:** Test to ensure getPositionalMessages() is functioning properly.
 
 Situation 3: there aren't any positional messages found
-* two Date objects should be created with the initial and final date
-* an expected empty List object
-* the actual List object through calling the method getPositionalMessages()
-* result: the Lists should be equal
+
+1) two Date objects should be created with the initial and final date  
+2) an expected empty List object  
+3) the actual List object through calling the method getPositionalMessages()  
+4) result: the Lists should be equal  
 
 ```
 @Test
@@ -726,11 +731,12 @@ n/a
 ### ShipsBST Class
 
 **Test 1:** Test to ensure getShipsInOrderWithIntendedTD works correctly.  
-Steps:
-* an expected List<Ship> should be created
-* the list should be filled with Ship objects in the intended order
-* obtain the actual list through calling the method getShipsInOrderWithIntendedTD()
-* result: the lists are equal
+Steps: 
+
+1) an expected List<Ship> should be created      
+2) the list should be filled with Ship objects in the intended order   
+3) obtain the actual list through calling the method getShipsInOrderWithIntendedTD()    
+4) result: the lists are equal    
 
 ```
 @Test
@@ -740,15 +746,16 @@ Steps:
 
 **Test 2:** Test to ensure fillTreeMapEachShip() works correctly.  
 Steps:
-* create or get a List<Ship> containing a list of Ship objects
-* create an expected descending TreeMap using Collections.reverseOrder()
-* create the actual descending TreeMap using Collections.reverseOrder()
-* obtain the first Ship object of the List<Ship> created
-* obtain the index of that Ship
-* obtain the PositionsBST of that Ship
-* obtain the Travelled Distance of that Ship
-* fill the actual TreeMap using the method fillTreeMapForEachShip using the objects and info obtained
-* result: the list should be equal or if empty, their sizes should be equal
+
+1) create or get a List<Ship> containing a list of Ship objects  
+2) create an expected descending TreeMap using Collections.reverseOrder()  
+3) create the actual descending TreeMap using Collections.reverseOrder()  
+4) obtain the first Ship object of the List<Ship> created  
+5) obtain the index of that Ship  
+6) obtain the PositionsBST of that Ship  
+7) obtain the Travelled Distance of that Ship  
+8) fill the actual TreeMap using the method fillTreeMapForEachShip using the objects and info obtained  
+9) result: the list should be equal or if empty, their sizes should be equal  
 
 ```
 @Test
@@ -757,10 +764,11 @@ Steps:
 ```  
 
 **Test 3:** Test to ensure getPairsOfShips() works correctly.  
-Steps:
-* create an expected List<TreeMap<Double, String>> containing the expected result if the result is not empty
-* create the actual through calling the method getPairsOfShips
-* result: the lists should be equal or its sizes, if the result is empty
+Steps:  
+
+1) create an expected List<TreeMap<Double, String>> containing the expected result if the result is not empty  
+2) create the actual through calling the method getPairsOfShips  
+3) result: the lists should be equal or its sizes, if the result is empty  
 
 ```
 @Test
@@ -773,11 +781,12 @@ OBSERVATION: To facilitate testing this method, we can import information in a .
 ### PositionsBST Class
 
 **Test 1:** Test to ensure getArrivalDistance(positionsBST2) works properly.  
-Steps:
-* create a double with the expected result
-* create 2 Ship objects with Ship Positions
-* obtain the actual result through calling the method
-* result: the results are equal
+Steps:  
+
+1) create a double with the expected result  
+2) create 2 Ship objects with Ship Positions  
+3) obtain the actual result through calling the method  
+4) result: the results are equal  
 
 ```
 public Double getArrivalDistance(positionsBST2) {

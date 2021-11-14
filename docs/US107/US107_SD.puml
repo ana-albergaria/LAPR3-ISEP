@@ -7,7 +7,8 @@ actor "Traffic Manager" as TM
 participant "ShowPairsOfShipsUI" as UI
 participant "ShowPairsOfShipsController" as CTRL
 participant "Company" as COMP
-participant "shipsBST:\nShipStore" as BstShip
+participant "ShipStore" as SHIP_STORE
+participant "shipsBST:\nShipsBST" as BstShip
 participant "ship:\nShip" as S
 participant "ship2\nShip" as S2
 /'participant "ShipPosition" as SP'/
@@ -26,9 +27,9 @@ activate CTRL
 CTRL -> COMP : getShipStore()
 activate COMP
 deactivate COMP
-CTRL -> BstShip : shipsBST = getShipsBstMmsi()
-activate BstShip
-deactivate BstShip
+CTRL -> SHIP_STORE : shipsBST = getShipsBstMmsi()
+activate SHIP_STORE
+deactivate SHIP_STORE
 CTRL -> BstShip : getPairsOfShips()
 /'decide what kind of list'/
 activate BstShip
