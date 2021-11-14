@@ -10,10 +10,14 @@ Interface BST{}
 class Ship {
     +getName()
     +getMovements()
+    +getMMSI()
 }
 
 class ShipsBST{
     +findShipByMmsi(MMSI)
+    +getShipByBaseDateTime(initialBaseDate, finalBaseDate)
+    +sortNShips(shipList)
+    +getShipWithMean(sortedShips, N)
 }
 
 class ShipsBSTImo{
@@ -25,6 +29,7 @@ class ShipsBSTCallSign{
 
 class ShipStore{
    +Ship findShipByAnyCode(code)
+   +getShipsBstMmsi()
 }
 class ShipPosition{
     +getLatitude()
@@ -46,6 +51,7 @@ class PositionsBST {
     +getArrivalLongitude()
     +getTravelDistance()
     +getDeltaDistance()
+    +getShipBaseDateTime(code)
 }
 
 
@@ -68,6 +74,16 @@ class MovementSummaryDto{
     deltaDist
 }
 
+class AllShipMMSIController {
+    +sortedByTravelledDistance()
+    +sortedByTotalMovements()
+}
+
+class TopNController {
+    +getShipByBaseDateTime(initialBaseDate, finalBaseDate)
+    +getShipWithMean(sortedShips)
+}
+
 
 MovementSummaryController ..> Company
 MovementSummaryController ..> ShipStore
@@ -87,5 +103,10 @@ ShipsBST ..> BST
 ShipsBSTImo ..> BST
 ShipsBSTCallSign ..> BST
 PositionsBST ..> BST
+AllShipMMSIController ..> ShipsBST
+AllShipMMSIController ..> Company
+TopNController ..> ShipsBST
+TopNController ..> Company
+
 
 @enduml
