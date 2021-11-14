@@ -11,7 +11,6 @@ public class ShipTravelledDistanceComparator implements Comparator<Ship> {
         int d1 = (int) Math.round(e1.getPositionsBST().getTotalDistance());
         int d2 = (int) Math.round(e2.getPositionsBST().getTotalDistance());
         return Integer.compare(d2, d1);
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

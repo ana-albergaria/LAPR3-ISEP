@@ -53,15 +53,20 @@ class Company {
     -getShipStore()
 }
 
+interface BST{}
+
 
 Company "1" -- "1" ShipStore : uses >
 ShipStore ..> ShipsBST
 ShipsBST "1" -- "1..*" Ship : owns >
-TopNUI ..> TopNController
-TopNController ..> ShipsBST
-TopNController ..> Company
+AllShipUI ..> AllShipMMSIController
+AllShipMMSIController ..> ShipsBST
+AllShipMMSIController ..> Company
 ShipsBST ..> Ship
+ShipsBST -> BST
+ShipsBST ..> PositionBST
 PositionBST ..> ShipPosition
+PositionBST -> BST
 Company ..> Ship
 
 
