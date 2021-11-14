@@ -73,7 +73,10 @@ end
 
 BstShip --> CTRL : listPairsOfShips
 deactivate BstShip
-CTRL --> UI : listPairsOfShips
+note over CTRL
+The desired data is put into a **file**
+end note
+CTRL --> UI : result
 deactivate CTRL
 "UI" --> TM : shows successfully information
 

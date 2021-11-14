@@ -1,0 +1,112 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Company{
+    +getShipBst()
+}
+Interface BST{}
+
+class Ship {
+    +getName()
+    +getMovements()
+    +getMMSI()
+}
+
+class ShipsBST{
+    +findShipByMmsi(MMSI)
+    +getShipByBaseDateTime(initialBaseDate, finalBaseDate)
+    +sortNShips(shipList)
+    +getShipWithMean(sortedShips, N)
+}
+
+class ShipsBSTImo{
+    +findShipByImo(imo)
+}
+class ShipsBSTCallSign{
+     +findShipByCallsign(callsign)
+ }
+
+class ShipStore{
+   +Ship findShipByAnyCode(code)
+   +getShipsBstMmsi()
+}
+class ShipPosition{
+    +getLatitude()
+    +getLongitude()
+    +getBaseTime()
+    +getSog()
+    +getCog()
+}
+
+class PositionsBST {
+    +getStartDate()
+    +getEndDate()
+    +getMaxSog()
+    +getMeanSog()
+    +getMeanCog()
+    +getDepartLatitude()
+    +getDepartLongitude()
+    +getArrivalLatitude()
+    +getArrivalLongitude()
+    +getTravelDistance()
+    +getDeltaDistance()
+    +getShipBaseDateTime(code)
+}
+
+
+class MovementSummaryController {
++getShipMovementSummary(MMSI)
+}
+
+class MovementSummaryDto{
+    name
+    startDate
+    endDate
+    maxSog
+    meanSog
+    meanCog
+    departLatitude
+    departLongitude
+    arrivalLatitude
+    arrivalLongitude
+    travelledDist
+    deltaDist
+}
+
+class AllShipMMSIController {
+    +sortedByTravelledDistance()
+    +sortedByTotalMovements()
+}
+
+class TopNController {
+    +getShipByBaseDateTime(initialBaseDate, finalBaseDate)
+    +getShipWithMean(sortedShips)
+}
+
+
+MovementSummaryController ..> Company
+MovementSummaryController ..> ShipStore
+MovementSummaryController -- MovementSummaryDto: creates >
+Company "1" --> "*" Ship : knows
+Company "1" -- "1" ShipStore : uses >
+ShipStore "1" -- "1" ShipsBSTCallSign : uses >
+ShipStore "1" -- "1" ShipsBST : uses >
+ShipStore "1" -- "1" ShipsBSTImo : uses >
+ShipsBST ..> Ship
+ShipsBSTImo ..> Ship
+ShipsBSTCallSign ..> Ship
+Ship "1" -- "*" ShipPosition : sends >
+Ship "1" -- "1" PositionsBST : uses >
+PositionsBST ..> ShipPosition
+ShipsBST ..> BST
+ShipsBSTImo ..> BST
+ShipsBSTCallSign ..> BST
+PositionsBST ..> BST
+AllShipMMSIController ..> ShipsBST
+AllShipMMSIController ..> Company
+TopNController ..> ShipsBST
+TopNController ..> Company
+
+
+@enduml

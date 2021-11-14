@@ -301,7 +301,11 @@ public class PositionsBSTTest {
         expected = 9968.0;
         assertEquals(expected, instance.getDeltaDistance(), 2, "delta distance now should be "+expected);
     }
-    //US103
+
+    /**
+     * US103 - Test to ensure getPositionalMessages() is functioning properly
+     * Situation 1: the user wishes to see ship positions in a period
+     */
     @Test
     public void getPositionalMessagesInAPeriod() throws ParseException {
         Date initialDate = new SimpleDateFormat("dd/MM/yyyy").parse("02/12/2020");
@@ -327,6 +331,10 @@ public class PositionsBSTTest {
         assertEquals(expList, list);
     }
 
+    /**
+     * US103 - Test to ensure getPositionalMessages() is functioning properly
+     * Situation 2: the user wishes to see ship positions in a date
+     */
     @Test
     public void getPositionalMessagesInADate() throws ParseException {
         Date initialDate = new SimpleDateFormat("dd/MM/yyyy").parse("02/04/2021");
@@ -340,6 +348,10 @@ public class PositionsBSTTest {
         assertEquals(expList, list);
     }
 
+    /**
+     * US103 - Test to ensure getPositionalMessages() is functioning properly
+     * Situation 3: there aren't any positional messages found
+     */
     @Test
     public void getPositionalMessagesNotFoundInAPeriod() throws ParseException {
         Date initialDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020");

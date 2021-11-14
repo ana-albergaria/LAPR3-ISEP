@@ -215,7 +215,7 @@ public class ShipBSTTest {
     }
 
     /**
-     * ensure the shipList is ordered and only the top-N ships are in it
+     * ensure the shipList is ordered
      */
     @Test
     public void sortNshipsCorrect() throws ParseException {
@@ -237,7 +237,7 @@ public class ShipBSTTest {
     }
 
     /**
-     * ensure the ships are associated with the correct vessel type
+     * ensure the ships are associated with the correct vessel type and map size is equal
      */
     @Test
     public void getMapWithTopNAssociatedWithVesselType(){
@@ -283,7 +283,7 @@ public class ShipBSTTest {
      * ensure all the ships are int the List
      */
     @Test
-    public void getAllShipsMMSI() {
+    public void getAllShipsNoDuplicates() {
         List<Ship> expectedList = new ArrayList<>();
         for (int i=0; i<4; i++) {
             expectedList.add(new Ship(posBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
@@ -329,13 +329,6 @@ public class ShipBSTTest {
                 put(mmsiCodes[0], l1);
             }
         };
-
-
-        List<Ship> expectedList = new LinkedList<>();
-        expectedList.add(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
 
 
         Map<Integer, Set<Double>> actualMap = shipsBST.sortedByTravelledDistance();
@@ -411,7 +404,6 @@ public class ShipBSTTest {
     void fillTreeMapForEachShip() {
         List<Ship> listShipsWithIntendedTD = (List<Ship>) shipsBST3.inOrder();
 
-
         TreeMap<Double, String> expInfoPair = new TreeMap<>(Collections.reverseOrder());
 
 
@@ -423,10 +415,6 @@ public class ShipBSTTest {
         Double travelledDistance = positionsBST.getTotalDistance();
 
         shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
-
-        for (Map.Entry<Double, String> entry : infoPair.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
-        }
 
         Assertions.assertEquals(expInfoPair.size(), infoPair.size());
     }
@@ -443,6 +431,9 @@ public class ShipBSTTest {
         Assertions.assertFalse(shipsBST.hasShip(shipToFind));
     }
 
+    /**
+     * US7 - Test to ensure getPairsOfShips() works correctly.
+     */
     @Test
     void getPairsOfShips() {
         ImportShipsController importCtrl = new ImportShipsController(comp);
@@ -452,20 +443,10 @@ public class ShipBSTTest {
 
         for (int i = 0; i < shipsOfFile.size(); i++) {
             if (ctrl.importShipFromFile(shipsOfFile.get(i)))
-                //System.out.println(shipsOfFile.get(i));
                 addedShips.add(shipsOfFile.get(i));
         }
 
         List<TreeMap<Double, String>> listPairsOfShips = comp.getShipStore().getShipsBstMmsi().getPairsOfShips();
-
-        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%-20s%n", "Ship1 MMSI", "Ship2 MMSI", "distOrig", "distDest","Movs1", "TravelDist1", "Movs2", "TravelDist2", "TravelDist Diff");
-        System.out.print(header);
-        for (TreeMap<Double, String> item : listPairsOfShips) {
-            for (Map.Entry<Double, String> entry : item.entrySet()) {
-                //System.out.println("Value: " + entry.getValue() + "Key: " + entry.getKey());
-                System.out.println(entry.getValue() + "Key: " + entry.getKey());
-            }
-        }
 
         int expLength = 0;
 

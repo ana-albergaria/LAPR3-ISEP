@@ -46,9 +46,8 @@ public class EsinfDemo {
             } else {
                 showMessagesController.showPositionalMessages(initialDate, initialDate);
             }
-
         }
-        
+
         //Make a summary of the ships movement:
         MovementSummaryController movementSummaryController = new MovementSummaryController();
         System.out.println(movementSummaryController.getShipMovementsSummary("303296000"));
