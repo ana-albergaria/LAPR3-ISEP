@@ -6,8 +6,9 @@ actor "Traffic Manager" as TM
 participant "ShowPositionalMessagesUI" as UI
 participant "ShowPositionalMessagesController" as CTRL
 participant "Company" as COMP
-participant "ship:\nShip" as S
+participant "ShipStore" as SHIP_STORE
 participant "shipsBST:\nShipsBST" as BstShip
+participant "ship:\nShip" as S
 participant "ShipPosition" as SP
 participant "positionsBST:\nPositionsBST" as BstPosition
 /'participant "vesselType:\nVesselType" as VESSEL_TYPE'/
@@ -23,9 +24,12 @@ TM -> "UI" : types the MMSI code
 activate "UI"
 UI -> CTRL : isValidShip(mmsiCode)
 activate CTRL
-CTRL -> COMP : shipsBST = getBstShip()
+CTRL -> COMP : getShipStore()
 activate COMP
 deactivate COMP
+CTRL -> SHIP_STORE : shipsBST = getShipsBstMmsi()
+activate SHIP_STORE
+deactivate SHIP_STORE
 CTRL -> BstShip : ship = getShipByMmsiCode(mmsiCode)
 activate BstShip
 deactivate BstShip
