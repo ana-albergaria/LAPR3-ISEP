@@ -52,7 +52,7 @@ class Company {
     -getShipStore()
 }
 
-interface BST{}
+class BST{}
 
 
 Company "1" -- "1" ShipStore : uses >
@@ -62,10 +62,10 @@ AllShipUI ..> AllShipMMSIController
 AllShipMMSIController ..> ShipsBST
 AllShipMMSIController ..> Company
 ShipsBST ..> Ship
-ShipsBST -> BST
+ShipsBST -|> BST
 ShipsBST ..> PositionBST
 PositionBST ..> ShipPosition
-PositionBST -> BST
+PositionBST -|> BST
 Company ..> Ship
 
 
