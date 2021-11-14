@@ -59,6 +59,7 @@ ShowPositionalMessagesController ..> Company
 ShowPositionalMessagesController ..> ShipsBST
 ShowPositionalMessagesController ..> Ship
 ShowPositionalMessagesController ..> PositionsBST
+ShipsBST ..> PositionsBST
 
 BST <|- PositionsBST
 BST <|- ShipsBST

@@ -66,6 +66,7 @@ ShowPairsOfShipsController ..> Company
 ShowPairsOfShipsController ..> ShipsBST
 ShowPairsOfShipsController ..> Ship
 ShowPairsOfShipsController ..> PositionsBST
+ShipsBST ..> PositionsBST
 
 BST <|- PositionsBST
 BST <|- ShipsBST
