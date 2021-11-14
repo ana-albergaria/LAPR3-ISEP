@@ -5,7 +5,6 @@ skinparam packageStyle rectangle
 actor "Traffic Manager" as TM
 actor "Project Manager" as PM
 
-
 rectangle System {
 (UC 103 - Obtain the positional messages temporally \norganized associated with each ship) --> (UC 101 - Import ships from a text file into a BST) #brown;line.dashed;text:black : <<Include>>
 (UC 107 - Obtain pairs of ships with routes with close departure/arrival coordinates \nand different Travelled Distance) --> (UC 101 - Import ships from a text file into a BST) #brown;line.dashed;text:black : <<Include>>
