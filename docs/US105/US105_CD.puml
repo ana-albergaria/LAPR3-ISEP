@@ -62,10 +62,10 @@ AllShipUI ..> AllShipMMSIController
 AllShipMMSIController ..> ShipsBST
 AllShipMMSIController ..> Company
 /'ShipsBST ..> Ship'/
-ShipsBST -> BST
+ShipsBST -|> BST
 ShipsBST ..> PositionBST
 /'PositionBST ..> ShipPosition'/
-PositionBST -> BST
+PositionBST -|> BST
 Company ..> Ship
 PositionBST "1" -- "1..*" ShipPosition : has >
 Ship "1" -- "1" PositionBST : uses >

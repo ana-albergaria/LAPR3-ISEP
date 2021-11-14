@@ -132,7 +132,7 @@ class ShipsFileUtils{
 - positionToDTO(data)
 }
 
-Interface BST{
+class BST{
 }
 
 Company "1" -- "1" ShipStore : uses >
