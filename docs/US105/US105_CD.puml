@@ -61,12 +61,14 @@ ShipsBST "1" -- "1..*" Ship : owns >
 AllShipUI ..> AllShipMMSIController
 AllShipMMSIController ..> ShipsBST
 AllShipMMSIController ..> Company
-ShipsBST ..> Ship
+/'ShipsBST ..> Ship'/
 ShipsBST -> BST
 ShipsBST ..> PositionBST
-PositionBST ..> ShipPosition
+/'PositionBST ..> ShipPosition'/
 PositionBST -> BST
 Company ..> Ship
+PositionBST "1" -- "1..*" ShipPosition : has >
+Ship "1" -- "1" PositionBST : uses >
 
 
 @enduml

@@ -59,9 +59,11 @@ ShipsBST "1" -- "1..*" Ship : owns >
 TopNUI ..> TopNController
 TopNController ..> ShipsBST
 TopNController ..> Company
-ShipsBST ..> Ship
-PositionBST ..> ShipPosition
+/'ShipsBST ..> Ship'/
+/'PositionBST ..> ShipPosition'/
 Company ..> Ship
+Ship "1" -- "1" PositionBST : uses >
+PositionBST "1" -- "1..*" ShipPosition : has >
 
 
 @enduml
