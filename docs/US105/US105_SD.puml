@@ -4,7 +4,7 @@ autonumber
 actor "Unknown" as ADM
 
 participant "AllListUI" as UI
-participant "AllListController" as CTRL
+participant "AllShipMMSIController" as CTRL
 participant "ShipBST" as STORE
 participant "Company" as COMP
 participant "ShipStore" as SHSTR

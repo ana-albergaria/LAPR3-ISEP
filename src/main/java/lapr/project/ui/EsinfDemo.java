@@ -58,6 +58,8 @@ public class EsinfDemo {
         //For all ships return total movements, travelled distantance and delta distance ordered by traveledDistance and total number of movements
         AllShipMMSIController allShipMMSIController = new AllShipMMSIController();
         Map<Integer, Set<Double>> map = allShipMMSIController.sortedByTotalMovements();
+        System.out.println();
+        System.out.println("----------------------Sorted by Total Movements-------------------");
         for(Integer mmsi : map.keySet()){
             System.out.println(mmsi+":");
             System.out.println(map.get(mmsi));
@@ -65,6 +67,7 @@ public class EsinfDemo {
         }
 
         Map<Integer, Set<Double>> mapTDistance = allShipMMSIController.sortedByTravelledDistance();
+        System.out.println("----------------------Sorted by Travelled Distance----------------");
         for(Integer mmsi : mapTDistance.keySet()){
             System.out.println(mmsi+":");
             System.out.println(mapTDistance.get(mmsi));
@@ -78,8 +81,15 @@ public class EsinfDemo {
 
         Map<Integer, Map<Ship,Set<Double>>> topNMap = topNController.getShipWithMean(list, 5);
         for(Integer pos : topNMap.keySet()){
-            System.out.println(pos+":");
-            System.out.println(topNMap.get(pos));
+            System.out.println();
+            System.out.println("VesselTypeId - " +pos+":");
+            Map<Ship,Set<Double>> x = topNMap.get(pos);
+            System.out.println("[Travelled Distance, MeanSOG]");
+            for (Ship shi : x.keySet()) {
+                System.out.println("MMSI - "+ shi.getMMSI());
+                System.out.println(x.get(shi));
+
+           }
         }
 
         //Get pair of ships to file.

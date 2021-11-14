@@ -10,7 +10,7 @@ deactivate ":System"
 OE -> ":System" : inserts requested data (initial, final, N)
 activate ":System"
 
-":System" --> OE : returns sorted ships with the most km travelled and their meanSOG in a list
+":System" --> OE : returns sorted ships with the most km travelled and their meanSOG
 deactivate ":System"
 deactivate OE
 

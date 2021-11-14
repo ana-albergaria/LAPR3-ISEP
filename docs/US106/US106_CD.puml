@@ -51,6 +51,7 @@ class Company {
     -getShipStore()
 }
 
+class BST{}
 
 Company "1" -- "1" ShipStore : uses >
 ShipStore ..> ShipsBST
@@ -59,9 +60,13 @@ ShipsBST "1" -- "1..*" Ship : owns >
 TopNUI ..> TopNController
 TopNController ..> ShipsBST
 TopNController ..> Company
-ShipsBST ..> Ship
-PositionBST ..> ShipPosition
+ShipsBST -> BST
+PositionBST -> BST
+/'ShipsBST ..> Ship'/
+/'PositionBST ..> ShipPosition'/
 Company ..> Ship
+Ship "1" -- "1" PositionBST : uses >
+PositionBST "1" -- "1..*" ShipPosition : has >
 
 
 @enduml

@@ -1,16 +1,31 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+skinparam classAttributeIconSize 0
 
 class Company{
+    -designation
     +getShipBst()
 }
-Interface BST{}
+class BST{
+    +size()
+}
+
 
 class Ship {
+    -mmmsiCode
+    -shipName
+    -imoCode
+    -callSignId
+    -draft
+    -vesselTypeID
+    -length
+    -width
+    -cargo
     +getName()
     +getMovements()
     +getMMSI()
+    +getPositionsBST()
 }
 
 class ShipsBST{
@@ -18,6 +33,10 @@ class ShipsBST{
     +getShipByBaseDateTime(initialBaseDate, finalBaseDate)
     +sortNShips(shipList)
     +getShipWithMean(sortedShips, N)
+    +getShipByMmsiCode(mmsiCode)
+    +getPairsOfShips()
+    +getShipsInOrderWithIntendedTD()
+    +fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, \ntravelledDistance, positionsBST, ship1MMSI, indexShip)
 }
 
 class ShipsBSTImo{
@@ -32,6 +51,15 @@ class ShipStore{
    +getShipsBstMmsi()
 }
 class ShipPosition{
+    -baseDateTime
+    -latitude
+    -longitude
+    -sog
+    -cog
+    -heading
+    -position
+    -transceiver
+    +getPositionsBST()
     +getLatitude()
     +getLongitude()
     +getBaseTime()
@@ -52,6 +80,10 @@ class PositionsBST {
     +getTravelDistance()
     +getDeltaDistance()
     +getShipBaseDateTime(code)
+    +getPositinalMessages(initialDate, finalDate)
+    +getTotalDistance()
+    +getArrivalDistance()
+    +getDepartureDistance()
 }
 
 
@@ -84,6 +116,14 @@ class TopNController {
     +getShipWithMean(sortedShips)
 }
 
+class ShowPositionalMessagesController {
+    +isValidShip(mmsiCode)
+    +showPositionalMessages(initialDate, finalDate)
+}
+
+class ShowPairsOfShipsController {
+    +getPairsOfShips()
+}
 
 MovementSummaryController ..> Company
 MovementSummaryController ..> ShipStore
@@ -98,15 +138,32 @@ ShipsBSTImo ..> Ship
 ShipsBSTCallSign ..> Ship
 Ship "1" -- "*" ShipPosition : sends >
 Ship "1" -- "1" PositionsBST : uses >
-PositionsBST ..> ShipPosition
-ShipsBST ..> BST
+/'PositionsBST ..> ShipPosition'/
+/'ShipsBST ..> BST'/
 ShipsBSTImo ..> BST
 ShipsBSTCallSign ..> BST
-PositionsBST ..> BST
+/'PositionsBST ..> BST'/
 AllShipMMSIController ..> ShipsBST
 AllShipMMSIController ..> Company
 TopNController ..> ShipsBST
 TopNController ..> Company
+/'US103'/
+Company "1" -- "1" ShipsBST : uses >
+ShipsBST "1" -- "1..*" Ship : owns >
+/'Ship "1" -- "1" PositionsBST : uses >'/
+PositionsBST "1" -- "1..*" ShipPosition : has >
+ShowPositionalMessagesController ..> Company
+ShowPositionalMessagesController ..> ShipsBST
+ShowPositionalMessagesController ..> Ship
+ShowPositionalMessagesController ..> PositionsBST
+/'US107'/
+ShowPairsOfShipsController ..> Company
+ShowPairsOfShipsController ..> ShipsBST
+ShowPairsOfShipsController ..> Ship
+ShowPairsOfShipsController ..> PositionsBST
+
+BST <|- PositionsBST
+BST <|- ShipsBST
 
 
 @enduml
