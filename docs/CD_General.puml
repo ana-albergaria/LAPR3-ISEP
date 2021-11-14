@@ -1,109 +1,200 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+hide empty methods
+hide empty attributes
+'left to right direction
 skinparam classAttributeIconSize 0
 
 class Company{
-    -designation
-    +getShipBst()
-}
-class BST{
-    +size()
+    - designation
+    - shipsBST
+    + getBstShip()
 }
 
+class BST{
+    + size()
+}
 
 class Ship {
-    -mmmsiCode
-    -shipName
-    -imoCode
-    -callSignId
-    -draft
-    -vesselTypeID
-    -length
-    -width
-    -cargo
-    +getName()
-    +getMovements()
-    +getMMSI()
-    +getPositionsBST()
+    - positionsBST
+    - MMSI
+    - vesselName
+    - IMO
+    - callSign
+    - vesselTypeID
+    - length
+    - width
+    - draft
+    - cargo
+    + Ship(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, draft, cargo)
+    + checkPositionsBST(positionsBST)
+    + checkMMSI(int MMSI)
+    + checkVesselName(vesselName)
+    + checkIMO(IMO)
+    + checkLength(length)
+    + checkWidth(width)
+    + checkDraft(draft)
+    + checkCargo(cargo)
+    + getName()
+    + getMovements()
+    + getMMSI()
+    + getPositionsBST()
+    + setPositionsBST(positionsBST)
+    + equals(Object otherObject)
 }
 
 class ShipsBST{
-    +findShipByMmsi(MMSI)
-    +getShipByBaseDateTime(initialBaseDate, finalBaseDate)
-    +sortNShips(shipList)
-    +getShipWithMean(sortedShips, N)
-    +getShipByMmsiCode(mmsiCode)
-    +getPairsOfShips()
-    +getShipsInOrderWithIntendedTD()
-    +fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, \ntravelledDistance, positionsBST, ship1MMSI, indexShip)
+    + findShipByMmsi(MMSI)
+    + getShipByBaseDateTime(initialBaseDate, finalBaseDate)
+    + sortNShips(shipList)
+    + getShipWithMean(sortedShips, N)
+    + getShipByMmsiCode(mmsiCode)
+    + getPairsOfShips()
+    + getShipsInOrderWithIntendedTD()
+    + fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, \ntravelledDistance, positionsBST, ship1MMSI, indexShip)
 }
 
 class ShipsBSTImo{
-    +findShipByImo(imo)
+    + findShipByImo(imo)
 }
 class ShipsBSTCallSign{
-     +findShipByCallsign(callsign)
+    + findShipByCallsign(callsign)
  }
 
 class ShipStore{
-   +Ship findShipByAnyCode(code)
-   +getShipsBstMmsi()
+    + createShip(shipsFileDTO)
+    + validateShip(ship)
+    + saveShip(ship)
+    + getShipsBstMmsi()
+    + Ship findShipByAnyCode(code)
 }
+
 class ShipPosition{
-    -baseDateTime
-    -latitude
-    -longitude
-    -sog
-    -cog
-    -heading
-    -position
-    -transceiver
-    +getPositionsBST()
-    +getLatitude()
-    +getLongitude()
-    +getBaseTime()
-    +getSog()
-    +getCog()
+    - MMSI
+    - baseDateTime
+    - lat
+    - lon
+    - sog
+    - cog
+    - heading
+    - transcieverClass
+    - position
+    + ShipPosition(mmsi, baseDateTime, lat, lon, sog, cog, heading, transcieverClass)
+    + checkMMSI(mmsi)
+    + checkBaseDateTime(baseDateTime)
+    + checkLat(lat)
+    + checkLon(lon)
+    + checkSog(sog)
+    + checkCog(cog)
+    + checkHeading(heading)
+    + checkTranscieverClass(transcieverClass)
+    + getPositionsBST()
+    + getLatitude()
+    + getLongitude()
+    + getBaseTime()
+    + getSog()
+    + getCog()
 }
 
 class PositionsBST {
-    +getStartDate()
-    +getEndDate()
-    +getMaxSog()
-    +getMeanSog()
-    +getMeanCog()
-    +getDepartLatitude()
-    +getDepartLongitude()
-    +getArrivalLatitude()
-    +getArrivalLongitude()
-    +getTravelDistance()
-    +getDeltaDistance()
-    +getShipBaseDateTime(code)
-    +getPositinalMessages(initialDate, finalDate)
-    +getTotalDistance()
-    +getArrivalDistance()
-    +getDepartureDistance()
+    + getStartDate()
+    + getEndDate()
+    + getMaxSog()
+    + getMeanSog()
+    + getMeanCog()
+    + getDepartLatitude()
+    + getDepartLongitude()
+    + getArrivalLatitude()
+    + getArrivalLongitude()
+    + getTravelDistance()
+    + getDeltaDistance()
+    + getShipBaseDateTime(code)
+    + getPositinalMessages(initialDate, finalDate)
+    + getTotalDistance()
+    + getArrivalDistance()
+    + getDepartureDistance()
+    + hasPosition(shipPosition)
+    + validatePosition(shipPosition)
+    + savePosition(shipPosition)
 }
 
+class ImportShipsController {
+    - company
+    - ship
+    - shipPosition
+    - positionsBST
+    + saveShip()
+    + importShipFromFile(shipsFileDTO)
+}
+
+class ShipsFileDTO{
+    - positionDTO
+    - mmsi
+    - vesselType
+    - length
+    - width
+    - draft
+    - vesselName
+    - imo
+    - callSign
+    - cargo
+    + ShipsFileDTO(positionDTO, mmsi, vesselName, imo, callSign, vesselType, length, width, draft, cargo)
+    + getPositionDTO()
+    + getMmsi()
+    + getVesselName()
+    + getImo()
+    + getCallSign()
+    + getVesselType()
+    + getLength()
+    + getWidth()
+    + getCargo()
+    + getDraft()
+}
+
+class PositionDTO{
+    - baseDateTime
+    - lat
+    - lon
+    - sog
+    - cog
+    - heading
+    - transcieverClass
+    + PositionDTO(baseDateTime, lat, lon, sog, cog, heading, transcieverClass)
+    + getBaseDateTime()
+    + getLat()
+    + getLon()
+    + getSog()
+    + getCog()
+    + getHeading()
+    + getTranscieverClass()
+}
+
+class ShipsFileUtils{
+    - dataLabels
+    + getShipsDataToDTO(filePath)
+    + attributesToDTO(shipData)
+    + getDateOfString(stringFormatDate)
+    + positionToDTO(data)
+}
 
 class MovementSummaryController {
-+getShipMovementSummary(MMSI)
+    + getShipMovementSummary(MMSI)
 }
 
 class MovementSummaryDto{
-    name
-    startDate
-    endDate
-    maxSog
-    meanSog
-    meanCog
-    departLatitude
-    departLongitude
-    arrivalLatitude
-    arrivalLongitude
-    travelledDist
-    deltaDist
+    - name
+    - startDate
+    - endDate
+    - maxSog
+    - meanSog
+    - meanCog
+    - departLatitude
+    - departLongitude
+    - arrivalLatitude
+    - arrivalLongitude
+    - travelledDist
+    - deltaDist
 }
 
 class AllShipMMSIController {
@@ -161,6 +252,17 @@ ShowPairsOfShipsController ..> Company
 ShowPairsOfShipsController ..> ShipsBST
 ShowPairsOfShipsController ..> Ship
 ShowPairsOfShipsController ..> PositionsBST
+/'US101'/
+ImportShipsController ..> Company
+ImportShipsController ..> ShipsBST
+ImportShipsController ..> Ship
+ImportShipsController ..> PositionsBST
+ImportShipsController ..> ShipPosition
+ImportShipsController ..> ShipStore
+ShipsFileUtils ..> ShipsFileDTO
+ShipsFileUtils ..> PositionDTO
+ImportShipsController ..> ShipsFileDTO
+ShipsFileDTO ..> PositionDTO
 
 BST <|- PositionsBST
 BST <|- ShipsBST
