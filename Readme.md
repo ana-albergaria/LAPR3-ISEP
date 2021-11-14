@@ -289,11 +289,12 @@ n/a
 
 **Test 1:** Test to ensure getShipByMmsiCode() is functioning correctly.
 
-Situation 1: the user inserts a MMSI code existent in the system
-- an expected Ship object should be created
-- the MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)
-- an actual Ship object through calling the method
-- result: the method returns the corresponding Ship and the Ship objects are equal
+Situation 1: the user inserts a MMSI code existent in the system  
+
+1) an expected Ship object should be created  
+2) the MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)
+3) an actual Ship object through calling the method  
+4) result: the method returns the corresponding Ship and the Ship objects are equal
 
 ```
 @Test
@@ -303,10 +304,11 @@ Situation 1: the user inserts a MMSI code existent in the system
 
 **Test 2:** Test to ensure getShipByMmsiCode() is functioning correctly.
 
-Situation 2: the user inserts a MMSI code NON existent in the system
-* the invalid MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)
-* an actual Ship object through calling the method
-* result: the method returns null as the Ship with that MMSI doesn't exist
+Situation 2: the user inserts a MMSI code NON existent in the system  
+
+1) the invalid MMSI code of the ship should be put in the parameter of the method getShipByMmsiCode(int mmsiCode)  
+2) an actual Ship object through calling the method  
+3) result: the method returns null as the Ship with that MMSI doesn't exist  
 
 ```
 @Test
@@ -318,11 +320,12 @@ Situation 2: the user inserts a MMSI code NON existent in the system
 
 **Test 3:** Test to ensure getPositionalMessages() is functioning properly
 
-Situation 1: the user wishes to see ship positions in a period
-* two Date objects should be created with the initial and final date
-* an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)
-* the actual List object through calling the method getPositionalMessages()
-* result: the Lists should be equal
+Situation 1: the user wishes to see ship positions in a period  
+
+1) two Date objects should be created with the initial and final date  
+2) an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)  
+3) the actual List object through calling the method getPositionalMessages()  
+4) result: the Lists should be equal  
 
 ```
 @Test
@@ -333,10 +336,11 @@ Situation 1: the user wishes to see ship positions in a period
 **Test 4:** Test to ensure getPositionalMessages() is functioning properly
 
 Situation 2: the user wishes to see ship positions in a date
-* a Date object should be created
-* an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)
-* the actual List object through calling the method getPositionalMessages()
-* result: the Lists should be equal
+
+1) a Date object should be created  
+2) an expected List object should be created containing the expected result (toString of multiple ShipPositions objects)  
+3) the actual List object through calling the method getPositionalMessages()  
+4) result: the Lists should be equal  
 
 ```
 @Test
@@ -347,10 +351,11 @@ Situation 2: the user wishes to see ship positions in a date
 **Test 5:** Test to ensure getPositionalMessages() is functioning properly.
 
 Situation 3: there aren't any positional messages found
-* two Date objects should be created with the initial and final date
-* an expected empty List object
-* the actual List object through calling the method getPositionalMessages()
-* result: the Lists should be equal
+
+1) two Date objects should be created with the initial and final date  
+2) an expected empty List object  
+3) the actual List object through calling the method getPositionalMessages()  
+4) result: the Lists should be equal  
 
 ```
 @Test
@@ -538,11 +543,12 @@ n/a
 ### ShipsBST Class
 
 **Test 1:** Test to ensure getShipsInOrderWithIntendedTD works correctly.  
-Steps:
-* an expected List<Ship> should be created
-* the list should be filled with Ship objects in the intended order
-* obtain the actual list through calling the method getShipsInOrderWithIntendedTD()
-* result: the lists are equal
+Steps: 
+
+* an expected List<Ship> should be created    
+* the list should be filled with Ship objects in the intended order  
+* obtain the actual list through calling the method getShipsInOrderWithIntendedTD()  
+* result: the lists are equal  
 
 ```
 @Test
@@ -552,6 +558,7 @@ Steps:
 
 **Test 2:** Test to ensure fillTreeMapEachShip() works correctly.  
 Steps:
+
 * create or get a List<Ship> containing a list of Ship objects
 * create an expected descending TreeMap using Collections.reverseOrder()
 * create the actual descending TreeMap using Collections.reverseOrder()
