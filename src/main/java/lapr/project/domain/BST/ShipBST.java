@@ -14,10 +14,6 @@ import java.util.*;
 
 public class ShipBST extends BST<Ship> {
 
-    public void createBstShip() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 
     /**
      * Method which gets the Ship chosen by the user through
