@@ -1,5 +1,6 @@
 package lapr.project.domain.BST;
 
+import lapr.project.BSTesinf.AVL;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
@@ -7,7 +8,7 @@ import lapr.project.domain.shared.Constants;
 
 import java.util.*;
 
-public class PositionsBST extends BST<ShipPosition> {
+public class PositionsBST extends AVL<ShipPosition> {
 
     public Date getStartDate(){
         if(isEmpty()){

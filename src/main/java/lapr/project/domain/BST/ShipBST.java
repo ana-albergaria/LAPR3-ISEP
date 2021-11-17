@@ -2,6 +2,7 @@ package lapr.project.domain.BST;
 
 
 
+import lapr.project.BSTesinf.AVL;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.shared.Constants;
@@ -12,7 +13,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 import java.util.*;
 
 
-public class ShipBST extends BST<Ship> {
+public class ShipBST extends AVL<Ship> {
 
 
     /**
