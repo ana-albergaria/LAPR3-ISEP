@@ -38,13 +38,13 @@ public class PortsFileUtils {
         return processedListData;
     }
 
-    private  PortsFileDTO attributesToDto(String[] shipData) throws ParseException {
-        return new PortsFileDTO(shipData[dataLabels.indexOf("continent")],
-                shipData[dataLabels.indexOf("country")],
-                Integer.parseInt(shipData[dataLabels.indexOf("code")]),
-                shipData[dataLabels.indexOf("port")],
-                Double.parseDouble(shipData[dataLabels.indexOf("lat")]),
-                Double.parseDouble(shipData[dataLabels.indexOf("lon")]));
+    private  PortsFileDTO attributesToDto(String[] portData) throws ParseException {
+        return new PortsFileDTO(portData[dataLabels.indexOf("continent")],
+                portData[dataLabels.indexOf("country")],
+                Integer.parseInt(portData[dataLabels.indexOf("code")]),
+                portData[dataLabels.indexOf("port")],
+                Double.parseDouble(portData[dataLabels.indexOf("lat")]),
+                Double.parseDouble(portData[dataLabels.indexOf("lon")]));
     }*/
 
 }
