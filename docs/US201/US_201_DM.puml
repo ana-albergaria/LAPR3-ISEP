@@ -4,7 +4,7 @@ hide empty methods
 hide empty attributes
 skinparam classAttributeIconSize 0
 
-class TrafficManager{
+class PortManager{
     -name
 }
 
@@ -19,7 +19,7 @@ class Port{
     -longitude
 }
 
-TrafficManager "1" -- "1..*" Port : imports >
+PortManager "1" -- "1..*" Port : imports >
 Company "1" -- "1..*" Port : manages >
 
 @enduml
