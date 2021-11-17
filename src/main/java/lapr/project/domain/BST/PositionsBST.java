@@ -8,7 +8,7 @@ import lapr.project.domain.shared.Constants;
 
 import java.util.*;
 
-public class PositionsBST extends AVL<ShipPosition> {
+public class PositionsBST extends BST<ShipPosition> {
 
     public Date getStartDate(){
         if(isEmpty()){

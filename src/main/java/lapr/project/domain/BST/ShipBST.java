@@ -13,7 +13,7 @@ import lapr.project.utils.ShipTravelledDistanceComparator;
 import java.util.*;
 
 
-public class ShipBST extends AVL<Ship> {
+public class ShipBST extends BST<Ship> {
 
 
     /**
