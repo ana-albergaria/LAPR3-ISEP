@@ -33,6 +33,15 @@ public class Port implements Comparable<Port> {
      */
     private final double lon;
 
+    /**
+     * constructs an instance of Port, receiving as parameter identification, name, continent, country, latitude and longitude
+     * @param identification Port's Identification
+     * @param name Port's Name
+     * @param continent Port's Continent
+     * @param country Port's Country
+     * @param lat Port's Latitude
+     * @param lon Port's Longitude
+     */
     public Port(int identification, String name, String continent, String country, double lat, double lon) {
         checkPortName(name);
         checkContinentName(continent);
@@ -178,7 +187,7 @@ public class Port implements Comparable<Port> {
 
         Port otherShip = (Port) otherObject;
 
-        if(this.identification == otherShip.identification)
+        if(this.identification == otherShip.getIdentification())
             return true;
         else
             return false;
