@@ -41,10 +41,10 @@ public class ShipBSTTest {
     int [] headings = {300, 302, 315, 300};
     String transcieverClass = "AIS";
 
-    private ShipBST shipsBST;
+    private ShipTreeMmsi shipsBST;
 
     /* for US7 */
-    private ShipBST shipsBST2;
+    private ShipTreeMmsi shipsBST2;
     List<PositionsBST> positionsList;
     private PositionsBST positionsBST1;
     private PositionsBST positionsBST2;
@@ -64,7 +64,7 @@ public class ShipBSTTest {
     double [] closeLons2 = {-1.69997222, -1.72972522, -1.72972422, -1.69997300};
     double [] closeLons3 = {-1.69997300,  -1.72972223, -1.72975222, -1.69997252};
 
-    private ShipBST shipsBST3;
+    private ShipTreeMmsi shipsBST3;
     List<PositionsBST> positionsList2;
     private PositionsBST positionsBST5;
     private PositionsBST positionsBST6;
@@ -85,7 +85,7 @@ public class ShipBSTTest {
         posBST1 = new PositionsBST();
         posBST2 = new PositionsBST();
         posBST3 = new PositionsBST();
-        shipsBST = new ShipBST();
+        shipsBST = new ShipTreeMmsi();
 
         posBST.insert(new ShipPosition(mmsiCodes[0], d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass));
         posBST.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
@@ -105,7 +105,7 @@ public class ShipBSTTest {
 
         /* for US7 */
 
-        shipsBST2 = new ShipBST();
+        shipsBST2 = new ShipTreeMmsi();
         positionsList = new ArrayList<>();
         positionsBST1 = new PositionsBST();
         positionsBST2 = new PositionsBST();
@@ -131,7 +131,7 @@ public class ShipBSTTest {
 
         /* more for US7 */
 
-        shipsBST3 = new ShipBST();
+        shipsBST3 = new ShipTreeMmsi();
         positionsList2 = new ArrayList<>();
         positionsBST5 = new PositionsBST();
         positionsBST6 = new PositionsBST();
@@ -208,9 +208,8 @@ public class ShipBSTTest {
 
         List<Ship> testList = shipsBST.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("06/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("11/01/2021"));
         List<Ship> expectedList = new ArrayList<>();
-        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-
+        expectedList.add(new ShipSortMmsi(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
 
         Assert.assertEquals(expectedList, testList);
     }
@@ -291,9 +290,10 @@ public class ShipBSTTest {
     @Test
     public void getAllShipsNoDuplicates() {
         List<Ship> expectedList = new ArrayList<>();
-        for (int i=0; i<4; i++) {
-            expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
-        }
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[2], 70, 294,32,13.6,"79"));
 
         List<Ship> actualList = shipsBST.getAllShips();
 

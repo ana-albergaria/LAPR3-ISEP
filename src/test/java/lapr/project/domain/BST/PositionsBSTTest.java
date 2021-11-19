@@ -61,7 +61,7 @@ public class PositionsBSTTest {
     String [] vesselNames = {"VARAMO", "SAITA", "VARAMO", "HYUNDAI SINGAPURE"};
     String [] imoCodes = {"IMO9395044", "IMO9395022", "IMO9395066", "IMO9395088"};
     String [] callSigns = {"C4SQ2", "5BBA4", "C4SQ2", "5BZP3"};
-    private ShipBST shipsBST2;
+    private ShipTreeMmsi shipsBST2;
     List<PositionsBST> positionsList;
     private PositionsBST positionsBST1;
     private PositionsBST positionsBST2;
@@ -93,7 +93,7 @@ public class PositionsBSTTest {
 
         /* for US7 */
 
-        shipsBST2 = new ShipBST();
+        shipsBST2 = new ShipTreeMmsi();
         positionsList = new ArrayList<>();
         positionsBST1 = new PositionsBST();
         positionsBST2 = new PositionsBST();
