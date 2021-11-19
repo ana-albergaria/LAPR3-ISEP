@@ -114,10 +114,9 @@ class Transports{
 
 
 
-
-Ship "1" -- "1..*" Container : transports >
-Container "1" -- "1" PositionInVehicule
-Ship "1" -- "1" ShipPosition
+'Ship "1" -- "1..*" Container : transports >
+ContainerInCargoManifest "1..*" -- "1..*" PositionInVehicule
+Ship "1" -- "1..*" ShipPosition
 Ship "*" -- "1" VesselType
 Ship "1" -- "1..*" CargoManifest
 CargoManifest "1" -- "1..*" ContainerInCargoManifest
@@ -136,7 +135,8 @@ Warehouse "1" -- "*" CargoManifest
 Truck "1..*" -- "1..*" Warehouse
 '/
 Container "*" -- "0..1" Refrigeration
-Ship "1" -- "1" EnergyPower : has >
+Ship "1" -- "1..*" EnergyPower : has >
 EnergyPower "1" -- "0..*" Refrigeration
+EnergyPower "1" -- "1..*" ContainerInCargoManifest
 
 @enduml
