@@ -42,10 +42,6 @@ public class KDTree<T> {
             this.element = element;
         }
 
-        public Node(){
-
-        }
-
         /**
          * Returns the element of node
          * @return the element of node
@@ -77,17 +73,13 @@ public class KDTree<T> {
             return coords.y;
         }
 
-        public void setCoords(Double latitude, Double longitude){ this.coords =new Point2D.Double(latitude,longitude); }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "coords=" + coords +
-                    ", left=" + left +
-                    ", right=" + right +
-                    ", element=" + element +
-                    '}';
-        }
+        /**
+         * Modifies the Coordinates of the Point in the Node.
+         * @param x x coordinate
+         * @param y y coordinate
+         */
+        public void setCoords(Double x, Double y) {
+            this.coords = new Point2D.Double(x,y); }
     }
     //----------- end of nested Node class -----------
 
@@ -117,30 +109,37 @@ public class KDTree<T> {
      */
     private Node<T> root;
     /**
-     * Constructs an empty Kd Tree
+     * Constructs an empty KD Tree
      */
     public KDTree() {
         root = null;
     }
 
+    /**
+     * Constructs a balanced KD Tree
+     * @param nodes the list of elements
+     */
     public KDTree(List<Node<T>> nodes) {
-        buildTree(nodes);
+        balanceTree(nodes);
     }
 
-    public void buildTree(List<Node<T>> nodes) {
-        buildTree(true, nodes);
+    /**
+     * Method to balance the KD Tree
+     * @param nodes the list of elements
+     */
+    public void balanceTree(List<Node<T>> nodes) {
+        balanceTree(true, nodes);
     }
 
-
-    private void buildTree(boolean divX, List<Node<T>> nodes) {
+    private void balanceTree(boolean divX, List<Node<T>> nodes) {
         if (nodes == null || nodes.isEmpty())
             return;
         Collections.sort(nodes, divX ? cmpX : cmpY);
         int median = nodes.size() >> 1;
         Node<T> node = new Node<>(nodes.get(median).element, nodes.get(median).getX(), nodes.get(median).getY());
-        buildTree(!divX, nodes.subList(0, median));
+        balanceTree(!divX, nodes.subList(0, median));
         if (median + 1 < nodes.size() - 1)
-            buildTree(!divX, nodes.subList(median+1, nodes.size()));
+            balanceTree(!divX, nodes.subList(median+1, nodes.size()));
         this.insert(node.getElement(), node.getX(), node.getY());
     }
 

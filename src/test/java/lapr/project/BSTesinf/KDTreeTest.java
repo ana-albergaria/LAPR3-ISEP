@@ -56,8 +56,6 @@ class KDTreeTest {
 
         node = tree.findNearestNeighbour(0, 8);
         assertEquals(element3, node);
-        System.out.println(element3);
-        System.out.println(node);
 
         node = tree.findNearestNeighbour(9, 0);
         assertEquals(element4, node);
