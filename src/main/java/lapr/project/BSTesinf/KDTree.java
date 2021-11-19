@@ -1,18 +1,19 @@
 package lapr.project.BSTesinf;
 
+
 import java.awt.geom.Point2D;
 import java.util.*;
 
 /**
  * Generic Class for Kd Tree
  *
- * @author Ana Albergaria <1201518.isep.ipp.pt>
+ * @author Ana Albergaria <1201518.isep0.ipp.pt>
  */
 
 public class KDTree<T> {
 
     /** Nested static class for a 2d tree node. */
-    protected static class Node<T> {
+    public static class Node<T> {
         /**
          * a point with x and y coordinates
          */
@@ -40,6 +41,11 @@ public class KDTree<T> {
             this.coords = new Point2D.Double(x,y);
             this.element = element;
         }
+
+        public Node(){
+
+        }
+
         /**
          * Returns the element of node
          * @return the element of node
@@ -69,6 +75,18 @@ public class KDTree<T> {
          */
         public Double getY() {
             return coords.y;
+        }
+
+        public void setCoords(Double latitude, Double longitude){ this.coords =new Point2D.Double(latitude,longitude); }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "coords=" + coords +
+                    ", left=" + left +
+                    ", right=" + right +
+                    ", element=" + element +
+                    '}';
         }
     }
     //----------- end of nested Node class -----------
@@ -105,6 +123,27 @@ public class KDTree<T> {
         root = null;
     }
 
+    public KDTree(List<Node<T>> nodes) {
+        buildTree(nodes);
+    }
+
+    public void buildTree(List<Node<T>> nodes) {
+        buildTree(true, nodes);
+    }
+
+
+    private void buildTree(boolean divX, List<Node<T>> nodes) {
+        if (nodes == null || nodes.isEmpty())
+            return;
+        Collections.sort(nodes, divX ? cmpX : cmpY);
+        int median = nodes.size() >> 1;
+        Node<T> node = new Node<>(nodes.get(median).element, nodes.get(median).getX(), nodes.get(median).getY());
+        buildTree(!divX, nodes.subList(0, median));
+        if (median + 1 < nodes.size() - 1)
+            buildTree(!divX, nodes.subList(median+1, nodes.size()));
+        this.insert(node.getElement(), node.getX(), node.getY());
+    }
+
     /**
      * Finds the nearest neighbour
      * @param x x coordinate
@@ -127,6 +166,7 @@ public class KDTree<T> {
 
         if (closestDist > d) {
             closestNode.setElement(node.getElement());
+            closestNode.setCoords(node.getX(),node.getY());
         }
         double delta = divX ? x - node.coords.x : y - node.coords.y;
         double delta2 = delta * delta;

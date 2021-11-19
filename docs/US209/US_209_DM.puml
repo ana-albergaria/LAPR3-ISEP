@@ -11,7 +11,7 @@ class PortManager{
 class Company{}
 
 class Ship {
-    -mmmsi
+    -mmsi
     -imo
     -callSign
     -shipName

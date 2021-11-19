@@ -1,7 +1,12 @@
 package lapr.project.BSTesinf;
 
-import lapr.project.BSTesinf.KDTree;
+
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,8 +23,8 @@ class KDTreeTest {
     Object element4;
     Object element5;
 
-    @Test
-    void findNearestNeighbour() {
+    @BeforeEach
+    public void setUp() {
         element1 = new Object();
         element2 = new Object();
         element3 = new Object();
@@ -32,6 +37,7 @@ class KDTreeTest {
         node4 = new KDTree.Node<>(element4, 10, 0);
         node5 = new KDTree.Node<>(element5, 20, 20);
     }
+
 
     @Test
     void insert() {
@@ -50,11 +56,43 @@ class KDTreeTest {
 
         node = tree.findNearestNeighbour(0, 8);
         assertEquals(element3, node);
+        System.out.println(element3);
+        System.out.println(node);
 
         node = tree.findNearestNeighbour(9, 0);
         assertEquals(element4, node);
 
         node = tree.findNearestNeighbour(20, 20);
         assertEquals(element5, node);
+    }
+
+
+    @Test
+    public void testBalanceTree() {
+        List<KDTree.Node<Object>> nodes = new ArrayList<>();
+
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.add(node5);
+
+        KDTree<Object> tree = new KDTree<>(nodes);
+
+        Object Object = tree.findNearestNeighbour(0, 0);
+        assertEquals(node1.getElement(), Object);
+
+        Object = tree.findNearestNeighbour(8, 8);
+        assertEquals(node2.getElement(), Object);
+
+        Object = tree.findNearestNeighbour(0, 8);
+        assertEquals(node3.getElement(), Object);
+
+        Object = tree.findNearestNeighbour(9, 0);
+        assertEquals(node4.getElement(), Object);
+
+        Object = tree.findNearestNeighbour(20, 20);
+        assertEquals(node5.getElement(), Object);
+
     }
 }
