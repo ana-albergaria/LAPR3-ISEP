@@ -1,5 +1,6 @@
 package lapr.project.domain.BST;
 
+import lapr.project.BSTesinf.AVL;
 import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;

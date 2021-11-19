@@ -4,7 +4,7 @@ autonumber
 actor "Traffic Manager" as TM
 participant ":ImportShipsUI  " as UI
 participant ":ImportShipsController" as CTRL
-participant ":TestFileUtils" as TFU
+participant ":ShipFileUtils" as TFU
 participant ":Company" as CMP
 participant ":ShipStore" as STORE
 participant ":ShipsBST" as SBST
