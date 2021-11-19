@@ -104,7 +104,7 @@ public class PortTest {
      */
     @Test
     public void createPortWithLongitudeUnderMinus180() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], continent1, country1, lats[0], -200.65));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], continent1, country1, lats[0], -181));
         assertEquals("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.", thrown.getMessage());
     }
 
@@ -113,8 +113,24 @@ public class PortTest {
      */
     @Test
     public void createPortWithLongitudeOver181() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], continent1, country1, lats[0], 200.65));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], continent1, country1, lats[0], 182));
         assertEquals("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.", thrown.getMessage());
+    }
+
+    /**
+     * test to ensure longitude can be 180
+     */
+    @Test
+    public void createPortWithLongitude180() {
+        new Port(identifications[0], names[0], continent1, country1, lats[0], 180);
+    }
+
+    /**
+     * test to ensure longitude can be -180
+     */
+    @Test
+    public void createPortWithLongitudeMinus180() {
+        new Port(identifications[0], names[0], continent1, country1, lats[0], -180);
     }
 
     /**
@@ -216,12 +232,47 @@ public class PortTest {
     }
 
     /**
-     * Test to ensure that the equals method works correctly.
+     * Test to ensure that the equals method works for different Objects.
      */
     @Test
-    public void testEqualsMethod(){
+    public void testNotEqualsObject(){
         String notShipObj =  "abc";
         assertNotEquals(port1, notShipObj);
-        assertNotEquals(null, port1);
+
     }
+
+    /**
+     * test to ensure Equals works for null objects
+     */
+    @Test
+    public void testNotEqualsNull() {
+        assertNotEquals(port1, null);
+    }
+
+    /**
+     * test to ensure Equals works with different objects from the same class
+     */
+    @Test
+    public void testNotEqualsSameClass() {
+        assertNotEquals(port1, port3);
+    }
+
+    /**
+     * test to ensure that the equals method works for same objects.
+     */
+    @Test
+    public void testEqualsSameObject() {
+        assertEquals(port1, port1);
+    }
+
+    /**
+     * test to ensure that the equals method works for objects with same attributes
+     */
+    @Test
+    public void testEqualsSameAtts() {
+        Port port = new Port(identifications[0], names[0], continent1, country1, lats[0], lons[0]);
+        assertEquals(port1, port);
+    }
+
+
 }
