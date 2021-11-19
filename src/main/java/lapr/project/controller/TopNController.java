@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 
 import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 
@@ -19,7 +20,7 @@ public class TopNController {
     /**
      * The binary search Tree with the ships imported from the file
      */
-    private final ShipBST shipBST;
+    private final ShipTreeMmsi shipBST;
 
     /**
      * empty constructor for the TopNController Class

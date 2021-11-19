@@ -1,8 +1,11 @@
 package lapr.project.controller;
 
 import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.BST.ShipTree;
+import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.store.ShipStore;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.domain.model.Company;
 
@@ -59,17 +62,16 @@ public class ImportShipsController {
      * and false if unsuccessfully saved.
      */
     public boolean saveShip(){
-        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI())==null){
-            this.company.getShipStore().saveShip(new Ship(this.ship.getPositionsBST(), this.ship.getMMSI(),
-                    this.ship.getVesselName(), this.ship.getIMO(), this.ship.getCallSign(), this.ship.getVesselTypeID(),
-                    this.ship.getLength(), this.ship.getWidth(), this.ship.getDraft(), this.ship.getCargo()));
+        ShipStore store = this.company.getShipStore();
+        ShipTreeMmsi mmsiTree = store.getShipsBstMmsi();
+
+        if (mmsiTree.getShipByMmsiCode(this.ship.getMMSI())==null){
+            store.saveShip(ship);
             return true;
-        } else if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI())!=null){
+        } else if (mmsiTree.getShipByMmsiCode(this.ship.getMMSI())!=null){
             //AQUI
-            if (!this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).getPositionsBST().hasPosition(this.shipPosition)) {
-                positionsBST.savePosition(shipPosition);
-                this.ship.setPositionsBST(positionsBST);
-                this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(this.ship.getMMSI()).setPositionsBST(this.positionsBST);
+            if (!mmsiTree.getShipByMmsiCode(this.ship.getMMSI()).getPositionsBST().hasPosition(this.shipPosition)) {
+                store.addPosition(this.ship.getMMSI(), this.shipPosition);
                 return true;
             }
         }
@@ -83,9 +85,10 @@ public class ImportShipsController {
      * and false if unsuccessfully created.
      */
     public boolean importShipFromFile(ShipsFileDTO shipsFileDTO) {
-        if (this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){
+        ShipStore store = this.company.getShipStore();
+        if (store.getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi())==null){
             try {
-                this.ship = this.company.getShipStore().createShip(shipsFileDTO);
+                this.ship = store.createShip(shipsFileDTO);
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
                         shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
                         shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
@@ -97,7 +100,7 @@ public class ImportShipsController {
             return saveShip();
         } else {
             try{
-                this.ship=this.company.getShipStore().getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
+                this.ship=store.getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
                         shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
                         shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
@@ -107,7 +110,7 @@ public class ImportShipsController {
                 return false;
             }
             try {
-                this.positionsBST=this.ship.getPositionsBST();
+                this.positionsBST = ship.getPositionsBST();
                 if (!(positionsBST.hasPosition(shipPosition))) {
                     return saveShip();
                 }

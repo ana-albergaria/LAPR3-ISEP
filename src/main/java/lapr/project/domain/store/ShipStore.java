@@ -1,11 +1,10 @@
 package lapr.project.domain.store;
 
-import lapr.project.domain.BST.PositionsBST;
-import lapr.project.domain.BST.ShipBstCallSign;
-import lapr.project.domain.BST.ShipBstImo;
-import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.BST.*;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortCallSign;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.dto.mapper.PositionMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -14,9 +13,9 @@ import java.util.List;
 
 public class ShipStore {
 
-    private ShipBST shipsBstMmsi = new ShipBST();
-    private ShipBstImo shipBstImo = new ShipBstImo();
-    private ShipBstCallSign shipBstCallSign = new ShipBstCallSign();
+    private ShipTreeMmsi shipsBstMmsi = new ShipTreeMmsi();
+    private ShipTreeImo shipBstImo = new ShipTreeImo();
+    private ShipTreeCallsign shipBstCallSign = new ShipTreeCallsign();
 
     public Ship createShip(ShipsFileDTO shipsFileDTO){
         PositionsBST positionsBST = new PositionsBST();
@@ -24,7 +23,7 @@ public class ShipStore {
         ShipPosition shipPosition = positionMapper.toDomain(shipsFileDTO.getPositionDTO(), shipsFileDTO.getMmsi());
         positionsBST.insert(shipPosition);
 
-        return new Ship(positionsBST, shipsFileDTO.getMmsi(), shipsFileDTO.getVesselName(), shipsFileDTO.getImo(), shipsFileDTO.getCallSign(),
+        return new ShipSortMmsi(positionsBST, shipsFileDTO.getMmsi(), shipsFileDTO.getVesselName(), shipsFileDTO.getImo(), shipsFileDTO.getCallSign(),
                 shipsFileDTO.getVesselType(), shipsFileDTO.getLength(), shipsFileDTO.getWidth(), shipsFileDTO.getDraft(), shipsFileDTO.getCargo());
     }
 
@@ -39,24 +38,37 @@ public class ShipStore {
         if(!validateShip(ship)){
             return false;
         }
-        shipsBstMmsi.insert(ship);
-        shipBstImo.insert(ship);
-        shipBstCallSign.insert(ship);
+        shipsBstMmsi.insert(shipsBstMmsi.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
+                ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
+        shipBstImo.insert(shipBstImo.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
+                ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
+        shipBstCallSign.insert(shipBstCallSign.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
+                ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
         return true;
     }
 
-    public ShipBST getShipsBstMmsi() {
+    public ShipTreeMmsi getShipsBstMmsi() {
         return shipsBstMmsi;
+    }
+
+
+    public void addPosition(int mmsiCode, ShipPosition position){
+        Ship shipMmsi = shipsBstMmsi.getShipByMmsiCode(mmsiCode);
+        shipMmsi.addPosition(position);
+        Ship shipCallSign = getShipByAnyCode(shipMmsi.getCallSign());
+        shipCallSign.addPosition(position);
+        Ship shipImo = getShipByAnyCode(shipMmsi.getIMO());
+        shipImo.addPosition(position);
     }
 
     public Ship getShipByAnyCode(String code){
         Ship result;
         if(code.substring(0,3).equalsIgnoreCase("imo")){
-            result = shipBstImo.getShipByImo(code);
+            result = shipBstImo.getShip(code);
         }else if(code.length() == 9 && StringUtils.isNumeric(code)){
-            result = shipsBstMmsi.getShipByMmsiCode(Integer.parseInt(code));
+            result = shipsBstMmsi.getShip(code);
         }else{
-            result = shipBstCallSign.getShipByCallSign(code);
+            result = shipBstCallSign.getShip(code);
         }
         if(result == null){
             throw new UnsupportedOperationException("Couldn't find a ship with given code");
