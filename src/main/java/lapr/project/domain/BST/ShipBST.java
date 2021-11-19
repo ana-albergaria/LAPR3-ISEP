@@ -113,7 +113,7 @@ public class ShipBST extends BST<Ship> {
         listShip = sortNShips(listShip);
 
         for (Ship x: listShip) {
-            if (!map.containsKey(x.getVesselTypeID())){
+            if (map.get(x.getVesselTypeID())==null){
                 shipMap = new HashMap<>();
                 vessel = x.getVesselTypeID();
                 setter = new HashSet<>();
@@ -128,7 +128,7 @@ public class ShipBST extends BST<Ship> {
                 setter = new HashSet<>();
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add(x.getPositionsBST().getMeanSog());
-                if (shipMap.size() <= number) {
+                if (shipMap.size() < number) {
                     shipMap.put(x, setter);
                 }
             }
@@ -208,7 +208,7 @@ public class ShipBST extends BST<Ship> {
 
         for (Ship x : list) {
             if (!map.containsKey(x.getMMSI())) {
-                Set<Double> setter = new HashSet<>();
+                Set<Double> setter = new LinkedHashSet<>();
                 setter.add(x.getPositionsBST().getDeltaDistance());
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add((double) x.getPositionsBST().size());
