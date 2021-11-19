@@ -1,18 +1,19 @@
 package lapr.project.BSTesinf;
 
+
 import java.awt.geom.Point2D;
 import java.util.*;
 
 /**
  * Generic Class for Kd Tree
  *
- * @author Ana Albergaria <1201518.isep.ipp.pt>
+ * @author Ana Albergaria <1201518.isep0.ipp.pt>
  */
 
 public class KDTree<T> {
 
     /** Nested static class for a 2d tree node. */
-    protected static class Node<T> {
+    public static class Node<T> {
         /**
          * a point with x and y coordinates
          */
@@ -40,6 +41,7 @@ public class KDTree<T> {
             this.coords = new Point2D.Double(x,y);
             this.element = element;
         }
+
         /**
          * Returns the element of node
          * @return the element of node
@@ -70,6 +72,14 @@ public class KDTree<T> {
         public Double getY() {
             return coords.y;
         }
+
+        /**
+         * Modifies the Coordinates of the Point in the Node.
+         * @param x x coordinate
+         * @param y y coordinate
+         */
+        public void setCoords(Double x, Double y) {
+            this.coords = new Point2D.Double(x,y); }
     }
     //----------- end of nested Node class -----------
 
@@ -99,10 +109,38 @@ public class KDTree<T> {
      */
     private Node<T> root;
     /**
-     * Constructs an empty Kd Tree
+     * Constructs an empty KD Tree
      */
     public KDTree() {
         root = null;
+    }
+
+    /**
+     * Constructs a balanced KD Tree
+     * @param nodes the list of elements
+     */
+    public KDTree(List<Node<T>> nodes) {
+        balanceTree(nodes);
+    }
+
+    /**
+     * Method to balance the KD Tree
+     * @param nodes the list of elements
+     */
+    public void balanceTree(List<Node<T>> nodes) {
+        balanceTree(true, nodes);
+    }
+
+    private void balanceTree(boolean divX, List<Node<T>> nodes) {
+        if (nodes == null || nodes.isEmpty())
+            return;
+        Collections.sort(nodes, divX ? cmpX : cmpY);
+        int median = nodes.size() >> 1;
+        Node<T> node = new Node<>(nodes.get(median).element, nodes.get(median).getX(), nodes.get(median).getY());
+        balanceTree(!divX, nodes.subList(0, median));
+        if (median + 1 < nodes.size() - 1)
+            balanceTree(!divX, nodes.subList(median+1, nodes.size()));
+        this.insert(node.getElement(), node.getX(), node.getY());
     }
 
     /**
@@ -127,6 +165,7 @@ public class KDTree<T> {
 
         if (closestDist > d) {
             closestNode.setElement(node.getElement());
+            closestNode.setCoords(node.getX(),node.getY());
         }
         double delta = divX ? x - node.coords.x : y - node.coords.y;
         double delta2 = delta * delta;

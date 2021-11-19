@@ -4,6 +4,7 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.dto.MovementsSummaryDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,10 +50,10 @@ class MovementSummaryControllerTest {
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
-        s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s2 = new Ship(positions, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s3 = new Ship(positions, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s4 = new Ship(positions, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s1 = new ShipSortMmsi(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s2 = new ShipSortMmsi(positions, mmsi2, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s3 = new ShipSortMmsi(positions, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s4 = new ShipSortMmsi(positions, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
 
         comp.getShipStore().getShipsBstMmsi().insert(s1);
         comp.getShipStore().getShipsBstMmsi().insert(s2);

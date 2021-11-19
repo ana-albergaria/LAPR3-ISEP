@@ -1,10 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Company;
-import lapr.project.domain.model.Ship;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,7 +15,7 @@ public class AllShipMMSIController {
     /**
      * The binary search Tree with the ships imported from the file
      */
-    private final ShipBST shipBST;
+    private final ShipTreeMmsi shipBST;
 
     /**
      * empty constructor for the AllShipMMSIController Class

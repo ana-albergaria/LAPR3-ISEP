@@ -1,44 +1,26 @@
 package lapr.project.domain.BST;
 
-
-
-import lapr.project.BSTesinf.AVL;
-import lapr.project.BSTesinf.BST;
 import lapr.project.domain.model.Ship;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.shared.Constants;
 import lapr.project.utils.ShipTotalMovementsComparator;
 import lapr.project.utils.ShipTravelledDistanceComparator;
 
-
 import java.util.*;
 
+public class ShipTreeMmsi extends ShipTree{
 
-public class ShipBST extends BST<Ship> {
-
-
-    /**
-     * Method which gets the Ship chosen by the user through
-     * the MMSI code
-     *
-     * @param node the node
-     * @param mmsiCode the MMSI code
-     *
-     * @return the Ship chosen by the user
-     */
-    private Ship getShipByMmsiCode(Node<Ship> node, int mmsiCode) {
-        if(node == null)
-            return null;
-        if(node.getElement().getMMSI() == mmsiCode) {
-            return node.getElement();
-        }
-        if(node.getElement().getMMSI() > mmsiCode) {
-            return getShipByMmsiCode(node.getLeft(), mmsiCode);
-        }
-        if(node.getElement().getMMSI() < mmsiCode) {
-            return getShipByMmsiCode(node.getRight(), mmsiCode);
-        }
-        return node.getElement();
+    @Override
+    public Ship createShip(PositionsBST positionsBST, int MMSI, String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, String cargo) {
+        return new ShipSortMmsi(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, draft, cargo);
     }
+
+    @Override
+    public Ship getShip(String codShip) {
+        Ship ship = find(new ShipSortMmsi(Integer.parseInt(codShip)));
+        return ship;
+    }
+
 
     /**
      * Method which calls its private method to obtain
@@ -49,7 +31,7 @@ public class ShipBST extends BST<Ship> {
      * @return Ship chosen by the user
      */
     public Ship getShipByMmsiCode(int mmsiCode)  {
-        return getShipByMmsiCode(root, mmsiCode);
+        return getShip(String.valueOf(mmsiCode));
     }
 
 
@@ -62,8 +44,8 @@ public class ShipBST extends BST<Ship> {
         if(node==null) return;
 
         if (!shipList.contains(node.getElement())){
-        if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate)
-                && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
+            if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate)
+                    && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
 
                 shipList.add(node.getElement());
 
@@ -252,10 +234,10 @@ public class ShipBST extends BST<Ship> {
      * @param indexShip index of the first ship
      */
     public void fillTreeMapForEachShip(List<Ship> listShipsWithIntendedTD,
-                                    TreeMap<Double, String> infoPair,
-                                    Double travelledDistance,
-                                    PositionsBST positionsBST,
-                                    int ship1MMSI, int indexShip) {
+                                       TreeMap<Double, String> infoPair,
+                                       Double travelledDistance,
+                                       PositionsBST positionsBST,
+                                       int ship1MMSI, int indexShip) {
 
         for (int j = indexShip+1; j < listShipsWithIntendedTD.size(); j++) { //O(n^2)
 
@@ -327,5 +309,4 @@ public class ShipBST extends BST<Ship> {
         }
         return false;
     }
-
 }

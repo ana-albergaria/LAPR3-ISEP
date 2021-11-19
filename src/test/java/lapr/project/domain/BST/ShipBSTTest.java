@@ -4,6 +4,7 @@ import lapr.project.controller.ImportShipsController;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.utils.ShipsFileUtils;
 import org.junit.Assert;
@@ -40,10 +41,10 @@ public class ShipBSTTest {
     int [] headings = {300, 302, 315, 300};
     String transcieverClass = "AIS";
 
-    private ShipBST shipsBST;
+    private ShipTreeMmsi shipsBST;
 
     /* for US7 */
-    private ShipBST shipsBST2;
+    private ShipTreeMmsi shipsBST2;
     List<PositionsBST> positionsList;
     private PositionsBST positionsBST1;
     private PositionsBST positionsBST2;
@@ -63,7 +64,7 @@ public class ShipBSTTest {
     double [] closeLons2 = {-1.69997222, -1.72972522, -1.72972422, -1.69997300};
     double [] closeLons3 = {-1.69997300,  -1.72972223, -1.72975222, -1.69997252};
 
-    private ShipBST shipsBST3;
+    private ShipTreeMmsi shipsBST3;
     List<PositionsBST> positionsList2;
     private PositionsBST positionsBST5;
     private PositionsBST positionsBST6;
@@ -84,7 +85,7 @@ public class ShipBSTTest {
         posBST1 = new PositionsBST();
         posBST2 = new PositionsBST();
         posBST3 = new PositionsBST();
-        shipsBST = new ShipBST();
+        shipsBST = new ShipTreeMmsi();
 
         posBST.insert(new ShipPosition(mmsiCodes[0], d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass));
         posBST.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
@@ -96,15 +97,15 @@ public class ShipBSTTest {
         posBST3.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
 
         //System.out.println(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
-        shipsBST.insert(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
-        shipsBST.insert(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        shipsBST.insert(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-        shipsBST.insert(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new ShipSortMmsi(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        shipsBST.insert(new ShipSortMmsi(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
 
 
         /* for US7 */
 
-        shipsBST2 = new ShipBST();
+        shipsBST2 = new ShipTreeMmsi();
         positionsList = new ArrayList<>();
         positionsBST1 = new PositionsBST();
         positionsBST2 = new PositionsBST();
@@ -125,12 +126,12 @@ public class ShipBSTTest {
         positionsList.add(positionsBST4);
 
         for(int i=0; i<4;i++){
-            shipsBST2.insert(new Ship(positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
+            shipsBST2.insert(new ShipSortMmsi(positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
         }
 
         /* more for US7 */
 
-        shipsBST3 = new ShipBST();
+        shipsBST3 = new ShipTreeMmsi();
         positionsList2 = new ArrayList<>();
         positionsBST5 = new PositionsBST();
         positionsBST6 = new PositionsBST();
@@ -153,7 +154,7 @@ public class ShipBSTTest {
 
 
         for(int i=0; i<4;i++){
-            shipsBST3.insert(new Ship(positionsList2.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
+            shipsBST3.insert(new ShipSortMmsi(positionsList2.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
         }
 
         /* end for US7 */
@@ -176,7 +177,7 @@ public class ShipBSTTest {
     @Test
     public void getShipByExistentMmsiCode() {
         int mmsiToBeTested = 123456789;
-        Ship expShip = new Ship(posBST, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79");
+        Ship expShip = new ShipSortMmsi(posBST, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79");
 
         Ship ship = shipsBST.getShipByMmsiCode(mmsiToBeTested);
 
@@ -207,9 +208,8 @@ public class ShipBSTTest {
 
         List<Ship> testList = shipsBST.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("06/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("11/01/2021"));
         List<Ship> expectedList = new ArrayList<>();
-        expectedList.add(new Ship(posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-
+        expectedList.add(new ShipSortMmsi(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
 
         Assert.assertEquals(expectedList, testList);
     }
@@ -220,18 +220,18 @@ public class ShipBSTTest {
     @Test
     public void sortNshipsCorrect() throws ParseException {
         List<Ship> testList = new LinkedList<>();
-        testList.add(new Ship( posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
-        testList.add(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        testList.add(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-        testList.add(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
+        testList.add(new ShipSortMmsi( posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
+        testList.add(new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
+        testList.add(new ShipSortMmsi(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        testList.add(new ShipSortMmsi(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
 
         List<Ship> test1 = shipsBST.sortNShips(testList);
 
         List<Ship> expectedList = new LinkedList<>();
-        expectedList.add(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
 
         Assert.assertEquals(expectedList, test1);
     }
@@ -241,9 +241,9 @@ public class ShipBSTTest {
      */
     @Test
     public void getMapWithTopNAssociatedWithVesselType(){
-        Ship ship1 = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
-        Ship ship2 = new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,"67");
-        Ship ship3 = new Ship(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 80, 220,20,13.2,"65");
+        Ship ship1 = new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship ship2 = new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,"67");
+        Ship ship3 = new ShipSortMmsi(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 80, 220,20,13.2,"65");
         Map<Integer, Map<Ship, Set<Double>>> testMap = new HashMap<Integer, Map<Ship, Set<Double>>>();
         List<Ship> expectedList = new LinkedList<>();
         expectedList.add(ship1);
@@ -290,9 +290,10 @@ public class ShipBSTTest {
     @Test
     public void getAllShipsNoDuplicates() {
         List<Ship> expectedList = new ArrayList<>();
-        for (int i=0; i<4; i++) {
-            expectedList.add(new Ship(posBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
-        }
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[2], 70, 294,32,13.6,"79"));
 
         List<Ship> actualList = shipsBST.getAllShips();
 
@@ -389,9 +390,9 @@ public class ShipBSTTest {
     void getShipsInOrderWithIntendedTD() {
 
         List<Ship> expList = new ArrayList<>();
-        Ship s1 = new Ship(positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79");
-        Ship s2 = new Ship(positionsList.get(2), mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79");
-        Ship s3 = new Ship(positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship s1 = new ShipSortMmsi(positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79");
+        Ship s2 = new ShipSortMmsi(positionsList.get(2), mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79");
+        Ship s3 = new ShipSortMmsi(positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
         expList.add(s1);
         expList.add(s2);
         expList.add(s3);
@@ -426,13 +427,13 @@ public class ShipBSTTest {
 
     @Test
     public void checkHasShipTrue(){
-        Ship shipToFind = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship shipToFind = new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
         Assertions.assertTrue(shipsBST.hasShip(shipToFind));
     }
 
     @Test
     public void checkHasShipFalse(){
-        Ship shipToFind = new Ship(posBST, 987654321, vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship shipToFind = new ShipSortMmsi(posBST, 987654321, vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
         Assertions.assertFalse(shipsBST.hasShip(shipToFind));
     }
 

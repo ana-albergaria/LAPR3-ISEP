@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.domain.BST.PositionsBST;
-import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 
@@ -9,12 +9,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /** Controller class for showing the positional messages of a ship temporally organized
  * and associated with each of the ships
@@ -64,7 +60,7 @@ public class ShowPositionalMessagesController {
      * otherwise returns false
      */
     public boolean isValidShip(int mmsiCode) {
-        ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
+        ShipTreeMmsi shipsBST = this.company.getShipStore().getShipsBstMmsi();
         this.ship = shipsBST.getShipByMmsiCode(mmsiCode);
         return ship != null;
     }

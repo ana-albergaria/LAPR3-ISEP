@@ -2,6 +2,7 @@ package lapr.project.domain.BST;
 
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +61,7 @@ public class PositionsBSTTest {
     String [] vesselNames = {"VARAMO", "SAITA", "VARAMO", "HYUNDAI SINGAPURE"};
     String [] imoCodes = {"IMO9395044", "IMO9395022", "IMO9395066", "IMO9395088"};
     String [] callSigns = {"C4SQ2", "5BBA4", "C4SQ2", "5BZP3"};
-    private ShipBST shipsBST2;
+    private ShipTreeMmsi shipsBST2;
     List<PositionsBST> positionsList;
     private PositionsBST positionsBST1;
     private PositionsBST positionsBST2;
@@ -92,7 +93,7 @@ public class PositionsBSTTest {
 
         /* for US7 */
 
-        shipsBST2 = new ShipBST();
+        shipsBST2 = new ShipTreeMmsi();
         positionsList = new ArrayList<>();
         positionsBST1 = new PositionsBST();
         positionsBST2 = new PositionsBST();
@@ -113,7 +114,7 @@ public class PositionsBSTTest {
         positionsList.add(positionsBST4);
 
         for(int i=0; i<4;i++){
-            shipsBST2.insert(new Ship(positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
+            shipsBST2.insert(new ShipSortMmsi(positionsList.get(i), mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i], 70, 294,32,13.6,"79"));
         }
 
         /* end for US7 */
@@ -371,8 +372,8 @@ public class PositionsBSTTest {
     void getArrivalDistance() {
         Double expRes = 10350.0;
 
-        Ship s1 = new Ship(positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
-        Ship s2 = new Ship(positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79");
+        Ship s1 = new ShipSortMmsi(positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship s2 = new ShipSortMmsi(positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79");
 
         PositionsBST positionsBST = s1.getPositionsBST();
         PositionsBST positionsBST2 = s2.getPositionsBST();
@@ -389,8 +390,8 @@ public class PositionsBSTTest {
     void getDepartureDistance() {
         Double expRes = 13510.0;
 
-        Ship s1 = new Ship(positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
-        Ship s2 = new Ship(positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79");
+        Ship s1 = new ShipSortMmsi(positionsList.get(0), mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship s2 = new ShipSortMmsi(positionsList.get(1), mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79");
 
         PositionsBST positionsBST = s1.getPositionsBST();
         PositionsBST positionsBST2 = s2.getPositionsBST();

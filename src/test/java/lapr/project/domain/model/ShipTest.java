@@ -35,10 +35,10 @@ public class ShipTest {
         vesselName = "VARAMO";
         imo = "IMO9395044";
         callSign = "C4SQ2";
-        s1 = new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s2 = new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s3 = new Ship(positionsBST, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s4 = new Ship(positionsBST, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s1 = new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s2 = new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s3 = new ShipSortMmsi(positionsBST, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s4 = new ShipSortMmsi(positionsBST, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
         //...
     }
 
@@ -47,7 +47,7 @@ public class ShipTest {
      */
     @Test
     public void ensureEmptyPositionsBSTNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBSTEmpty, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBSTEmpty, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79"));
         assertEquals("Positions BST cannot be empty.", thrown.getMessage());
     }
 
@@ -56,7 +56,7 @@ public class ShipTest {
      */
     @Test
     public void ensureMMSIHasNotLessThan9Digits(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, 99999999, vesselName, imo, callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, 99999999, vesselName, imo, callSign, 70, 294,32,13.6,"79"));
         assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
     }
 
@@ -65,7 +65,7 @@ public class ShipTest {
      */
     @Test
     public void ensureMMSIHasNotMoreThan9Digits(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, 1000000000, vesselName, imo, callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, 1000000000, vesselName, imo, callSign, 70, 294,32,13.6,"79"));
         assertEquals("MMSI must hold 9 digits.", thrown.getMessage());
     }
 
@@ -74,7 +74,7 @@ public class ShipTest {
      */
     @Test
     public void ensureNullVesselNameNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, null, imo, callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, null, imo, callSign, 70, 294,32,13.6,"79"));
         assertEquals("Vessel type cannot be null.", thrown.getMessage());
     }
 
@@ -83,7 +83,7 @@ public class ShipTest {
      */
     @Test
     public void ensureBlankIMONotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, "", callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, "", callSign, 70, 294,32,13.6,"79"));
         assertEquals("IMO cannot be blank.", thrown.getMessage());
     }
 
@@ -92,7 +92,7 @@ public class ShipTest {
      */
     @Test
     public void ensureIMOHasNotLessThan10Chars(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, "IMO123456", callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, "IMO123456", callSign, 70, 294,32,13.6,"79"));
         assertEquals("IMO must hold 10 characters.", thrown.getMessage());
     }
 
@@ -101,7 +101,7 @@ public class ShipTest {
      */
     @Test
     public void ensureIMOHasNotMoreThan10Chars(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, "IMO12345678", callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, "IMO12345678", callSign, 70, 294,32,13.6,"79"));
         assertEquals("IMO must hold 10 characters.", thrown.getMessage());
     }
 
@@ -110,7 +110,7 @@ public class ShipTest {
      */
     @Test
     public void ensureIMOStartsWithIMO(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, "ISO1234567", callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, "ISO1234567", callSign, 70, 294,32,13.6,"79"));
         assertEquals("IMO code must begin with the letters IMO.", thrown.getMessage());
     }
 
@@ -119,7 +119,7 @@ public class ShipTest {
      */
     @Test
     public void ensureIMOEndsWithNumbers(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, "IMO12E4567", callSign, 70, 294,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, "IMO12E4567", callSign, 70, 294,32,13.6,"79"));
         assertEquals("IMO must hold numeric digits starting from character 4.", thrown.getMessage());
     }
 
@@ -176,7 +176,7 @@ public class ShipTest {
      */
     @Test
     public void ensureLengthIsOver0(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 0,32,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 0,32,13.6,"79"));
         assertEquals("Length needs to be over 0.", thrown.getMessage());
     }
 
@@ -185,7 +185,7 @@ public class ShipTest {
      */
     @Test
     public void ensureWidthIsOver0(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,0,13.6,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,0,13.6,"79"));
         assertEquals("Width needs to be over 0.", thrown.getMessage());
     }
 
@@ -194,7 +194,7 @@ public class ShipTest {
      */
     @Test
     public void ensureDraftIsOver0(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,0,"79"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,0,"79"));
         assertEquals("Draft needs to be over 0.", thrown.getMessage());
     }
 
@@ -203,7 +203,7 @@ public class ShipTest {
      */
     @Test
     public void ensureCargoIsOver0(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"-1"));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"-1"));
         assertEquals("Cargo cannot be negative.", thrown.getMessage());
     }
 
@@ -212,7 +212,7 @@ public class ShipTest {
      */
     @Test
     public void ensureCargoIs0(){
-        new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"0");
+        new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"0");
     }
 
     /**
@@ -220,7 +220,7 @@ public class ShipTest {
      */
     @Test
     public void ensureCargoIsNA(){
-        new Ship(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"NA");
+        new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"NA");
     }
     /**
      * Test to ensure that the equals method works correctly.

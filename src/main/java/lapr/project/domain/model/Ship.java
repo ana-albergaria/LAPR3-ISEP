@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Marta Ribeiro (1201592)
  */
-public class Ship implements Comparable<Ship> {
+public abstract class Ship implements Comparable<Ship> {
 
     /**
      * The Ship's Positions' tree.
@@ -21,47 +21,47 @@ public class Ship implements Comparable<Ship> {
     /**
      * The Ship's MMSI.
      */
-    private final int MMSI;
+    private int MMSI;
 
     /**
      * The Ship's vessel name.
      */
-    private final String vesselName;
+    private  String vesselName;
 
     /**
      * The Ship's IMO.
      */
-    private final String IMO;
+    private  String IMO;
 
     /**
      * The Ship's call sign.
      */
-    private final String callSign;
+    private  String callSign;
 
     /**
      * The vessel type ID.
      */
-    private final int vesselTypeID;
+    private  int vesselTypeID;
 
     /**
      * The ship length.
      */
-    private final int length;
+    private  int length;
 
     /**
      * The ship width.
      */
-    private final int width;
+    private  int width;
 
     /**
      * The ship draft.
      */
-    private final double draft;
+    private  double draft;
 
     /**
      * The ship cargo.
      */
-    private final String cargo;
+    private  String cargo;
 
     /**
      * Constructs an instance of Ship receiving as a parameter the Ship's positions BST, MMSI, vessel name, IMO, call sign, vessel type, length, width, draft and cargo.
@@ -97,6 +97,20 @@ public class Ship implements Comparable<Ship> {
         this.width=width;
         this.draft=draft;
         this.cargo=cargo;
+    }
+
+    public Ship() {}
+
+    public void setIMO(String IMO) {
+        this.IMO = IMO;
+    }
+
+    public void setMMSI(int MMSI) {
+        this.MMSI = MMSI;
+    }
+
+    public void setCallSign(String callSign) {
+        this.callSign = callSign;
     }
 
     /**
@@ -292,6 +306,10 @@ public class Ship implements Comparable<Ship> {
         this.positionsBST = positionsBST;
     }
 
+    public void addPosition(ShipPosition position) {
+        this.positionsBST.insert(position);
+    }
+
     /**
      * Returns the total movements of the ship
      *
@@ -361,8 +379,6 @@ public class Ship implements Comparable<Ship> {
      * @return the difference between the two Ships' MMSI.
      */
     @Override
-    public int compareTo(Ship o) {
-        return this.MMSI - o.MMSI;
-    }
+    public abstract int compareTo(Ship o);
 }
 

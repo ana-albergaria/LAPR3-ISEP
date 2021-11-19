@@ -8,9 +8,9 @@ public class ShipTravelledDistanceComparator implements Comparator<Ship> {
 
     @Override
     public int compare(Ship e1, Ship e2) {
-        int d1 = (int) Math.round(e1.getPositionsBST().getTotalDistance());
-        int d2 = (int) Math.round(e2.getPositionsBST().getTotalDistance());
-        return Integer.compare(d2, d1);
+        double d1 = e1.getPositionsBST().getTotalDistance();
+        double d2 = e2.getPositionsBST().getTotalDistance();
+        return Double.compare(d2, d1);
     }
 
 

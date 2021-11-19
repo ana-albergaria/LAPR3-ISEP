@@ -4,6 +4,7 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.store.ShipStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,10 +56,10 @@ class SearchShipControllerTest {
         callSign = "C4SQ2";
         PositionsBST positions2 = new PositionsBST();
         positions2.insert(new ShipPosition(mmsi1, d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
-        s1 = new Ship(positions, mmsi1, vesselName, "IMO9395045", "C4SG2", 70, 294,32,13.6,"79");
-        s2 = new Ship(positions2, mmsi2, vesselName, "IMO9395044", "C4GQ2", 70, 294,32,13.6,"79");
-        s3 = new Ship(positions2, mmsi3, vesselName, "IMO9395042", "CGSQ2", 70, 294,32,13.6,"79");
-        s4 = new Ship(positions2, mmsi4, vesselName, "IMO9395043", "G4SQ2", 70, 294,32,13.6,"79");
+        s1 = new ShipSortMmsi(positions, mmsi1, vesselName, "IMO9395045", "C4SG2", 70, 294,32,13.6,"79");
+        s2 = new ShipSortMmsi(positions2, mmsi2, vesselName, "IMO9395044", "C4GQ2", 70, 294,32,13.6,"79");
+        s3 = new ShipSortMmsi(positions2, mmsi3, vesselName, "IMO9395042", "CGSQ2", 70, 294,32,13.6,"79");
+        s4 = new ShipSortMmsi(positions2, mmsi4, vesselName, "IMO9395043", "G4SQ2", 70, 294,32,13.6,"79");
 
         shipStore.saveShip(s1);
         shipStore.saveShip(s2);
