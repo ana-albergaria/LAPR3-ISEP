@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 
@@ -64,7 +65,7 @@ public class ShowPositionalMessagesController {
      * otherwise returns false
      */
     public boolean isValidShip(int mmsiCode) {
-        ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
+        ShipTreeMmsi shipsBST = this.company.getShipStore().getShipsBstMmsi();
         this.ship = shipsBST.getShipByMmsiCode(mmsiCode);
         return ship != null;
     }

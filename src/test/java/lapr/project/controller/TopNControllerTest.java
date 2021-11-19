@@ -5,6 +5,7 @@ import lapr.project.domain.BST.ShipBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.store.ShipStore;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,10 +61,10 @@ public class TopNControllerTest {
         posBST3.insert(new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass));
 
         //System.out.println(new Ship(vesselType, positionsBST, mmsiCodes[i], vesselNames[i], imoCodes[i], callSigns[i]));
-        store.saveShip(new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294, 32, 13.6, "79"));
-        store.saveShip(new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294, 32, 13.6, "79"));
-        store.saveShip(new Ship(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294, 32, 13.6, "79"));
-        store.saveShip(new Ship(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294, 32, 13.6, "79"));
+        store.saveShip(new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294, 32, 13.6, "79"));
+        store.saveShip(new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294, 32, 13.6, "79"));
+        store.saveShip(new ShipSortMmsi(posBST2, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294, 32, 13.6, "79"));
+        store.saveShip(new ShipSortMmsi(posBST3, mmsiCodes[3], vesselNames[3], imoCodes[3], callSigns[3], 70, 294, 32, 13.6, "79"));
 
 
     }
@@ -74,9 +75,8 @@ public class TopNControllerTest {
 
         List<Ship> testList = controller.getShipsByDate(new SimpleDateFormat("dd/MM/yyyy").parse("06/01/2021"), new SimpleDateFormat("dd/MM/yyyy").parse("11/01/2021"));
         List<Ship> expectedList = new ArrayList<>();
-        expectedList.add(new Ship(posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
-        expectedList.add(new Ship(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
-
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[2], vesselNames[2], imoCodes[2], callSigns[2], 70, 294,32,13.6,"79"));
+        expectedList.add(new ShipSortMmsi(posBST, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 70, 294,32,13.6,"79"));
 
         Assert.assertEquals(expectedList, testList);
     }
@@ -85,8 +85,8 @@ public class TopNControllerTest {
     public void getShipWithMeanControllerTest() {
         TopNController controller = new TopNController();
 
-        Ship ship1 = new Ship(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
-        Ship ship2 = new Ship(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,"67");
+        Ship ship1 = new ShipSortMmsi(posBST, mmsiCodes[0], vesselNames[0], imoCodes[0], callSigns[0], 70, 294,32,13.6,"79");
+        Ship ship2 = new ShipSortMmsi(posBST1, mmsiCodes[1], vesselNames[1], imoCodes[1], callSigns[1], 80, 250,25,15.2,"67");
         Map<Integer, Map<Ship, Set<Double>>> testMap = new HashMap<Integer, Map<Ship, Set<Double>>>();
         List<Ship> expectedList = new LinkedList<>();
         expectedList.add(ship1);

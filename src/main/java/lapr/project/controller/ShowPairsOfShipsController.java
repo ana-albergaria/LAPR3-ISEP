@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.domain.BST.ShipBST;
+import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Company;
 
 import java.io.BufferedWriter;
@@ -41,7 +42,7 @@ public class ShowPairsOfShipsController {
     }
 
     public void getPairsOfShips() throws IOException {
-        ShipBST shipsBST = this.company.getShipStore().getShipsBstMmsi();
+        ShipTreeMmsi shipsBST = this.company.getShipStore().getShipsBstMmsi();
         List<TreeMap<Double, String>> listPairsOfShips = shipsBST.getPairsOfShips();
 
         String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%-15s%-20s%n",

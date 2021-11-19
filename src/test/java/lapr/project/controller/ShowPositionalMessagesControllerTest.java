@@ -4,6 +4,7 @@ import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,10 +54,10 @@ public class ShowPositionalMessagesControllerTest {
         callSign = "C4SQ2";
         PositionsBST positions2 = new PositionsBST();
         positions2.insert(new ShipPosition(mmsi1, d1[3], lats[3], lons[3], sogs[3], cogs[3], headings[3], transcieverClass));
-        s1 = new Ship(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s2 = new Ship(positions2, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s3 = new Ship(positions2, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
-        s4 = new Ship(positions2, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s1 = new ShipSortMmsi(positions, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s2 = new ShipSortMmsi(positions2, mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s3 = new ShipSortMmsi(positions2, mmsi3, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        s4 = new ShipSortMmsi(positions2, mmsi4, vesselName, imo, callSign, 70, 294,32,13.6,"79");
 
         comp.getShipStore().getShipsBstMmsi().insert(s1);
         comp.getShipStore().getShipsBstMmsi().insert(s2);

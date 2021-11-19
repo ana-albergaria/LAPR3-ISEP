@@ -3,6 +3,7 @@ package lapr.project.domain.store;
 import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
+import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.dto.PositionDTO;
 import lapr.project.dto.ShipsFileDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +47,7 @@ class ShipStoreTest {
         ShipPosition expPosition = new ShipPosition(mmsi1, dateR1, 36.39094, -122.71335, 19.7, 145.5, 147, "B");
         PositionsBST positionsBST = new PositionsBST();
         positionsBST.insert(expPosition);
-        Ship expected = new Ship(positionsBST,mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
+        Ship expected = new ShipSortMmsi(positionsBST,mmsi1, vesselName, imo, callSign, 70, 294,32,13.6,"79");
 
         assertEquals(expected, shipStore.createShip(s1));
     }

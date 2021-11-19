@@ -93,9 +93,7 @@ public class BST<E extends Comparable<E>> implements BSTInterface<E> {
         return node;
     }
 
-    public Node<E> find(E element){
-        return find(root, element);
-    }
+
 
     /*
     * Inserts an element in the tree.
