@@ -66,7 +66,6 @@ public class PortStore {
         //ports2DTree = new Ports2DTree();
         //ports2DTree.balanceTree(listOfPortNodes);
         /*ports2DTree = new Ports2DTree(listOfPortNodes);*/
-
     }
 
 
