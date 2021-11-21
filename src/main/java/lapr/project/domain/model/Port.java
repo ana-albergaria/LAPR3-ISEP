@@ -11,27 +11,27 @@ public class Port implements Comparable<Port> {
     /**
      * name of the Port
      */
-    private final String name;
+    private String name;
 
     /**
      * continent where Port is located
      */
-    private final String continent;
+    private String continent;
 
     /**
      * country where the Port is located
      */
-    private final String country;
+    private String country;
 
     /**
      * latitude of Port's location
      */
-    private final double lat;
+    private double lat;
 
     /**
      * longitude of Port's location
      */
-    private final double lon;
+    private double lon;
 
     /**
      * constructs an instance of Port, receiving as parameter identification, name, continent, country, latitude and longitude

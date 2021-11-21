@@ -1,5 +1,7 @@
 package lapr.project.utils;
 
+import lapr.project.dto.PortFileDTO;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,9 +19,9 @@ public class PortsFileUtils {
         dataLabels = new ArrayList<>();
     }
 
-    /*public List<PortsFileDTO> getPortsDataToDto(String filePath){
+    public List<PortFileDTO> getPortsDataToDto(String filePath){
         File csvFile = new File(filePath);
-        List<PortsFileDTO> processedListData = new ArrayList<>();
+        List<PortFileDTO> processedListData = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
             String line = bufferedReader.readLine();
             if (line==null || !line.equals("continent,country,code,port,lat,lon")){
@@ -38,13 +40,25 @@ public class PortsFileUtils {
         return processedListData;
     }
 
-    private  PortsFileDTO attributesToDto(String[] portData) throws ParseException {
-        return new PortsFileDTO(portData[dataLabels.indexOf("continent")],
+    /*
+    private  PortFileDTO attributesToDto(String[] portData) throws ParseException {
+        return new PortFileDTO(portData[dataLabels.indexOf("continent")],
                 portData[dataLabels.indexOf("country")],
                 Integer.parseInt(portData[dataLabels.indexOf("code")]),
                 portData[dataLabels.indexOf("port")],
                 Double.parseDouble(portData[dataLabels.indexOf("lat")]),
                 Double.parseDouble(portData[dataLabels.indexOf("lon")]));
-    }*/
+    }
+     */
+
+    //CORRIGIDO (Ana)
+    private  PortFileDTO attributesToDto(String[] portData) throws ParseException {
+        return new PortFileDTO(Integer.parseInt(portData[dataLabels.indexOf("code")]),
+                portData[dataLabels.indexOf("port")],
+                portData[dataLabels.indexOf("continent")],
+                portData[dataLabels.indexOf("country")],
+                Double.parseDouble(portData[dataLabels.indexOf("lat")]),
+                Double.parseDouble(portData[dataLabels.indexOf("lon")]));
+    }
 
 }

@@ -1,6 +1,5 @@
 package lapr.project.BSTesinf;
 
-
 import java.awt.geom.Point2D;
 import java.util.*;
 
@@ -80,6 +79,24 @@ public class KDTree<T> {
          */
         public void setCoords(Double x, Double y) {
             this.coords = new Point2D.Double(x,y); }
+
+        /**
+         * Method which verifies if two nodes are equal
+         * @param otherObject object to be compared to node
+         * @return true if nodes are equal; otherwise returns false
+         */
+        @Override
+        public boolean equals(Object otherObject){
+            if(this == otherObject)
+                return true;
+
+            if(otherObject == null || this.getClass() != otherObject.getClass())
+                return false;
+
+            Node<T> otherNode = (Node<T>) otherObject;
+
+            return this.coords.equals(otherNode.coords);
+        }
     }
     //----------- end of nested Node class -----------
 
@@ -107,7 +124,7 @@ public class KDTree<T> {
     /**
      * Root of the tree
      */
-    private Node<T> root;
+    protected Node<T> root;
     /**
      * Constructs an empty KD Tree
      */
@@ -192,9 +209,10 @@ public class KDTree<T> {
             insert(node, root, true);
     }
 
-    //Node<Port> node = new Node(port, latitude, longitude);
     private void insert(Node<T> node, Node<T> currentNode, boolean divX) {
         if (node == null)
+            return;
+        if(node.coords.equals(currentNode.coords)) //added so that there aren't duplicates
             return;
         int cmpResult = (divX ? cmpX : cmpY).compare(node, currentNode);
         if (cmpResult == -1)
