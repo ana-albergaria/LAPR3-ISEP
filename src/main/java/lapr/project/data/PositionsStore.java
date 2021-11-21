@@ -33,14 +33,14 @@ public class PositionsStore implements Persistable {
 
                 try (PreparedStatement saveShipUpdate = connection.prepareStatement(
                         sqlCommand)) {
-                    getShipPositionStatement.setDouble(1, shipPosition.getSog());
-                    getShipPositionStatement.setDouble(2,shipPosition.getCog());
-                    getShipPositionStatement.setDouble(3,shipPosition.getHeading());
-                    getShipPositionStatement.setString(4,shipPosition.getTranscieverClass());
-                    getShipPositionStatement.setDate(5, (Date) shipPosition.getBaseDateTime());
-                    getShipPositionStatement.setDouble(6,shipPosition.getLat());
-                    getShipPositionStatement.setDouble(7,shipPosition.getLon());
-                    getShipPositionStatement.setInt(8,shipPosition.getMMSI());
+                    saveShipUpdate.setDouble(1, shipPosition.getSog());
+                    saveShipUpdate.setDouble(2,shipPosition.getCog());
+                    saveShipUpdate.setDouble(3,shipPosition.getHeading());
+                    saveShipUpdate.setString(4,shipPosition.getTranscieverClass());
+                    saveShipUpdate.setDate(5, (Date) shipPosition.getBaseDateTime());
+                    saveShipUpdate.setDouble(6,shipPosition.getLat());
+                    saveShipUpdate.setDouble(7,shipPosition.getLon());
+                    saveShipUpdate.setInt(8,shipPosition.getMMSI());
                     saveShipUpdate.executeUpdate();
                     returnValue = true;
                 }

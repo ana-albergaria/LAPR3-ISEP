@@ -75,17 +75,18 @@ public class ShipStoreDatabase implements Persistable{
         String sqlCommand =
                 "insert into ship(mmsi, vesselTypeId, imo, callSign, shipName, currentCapacity, draft)" +
                         " values (?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement saveShipStatement =
+        try(PreparedStatement saveShipStatement =
                 connection.prepareStatement(
-                        sqlCommand);
-        saveShipStatement.setInt(1, ship.getMMSI());
-        saveShipStatement.setInt(2, ship.getVesselTypeID());
-        saveShipStatement.setString(3, ship.getIMO());
-        saveShipStatement.setString(4, ship.getCallSign());
-        saveShipStatement.setString(5, ship.getVesselName());
-        saveShipStatement.setString(7, ship.getCargo());
-        saveShipStatement.setDouble(8, ship.getDraft());
-        saveShipStatement.executeUpdate();
+                        sqlCommand)) {
+            saveShipStatement.setInt(1, ship.getMMSI());
+            saveShipStatement.setInt(2, ship.getVesselTypeID());
+            saveShipStatement.setString(3, ship.getIMO());
+            saveShipStatement.setString(4, ship.getCallSign());
+            saveShipStatement.setString(5, ship.getVesselName());
+            saveShipStatement.setString(6, ship.getCargo());
+            saveShipStatement.setDouble(7, ship.getDraft());
+            saveShipStatement.executeUpdate();
+        }
     }
 
     private void updateShipOnDatabase(DatabaseConnection databaseConnection, Ship ship) throws SQLException {
@@ -102,18 +103,19 @@ public class ShipStoreDatabase implements Persistable{
             Ship ship, String sqlCommand) throws SQLException {
         Connection connection = databaseConnection.getConnection();
 
-        PreparedStatement saveShipStatement =
+        try(PreparedStatement saveShipStatement =
                 connection.prepareStatement(
-                        sqlCommand);
-        saveShipStatement.setInt(1, ship.getMMSI());
-        saveShipStatement.setInt(2, ship.getVesselTypeID());
-        saveShipStatement.setString(3, ship.getIMO());
-        saveShipStatement.setString(4, ship.getCallSign());
-        saveShipStatement.setString(5, ship.getVesselName());
-        saveShipStatement.setString(6, ship.getCargo());
-        saveShipStatement.setDouble(7, ship.getDraft());
-        saveShipStatement.setInt(8, ship.getMMSI());
-        saveShipStatement.executeUpdate();
+                        sqlCommand)) {
+            saveShipStatement.setInt(1, ship.getMMSI());
+            saveShipStatement.setInt(2, ship.getVesselTypeID());
+            saveShipStatement.setString(3, ship.getIMO());
+            saveShipStatement.setString(4, ship.getCallSign());
+            saveShipStatement.setString(5, ship.getVesselName());
+            saveShipStatement.setString(6, ship.getCargo());
+            saveShipStatement.setDouble(7, ship.getDraft());
+            saveShipStatement.setInt(8, ship.getMMSI());
+            saveShipStatement.executeUpdate();
+        }
     }
 
     private boolean isShipInDataBase(DatabaseConnection databaseConnection,
@@ -124,19 +126,19 @@ public class ShipStoreDatabase implements Persistable{
 
         String sqlCommand = "select * from ship where mmsi = ?";
 
-        PreparedStatement getShipPreparedStatement =
-                connection.prepareStatement(sqlCommand);
+        try(PreparedStatement getShipPreparedStatement =
+                connection.prepareStatement(sqlCommand)) {
+            getShipPreparedStatement.setInt(1, ship.getMMSI());
 
-        getShipPreparedStatement.setInt(1, ship.getMMSI());
+            try (ResultSet shipResultSet = getShipPreparedStatement.executeQuery()) {
 
-        try (ResultSet shipResultSet = getShipPreparedStatement.executeQuery()) {
-
-            if (shipResultSet.next()) {
-                // if client already exists in the database
-                isShipInDataBase = true;
-            } else {
-                // if client does not exist in the database
-                isShipInDataBase = false;
+                if (shipResultSet.next()) {
+                    // if client already exists in the database
+                    isShipInDataBase = true;
+                } else {
+                    // if client does not exist in the database
+                    isShipInDataBase = false;
+                }
             }
         }
         return isShipInDataBase;
