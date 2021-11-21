@@ -1,21 +1,31 @@
 package lapr.project.domain.store;
 
+import lapr.project.controller.App;
+import lapr.project.data.DatabaseConnection;
+import lapr.project.data.Persistable;
+import lapr.project.data.PositionsStore;
+import lapr.project.data.ShipStoreDatabase;
 import lapr.project.domain.BST.*;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
-import lapr.project.domain.model.ShipSortCallSign;
 import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.dto.ShipsFileDTO;
 import lapr.project.dto.mapper.PositionMapper;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ShipStore {
 
     private ShipTreeMmsi shipsBstMmsi = new ShipTreeMmsi();
     private ShipTreeImo shipBstImo = new ShipTreeImo();
     private ShipTreeCallsign shipBstCallSign = new ShipTreeCallsign();
+    private ShipStoreDatabase  shipStoreDatabase = new ShipStoreDatabase();
 
     public Ship createShip(ShipsFileDTO shipsFileDTO){
         PositionsBST positionsBST = new PositionsBST();
@@ -44,6 +54,7 @@ public class ShipStore {
                 ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
         shipBstCallSign.insert(shipBstCallSign.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
                 ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
+        /*shipStoreDatabase.save(App.getInstance().getConnection() ,ship);*/
         return true;
     }
 
@@ -59,6 +70,7 @@ public class ShipStore {
         shipCallSign.addPosition(position);
         Ship shipImo = getShipByAnyCode(shipMmsi.getIMO());
         shipImo.addPosition(position);
+        /*shipStoreDatabase.save(App.getInstance().getConnection() ,position);*/
     }
 
     public Ship getShipByAnyCode(String code){
@@ -75,5 +87,6 @@ public class ShipStore {
         }
         return result;
     }
+
 
 }

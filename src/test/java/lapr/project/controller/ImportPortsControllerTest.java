@@ -47,10 +47,10 @@ class ImportPortsControllerTest {
             }
         }
 
-        /*for (Port port : addedPorts) {
+        for (Port port : addedPorts) {
             System.out.println(port);
         }
-
+/*
         for (KDTree.Node<Port> node : this.comp.getPortStore().getPorts2DTree().getListOfPortNodes()) {
             System.out.println(node);
         }
