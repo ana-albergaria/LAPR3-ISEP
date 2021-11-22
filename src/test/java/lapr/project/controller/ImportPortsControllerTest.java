@@ -48,6 +48,7 @@ class ImportPortsControllerTest {
         }
 
 
+
         /*for (KDTree.Node<Port> node : this.comp.getPortStore().getPorts2DTree().getListOfPortNodes()) {
             System.out.println(node);
         }
@@ -64,7 +65,7 @@ class ImportPortsControllerTest {
          */
 
 
-        /*this.comp.getPortStore().balancePorts2DTree();
+        /*ctrl.balancePorts2DTree();
         List<Port> portsOfTree = this.comp.getPortStore().getPorts2DTree().getAll();
 
         for (Port port : portsOfTree) {
@@ -73,6 +74,7 @@ class ImportPortsControllerTest {
 
         System.out.println(portsOfTree.size());
          */
+
 
 
         portsOfFileExp = portsFileUtils.getPortsDataToDto(expFileTest.toString());

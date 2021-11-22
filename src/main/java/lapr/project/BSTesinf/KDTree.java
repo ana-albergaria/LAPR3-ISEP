@@ -40,11 +40,7 @@ public class KDTree<T> {
             this.coords = new Point2D.Double(x,y);
             this.element = element;
         }
-
-        public Node() {
-
-        }
-
+        
         /**
          * Returns the element of node
          * @return the element of node
@@ -235,22 +231,5 @@ public class KDTree<T> {
         else
             insert(node, currentNode.right, !divX);
     }
-
-    /*public List<T> getAll() {
-        final List<T> result = new LinkedList<>();
-        new Object() {
-            void fillList(Node<T> node) {
-                if(node == null)
-                    return;
-                result.add(node.getElement());
-                if(node.left != null)
-                    fillList(node.left);
-                if(node.right != null)
-                    fillList(node.right);
-            }
-        }.fillList(root);
-        return result;
-    }
-     */
 }
 
