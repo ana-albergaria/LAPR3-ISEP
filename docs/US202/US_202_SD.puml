@@ -20,34 +20,41 @@ UI --> TM : asks for data(callSign, dateTime)
 deactivate UI
 TM -> UI : types requested data
 activate UI
+UI -> CTRL : ship = getShipByCallSign(callSign)
+activate CTRL
+CTRL -> CMP : getShipStore()
+activate CMP
+deactivate CMP
+CTRL -> SHSTORE : getShipByAnyCode(callSign)
+activate SHSTORE
+deactivate SHSTORE
+deactivate CTRL
+
+UI -> CTRL : getShipCoordinates(ship, dateTime)
+activate CTRL
+CTRL -> SHIP : getPositionsBST()
+activate SHIP
+SHIP -> POS : getPosInDateTime(dateTime)
+activate POS
+deactivate POS
+deactivate SHIP
+
+deactivate CTRL
+
 UI -> CTRL : port = findClosestPort(callSign, dateTime)
 activate CTRL
-
 CTRL -> CMP : getPortStore()
 activate CMP
 deactivate CMP
-
-CTRL -> STORE : findClosestPort(callSign, dateTime)
+CTRL -> STORE : findClosestPort(coordinates)
 activate STORE
-STORE -> SHSTORE : ship = getShipByAnyCode(callSign)
-activate SHSTORE
-deactivate SHSTORE
-STORE -> SHIP : getPositionBST()
-activate SHIP
-deactivate SHIP
-STORE -> POS : List<Double> coordinates = getPosInDateTime(dateTime)
-activate POS
-deactivate POS
 STORE -> TREE : findClosestPort(coordinates)
 activate TREE
-deactivate STORE
-
 TREE -> KD : findNearestNeighbour(lat, lon)
 activate KD
 deactivate KD
 deactivate TREE
-
-CTRL -> UI : port
+deactivate STORE
 
 deactivate CTRL
 UI --> TM : shows Port
