@@ -7,7 +7,9 @@ skinparam classAttributeIconSize 0
 
 class ClosestShipController {
 -company
-- findClosestPort(callSign, dateTime)
+-getShipByCallSign(callSign)
+-getShipCoordinates(ship, dateTime)
+-findClosestPort(callSign, dateTime)
 }
 
 class Ship {
@@ -27,10 +29,11 @@ class Company {
 - designation
 - portStore
 - getPortStore()
+-getShipStore()
 }
 
 class PortStore {
-- findClosestPort(callSign, dateTime)
+- findClosestPort(coordinates)
 }
 
 class PortTree {
@@ -49,6 +52,8 @@ PortStore "1" -- "1" PortTree : uses >
 ClosestShipController ..> Company
 ClosestShipController ..> PortTree
 ClosestShipController ..> PortStore
+ClosestShipController ..> ShipStore
+
 PortTree -|> 2DTree
 
 
