@@ -23,7 +23,7 @@ public class App {
 
     private Company company;
     private AuthFacade authFacade;
-    private Connection connection;
+    private DatabaseConnection databaseConnection;
     private App()
     {
         this.company = new Company(Constants.PARAMS_COMPANY_DESIGNATION);
@@ -38,7 +38,6 @@ public class App {
     }
 
     private void dataBaseConnection(){
-        DatabaseConnection databaseConnection = null;
         try {
             databaseConnection = ConnectionFactory.getInstance().getDatabaseConnection();
         } catch (IOException exception) {
@@ -46,24 +45,14 @@ public class App {
                     .log(Level.SEVERE, null, exception);
         }
 
-        connection = databaseConnection.getConnection();
-        if(connection != null){
-            try{
-                connection.setAutoCommit(false);
-            }catch (Exception e){
-                Logger.getLogger("db")
-                        .log(Level.SEVERE, e.getMessage(), e);
-            }
-        }
-
         System.out.println("Connected to the database!");
     }
 
-    public Connection getConnection(){
-        if(connection == null){
+    public DatabaseConnection getConnection(){
+        if(databaseConnection == null){
                 dataBaseConnection();
         }
-        return connection;
+        return databaseConnection;
     }
 
     public UserSession getCurrentUserSession()

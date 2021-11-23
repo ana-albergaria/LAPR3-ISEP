@@ -40,18 +40,7 @@ public class PortsFileUtils {
         return processedListData;
     }
 
-    /*
-    private  PortFileDTO attributesToDto(String[] portData) throws ParseException {
-        return new PortFileDTO(portData[dataLabels.indexOf("continent")],
-                portData[dataLabels.indexOf("country")],
-                Integer.parseInt(portData[dataLabels.indexOf("code")]),
-                portData[dataLabels.indexOf("port")],
-                Double.parseDouble(portData[dataLabels.indexOf("lat")]),
-                Double.parseDouble(portData[dataLabels.indexOf("lon")]));
-    }
-     */
 
-    //CORRIGIDO (Ana)
     private  PortFileDTO attributesToDto(String[] portData) throws ParseException {
         return new PortFileDTO(Integer.parseInt(portData[dataLabels.indexOf("code")]),
                 portData[dataLabels.indexOf("port")],

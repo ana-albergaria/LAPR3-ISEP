@@ -47,28 +47,35 @@ class ImportPortsControllerTest {
             }
         }
 
-        /*for (Port port : addedPorts) {
-            System.out.println(port);
-        }
 
-        for (KDTree.Node<Port> node : this.comp.getPortStore().getPorts2DTree().getListOfPortNodes()) {
+
+        /*for (KDTree.Node<Port> node : this.comp.getPortStore().getPorts2DTree().getListOfPortNodes()) {
             System.out.println(node);
         }
 
+         */
+
+        /*List<Port> portsOfTree = this.comp.getPortStore().getPorts2DTree().getAll();
+
+        System.out.println("LISTA VAZIA");
+        for (Port port : portsOfTree) {
+            System.out.println(port);
+        }
+
+         */
+
+
+        /*ctrl.balancePorts2DTree();
         List<Port> portsOfTree = this.comp.getPortStore().getPorts2DTree().getAll();
 
         for (Port port : portsOfTree) {
             System.out.println(port);
         }
+
+        System.out.println(portsOfTree.size());
          */
 
-        /*this.comp.getPortStore().balancePorts2DTree();
-        List<Port> portsOfTree = this.comp.getPortStore().getPorts2DTree().getAll();
 
-        for (Port port : portsOfTree) {
-            System.out.println(port);
-        }
-         */
 
         portsOfFileExp = portsFileUtils.getPortsDataToDto(expFileTest.toString());
         List<Port> expAddedPorts = new ArrayList<>();
@@ -82,6 +89,16 @@ class ImportPortsControllerTest {
 
 
     @Test
-    void balancePorts2DTree() {
+    void ensureCorrectNodesAreAdded() {
+        PortsFileUtils portsFileUtils = new PortsFileUtils();
+        portsOfFile = portsFileUtils.getPortsDataToDto(fileTest.toString());
+        List<Port> addedPorts = new ArrayList<>();
+
+        for (int i = 0; i < portsOfFile.size(); i++) {
+            if (ctrl.importPortFromFile(portsOfFile.get(i))) {
+                addedPorts.add(this.comp.getPortStore().createPort(portsOfFile.get(i)));
+            }
+        }
+        assertEquals(addedPorts.size(), this.comp.getPortStore().getPorts2DTree().getListOfPortNodes().size());
     }
 }

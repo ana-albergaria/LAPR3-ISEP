@@ -137,7 +137,7 @@ CargoManifest "1" -- "1..*" PositionInVehicle : contains >
 
 Container "1" -- "1" PositionInVehicle : has >
 Ship "*" -- "1" VesselType : is of >
-Ship "1" -- "1" ShipPosition : has >
+Ship "1" -- "1..*" ShipPosition : has >
 Warehouse "1" -- "1" PlaceLocation : is located at >
 Port "1" -- "1" PlaceLocation : is located at >
 PlaceLocation "*" -- "1" Country : in a >

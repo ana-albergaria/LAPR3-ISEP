@@ -40,7 +40,7 @@ public class KDTree<T> {
             this.coords = new Point2D.Double(x,y);
             this.element = element;
         }
-
+        
         /**
          * Returns the element of node
          * @return the element of node
@@ -145,20 +145,23 @@ public class KDTree<T> {
      * @param nodes the list of elements
      */
     public void balanceTree(List<Node<T>> nodes) {
-        balanceTree(true, nodes);
+        root = balanceTree(true, nodes);
     }
 
-    private void balanceTree(boolean divX, List<Node<T>> nodes) {
+    private Node<T> balanceTree(boolean divX, List<Node<T>> nodes) {
         if (nodes == null || nodes.isEmpty())
-            return;
-        Collections.sort(nodes, divX ? cmpX : cmpY);
-        int median = nodes.size() >> 1;
+            return null;
+        nodes.sort(divX ? cmpX : cmpY);
+        int median = nodes.size() / 2;
         Node<T> node = new Node<>(nodes.get(median).element, nodes.get(median).getX(), nodes.get(median).getY());
-        balanceTree(!divX, nodes.subList(0, median));
-        if (median + 1 < nodes.size() - 1)
-            balanceTree(!divX, nodes.subList(median+1, nodes.size()));
-        this.insert(node.getElement(), node.getX(), node.getY());
+        node.left = balanceTree(!divX, nodes.subList(0, median));
+        if (median + 1 <= nodes.size() - 1)
+            node.right = balanceTree(!divX, nodes.subList(median+1, nodes.size()));
+        insert(node.getElement(),node.getX(),node.getY());
+        return node;
     }
+
+
 
     /**
      * Finds the nearest neighbour
@@ -167,7 +170,8 @@ public class KDTree<T> {
      * @return the nearest neighbour from point(x,y)
      */
     public T findNearestNeighbour(double x, double y) {
-        Node<T> closestNode = root;
+        Node<T> closestNode = new Node(null, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+
         return findNearestNeighbour(root, x, y, closestNode, true);
     }
 
@@ -194,6 +198,7 @@ public class KDTree<T> {
         }
         return closestNode.getElement();
     }
+
 
     /**
      * Inserts an element in the tree
