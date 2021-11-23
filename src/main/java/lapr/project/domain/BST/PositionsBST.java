@@ -308,5 +308,22 @@ public class PositionsBST extends BST<ShipPosition> {
         return true;
     }
 
+    /**
+     * Method to get the coordinates of a certain Ship given a Base Date Time
+     * @param dateTime Base Date Time
+     * @return List with latitude and longitude
+     */
+    public List<Double> getPosInDateTime(Date dateTime) {
+        List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
+        List<Double> coordinates = new LinkedList<>();
 
+        for (ShipPosition pos : allPos) {
+            if (pos.getBaseDateTime().equals(dateTime)) {
+                coordinates.add(pos.getLat());
+                coordinates.add(pos.getLon());
+            }
+        }
+
+        return coordinates;
+    }
 }

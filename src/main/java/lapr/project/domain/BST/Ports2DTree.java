@@ -45,4 +45,15 @@ public class Ports2DTree extends KDTree<Port> {
     public List<Node<Port>> getListOfPortNodes() {
         return listOfPortNodes;
     }
+
+    /**
+     * Returns the nearest Port from a given Ship's coordinates
+     * @param coordinates List with the latitude and longitude of a certain Ship
+     * @return nearest Port
+     */
+    public Port findClosestPort(List<Double> coordinates) {
+        double x = coordinates.get(0);
+        double y = coordinates.get(1);
+        return findNearestNeighbour(x, y);
+    }
 }
