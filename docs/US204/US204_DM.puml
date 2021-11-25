@@ -1,0 +1,47 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide empty methods
+hide empty attributes
+
+class Client {}
+
+class Container {
+   -containerId
+   -payload
+   -tare
+   -gross
+   -isoCode
+}
+
+class CargoManifest {
+    -cargoManifestId
+}
+
+class Ship {
+    -mmsiCode
+    -shipName
+    -imoCode
+    -vesselTypeId
+    -callSignId
+    -cargo
+    -draft
+    -length
+    -width
+}
+
+class Port {
+    -identification
+    -name
+    -continent
+    -country
+    -lat
+    -lon
+}
+
+Client "1" -- "1..*" Container : ships >
+Container "1..*"-- "2..*" CargoManifest : associated with >
+Ship "1" -- "1..*" Container : transports >
+CargoManifest -- Port : delivered at >
+
+@enduml
