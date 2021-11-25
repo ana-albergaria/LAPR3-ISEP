@@ -1,0 +1,39 @@
+@startuml
+
+hide empty methods
+hide empty attributes
+'left to right direction
+skinparam classAttributeIconSize 0
+
+class OccupancyByShipAndDateController{
+- company
+- getShipOccupancyByShipAndDate(mmsi, date)
+}
+
+class Company{
+- getShipStore()
+}
+
+class ShipsStore{
+- findShipByAnyCode(code)
+}
+
+class ShipsBST{
+- findShipByMmsi(MMSI)
+}
+
+class BST{}
+
+class Ship {
+- MMSI
+- cargo
+}
+
+OccupancyByShipAndDateController ..> Company
+OccupancyByShipAndDateController ..> ShipsStore
+Company "1" -- "1" ShipsStore : uses >
+ShipsStore "1" -- "1" ShipsBST : uses >
+ShipsBST ..> Ship
+ShipsBST -|> BST
+
+@enduml
