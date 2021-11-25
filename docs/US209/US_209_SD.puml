@@ -2,8 +2,8 @@
 autonumber
 'hide footbox
 actor "Ship Captain" as SC
-participant ":OccupancyByShipAndTimeUI  " as UI
-participant ":OccupancyByShipAndTimeController" as CTRL
+participant ":OccupancyByShipAndDateUI  " as UI
+participant ":OccupancyByShipAndDateController" as CTRL
 participant ":Company" as CMP
 participant ":ShipStore" as STORE
 participant ":ShipsBST" as SBST
@@ -12,7 +12,7 @@ participant ":Ship" as SHIP
 activate SC
 SC -> UI : asks to know the occupancy rate of a given ship at a given moment
 activate UI
-UI --> SC : asks for data(i.e.,mmsi, time)
+UI --> SC : asks for data(i.e.,mmsi,date)
 deactivate UI
 SC -> UI : inserts needed data
 activate UI
