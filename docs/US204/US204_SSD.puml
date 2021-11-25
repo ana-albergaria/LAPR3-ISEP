@@ -10,8 +10,7 @@ activate ":System"
 ":System" --> C : requests the container id
 deactivate ":System"
 C -> ":System" : types the id
-
-
+activate ":System"
 ":System" --> C : displays the type and concrete instance of its current location
 deactivate ":System"
 

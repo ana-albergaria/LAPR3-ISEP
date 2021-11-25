@@ -16,6 +16,7 @@ class Container {
 
 class CargoManifest {
     -cargoManifestId
+    -containerId
 }
 
 class Ship {
@@ -28,6 +29,19 @@ class Ship {
     -draft
     -length
     -width
+}
+
+class ShipTrip{
+    -shipMmsi
+    /'has attribute phase?'/
+    -start_location_id
+    -destination_location_id
+    -loading_cargo_id
+    -unloading_cargo_id
+    -est_departure_date
+    -est_arrival_date
+    -real_departure_date
+    -real_arrival_date
 }
 
 class Port {
@@ -43,5 +57,8 @@ Client "1" -- "1..*" Container : ships >
 Container "1..*"-- "2..*" CargoManifest : associated with >
 Ship "1" -- "1..*" Container : transports >
 CargoManifest -- Port : delivered at >
+Ship "1" -- "*" ShipTrip : does >
+ShipTrip "*" -- "1" Port : to >
+
 
 @enduml

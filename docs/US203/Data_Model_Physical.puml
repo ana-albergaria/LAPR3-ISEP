@@ -32,7 +32,7 @@ class ShipTrip{
     FK start_location_id
     FK destination_location_id
     FK loading_cargo_id
-     FK unloading_cargo_id
+    FK unloading_cargo_id
     departure_date
     arrival_date
 }
