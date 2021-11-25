@@ -40,7 +40,7 @@ public class KDTree<T> {
             this.coords = new Point2D.Double(x,y);
             this.element = element;
         }
-        
+
         /**
          * Returns the element of node
          * @return the element of node
