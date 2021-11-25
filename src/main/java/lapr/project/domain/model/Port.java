@@ -11,27 +11,27 @@ public class Port implements Comparable<Port> {
     /**
      * name of the Port
      */
-    private String name;
+    private final String name;
 
     /**
      * continent where Port is located
      */
-    private String continent;
+    private final String continent;
 
     /**
      * country where the Port is located
      */
-    private String country;
+    private final String country;
 
     /**
      * latitude of Port's location
      */
-    private double lat;
+    private final double lat;
 
     /**
      * longitude of Port's location
      */
-    private double lon;
+    private final double lon;
 
     /**
      * constructs an instance of Port, receiving as parameter identification, name, continent, country, latitude and longitude
@@ -43,6 +43,7 @@ public class Port implements Comparable<Port> {
      * @param lon Port's Longitude
      */
     public Port(int identification, String name, String continent, String country, double lat, double lon) {
+        checkIdentification(identification);
         checkPortName(name);
         checkContinentName(continent);
         checkCountryName(country);
@@ -54,6 +55,16 @@ public class Port implements Comparable<Port> {
         this.country=country;
         this.lat = lat;
         this.lon=lon;
+    }
+
+    /**
+     * Checks if the Port's Identification is correct, and if not throws an error message
+     * @param identification Port's Identification
+     */
+    public void checkIdentification(int identification) {
+        if (identification <=0) {
+            throw new IllegalArgumentException("Port identification as to be above 0.");
+        }
     }
 
     /**

@@ -1,0 +1,23 @@
+@startuml
+autonumber
+'hide footbox
+actor "Ship Captain" as SC
+participant ":OccupancyByCargoManifestUI  " as UI
+participant ":OccupancyByCargoManifestController" as CTRL
+participant ":Company" as CMP
+participant ":ShipStore" as STORE
+participant ":ShipsBST" as SBST
+participant ":Ship" as SHIP
+
+activate SC
+SC -> UI : asks to know the occupancy rate of a given ship for a given cargo manifest
+activate UI
+UI --> SC : asks for data(i.e., cargoManifestID)
+deactivate UI
+SC -> UI : inserts needed data
+activate UI
+UI --> SC : informs of operation success or fail
+deactivate UI
+deactivate SC
+
+@enduml
