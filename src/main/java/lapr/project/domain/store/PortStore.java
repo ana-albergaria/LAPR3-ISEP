@@ -2,15 +2,18 @@ package lapr.project.domain.store;
 
 import lapr.project.BSTesinf.KDTree;
 import lapr.project.domain.BST.Ports2DTree;
+import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Port;
+import lapr.project.domain.model.Ship;
 import lapr.project.dto.PortFileDTO;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class PortStore {
     private Ports2DTree ports2DTree = new Ports2DTree();
+
 
     /**
      * Returns the 2D Tree of Ports
@@ -54,7 +57,6 @@ public class PortStore {
         if(!validatePort(port)){
             return false;
         }
-        ports2DTree.insert(port, port.getLat(), port.getLon());
         return ports2DTree.addNode(port, port.getLat(), port.getLon());
     }
 
@@ -63,12 +65,18 @@ public class PortStore {
      */
     public void balancePorts2DTree() {
         List<KDTree.Node<Port>> listOfPortNodes = ports2DTree.getListOfPortNodes();
-        //ports2DTree = new Ports2DTree();
-        //ports2DTree.balanceTree(listOfPortNodes);
-        /*ports2DTree = new Ports2DTree(listOfPortNodes);*/
+        ports2DTree = new Ports2DTree(listOfPortNodes);
     }
 
+    /**
+     * Method to get the nearest Port given a certain Ship's coordinates
+     * @param coordinates Ship's coordinates
+     * @return nearest Port from that Ship
+     */
+    public Port findClosestPort(List<Double> coordinates) {
 
+        return ports2DTree.findClosestPort(coordinates);
+    }
 
 
 }

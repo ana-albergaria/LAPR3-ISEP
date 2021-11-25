@@ -67,10 +67,8 @@ public class ImportPortsController {
      *
      */
     public void balancePorts2DTree() {
-        /*PortStore portStore = this.company.getPortStore();
+        PortStore portStore = this.company.getPortStore();
         portStore.balancePorts2DTree();
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

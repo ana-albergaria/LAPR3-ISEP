@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,6 +72,7 @@ public class PositionsBSTTest {
     double [] lats3 = {-29.00006,  60.008721, 50.00003, 34.345321};
     double [] lons4 = {50.000000, 60.000000, -30.000000, 20.000000};
     double [] lons3 = {-29.00006,  60.008721, 50.00003, 34.345321};
+    ShipPosition p1;
 
     public PositionsBSTTest() throws ParseException {
     }
@@ -82,7 +84,7 @@ public class PositionsBSTTest {
         for(int i=0; i<3;i++){
             instance.insert(new ShipPosition(mmsiCodes[i], d1[i], lats[i], lons[i], sogs[i], cogs[i], headings[i], transcieverClass));
         }
-        ShipPosition p1 = new ShipPosition(mmsiCodes[0], d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass);
+        p1 = new ShipPosition(mmsiCodes[0], d1[0], lats[0], lons[0], sogs[0], cogs[0], headings[0], transcieverClass);
         ShipPosition p2 = new ShipPosition(mmsiCodes[1], d1[1], lats[1], lons[1], sogs[1], cogs[1], headings[1], transcieverClass);
         ShipPosition p3 = new ShipPosition(mmsiCodes[2], d1[2], lats[2], lons[2], sogs[2], cogs[2], headings[2], transcieverClass);
 
@@ -399,5 +401,19 @@ public class PositionsBSTTest {
         Double res = (double) Math.round(positionsBST.getDepartureDistance(positionsBST2));
 
         assertEquals(expRes, res);
+    }
+
+    /**
+     * Ensure getPosInDateTime() works correctly
+     */
+    @Test
+    public void getPosInDateTime() {
+        List<Double> exp = new LinkedList<>();
+        exp.add(p1.getLat());
+        exp.add(p1.getLon());
+
+        List<Double> actual = positionsBST1.getPosInDateTime(d1[0]);
+
+        assertEquals(exp, actual);
     }
 }
