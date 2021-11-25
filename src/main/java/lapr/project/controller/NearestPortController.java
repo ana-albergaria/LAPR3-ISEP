@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 public class NearestPortController {
-    private Company company;
-    private ShipStore shipStore;
-    private PortStore portStore;
+    private final Company company;
+    private final ShipStore shipStore;
+    private final PortStore portStore;
 
     public NearestPortController() {
         company = App.getInstance().getCompany();
