@@ -39,6 +39,24 @@ public class PortTest {
     }
 
     /**
+     * Test to ensure identification can't be negative
+     */
+    @Test
+    public void ensureNegativeIdentificationNotAllowed() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(-1, names[0], continent1, country1, lats[0], lons[0]));
+        assertEquals("Port identification as to be above 0.", thrown.getMessage());
+    }
+
+    /**
+     * Test to ensure identification can't be null
+     */
+    @Test
+    public void ensureNullIdentificationNotAllowed() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(0, names[0], continent1, country1, lats[0], lons[0]));
+        assertEquals("Port identification as to be above 0.", thrown.getMessage());
+    }
+
+    /**
      * Test to ensure Port Name cannot be null.
      */
     @Test
