@@ -2,8 +2,8 @@
 autonumber
 'hide footbox
 actor "Ship Captain" as SC
-participant ":OccupancyByCargoManifestUI  " as UI
-participant ":OccupancyByCargoManifestController" as CTRL
+participant ":OccupancyByShipAndTimeUI  " as UI
+participant ":OccupancyByShipAndTimeController" as CTRL
 participant ":Company" as CMP
 participant ":ShipStore" as STORE
 participant ":ShipsBST" as SBST
