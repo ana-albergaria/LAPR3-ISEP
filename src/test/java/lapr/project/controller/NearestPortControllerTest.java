@@ -74,6 +74,8 @@ public class NearestPortControllerTest {
         Port exp = port1;
 
         Port actual = controller.findClosestPort("C4SQ2", dateR1);
+
+        Assertions.assertEquals(exp, actual);
     }
 
 }
