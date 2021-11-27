@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="498px" preserveAspectRatio="none" style="width:1525px;height:498px;background:#FFFFFF;" version="1.1" viewBox="0 0 1525 498" width="1525px" zoomAndPan="magnify"><defs><filter height="300%" id="fjtlutuonua2p" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="294.8125" style="stroke:#A80036;stroke-width:1.0;" width="10" x="21" y="99.6094"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="422" y="121.9609"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="211.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="422" y="182.6641"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="151.0547" style="stroke:#A80036;stroke-width:1.0;" width="10" x="756" y="213.0156"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1323" y="243.3672"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1457.5" y="303.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="26" x2="26" y1="89.6094" y2="412.4219"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="427" x2="427" y1="89.6094" y2="412.4219"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="761" x2="761" y1="89.6094" y2="412.4219"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1328" x2="1328" y1="89.6094" y2="412.4219"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1462" x2="1462" y1="89.6094" y2="412.4219"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="5" y="86.5332">Client</text><ellipse cx="26" cy="15" fill="#FEFECE" filter="url(#fjtlutuonua2p)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M26,23 L26,50 M13,31 L39,31 M26,50 L13,65 M26,50 L39,65 " fill="none" filter="url(#fjtlutuonua2p)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="5" y="425.9551">Client</text><ellipse cx="26" cy="439.0313" fill="#FEFECE" filter="url(#fjtlutuonua2p)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M26,447.0313 L26,474.0313 M13,455.0313 L39,455.0313 M26,474.0313 L13,489.0313 M26,474.0313 L39,489.0313 " fill="none" filter="url(#fjtlutuonua2p)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="166" x="342" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="349" y="74.5332">GetContainerSituationUI</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="166" x="342" y="411.4219"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="349" y="432.9551">GetContainerSituationUI</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="216" x="651" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="202" x="658" y="74.5332">GetContainerSituationController</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="216" x="651" y="411.4219"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="202" x="658" y="432.9551">GetContainerSituationController</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="140" x="1256" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126" x="1263" y="74.5332">CargoManifestStore</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="140" x="1256" y="411.4219"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126" x="1263" y="432.9551">CargoManifestStore</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="101" x="1410" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="1417" y="74.5332">ShipTripStore</text><rect fill="#FEFECE" filter="url(#fjtlutuonua2p)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="101" x="1410" y="411.4219"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="1417" y="432.9551">ShipTripStore</text><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="294.8125" style="stroke:#A80036;stroke-width:1.0;" width="10" x="21" y="99.6094"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="422" y="121.9609"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="211.7578" style="stroke:#A80036;stroke-width:1.0;" width="10" x="422" y="182.6641"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="151.0547" style="stroke:#A80036;stroke-width:1.0;" width="10" x="756" y="213.0156"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1323" y="243.3672"/><rect fill="#FFFFFF" filter="url(#fjtlutuonua2p)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1457.5" y="303.7188"/><polygon fill="#A80036" points="410,117.9609,420,121.9609,410,125.9609,414,121.9609" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="31" x2="416" y1="121.9609" y2="121.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="38" y="117.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="359" x="49" y="117.1045">asks to obtain the situation of container to transport the goods</text><polygon fill="#A80036" points="42,148.3125,32,152.3125,42,156.3125,38,152.3125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="36" x2="426" y1="152.3125" y2="152.3125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="48" y="147.4561">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="59" y="147.4561">requests the container id</text><polygon fill="#A80036" points="410,178.6641,420,182.6641,410,186.6641,414,182.6641" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="31" x2="416" y1="182.6641" y2="182.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="38" y="177.8076">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="125" x="49" y="177.8076">types the container id</text><polygon fill="#A80036" points="744,209.0156,754,213.0156,744,217.0156,748,213.0156" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="432" x2="750" y1="213.0156" y2="213.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="439" y="208.1592">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="294" x="450" y="208.1592">getCargoManifestIdOfChosenContainer(containerId)</text><polygon fill="#A80036" points="1311,239.3672,1321,243.3672,1311,247.3672,1315,243.3672" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="766" x2="1317" y1="243.3672" y2="243.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="773" y="238.5107">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="527" x="784" y="238.5107">cargoManifestId = getCargoManifestIdOfChosenContainer(databaseConnection, containerId)</text><polygon fill="#A80036" points="1445.5,299.7188,1455.5,303.7188,1445.5,307.7188,1449.5,303.7188" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="766" x2="1451.5" y1="303.7188" y2="303.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="773" y="298.8623">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="383" x="784" y="298.8623">info = getContainerLocation(databaseConnection, cargoManifestId)</text><polygon fill="#A80036" points="443,360.0703,433,364.0703,443,368.0703,439,364.0703" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="437" x2="760" y1="364.0703" y2="364.0703"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="449" y="359.2139">7</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="460" y="359.2139">result</text><polygon fill="#A80036" points="37,390.4219,27,394.4219,37,398.4219,33,394.4219" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="31" x2="426" y1="394.4219" y2="394.4219"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="43" y="389.5654">8</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="356" x="54" y="389.5654">displays the type and concrete instance of its current location</text><!--MD5=[18c35f35ee7e82914e17a8b9be5a98c0]
+@startuml
+
+autonumber
+actor Client as C
+
+participant "GetContainerSituationUI" as UI
+participant "GetContainerSituationController" as CTRL
+/'participant "Company" as COMP'/
+participant "CargoManifestStore" as MANIFEST_STORE
+
+participant "ShipTripStore" as SHIP_TRIP_STORE
+
+/'Temos de chamar a Company para as Stores ou não é
+necessário?'/
+
+
+activate C
+C -> "UI" : asks to obtain the situation of container to transport the goods
+activate "UI"
+"UI" - -> C : requests the container id
+deactivate "UI"
+C -> "UI" : types the container id
+activate "UI"
+UI -> CTRL : getCargoManifestIdOfChosenContainer(containerId)
+activate CTRL
+CTRL -> MANIFEST_STORE : cargoManifestId = getCargoManifestIdOfChosenContainer(databaseConnection, containerId)
+activate MANIFEST_STORE
+deactivate MANIFEST_STORE
+CTRL -> SHIP_TRIP_STORE : info = getContainerLocation(databaseConnection, cargoManifestId)
+activate SHIP_TRIP_STORE
+deactivate SHIP_TRIP_STORE
+CTRL - -> UI : result
+deactivate CTRL
+UI - -> C : displays the type and concrete instance of its current location
+deactivate UI
+deactivate C
+
+@enduml
+
+@startuml
+
+autonumber
+actor Client as C
+
+participant "GetContainerSituationUI" as UI
+participant "GetContainerSituationController" as CTRL
+participant "CargoManifestStore" as MANIFEST_STORE
+
+participant "ShipTripStore" as SHIP_TRIP_STORE
+
+
+
+activate C
+C -> "UI" : asks to obtain the situation of container to transport the goods
+activate "UI"
+"UI" - -> C : requests the container id
+deactivate "UI"
+C -> "UI" : types the container id
+activate "UI"
+UI -> CTRL : getCargoManifestIdOfChosenContainer(containerId)
+activate CTRL
+CTRL -> MANIFEST_STORE : cargoManifestId = getCargoManifestIdOfChosenContainer(databaseConnection, containerId)
+activate MANIFEST_STORE
+deactivate MANIFEST_STORE
+CTRL -> SHIP_TRIP_STORE : info = getContainerLocation(databaseConnection, cargoManifestId)
+activate SHIP_TRIP_STORE
+deactivate SHIP_TRIP_STORE
+CTRL - -> UI : result
+deactivate CTRL
+UI - -> C : displays the type and concrete instance of its current location
+deactivate UI
+deactivate C
+
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 14:26:11 BST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

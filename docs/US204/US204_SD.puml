@@ -1,0 +1,38 @@
+@startuml
+
+autonumber
+actor Client as C
+
+participant "GetContainerSituationUI" as UI
+participant "GetContainerSituationController" as CTRL
+/'participant "Company" as COMP'/
+participant "CargoManifestStore" as MANIFEST_STORE
+
+participant "ShipTripStore" as SHIP_TRIP_STORE
+
+/'Temos de chamar a Company para as Stores ou não é
+necessário?'/
+
+
+activate C
+C -> "UI" : asks to obtain the situation of container to transport the goods
+activate "UI"
+"UI" --> C : requests the container id
+deactivate "UI"
+C -> "UI" : types the container id
+activate "UI"
+UI -> CTRL : getCargoManifestIdOfChosenContainer(containerId)
+activate CTRL
+CTRL -> MANIFEST_STORE : cargoManifestId = getCargoManifestIdOfChosenContainer(databaseConnection, containerId)
+activate MANIFEST_STORE
+deactivate MANIFEST_STORE
+CTRL -> SHIP_TRIP_STORE : info = getContainerLocation(databaseConnection, cargoManifestId)
+activate SHIP_TRIP_STORE
+deactivate SHIP_TRIP_STORE
+CTRL --> UI : result
+deactivate CTRL
+UI --> C : displays the type and concrete instance of its current location
+deactivate UI
+deactivate C
+
+@enduml

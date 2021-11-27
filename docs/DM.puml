@@ -153,7 +153,7 @@ PortsAndWareHouse "1" -- "*" CargoManifest : delivered at <
 /'Relations not in the Data Model'/
 /'Ship "1" -- "*" Message : sends >'/
 /'USCoastGuard "1" -- "*" Message : receives >'/
-Client "1" -- "1..*" Quote : wants >
+/'Client "1" -- "1..*" Quote : wants >'/
 Company "1" -- "1..*" Ship : manages >
 Company "1" -- "1..*" VesselType : owns >
 Company "1" -- "1..*" Port : works with >
