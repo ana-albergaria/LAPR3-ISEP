@@ -1,3 +1,13 @@
+drop table shipPosition
+drop table ship
+drop table refrigeration
+drop table refrigeration
+drop table refrigeration
+drop table refrigeration
+drop table refrigeration
+drop table refrigeration
+
+
 create table country(
 	country_name varchar(70) constraint pk_country PRIMARY KEY NOT NULL,
 	continent varchar(30) NOT NULL
@@ -42,7 +52,6 @@ create table ship(
 
 	constraint chk_imo check(imo like 'IMO%'),
 	constraint chk_draft check(draft > 0),
-	constraint fk_ship_vesselType FOREIGN KEY (vesselTypeId) references vesselType(vesselTypeId)
 );
 
 

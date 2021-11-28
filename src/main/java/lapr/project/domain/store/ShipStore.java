@@ -54,7 +54,8 @@ public class ShipStore {
                 ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
         shipBstCallSign.insert(shipBstCallSign.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
                 ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
-        /*shipStoreDatabase.save(App.getInstance().getConnection() ,ship);*/
+       /* System.out.println("here???");
+        shipStoreDatabase.save(App.getInstance().getConnection() ,ship);*/
         return true;
     }
 
@@ -70,7 +71,7 @@ public class ShipStore {
         shipCallSign.addPosition(position);
         Ship shipImo = getShipByAnyCode(shipMmsi.getIMO());
         shipImo.addPosition(position);
-        /*shipStoreDatabase.save(App.getInstance().getConnection() ,position);*/
+       /* shipStoreDatabase.save(App.getInstance().getConnection() ,position);*/
     }
 
     public Ship getShipByAnyCode(String code){
