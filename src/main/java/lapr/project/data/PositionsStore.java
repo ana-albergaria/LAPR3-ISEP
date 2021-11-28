@@ -12,11 +12,11 @@ public class PositionsStore implements Persistable {
         Connection connection = databaseConnection.getConnection();
         ShipPosition shipPosition = (ShipPosition) object;
 
-        String sqlCommand = "select * from shipPosition where (baseDateTime = ? AND latitude = ? AND longidute = ? AND mmsi = ?)";
+        String sqlCommand = "select * from shipPosition where (baseDateTime = ? AND latitude = ? AND longitude = ? AND mmsi = ?)";
         boolean returnValue = false;
         try (PreparedStatement getShipPositionStatement = connection.prepareStatement(
                 sqlCommand)) {
-            getShipPositionStatement.setDate(1, (Date) shipPosition.getBaseDateTime());
+            getShipPositionStatement.setDate(1, new Date(shipPosition.getBaseDateTime().getTime()));
             getShipPositionStatement.setDouble(2,shipPosition.getLat());
             getShipPositionStatement.setDouble(3,shipPosition.getLon());
             getShipPositionStatement.setInt(4,shipPosition.getMMSI());
@@ -24,7 +24,7 @@ public class PositionsStore implements Persistable {
             try (ResultSet addressesResultSet = getShipPositionStatement.executeQuery()) {
                 if (addressesResultSet.next()) {
                     sqlCommand =
-                            "update shipposition set sog = ?, cog = ?, heading = ?, transceiver = ? where (baseDateTime = ? AND latitude = ? AND longidute = ? AND mmsi = ?)";
+                            "update shipposition set sog = ?, cog = ?, heading = ?, transceiver = ? where (baseDateTime = ? AND latitude = ? AND longitude = ? AND mmsi = ?)";
                 } else {
                     sqlCommand =
                             "insert into shipPosition(sog, cog, heading, transceiver, baseDateTime, latitude, longitude, mmsi) " +
@@ -37,7 +37,7 @@ public class PositionsStore implements Persistable {
                     saveShipUpdate.setDouble(2,shipPosition.getCog());
                     saveShipUpdate.setDouble(3,shipPosition.getHeading());
                     saveShipUpdate.setString(4,shipPosition.getTranscieverClass());
-                    saveShipUpdate.setDate(5, (Date) shipPosition.getBaseDateTime());
+                    saveShipUpdate.setDate(5, new Date(shipPosition.getBaseDateTime().getTime()));
                     saveShipUpdate.setDouble(6,shipPosition.getLat());
                     saveShipUpdate.setDouble(7,shipPosition.getLon());
                     saveShipUpdate.setInt(8,shipPosition.getMMSI());
@@ -61,7 +61,7 @@ public class PositionsStore implements Persistable {
 
         boolean returnValue = false;
         try {
-            String sqlCommand = "select * from shipPosition where (baseDateTime = ? AND latitude = ? AND longidute = ? AND mmsi = ?)";
+            String sqlCommand = "select * from shipPosition where (baseDateTime = ? AND latitude = ? AND longitude = ? AND mmsi = ?)";
             try (PreparedStatement deleteAddressPreparedStatement = conn.prepareStatement(
                     sqlCommand)) {
                 deleteAddressPreparedStatement.setDate(1, (Date) shipPosition.getBaseDateTime());

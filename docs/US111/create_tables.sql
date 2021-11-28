@@ -12,6 +12,7 @@ drop table container;
 drop table ship;
 drop table cargomanifest;
 
+
 create table continent(
 	continent_id integer constraint pk_continent PRIMARY KEY NOT NULL,
 	continent_name varchar(30) NOT NULL
@@ -24,7 +25,7 @@ create table country(
 	);
 
 create table placeLocation(
-    location_id integer constraint pk_placeLocation PRIMARY KEY NOT NULL,
+    location_id integer GENERATED ALWAYS AS IDENTITY(start with 1 increment by 1) constraint pk_placeLocation PRIMARY KEY NOT NULL,
 	locationLatitude numeric(6,4) NOT NULL ,
 	locationLongitude numeric(7,4) NOT NULL ,
 	country varchar(70) NOT NULL,
@@ -43,15 +44,14 @@ create table port(
 
 create table ship(
 	mmsi integer constraint pk_ship PRIMARY KEY NOT NULL,
-	vesselTypeId integer UNIQUE NOT NULL,
+	vesselTypeId integer NOT NULL,
 	imo varchar(10) UNIQUE NOT NULL ,
 	callSign varchar(10) UNIQUE NOT NULL,
 	shipName varchar(30) NOT NULL,
-	currentCapacity numeric(6,2),
+	currentCapacity varchar(10),
 	draft numeric(5,2) NOT NULL ,
     length numeric(5,2) NOT NULL,
 	width numeric(5,2) NOT NULL ,
-	maxCapacity numeric(6,2),
 
 	constraint chk_imo check(imo like 'IMO%'),
 	constraint chk_draft check(draft > 0)
@@ -63,7 +63,7 @@ create table cargoManifest(
 );
 
 create table shipTrip(
-    shiptrip_id integer constraint pk_ship_trip PRIMARY KEY,
+    shiptrip_id integer GENERATED ALWAYS AS IDENTITY(start with 1 increment by 1) constraint pk_ship_trip PRIMARY KEY,
     mmsi integer not null,
     departure_location integer not null,
     arrival_location integer not null,
@@ -82,7 +82,7 @@ create table shipTrip(
 );
 
 create table shipPosition(
-    shipPosition_id integer not null constraint pk_shipposition PRIMARY KEY,
+    shipPosition_id integer GENERATED ALWAYS AS IDENTITY(start with 1 increment by 1) not null constraint pk_shipposition PRIMARY KEY,
 	baseDateTime date NOT NULL,
 	latitude numeric(6,4) NOT NULL ,
 	longitude numeric(7,4) NOT NULL,
@@ -118,7 +118,7 @@ create table container(
 	constraint chk_gross check(gross >= 0)
 );
 create table shipment(
-    shipment_id integer not null constraint shipment_pk PRIMARY KEY,
+    shipment_id integer GENERATED ALWAYS AS IDENTITY(start with 1 increment by 1) not null constraint shipment_pk PRIMARY KEY,
     container_id integer not null,
     shiptrip_id integer not null,
 
