@@ -34,8 +34,8 @@ class Ship {
 class ShipTrip{
     -shipMmsi
     /'has attribute phase?'/
-    -start_location_id
-    -destination_location_id
+    -departure_location_id
+    -arrival_location_id
     -loading_cargo_id
     -unloading_cargo_id
     -est_departure_date
@@ -59,6 +59,7 @@ Ship "1" -- "1..*" Container : transports >
 CargoManifest -- Port : delivered at >
 Ship "1" -- "*" ShipTrip : does >
 ShipTrip "*" -- "1" Port : to >
+ShipTrip "1" -- "2" CargoManifest : relates to >
 
 
 @enduml

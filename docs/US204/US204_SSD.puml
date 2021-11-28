@@ -1,6 +1,4 @@
 @startuml
-'https://plantuml.com/sequence-diagram
-
 autonumber
 actor Client as C
 
@@ -9,7 +7,7 @@ C -> ":System" : asks to obtain the situation of container to transport the good
 activate ":System"
 ":System" --> C : requests the container id
 deactivate ":System"
-C -> ":System" : types the id
+C -> ":System" : types the container id
 activate ":System"
 ":System" --> C : displays the type and concrete instance of its current location
 deactivate ":System"

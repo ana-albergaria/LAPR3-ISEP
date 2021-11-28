@@ -153,7 +153,6 @@ class Shipment{
 }
 
 
-
 /'class Truck{
     truckID
 }
@@ -196,4 +195,5 @@ ContainerInCargoManifest "1..*" -- "1..*" PositionInVehicule
 EnergyPower "1" -- "1..*" ContainerInCargoManifest
 Container "1" -- "*" Shipment
 Shipment "1..*" -- "1" ShipTrip
+
 @enduml
