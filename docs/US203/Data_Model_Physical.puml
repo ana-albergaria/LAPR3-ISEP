@@ -28,6 +28,7 @@ class Ship{
 }
 
 class ShipTrip{
+    **ShipTripID**
     FK mmsi
     FK start_location_id
     FK destination_location_id
@@ -139,6 +140,8 @@ class ContainerInCargoManifest{
 }
 
 
+
+
 /'class Truck{
     truckID
 }
@@ -179,5 +182,6 @@ Truck "1..*" -- "1..*" Warehouse
 Ship "1" -- "*" EnergyPower : has >
 ContainerInCargoManifest "1..*" -- "1..*" PositionInVehicule
 EnergyPower "1" -- "1..*" ContainerInCargoManifest
+
 
 @enduml
