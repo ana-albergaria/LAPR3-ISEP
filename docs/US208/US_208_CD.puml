@@ -5,39 +5,39 @@ hide empty attributes
 'left to right direction
 skinparam classAttributeIconSize 0
 
-class OccupancyByCargoManifestController{
--company
--getShipOccupancyRateForCargoManifest(cargoManifestID)
+class ShipOccupancyRatesController{
+- company
+- getShipOccupancyRateByCargoManifestID(cargoManifestID)
 }
 
-class Company{
-- getShipStore()
-}
+'class Company{
+'- getShipStore()
+'}
 
-class ShipsStore{
-- findShipByAnyCode(code)
-}
+'class ShipsStore{
+'- findShipByAnyCode(code)
+'}
 
-class ShipsBST{
-- findShipByMmsi(MMSI)
-}
+'class ShipsBST{
+'- findShipByMmsi(MMSI)
+'}
 
-class BST{}
+'class BST{}
 
-class Ship {
-- MMSI
-- cargo
-}
+'class Ship {
+'- MMSI
+'- cargo
+'}
 
 'preciso do cargo manifest com o id
 'preciso da ship trip pq ela contem o cargo manifest e o mmsi para o ship
 'vou procurar o ship com o mmsi da ship trip
 
-OccupancyByCargoManifestController ..> Company
-OccupancyByCargoManifestController ..> ShipsStore
-Company "1" -- "1" ShipsStore : uses >
-ShipsStore "1" -- "1" ShipsBST : uses >
-ShipsBST ..> Ship
-ShipsBST -|> BST
+'ShipOccupancyRatesController ..> Company
+'ShipOccupancyRatesController ..> ShipsStore
+'Company "1" -- "1" ShipsStore : uses >
+'ShipsStore "1" -- "1" ShipsBST : uses >
+'ShipsBST ..> Ship
+'ShipsBST -|> BST
 
 @enduml

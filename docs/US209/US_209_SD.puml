@@ -3,11 +3,11 @@ autonumber
 'hide footbox
 actor "Ship Captain" as SC
 participant ":OccupancyByShipAndDateUI  " as UI
-participant ":OccupancyByShipAndDateController" as CTRL
-participant ":Company" as CMP
-participant ":ShipStore" as STORE
-participant ":ShipsBST" as SBST
-participant ":Ship" as SHIP
+participant ":ShipOccupancyRatesController" as CTRL
+'participant ":Company" as CMP
+'participant ":ShipStore" as STORE
+'participant ":ShipsBST" as SBST
+'participant ":Ship" as SHIP
 
 activate SC
 SC -> UI : asks to know the occupancy rate of a given ship at a given moment
@@ -16,6 +16,13 @@ UI --> SC : asks for data(i.e.,mmsi,date)
 deactivate UI
 SC -> UI : inserts needed data
 activate UI
+UI -> CTRL : getShipOccupancyRateByMmsiAndDate(mmsi, date)
+activate CTRL
+CTRL -> CTRL : cargoManifestID = getCargoManifestIDByMmsiAndDate(mmsi, date)
+
+CTRL -> CTRL : result = getShipOccupancyRateByCargoManifestID(cargoManifestID)
+CTRL --> UI : result
+deactivate CTRL
 UI --> SC : informs of operation success or fail
 deactivate UI
 deactivate SC
