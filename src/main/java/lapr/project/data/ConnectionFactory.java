@@ -57,6 +57,7 @@ public class ConnectionFactory {
                 getClass().getClassLoader().getResourceAsStream(
                         "application.properties");
         properties.load(inputStream);
+        System.out.println(properties);
         inputStream.close();
 
         //Set new properties.
@@ -85,6 +86,7 @@ public class ConnectionFactory {
      * @return database.url property
      */
     private String url() {
+        System.out.println(System.getProperty("database.url"));
         return System.getProperty("database.url");
     }
 
@@ -94,6 +96,7 @@ public class ConnectionFactory {
      * @return database.user property
      */
     private String user() {
+        System.out.println(System.getProperty("database.user"));
         return System.getProperty("database.user");
     }
 
@@ -103,6 +106,7 @@ public class ConnectionFactory {
      * @return database.password property
      */
     private String password() {
+        System.out.println(System.getProperty("database.password"));
         return System.getProperty("database.password");
     }
 }

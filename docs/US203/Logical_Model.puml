@@ -7,21 +7,32 @@
 
 class Ship{
     **MMSI** [int]
-    IMO [String]
-    CallSignId [String]
-    ShipName [String]
-    VesselTypeID FK [int]
-    CurrentCapacity [int]
-    Draft [double]
+    VesselTypeID [int]
+    IMO [string]
+    CallSignId [string]
+    ShipName [string]
+    CurrentCapacity [double]
+    Draft[double]
+    Length [double]
+    Width [double]
+    maxCapacity [double]
 }
-
-class VesselType{
-    **VesselTypeID** [int]
-    Length [int]
-    Width [int]
-    maxCapacity [int]
+class Continent{
+   ** continent_id** [int]
+    continent_name [string]
 }
-
+class ShipTrip{
+    **ship_trip_id** [int]
+    FK mmsi [int]
+    FK departure_location_id [int]
+    FK arrival_location_id [int]
+    FK loading_cargo_id [int]
+    FK unloading_cargo_id [int]
+    est_departure_date [date]
+    real_departure_date [date]
+    est_arrival_date  [date]
+    real_arrival_date  [date]
+}
 class ShipPosition{
     **BaseDateTime** [Date]
     **Latitude** [double]
@@ -41,11 +52,6 @@ class Container{
     Gross [int]
     CheckDigit [int]
     ISOCode [String]
-}
-
-class Refrigeration {
-    **ContainerID** FK [int]
-    temperatureKept [double]
 }
 
 class EnergyPower{
@@ -75,15 +81,14 @@ class PositionInVehicule{
 class Port {
     **portId** [int]
     Name [String]
-    LocationLongitude FK [double]
-    LocationLatitude FK [double]
+    fk_location_id [int]
 }
 
 class Warehouse {
     **warehouseId** [int]
     Name [String]
-    LocationLongitude FK [double]
-    LocationLatitude FK [double]
+    fk_location_id [int]
+
 }
 
 class Country{
@@ -92,14 +97,21 @@ class Country{
 }
 
 class PlaceLocation{
-    **locationLatitude** [double]
-    **LocationLongitude** [double]
-    Country FK [String]
+    **location_id** [int]
+    locationLatitude [double]
+    LocationLongitude [double]
+    Country[String]
 }
 
 class ContainerInCargoManifest{
     ** ContainerID ** FK PK [int]
     ** CargoManifestId **  FK PK [int]
+    temperature_kept [double]
+}
+class Shipment{
+    **shipment_id** [int]
+    FK_container_id[int]
+    FK_shiptrip_id[int]
 }
 
 
@@ -116,27 +128,33 @@ class Transports{
 
 
 Ship "1" -- "1..*" Container : transports >
-Container "1" -- "1" PositionInVehicule
-Ship "1" -- "1" ShipPosition
-Ship "*" -- "1" VesselType
-Ship "1" -- "1..*" CargoManifest
+Ship "1" -- "1..*" ShipPosition
+/'Docking "1" -- "1..2" CargoManifest'/
+ShipTrip "1" -- "2" Port
+
+Ship "1" -- "*" ShipTrip
 CargoManifest "1" -- "1..*" ContainerInCargoManifest
 Container "*" -- "1" ContainerInCargoManifest
 /'Truck "1" -- "1..*" CargoManifest'/
 /'
 Truck "*" -- "1" Container
 '/
-Port "1" -- "1" PlaceLocation
-Warehouse "1" -- "1" PlaceLocation
+Port "0..1" -- "1" CargoManifest
+Warehouse "0..1" -- "1" CargoManifest
 PlaceLocation "*" -- "1" Country
-Port "1" -- "*" CargoManifest
-Warehouse "1" -- "*" CargoManifest
+Continent "1" -- "1..*" Country
+PlaceLocation "1" -- "1" Port
+PlaceLocation "1" -- "1" Warehouse
+
 /'Relacoes N para N, falta relacao'/
 /'
 Truck "1..*" -- "1..*" Warehouse
 '/
-Container "*" -- "0..1" Refrigeration
-Ship "1" -- "1" EnergyPower : has >
-EnergyPower "1" -- "0..*" Refrigeration
-
+/'Ship "1" -- "*" Docking'/
+ShipTrip "1" -- "1..2" CargoManifest
+Ship "1" -- "*" EnergyPower : has >
+ContainerInCargoManifest "1..*" -- "1..*" PositionInVehicule
+EnergyPower "1" -- "1..*" ContainerInCargoManifest
+Container "1" -- "*" Shipment
+Shipment "1..*" -- "1" ShipTrip
 @enduml

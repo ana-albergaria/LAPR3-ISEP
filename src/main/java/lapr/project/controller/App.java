@@ -29,7 +29,6 @@ public class App {
         this.company = new Company(Constants.PARAMS_COMPANY_DESIGNATION);
         this.authFacade = this.company.getAuthFacade();
         bootstrap();
-        /*dataBaseConnection();*/
     }
 
     public Company getCompany()

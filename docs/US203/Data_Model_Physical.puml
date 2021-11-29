@@ -28,13 +28,17 @@ class Ship{
 }
 
 class ShipTrip{
-    FK mmsi
-    FK start_location_id
-    FK destination_location_id
-    FK loading_cargo_id
-    FK unloading_cargo_id
-    departure_date
-    arrival_date
+    **ship_trip_id: integer**
+    ---
+    FK mmsi: integer
+    FK departure_location_id: integer
+    FK arrival_location_id: integer
+    FK loading_cargo_id: integer
+    FK unloading_cargo_id: integer
+    est_departure_date: date
+    real_departure_date: date
+    est_arrival_date : date
+    real_arrival_date : date
 }
 /'class TripLeg{
 
@@ -49,15 +53,17 @@ class ShipTrip{
 }'/
 
 class Continent{
-    continent_id
-    continent_name
+   ** continent_id**: integer
+   ---
+    continent_name: varchar(40)
 }
 
 class ShipPosition{
-    **BaseDateTime**: DATE
-    **Latitude**: NUMBER(6,4)
-    **Longitude**: NUMBER(7,4)
-    --
+    **ShipPosition_id**: integer
+    ---
+    BaseDateTime: DATE
+    Latitude: NUMBER(6,4)
+    Longitude: NUMBER(7,4)
     FK_MMSI: NUMBER(9)
     Sog: NUMBER(5,2)
     Cog: NUMBER(5,2)
@@ -108,34 +114,42 @@ class Port {
     **portId**:INTEGER
     ---
     Name:varchar(40)
-    FK_LocationLongitude:NUMBER(6,4)
-    FK_LocationLatitude:NUMBER(7,4)
+    fk_location_id: integer
 }
 
 class Warehouse {
     **warehouseId**:INTEGER
     ---
     Name:varchar(40)
-    FK_LocationLongitude:NUMBER(6,4)
-    FK_LocationLatitude:NUMBER(7,4)
+    fk_location_id: integer
 }
 
 class Country{
     **Country**:varchar(70)
     ---
-    Continent:varchar(30)
+    Continent_id : integer
 }
 
 class PlaceLocation{
-    **locationLatitude**:NUMBER(6,4)
-    **LocationLongitude**:NUMBER(7,4)
+    **location_id**: integer
     ---
+    locationLatitude:NUMBER(6,4)
+    LocationLongitude:NUMBER(7,4)
     FK_Country:varchar(70)
 }
 
 class ContainerInCargoManifest{
     FK_** ContainerID **: INTEGER
     FK_** CargoManifestId **: INTEGER
+    --
+    temperature_kept: NUMBER(5,2)
+}
+
+class Shipment{
+    **shipment_id**: integer
+    --
+    FK_container_id
+    FK_shiptrip_id
 }
 
 
@@ -175,9 +189,11 @@ PlaceLocation "1" -- "1" Warehouse
 Truck "1..*" -- "1..*" Warehouse
 '/
 /'Ship "1" -- "*" Docking'/
-/'ShipTrip "1" -- "2" Docking'/
+ShipTrip "1" -- "1..2" CargoManifest
 Ship "1" -- "*" EnergyPower : has >
 ContainerInCargoManifest "1..*" -- "1..*" PositionInVehicule
 EnergyPower "1" -- "1..*" ContainerInCargoManifest
+Container "1" -- "*" Shipment
+Shipment "1..*" -- "1" ShipTrip
 
 @enduml

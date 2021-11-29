@@ -20,17 +20,26 @@ class Ship{
 }
 
 class ShipTrip{
-    FK loading_cargo_id
-    FK unloading_cargo_id
-    FK mmsi
-    FK start_location_id
-    FK destination_location_id
-    inital_date
-    final_date
+    loading_cargo_id
+    unloading_cargo_id
+    mmsi
+    start_location_id
+    destination_location_id
+    est_departure_date
+    real_departure_date
+    est_arrival_date
+    real_arrival_date
+}
+class Shipment{
+    shipment_id
+    container_id
+    shiptrip_id
 }
 
 
+
 class ShipPosition{
+    shipposition_id
     BaseDateTime
     Latitude
     Longitude
@@ -63,7 +72,6 @@ class EnergyPower{
 /'manifest type(loading, unloading) changes its values'/
 class CargoManifest{
     CargoManifestID
-    TypeOfTransport
 }
 
 class PositionInVehicule{
@@ -148,5 +156,6 @@ Truck "1..*" -- "1..*" Warehouse
 Ship "1" -- "*" EnergyPower : has >
 ContainerInCargoManifest "1..*" -- "1..*" PositionInVehicule
 EnergyPower "1" -- "1..*" ContainerInCargoManifest
-
+Container "1" -- "*" Shipment
+Shipment "1..*" -- "1" ShipTrip
 @enduml
