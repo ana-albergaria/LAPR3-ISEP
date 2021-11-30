@@ -4,6 +4,10 @@ autonumber
 actor "Ship Captain" as SC
 participant ":OccupancyByShipAndDateUI  " as UI
 participant ":ShipOccupancyRatesController" as CTRL
+participant ":ShipStore" as SS
+participant ":ShipTripStore" as STS
+participant ":CargoManifestStore" as CMS
+participant ":ContainersStore" as CS
 'participant ":Company" as CMP
 'participant ":ShipStore" as STORE
 'participant ":ShipsBST" as SBST
@@ -19,8 +23,66 @@ activate UI
 UI -> CTRL : getShipOccupancyRateByMmsiAndDate(mmsi, date)
 activate CTRL
 CTRL -> CTRL : cargoManifestID = getCargoManifestIDByMmsiAndDate(mmsi, date)
+activate CTRL
+'tenho de ver a ship trip com esse mmsi e data no intervalo
+'e tenho de ir buscar o loading
+CTRL -> STS : shipTripID = getShipTripByMmsiAndDate(mmsi, date)
+activate STS
+|||
+deactivate STS
+CTRL -> CMS : cargoManifestID = getLoadingCargoManifestIDByShipTripID(shipTripID)
+activate CMS
+|||
+deactivate CMS
+deactivate CTRL
 
-CTRL -> CTRL : result = getShipOccupancyRateByCargoManifestID(cargoManifestID)
+
+CTRL -> CTRL : getShipOccupancyRateByCargoManifestID(cargoManifestID)
+activate CTRL
+
+CTRL -> STS : mmsi = getMmsiOfChosenShip(databaseConnection, cargoManifestID)
+'tenho de saber se procuro o cargoManifestID na parte do loadingID ou do unloadingID
+activate STS
+|||
+deactivate STS
+'preciso da capacidade total em nr de contentores
+'preciso do numero de contetores atualmente no ship
+CTRL -> SS : maxCapacity = getMaxCapacityByMmsi(mmsi)
+activate SS
+|||
+deactivate SS
+CTRL -> STS : shipTripID = getShipTripByCargoManifestID(cargoManifestID)
+'o loading_cargo_id ou o unloading_cargo_id têm de ter esse id
+activate STS
+|||
+deactivate STS
+CTRL -> STS: initialNumContainers = getInitialNumContainersByShipTripID(shipTripID)
+activate STS
+|||
+deactivate STS
+CTRL -> STS: loadingCargoManifestID = getLoadingCargoManifestIDByShipTripID(shipTripID)
+activate STS
+|||
+deactivate STS
+CTRL -> CMS: addedContainersNum = getNumOfAddedContainersByLoadingCargoManifestID(loadingCargoManifestID)
+activate CMS
+|||
+deactivate CMS
+CTRL -> STS: unloadingCargoManifestID = getUnloadingCargoManifestIDByShipTripID(shipTripID)
+activate STS
+|||
+deactivate STS
+alt if cargoManifestID is equal to unloadingCargoManifestID
+CTRL -> CMS: removedContainersNum = getNumOfRemovedContainersByUnloadingCargoManifestID(unloadingCargoManifestID)
+activate CMS
+|||
+deactivate CMS
+end
+CTRL -> CTRL : calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum, removedContainersNum)
+deactivate CTRL
+
+
+
 CTRL --> UI : result
 deactivate CTRL
 UI --> SC : informs of operation success or fail
