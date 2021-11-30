@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.domain.model.Company;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,16 +17,16 @@ public class ShipOccupancyRatesControllerTest {
         this.ctrl=new ShipOccupancyRatesController(comp);
     }
 
-    /*@Test
+    @Test
     public void testOccupancyRatesCalculationWhenValid(){
         int maxCapacity1=75;
         int initialNumContainers1=15;
         int addedContainerNum1=36;
         int removedContainersNum1=12;
         int expected=52;
-        int actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainerNum1,removedContainersNum1);
-        Assert.assertEquals(expected,actual);
-    }*/
+        double actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainerNum1,removedContainersNum1);
+        Assertions.assertEquals(expected,actual);
+    }
 
     @Test
     public void testOccupancyRatesCalculationWhenInvalid(){
@@ -34,8 +35,8 @@ public class ShipOccupancyRatesControllerTest {
         int addedContainerNum1=36;
         int removedContainersNum1=12;
         int expected=-1;
-        int actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainerNum1,removedContainersNum1);
-        Assert.assertEquals(expected,actual);
+        double actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainerNum1,removedContainersNum1);
+        Assertions.assertEquals(expected,actual);
     }
 
 }

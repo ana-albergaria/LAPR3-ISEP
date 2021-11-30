@@ -33,12 +33,12 @@ public class ShipOccupancyRatesController {
         this.company=companyy;
     }
 
-    public int calculateOccupancyRate(int maxCapacity, int initialNumContainers, int addedContainerNum, int removedContainersNum){
-        int current = initialNumContainers+addedContainerNum-removedContainersNum;
+    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int addedContainerNum, int removedContainersNum){
+        double current = initialNumContainers+addedContainerNum-removedContainersNum;
         if (current>maxCapacity){
             return -1; //when invalid
         } else {
-            return current/maxCapacity*100;
+            return (current/maxCapacity)*100;
         }
     }
 
