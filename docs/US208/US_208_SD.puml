@@ -7,7 +7,7 @@ participant ":ShipOccupancyRatesController" as CTRL
 participant ":ShipStore" as SS
 participant ":ShipTripStore" as STS
 participant ":CargoManifestStore" as CMS
-participant ":ContainersStore" as CS
+'participant ":ContainersStore" as CS
 'participant ":Company" as CMP
 'participant ":ShipStore" as STORE
 'participant ":ShipsBST" as SBST
