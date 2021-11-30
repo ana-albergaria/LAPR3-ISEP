@@ -6,13 +6,35 @@ hide empty attributes
 skinparam classAttributeIconSize 0
 
 class ShipOccupancyRatesController{
-- company
 - getShipOccupancyRateByCargoManifestID(cargoManifestID)
+- calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum, removedContainersNum)
 }
 
-'class Company{
-'- getShipStore()
-'}
+class ShipStore{
+- getMaxCapacityByMmsi(mmsi)
+}
+
+class ShipTripStore{
+- getMmsiOfChosenShip(databaseConnection, cargoManifestID)
+- getShipTripByCargoManifestID(cargoManifestID)
+- getInitialNumContainersByShipTripID(shipTripID)
+- getLoadingCargoManifestIDByShipTripID(shipTripID)
+- getUnloadingCargoManifestIDByShipTripID(shipTripID)
+}
+
+class CargoManifestStore{
+- getNumOfAddedContainersByLoadingCargoManifestID(loadingCargoManifestID)
+- getNumOfRemovedContainersByUnloadingCargoManifestID(unloadingCargoManifestID)
+}
+
+class Company{
+- getShipStore()
+}
+
+class Ship {
+- MMSI
+- cargo
+}
 
 'class ShipsStore{
 '- findShipByAnyCode(code)
@@ -24,20 +46,15 @@ class ShipOccupancyRatesController{
 
 'class BST{}
 
-'class Ship {
-'- MMSI
-'- cargo
-'}
-
 'preciso do cargo manifest com o id
 'preciso da ship trip pq ela contem o cargo manifest e o mmsi para o ship
 'vou procurar o ship com o mmsi da ship trip
 
-'ShipOccupancyRatesController ..> Company
-'ShipOccupancyRatesController ..> ShipsStore
-'Company "1" -- "1" ShipsStore : uses >
-'ShipsStore "1" -- "1" ShipsBST : uses >
-'ShipsBST ..> Ship
-'ShipsBST -|> BST
+ShipOccupancyRatesController ..> Company
+ShipOccupancyRatesController ..> ShipStore
+ShipOccupancyRatesController ..> ShipTripStore
+ShipOccupancyRatesController ..> CargoManifestStore
+Company "1" -- "1" ShipStore : uses >
+ShipStore "1" -- "1..*" Ship : uses >
 
 @enduml
