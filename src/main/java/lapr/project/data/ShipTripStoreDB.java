@@ -9,19 +9,21 @@ import java.sql.Types;
 
 public class ShipTripStoreDB {
 
-    /*public static void main(String[] args) throws SQLException {
-        int shipTripId = getShipTripId(App.getInstance().getConnection(),1,7);
+    public static void main(String[] args) throws SQLException {
+        int shipTripId = getShipTripId(App.getInstance().getConnection(),1,5);
         System.out.println(shipTripId);
         String location = getLocation(App.getInstance().getConnection(), shipTripId);
         System.out.println(location);
     }
-     */
 
 
-    public int getShipTripId(DatabaseConnection databaseConnection, int containerId, int shipmentId) {
+
+    public static int getShipTripId(DatabaseConnection databaseConnection, int containerId, int shipmentId) throws SQLException {
+        CallableStatement cs = null;
+
         try {
             Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call get_shiptrip_id(?, ?)}");
+            cs = connection.prepareCall("{? = call get_shiptrip_id(?, ?)}");
             cs.setInt(2, containerId);
             cs.setInt(3, shipmentId);
             cs.registerOutParameter(1, Types.INTEGER);
@@ -30,11 +32,13 @@ public class ShipTripStoreDB {
             return shipTripId;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            cs.close();
         }
         return -1;
     }
 
-    public String getLocation(DatabaseConnection databaseConnection, int shipTripId) {
+    public static String getLocation(DatabaseConnection databaseConnection, int shipTripId) {
         try {
             Connection connection = databaseConnection.getConnection();
             CallableStatement cs = connection.prepareCall("{? = call get_location(?)}");
@@ -42,6 +46,7 @@ public class ShipTripStoreDB {
             cs.registerOutParameter(1, Types.VARCHAR);
             cs.executeUpdate();
             String location = cs.getString(1);
+            cs.close();
             return location;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
