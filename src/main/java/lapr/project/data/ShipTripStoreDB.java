@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 public class ShipTripStoreDB {
-    /*
-    public static void main(String[] args) throws SQLException {
+
+    /*public static void main(String[] args) throws SQLException {
         int shipTripId = getShipTripId(App.getInstance().getConnection(),1,5);
         System.out.println(shipTripId);
         String location = getLocation(App.getInstance().getConnection(), shipTripId);
@@ -17,25 +17,41 @@ public class ShipTripStoreDB {
     }
      */
 
+
+
+
     public int getShipTripId(DatabaseConnection databaseConnection, int containerId, int shipmentId) throws SQLException {
         Connection connection = databaseConnection.getConnection();
         CallableStatement cs = connection.prepareCall("{? = call get_shiptrip_id(?, ?)}");
-        cs.setInt(2, containerId);
-        cs.setInt(3, shipmentId);
-        cs.registerOutParameter(1, Types.INTEGER);
-        cs.executeUpdate();
-        int shipTripId = cs.getInt(1);
-        return shipTripId;
 
+        try {
+            cs.setInt(2, containerId);
+            cs.setInt(3, shipmentId);
+            cs.registerOutParameter(1, Types.INTEGER);
+            cs.executeUpdate();
+            int shipTripId = cs.getInt(1);
+            return shipTripId;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            cs.close();
+        }
+        return -1;
     }
 
-    public String getLocation(DatabaseConnection databaseConnection, int shipTripId) throws SQLException {
-        Connection connection = databaseConnection.getConnection();
-        CallableStatement cs = connection.prepareCall("{? = call get_location(?)}");
-        cs.setInt(2, shipTripId);
-        cs.registerOutParameter(1, Types.VARCHAR);
-        cs.executeUpdate();
-        String location = cs.getString(1);
-        return location;
+    public String getLocation(DatabaseConnection databaseConnection, int shipTripId) {
+        try {
+            Connection connection = databaseConnection.getConnection();
+            CallableStatement cs = connection.prepareCall("{? = call get_location(?)}");
+            cs.setInt(2, shipTripId);
+            cs.registerOutParameter(1, Types.VARCHAR);
+            cs.executeUpdate();
+            String location = cs.getString(1);
+            cs.close();
+            return location;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 }

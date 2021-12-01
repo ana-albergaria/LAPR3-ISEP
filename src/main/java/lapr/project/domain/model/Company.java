@@ -1,6 +1,7 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
+import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.store.ShipStore;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,10 @@ public class Company {
      * The Port Store.
      */
     private final PortStore portStore;
+    /**
+     * The Ship Trip Store Data Base.
+     */
+    private final ShipTripStoreDB shipTripStoreDB;
 
     /**
      * Constructs an instance of Company receiving as a parameter the Company's designation
@@ -43,6 +48,7 @@ public class Company {
         this.designation=designation;
         this.shipsStore = new ShipStore();
         this.portStore = new PortStore();
+        this.shipTripStoreDB = new ShipTripStoreDB();
     }
 
     /**
@@ -64,12 +70,23 @@ public class Company {
     }
 
     /**
+     * Returns the Ship Trip Store DataBase.
+     *
+     * @return the Ship Trip Store DataBase.
+     */
+    public ShipTripStoreDB getShipTripStoreDB() {
+        return shipTripStoreDB;
+    }
+
+    /**
      * Returns the Company's Authfacade.
      * @return the Company's Authfacade.
      */
     public AuthFacade getAuthFacade() {
         return authFacade;
     }
+
+
 
 
 
