@@ -41,6 +41,7 @@ public class GetContainerSituationController {
      */
 
 
+
     /**
      * Method which obtains the current location of a certain container.
      * @param containerID the container id
@@ -48,7 +49,7 @@ public class GetContainerSituationController {
      *
      * @return current location of the container
      */
-    public String getLocation(int containerID, int shipmentID) {
+    public String getLocation(int containerID, int shipmentID) throws SQLException {
         /*ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         DatabaseConnection connection = App.getInstance().getConnection();
         int shipTripID = shipTripStoreDB.getShipTripId(connection, containerID, shipmentID);

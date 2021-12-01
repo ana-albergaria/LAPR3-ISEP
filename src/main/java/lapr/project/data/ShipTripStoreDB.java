@@ -19,19 +19,22 @@ public class ShipTripStoreDB {
 
 
 
-    public int getShipTripId(DatabaseConnection databaseConnection, int containerId, int shipmentId) {
+
+    public int getShipTripId(DatabaseConnection databaseConnection, int containerId, int shipmentId) throws SQLException {
+        Connection connection = databaseConnection.getConnection();
+        CallableStatement cs = connection.prepareCall("{? = call get_shiptrip_id(?, ?)}");
+
         try {
-            Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call get_shiptrip_id(?, ?)}");
             cs.setInt(2, containerId);
             cs.setInt(3, shipmentId);
             cs.registerOutParameter(1, Types.INTEGER);
             cs.executeUpdate();
             int shipTripId = cs.getInt(1);
-            cs.close();
             return shipTripId;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            cs.close();
         }
         return -1;
     }
@@ -49,6 +52,6 @@ public class ShipTripStoreDB {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        throw new UnsupportedOperationException("Some error occured. Please try again.");
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 }
