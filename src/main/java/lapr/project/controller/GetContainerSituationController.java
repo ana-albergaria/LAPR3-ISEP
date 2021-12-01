@@ -33,12 +33,13 @@ public class GetContainerSituationController {
     }
 
     /*public static void main(String[] args) throws SQLException {
-        GetContainerSituationController ctrl = new GetContainerSituationController();
+        Company company = new Company("Shipping Company");
+        GetContainerSituationController ctrl = new GetContainerSituationController(company);
         String location = ctrl.getLocation(1,7);
         System.out.println(location);
-
     }
      */
+
 
     /**
      * Method which obtains the current location of a certain container.
@@ -46,13 +47,9 @@ public class GetContainerSituationController {
      * @param shipmentID the shipment id
      *
      * @return current location of the container
-     * @throws SQLException throws exception if the container id and/or the shipment id
-     * inserted aren't valid.
      */
-    public String getLocation(int containerID, int shipmentID) throws SQLException {
-        //tem de se ir buscar a ShipTripStoreDB à Company?
-        //a DataBaseConnection não devia ser à Company?
-        /*ShipTripStoreDB shipTripStoreDB = new ShipTripStoreDB();
+    public String getLocation(int containerID, int shipmentID) {
+        /*ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         DatabaseConnection connection = App.getInstance().getConnection();
         int shipTripID = shipTripStoreDB.getShipTripId(connection, containerID, shipmentID);
         String containerLocation = shipTripStoreDB.getLocation(connection, shipTripID);
