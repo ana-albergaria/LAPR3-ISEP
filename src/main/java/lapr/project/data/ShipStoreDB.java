@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ShipStoreDatabase implements Persistable{
+public class ShipStoreDB implements Persistable{
     @Override
     public boolean save(DatabaseConnection databaseConnection, Object object) {
         boolean returnValue = false;
@@ -36,7 +36,7 @@ public class ShipStoreDatabase implements Persistable{
                 if (!isShipInDataBase(databaseConnection, mmsiShipToSearch)) {
                     throw new SQLException("Ship must exist to save a position with its mmsi");
                 }
-                PositionsStore positionsStore = new PositionsStore();
+                PositionsDB positionsStore = new PositionsDB();
                 positionsStore.save(databaseConnection, positionToSave);
             }catch (SQLException ex) {
                 Logger.getLogger(ShipStore.class.getName())
@@ -58,7 +58,7 @@ public class ShipStoreDatabase implements Persistable{
 
     private void saveShipPositions(Ship ship, DatabaseConnection databaseConnection) throws SQLException {
         if(ship.getPositionsBST().size() > 0) {
-            PositionsStore positionsStore = new PositionsStore();
+            PositionsDB positionsStore = new PositionsDB();
             if(!isShipInDataBase(databaseConnection, ship)) {
                 throw new SQLException("Ship must exist to save a position with its mmsi");
             }
