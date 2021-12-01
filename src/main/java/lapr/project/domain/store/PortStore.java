@@ -1,15 +1,11 @@
 package lapr.project.domain.store;
 
 import lapr.project.BSTesinf.KDTree;
-import lapr.project.controller.App;
-import lapr.project.data.PortStoreDatabase;
+import lapr.project.data.PortStoreDB;
 import lapr.project.domain.BST.Ports2DTree;
-import lapr.project.domain.BST.PositionsBST;
 import lapr.project.domain.model.Port;
-import lapr.project.domain.model.Ship;
 import lapr.project.dto.PortFileDTO;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -59,7 +55,7 @@ public class PortStore {
         if(!validatePort(port)){
             return false;
         }
-        PortStoreDatabase portStoreDatabase = new PortStoreDatabase();
+        PortStoreDB portStoreDatabase = new PortStoreDB();
         /*portStoreDatabase.save(App.getInstance().getConnection(), port);*/
         return ports2DTree.addNode(port, port.getLat(), port.getLon());
     }

@@ -2,12 +2,11 @@ package lapr.project.data;
 
 import lapr.project.domain.model.Port;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PortStoreDatabase implements Persistable {
+public class PortStoreDB implements Persistable {
     @Override
     public boolean save(DatabaseConnection databaseConnection, Object object) {
         Connection connection = databaseConnection.getConnection();
@@ -28,7 +27,7 @@ public class PortStoreDatabase implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             returnValue = false;
@@ -65,7 +64,7 @@ public class PortStoreDatabase implements Persistable {
                 }
 
                 catch (SQLException ex) {
-                    Logger.getLogger(PortStoreDatabase.class.getName())
+                    Logger.getLogger(PortStoreDB.class.getName())
                             .log(Level.SEVERE, null, ex);
                     databaseConnection.registerError(ex);
                 }
@@ -92,7 +91,7 @@ public class PortStoreDatabase implements Persistable {
         }
 
         catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             returnValue = false;
@@ -113,7 +112,7 @@ public class PortStoreDatabase implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
         }
@@ -133,7 +132,7 @@ public class PortStoreDatabase implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
         }
@@ -157,7 +156,7 @@ public class PortStoreDatabase implements Persistable {
                 returnVal = true;
             }
             catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             return returnVal;
@@ -187,7 +186,7 @@ public class PortStoreDatabase implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             return returnVal;
@@ -209,7 +208,7 @@ public class PortStoreDatabase implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             returnValue = false;
@@ -231,7 +230,7 @@ public class PortStoreDatabase implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PortStoreDatabase.class.getName())
+            Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             returnValue = false;

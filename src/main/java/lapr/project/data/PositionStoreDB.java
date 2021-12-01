@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PositionsStore implements Persistable {
+public class PositionStoreDB implements Persistable {
     @Override
     public boolean save(DatabaseConnection databaseConnection, Object object) {
         Connection connection = databaseConnection.getConnection();
@@ -46,7 +46,7 @@ public class PositionsStore implements Persistable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PositionsStore.class.getName())
+            Logger.getLogger(PositionStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
             returnValue = false;
