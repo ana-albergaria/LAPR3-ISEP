@@ -4,7 +4,7 @@ hide empty methods
 hide empty attributes
 skinparam classAttributeIconSize 0
 
-class PortManager{
+class ShipCaptain{
     -name
 }
 
@@ -27,7 +27,7 @@ class CargoManifest{
     -registationTime
 }
 
-class ShipTripDocumentation{
+class ShipTrip{
     -shipTripID
     -mmsi
     -loadingCargoManifest
@@ -42,10 +42,10 @@ class Container{
     -isoCode
 }
 
-PortManager "1" -- "1..*" ShipTripDocumentation : analyses >
+ShipCaptain "1" -- "1..*" ShipTrip : analyses >
 Company "1" -- "1..*" Ship : owns >
-Ship "1" -- "1..*" ShipTripDocumentation : owns >
+Ship "1" -- "1..*" ShipTrip : owns >
 CargoManifest "1..*" -- "1..*" Container : contains >
-ShipTripDocumentation "1" -- "1..2" CargoManifest : contains >
+ShipTrip "1" -- "1..2" CargoManifest : contains >
 
 @enduml
