@@ -84,10 +84,17 @@ public class ShipTripStoreDB {
         String str = "Next Port ID: ";
 
         File file = new File("offloadedContainers.txt");
-        if (!file.exists())
-            file.createNewFile();
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         FileWriter fw = new FileWriter(file, false);
+
+
         BufferedWriter bw = new BufferedWriter(fw);
 
 
@@ -123,8 +130,10 @@ public class ShipTripStoreDB {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } catch (Exception e) {
-            throw new IOException("Can't put result in file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            bw.close();
         }
 
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
