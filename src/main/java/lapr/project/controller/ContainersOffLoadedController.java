@@ -17,8 +17,8 @@ public class ContainersOffLoadedController {
         this.store = comp.getShipTripStoreDB();
     }
 
-    public int getNextPortID(int mmsi) throws Exception {
-        //return store.getNextPortID(database, mmsi);
+    public void getListOffloadedContainers(int mmsi) throws Exception {
+        //store.getNextPortID(database, mmsi);
         throw new Exception("to be developed.");
     }
 }
