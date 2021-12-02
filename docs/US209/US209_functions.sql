@@ -6,7 +6,10 @@ begin
 
 select loading_manifest_id into f_cargoManifest_id
 from shipTrip
-where mmsi=f_mmsi AND est_departure_date<=f_date AND est_arrival_date>0;
+where mmsi=f_mmsi AND est_departure_date<=f_date AND est_arrival_date>f_date; --é um loading se a data está entre o departure e o arrival
+
+
+
 --select unloading_manifest_id into f_cargoManifest_id
 --from shipTrip
 --where  mmsi=f_mmsi AND est_arrival_date>=0 AND ; --AND est_departure_date DA SHIP TRIP QUE OCORREU DEPOIS DESSA
