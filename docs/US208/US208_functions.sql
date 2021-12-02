@@ -7,7 +7,7 @@ begin
 select mmsi into f_mmsi
 from shipTrip
 where loading_cargo_id = f_cargoManifest_id OR unloading_cargo_id = f_cargoManifest_id;
-select current_capacity into f_max_capacity
+select currentCapacity into f_max_capacity
 from ship
 where mmsi = f_mmsi;
 return (f_max_capacity);
@@ -23,7 +23,7 @@ f_num_containers_per_cargoManifest integer;
 begin
 select count(*) into f_num_containers_per_cargoManifest
 from containerInCargoManifest
-where cargoManifest_id = f_cargoManifest_id
+where cargoManifest_id = f_cargoManifest_id;
 return (f_num_containers_per_cargoManifest);
 exception
 when no_data_found then
@@ -31,7 +31,7 @@ return 0;
 end;
 
 --GET_INITIAL_NUM_CONTAINERS_PER_SHIP_TRIP
-create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer
+create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer --est date como parametro
 is
 f_shiptrip_id shipTrip.shiptrip_id%type;
 f_est_departure_date shipTrip.est_departure_date%type;
@@ -39,6 +39,11 @@ f_comp_shiptrip_id shipTrip.shiptrip_id%type;
 f_comp_loading_cargo_id shipTrip.loading_cargo_id%type;
 f_comp_unloading_cargo_id shipTrip.unloading_cargo_id%type;
 f_initial_num_containers_per_ship_trip integer;
+cursor shipTrips
+is
+select shiptrip_id
+from shipTrip
+where est_departure_date < f_est_departure_date; --o f_est_departure_date ainda está vazio??
 begin
 select shiptrip_id into f_shiptrip_id
 from shipTrip
@@ -49,20 +54,15 @@ where shiptrip_id = f_shiptrip_id;
 select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id
 from shipTrip
 where shiptrip_id = f_comp_shiptrip_id;
-cursor shipTrips
-is
-select shiptrip_id
-from shipTrip
-where est_departure_date < f_est_departure_date;
 loop
-    fetch shipTrips into f_comp_shiptrip_id;
-    exit when shipTrips%notfound;
-    select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id
-    from shipTrip
-    where shiptrip_id = f_comp_shiptrip_id;
-    f_initial_num_containers_per_ship_trip := f_initial_num_containers_per_ship_trip + get_num_containers_per_cargoManifest(f_comp_loading_cargo_id) - get_num_containers_per_cargoManifest(f_comp_unloading_cargo_id);
-end loop
-return (f_initial_num_containers_per_ship_trip);
+fetch shipTrips into f_comp_shiptrip_id;
+exit when shipTrips%notfound;
+select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id
+from shipTrip
+where shiptrip_id = f_comp_shiptrip_id;
+f_initial_num_containers_per_ship_trip := f_initial_num_containers_per_ship_trip + get_num_containers_per_cargoManifest(f_comp_loading_cargo_id) - get_num_containers_per_cargoManifest(f_comp_unloading_cargo_id);
+end loop;
+return f_initial_num_containers_per_ship_trip;
 exception
 when no_data_found then
 return 0;

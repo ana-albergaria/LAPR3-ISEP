@@ -54,4 +54,18 @@ public class ShipTripStoreDB {
         }
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
+
+    public int getNextPortID(DatabaseConnection databaseConnection, int mmsi) {
+
+        try {
+            Connection connection = databaseConnection.getConnection();
+            CallableStatement cs = connection.prepareCall("{? = call get_port(?)}");
+            int portId=0;
+            return portId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+    }
 }
