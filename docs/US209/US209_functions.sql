@@ -6,10 +6,10 @@ begin
 
 select loading_manifest_id into f_cargoManifest_id
 from shipTrip
-where est_departure_date<=f_date AND est_arrival_date>0;
+where mmsi=f_mmsi AND est_departure_date<=f_date AND est_arrival_date>0;
 --select unloading_manifest_id into f_cargoManifest_id
 --from shipTrip
---where est_arrival_date>=0 AND ; --AND est_departure_date DA SHIP TRIP QUE OCORREU DEPOIS DESSA
+--where  mmsi=f_mmsi AND est_arrival_date>=0 AND ; --AND est_departure_date DA SHIP TRIP QUE OCORREU DEPOIS DESSA
 
 --E ISTO DEVIA SER SE AINDA NAO ACONTECEU, CASO CONTRARIO DEVIAM SER USADOS OS REAL E NAO OS EST
 

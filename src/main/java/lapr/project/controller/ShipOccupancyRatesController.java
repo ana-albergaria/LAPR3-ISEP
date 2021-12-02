@@ -44,6 +44,7 @@ public class ShipOccupancyRatesController {
 
     public int getShipOccupancyRateByCargoManifestID(int cargoManifestID){
         int maxCapacity=0, initialNumContainers=0, addedContainersNum=0, removedContainersNum=0;
+
         calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum,removedContainersNum);
         throw new IllegalArgumentException("to be developed");
     }

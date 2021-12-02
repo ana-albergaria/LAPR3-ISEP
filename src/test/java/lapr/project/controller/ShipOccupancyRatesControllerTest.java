@@ -21,10 +21,10 @@ public class ShipOccupancyRatesControllerTest {
     public void testOccupancyRatesCalculationWhenValid(){
         int maxCapacity1=75;
         int initialNumContainers1=15;
-        int addedContainerNum1=36;
+        int addedContainersNum1=36;
         int removedContainersNum1=12;
         int expected=52;
-        double actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainerNum1,removedContainersNum1);
+        double actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainersNum1,removedContainersNum1);
         Assertions.assertEquals(expected,actual);
     }
 
@@ -32,10 +32,10 @@ public class ShipOccupancyRatesControllerTest {
     public void testOccupancyRatesCalculationWhenInvalid(){
         int maxCapacity1=30;
         int initialNumContainers1=15;
-        int addedContainerNum1=36;
+        int addedContainersNum1=36;
         int removedContainersNum1=12;
         int expected=-1;
-        double actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainerNum1,removedContainersNum1);
+        double actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,addedContainersNum1,removedContainersNum1);
         Assertions.assertEquals(expected,actual);
     }
 
