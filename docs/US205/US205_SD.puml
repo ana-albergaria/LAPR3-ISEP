@@ -4,18 +4,30 @@ autonumber
 actor "Ship Captain" as SC
 participant ":ContainersOffLoadedUI" as UI
 participant ":ContainersOffLoadedController" as CTRL
-participant ":Company" as CMP
-participant ":ShipStore" as STORE
-participant ":ShipsBST" as SBST
-participant ":Ship" as SHIP
+participant ":ShipTripStore" as SBST
+participant ":Port" as PORT
 
 activate SC
 SC -> UI :asks for the list of containers to be offloaded in the next port
 activate UI
-UI --> SC : asks for shipId
+UI --> SC : asks for mmsi
 deactivate UI
 SC -> UI : types requested data
 activate UI
+UI -> CTRL : getNextPort(mmsi)
+activate CTRL
+CTRL -> SBST : getNextPortID(databaseConection, mmsi)
+activate SBST
+deactivate SBST
+CTRL -> UI : port
+deactivate CTRL
+UI -> CTRL : getListOffloadedContainers(mmsi)
+activate CTRL
+CTRL -> SBST : getListOffloadedContainers(databaseConection, mmsi)
+activate SBST
+deactivate SBST
+CTRL -> UI : offloadedList
+deactivate CTRL
 UI --> SC : displays the list of containers to be offloaded in the next port
 deactivate UI
 deactivate SC

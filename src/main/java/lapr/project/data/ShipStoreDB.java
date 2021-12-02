@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 public class ShipStoreDB implements Persistable{
 
     public String getNumberOfCMAndAverageContForYear(int year, int mmsi){
+        String returnMessage=String.format("None cargo manifests were carryed in %d", year);
         String createProcedure = "CREATE OR REPLACE PROCEDURE count_CargoManifests_Avg_Containers (givenYear in Varchar, mmsiCode in Varchar, numCargoManifests out Integer, mediaCont out Integer)\n" +
                 "IS\n" +
                 "    shipscode Ship.mmsi%type;\n" +
@@ -80,14 +81,14 @@ public class ShipStoreDB implements Persistable{
 
             int numCm = callableStatement.getInt(3);
             int avgContainer = callableStatement.getInt(4);
-            System.out.println(numCm + " " + avgContainer);
+            returnMessage = String.format("Number of cargo manifests in %d:\n%d\nAverage number of containers per cargo manifest:\n%d\n", year, numCm, avgContainer);
         }catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return returnMessage;
     }
 
     @Override
