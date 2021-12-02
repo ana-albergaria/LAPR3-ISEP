@@ -1,18 +1,95 @@
 package lapr.project.data;
 
+import lapr.project.controller.App;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.store.ShipStore;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
+
+    public String getNumberOfCMAndAverageContForYear(int year, int mmsi){
+        String createProcedure = "CREATE OR REPLACE PROCEDURE count_CargoManifests_Avg_Containers (givenYear in Varchar, mmsiCode in Varchar, numCargoManifests out Integer, mediaCont out Integer)\n" +
+                "IS\n" +
+                "    shipscode Ship.mmsi%type;\n" +
+                "    loadcargoscode cargomanifest.cargomanifest_id%type;\n" +
+                "    unloadcargoscode cargomanifest.cargomanifest_id%type;\n" +
+                "    numContainersInCm Integer;\n" +
+                "    somaTotalContainer Integer;\n" +
+                "    contadorCm Integer;\n" +
+                "\n" +
+                "    Cursor cargosLoad IS\n" +
+                "        Select loading_cargo_id\n" +
+                "        from shiptrip\n" +
+                "        where mmsi=mmsiCode AND extract(year from real_departure_date)=givenYear;\n" +
+                "\n" +
+                "    Cursor cargosUnload IS\n" +
+                "        Select unloading_cargo_id\n" +
+                "        from shiptrip\n" +
+                "        where mmsi=mmsiCode AND extract(year from real_arrival_date)=givenYear;\n" +
+                "BEGIN\n" +
+                "    contadorCm :=0;\n" +
+                "    somaTotalContainer:=0;\n" +
+                "\n" +
+                "   open cargosLoad;\n" +
+                "    LOOP\n" +
+                "        fetch cargosLoad INTO loadcargoscode;\n" +
+                "        Exit When cargosLoad%notfound;\n" +
+                "        dbms_output.put_line('cargo load id: ' || loadcargoscode);\n" +
+                "        contadorCm := contadorCm + 1;\n" +
+                "        dbms_output.put_line('cargocount ' || contadorCm);\n" +
+                "        select count(*) into numContainersInCm from containerincargomanifest where cargomanifest_id=loadcargoscode;\n" +
+                "        somaTotalContainer := somaTotalContainer + numContainersInCm;\n" +
+                "        dbms_output.put_line('cont count ' || somaTotalContainer);\n" +
+                "    END LOOP;\n" +
+                "\n" +
+                "    open cargosUnload;\n" +
+                "     LOOP\n" +
+                "        fetch cargosUnload INTO unloadcargoscode;\n" +
+                "        Exit When cargosUnload%notfound;\n" +
+                "        dbms_output.put_line('cargo unload id: ' || unloadcargoscode);\n" +
+                "        contadorCm := contadorCm + 1;\n" +
+                "        dbms_output.put_line('cargocount ' || contadorCm);\n" +
+                "        select count(*) into numContainersInCm from containerincargomanifest where cargomanifest_id=unloadcargoscode;\n" +
+                "        somaTotalContainer := somaTotalContainer + numContainersInCm;\n" +
+                "        dbms_output.put_line('cont count ' || somaTotalContainer);\n" +
+                "    END LOOP;\n" +
+                "\n" +
+                "    numCargoManifests := contadorCm;\n" +
+                "    mediaCont := (somaTotalContainer / contadorCm);\n" +
+                "    dbms_output.put_line('final number of CM ' || numCargoManifests);\n" +
+                "    dbms_output.put_line('mean of containers ' || mediaCont);\n" +
+                "END;";
+
+        String runSP = "{ call count_CargoManifests_Avg_Containers(?,?,?,?) }";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try(Statement createPrcedureStat = connection.createStatement();
+            CallableStatement callableStatement = connection.prepareCall(runSP)) {
+            createPrcedureStat.execute(createProcedure);
+            callableStatement.setString(1, String.valueOf(year));
+            callableStatement.setString(2, String.valueOf(mmsi));
+            callableStatement.registerOutParameter(3, Types.INTEGER);
+            callableStatement.registerOutParameter(4, Types.INTEGER);
+
+            callableStatement.executeUpdate();
+
+            int numCm = callableStatement.getInt(3);
+            int avgContainer = callableStatement.getInt(4);
+            System.out.println(numCm + " " + avgContainer);
+        }catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public boolean save(DatabaseConnection databaseConnection, Object object) {
         boolean returnValue = false;

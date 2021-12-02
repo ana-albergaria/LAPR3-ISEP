@@ -1,6 +1,7 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
+import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.store.ShipStore;
@@ -27,7 +28,7 @@ public class Company {
      * The Ship Store.
      */
     private final ShipStore shipsStore;
-
+    private final ShipStoreDB shipStoreDB;
     /**
      * The Port Store.
      */
@@ -49,6 +50,7 @@ public class Company {
         this.shipsStore = new ShipStore();
         this.portStore = new PortStore();
         this.shipTripStoreDB = new ShipTripStoreDB();
+        this.shipStoreDB = new ShipStoreDB();
     }
 
     /**
@@ -76,6 +78,10 @@ public class Company {
      */
     public ShipTripStoreDB getShipTripStoreDB() {
         return shipTripStoreDB;
+    }
+
+    public ShipStoreDB getShipStoreDB() {
+        return shipStoreDB;
     }
 
     /**
