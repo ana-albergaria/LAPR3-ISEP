@@ -1059,7 +1059,7 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (787448, 3598, -25);
 
 --400 container in cargo manifest inserted
-
+alter session set nls_date_format = 'DD-MON-YYYY';
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (91641, 305373000, 18476, 21457, 62590, 62698, '27-Feb-2021', '29-May-2021', '22-Feb-2021', '14-Apr-2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (56772, 303267000, 28313, 20826, 57546, 73258, '05-Feb-2021', '09-Apr-2021', '02-Feb-2021', '14-May-2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (19250, 636092932, 22522, 16485, 62590, 3598, '20-Mar-2021', '21-Jun-2021', '05-Mar-2021', '08-Apr-2021');
