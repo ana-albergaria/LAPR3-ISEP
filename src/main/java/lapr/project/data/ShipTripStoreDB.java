@@ -76,7 +76,7 @@ public class ShipTripStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
-    public void getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
+    public void getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException, SQLException {
         String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%n",
                 "Container ID", "ISO Code", "Payload", "Positionx","PositionY", "PositionZ");
 
@@ -96,14 +96,14 @@ public class ShipTripStoreDB {
 
 
         BufferedWriter bw = new BufferedWriter(fw);
-
-
+        CallableStatement cs;
+        Connection connection = databaseConnection.getConnection();
+        cs = connection.prepareCall("{? = call offloaded(?)}");
         try {
             bw.write(str);
             bw.write(portId);
             bw.write(header);
-            Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call offloaded(?)}");
+
             cs.setInt(2, mmsi);
             cs.registerOutParameter(1, OracleTypes.CURSOR);
             cs.executeUpdate();
@@ -126,13 +126,14 @@ public class ShipTripStoreDB {
                 bw.write(positiony);
                 bw.write(positionz);
             }
-            cs.close();
+
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            cs.close();
             bw.close();
         }
 
