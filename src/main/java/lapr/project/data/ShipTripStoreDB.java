@@ -171,7 +171,7 @@ public class ShipTripStoreDB {
         int portId = getNextPortID(databaseConnection, mmsi);
         String str = "Next Port ID: ";
 
-        File file = new File("offloadedContainers.txt");
+        /*File file = new File("offloadedContainers.txt");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -183,14 +183,14 @@ public class ShipTripStoreDB {
         FileWriter fw = new FileWriter(file, false);
 
 
-        BufferedWriter bw = new BufferedWriter(fw);
+        BufferedWriter bw = new BufferedWriter(fw);*/
         CallableStatement cs;
         Connection connection = databaseConnection.getConnection();
         cs = connection.prepareCall("{? = call offloaded(?)}");
         try {
-            bw.write(str);
+            /*bw.write(str);
             bw.write(portId);
-            bw.write(header);
+            bw.write(header);*/
 
             cs.setInt(2, mmsi);
             cs.registerOutParameter(1, OracleTypes.CURSOR);
@@ -207,22 +207,20 @@ public class ShipTripStoreDB {
                 int positiony = cs1.getInt(5);
                 int positionz = cs1.getInt(6);
 
-                bw.write(containerId);
+                /*bw.write(containerId);
                 bw.write(isoCode);
                 bw.write(payload);
                 bw.write(positionx);
                 bw.write(positiony);
-                bw.write(positionz);
+                bw.write(positionz);*/
             }
 
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             cs.close();
-            bw.close();
+            //bw.close();
         }
 
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
