@@ -31,17 +31,7 @@ public class GetContainerSituationController {
     public GetContainerSituationController(Company company) {
         this.company=company;
     }
-
-    /*public static void main(String[] args) throws SQLException {
-        Company company = new Company("Shipping Company");
-        GetContainerSituationController ctrl = new GetContainerSituationController(company);
-        String location = ctrl.getLocation(1,7);
-        System.out.println(location);
-    }
-     */
-
-
-
+    
     /**
      * Method which obtains the current location of a certain container.
      * @param containerID the container id
@@ -50,12 +40,10 @@ public class GetContainerSituationController {
      * @return current location of the container
      */
     public String getLocation(int containerID, int shipmentID) throws SQLException {
-        /*ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         DatabaseConnection connection = App.getInstance().getConnection();
         int shipTripID = shipTripStoreDB.getShipTripId(connection, containerID, shipmentID);
         String containerLocation = shipTripStoreDB.getLocation(connection, shipTripID);
         return containerLocation;
-         */
-        throw new UnsupportedOperationException("Not supported yet");
     }
 }
