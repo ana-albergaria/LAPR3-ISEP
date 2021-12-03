@@ -5,7 +5,7 @@ actor "Traffic Manager" as SC
 participant ":ShipCaptainUi  " as UI
 participant ":findAvailableShipsController" as CTRL
 participant ":Company" as CP
-participant ":ShipStoreDatabase" as SS
+participant ":ShipStoreDB" as SS
 
 
 activate SC

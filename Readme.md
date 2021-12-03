@@ -1063,7 +1063,7 @@ As Client, I want to know the current situation of a specific container being us
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US204-SSD](US204_SSD.svg)
+![US204-SSD](./docs/US204/US204_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1075,7 +1075,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US204-MD](US204_DM.svg)
+![US204-MD](./docs/US204/US204_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1087,11 +1087,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US204-SD](US204_SD.svg)
+![US204-SD](./docs/US204/US204_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US204-CD](US204_CD.svg)
+![US204-CD](./docs/US204/US204_CD.svg)
 
 # 4. Tests
 
@@ -1123,6 +1123,91 @@ For the tests, it is needed to instanciate a Datebaseconnection object and Calla
 ```
 
 
+
+
+# US 104 - Get Available Ships on Monday Next Week
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Traffic manager, I need to know which ships will be available on Monday next week and their location.
+
+### 1.2. Acceptance Criteria
+
+* Monday next week is properly identified.
+* Only available ships are returned.
+* All available ships are returned.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * n/a
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* available ships next monday next week
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US210/US210_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US210/US210_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US210/US_210_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US210/US210_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getNextMondayAvailableShips() is functioning correctly.
+```
+@Test
+    public void getNextMondayAvailableShips() {
+    }
+```
+
+### FindAvailableShipsController Class
+
+**Test 3:** Test to ensure getNextMondayAvailableShips() is functioning properly
+```
+@Test
+    public void getNextMondayAvailableShips() {
+    }
+```
 
 
 
