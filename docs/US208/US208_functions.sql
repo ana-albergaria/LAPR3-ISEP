@@ -1,4 +1,5 @@
 --GET_MAX_CAPACITY
+--SHIP STORE
 create or replace function get_max_capacity(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer
 is
 f_mmsi shipTrip.mmsi%type;
@@ -17,6 +18,7 @@ return 0;
 end;
 
 --GET_NUM_CONTAINERS_PER_CARGO_MANIFEST
+--CARGO MANIFEST STORE
 create or replace function get_num_containers_per_cargoManifest(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer
 is
 f_num_containers_per_cargoManifest integer;
@@ -31,6 +33,7 @@ return 0;
 end;
 
 --GET_EST_DEPARTURE_DATE_FROM_SHIP_TRIP
+--SHIP TRIP STORE
 create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type
 is
 f_shiptrip_id shipTrip.shiptrip_id%type;
@@ -46,6 +49,7 @@ return f_est_departure_date;
 end;
 
 --GET_INITIAL_NUM_CONTAINERS_PER_SHIP_TRIP
+--SHIP TRIP STORE
 create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,
 f_est_departure_date shipTrip.est_departure_date%type) return integer --est date como parametro
 is

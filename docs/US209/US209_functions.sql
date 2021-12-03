@@ -1,4 +1,5 @@
 --GET_CARGO_MANIFEST_BY_MMSI_AND_DATE
+--CARGO MANIFEST STORE
 create or replace function get_cargo_manifest_by_mmsi_and_date(f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return cargoManifest.cargoManifest_id%type
 is
 f_shiptrip_id shipTrip.shiptrip_id%type;
