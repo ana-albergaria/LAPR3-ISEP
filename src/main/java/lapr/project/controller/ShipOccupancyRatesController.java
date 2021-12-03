@@ -1,5 +1,8 @@
 package lapr.project.controller;
 
+import lapr.project.data.CargoManifestStoreDB;
+import lapr.project.data.ShipStoreDB;
+import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.util.Date;
@@ -56,10 +59,16 @@ public class ShipOccupancyRatesController {
      */
     public double getShipOccupancyRateByCargoManifestID(int cargoManifestID){
         int maxCapacity=0, initialNumContainers=0, addedContainersNum=0, removedContainersNum=0;
-        /*maxCapacity=;
-        initialNumContainers=;
-        addedContainersNum=;
-        removedContainersNum=;*/
+        ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
+        maxCapacity=shipStoreDB.getShipCargo(cargoManifestID);
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        Date estDepDate = shipTripStoreDB.getEstDepartureDateFromShipTrip(cargoManifestID);
+        initialNumContainers=shipTripStoreDB.getInitialNumContainersPerShipTrip(cargoManifestID,estDepDate);
+        CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
+        //ver se o cargo manifest é de loading ou unloading
+        //se for loading:
+        addedContainersNum=cargoManifestStoreDB.getNumContainersPerCargoManifest(cargoManifestID);
+        //se for unloading, acrescentar os removed
         return calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum,removedContainersNum);
     }
 
@@ -70,9 +79,10 @@ public class ShipOccupancyRatesController {
      * @return cargo manifest id.
      */
     public int getCargoManifestIDByMmsiAndDate(int mmsi, Date date){
-        /*int cargoManifestID =;
-        return cargoManifestID;*/
-        throw new IllegalArgumentException("to be developed");
+        CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
+        int cargoManifestID = cargoManifestStoreDB.getCargoManifestByMmsiAndDate(mmsi,date);
+        return cargoManifestID;
+        //throw new IllegalArgumentException("to be developed");
     }
 
     /**

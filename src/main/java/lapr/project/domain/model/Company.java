@@ -1,6 +1,7 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
+import lapr.project.data.CargoManifestStoreDB;
 import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.store.PortStore;
@@ -39,6 +40,11 @@ public class Company {
     private final ShipTripStoreDB shipTripStoreDB;
 
     /**
+     * The Cargo Manifest Store Data Base.
+     */
+    private final CargoManifestStoreDB cargoManifestStoreDB;
+
+    /**
      * Constructs an instance of Company receiving as a parameter the Company's designation
      * @param designation the Company's designation
      */
@@ -51,6 +57,7 @@ public class Company {
         this.portStore = new PortStore();
         this.shipTripStoreDB = new ShipTripStoreDB();
         this.shipStoreDB = new ShipStoreDB();
+        this.cargoManifestStoreDB=new CargoManifestStoreDB();
     }
 
     /**
@@ -82,6 +89,15 @@ public class Company {
 
     public ShipStoreDB getShipStoreDB() {
         return shipStoreDB;
+    }
+
+    /**
+     * Returns the Cargo Manifest Store DataBase.
+     *
+     * @return the Cargo Manifest Store DataBase.
+     */
+    public CargoManifestStoreDB getCargoManifestStoreDB(){
+        return cargoManifestStoreDB;
     }
 
     /**

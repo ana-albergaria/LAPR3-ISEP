@@ -12,6 +12,11 @@ import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
 
+    /**
+     * Get a ship cargo (maximum capacity) by a cargo manifest ID.
+     * @param cargoManifestID cargo manifest ID.
+     * @return ship cargo.
+     */
     public int getShipCargo(int cargoManifestID){
         int result = 0;
         String createFunction = "create or replace function get_max_capacity(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer\n" +

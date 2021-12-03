@@ -31,7 +31,7 @@ public class GetContainerSituationController {
     public GetContainerSituationController(Company company) {
         this.company=company;
     }
-    
+
     /**
      * Method which obtains the current location of a certain container.
      * @param containerID the container id
