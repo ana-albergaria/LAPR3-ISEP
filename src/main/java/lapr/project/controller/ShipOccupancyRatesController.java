@@ -42,12 +42,12 @@ public class ShipOccupancyRatesController {
      * @param alreadyAddedRemovedContainersTripNum containers added and removed in loading and unloading cargo manifest.
      * @return ship occupancy rate in percentage.
      */
-    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
-        double current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
+    public int calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
+        int current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
         if (current>maxCapacity){
             return -1; //when invalid
         } else {
-            return (current/maxCapacity)*100;
+            return (current*100/maxCapacity);
         }
     }
 

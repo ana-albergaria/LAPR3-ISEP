@@ -37,7 +37,7 @@ public class ShipOccupancyRatesControllerTest {
         int initialNumContainers1=15;
         int alreadyAddedRemovedContainersTripNum1=12;
         int expected=36;
-        double actual=shipOccupancyRatesController.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
+        int actual=shipOccupancyRatesController.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
         Assertions.assertEquals(expected,actual);
     }
 
@@ -50,7 +50,7 @@ public class ShipOccupancyRatesControllerTest {
         int initialNumContainers1=15;
         int alreadyAddedRemovedContainersTripNum1=20;
         int expected=-1;
-        double actual=shipOccupancyRatesController.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
+        int actual=shipOccupancyRatesController.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
         Assertions.assertEquals(expected,actual);
     }
 
