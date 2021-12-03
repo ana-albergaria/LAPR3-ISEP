@@ -1,5 +1,7 @@
 package lapr.project.controller;
 
+import lapr.project.data.ShipStoreDB;
+import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.util.Date;
@@ -56,10 +58,13 @@ public class ShipOccupancyRatesController {
      */
     public double getShipOccupancyRateByCargoManifestID(int cargoManifestID){
         int maxCapacity=0, initialNumContainers=0, addedContainersNum=0, removedContainersNum=0;
-        /*maxCapacity=;
-        initialNumContainers=;
+        ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
+        maxCapacity=shipStoreDB.getShipCargo(cargoManifestID);
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        Date estDepDate = shipTripStoreDB.getEstDepartureDateFromShipTrip(cargoManifestID);
+        initialNumContainers=shipTripStoreDB.getInitialNumContainersPerShipTrip(cargoManifestID,estDepDate);
         addedContainersNum=;
-        removedContainersNum=;*/
+        removedContainersNum=;
         return calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum,removedContainersNum);
     }
 
