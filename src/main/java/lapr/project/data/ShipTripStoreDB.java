@@ -1,11 +1,14 @@
 package lapr.project.data;
 
 import lapr.project.controller.App;
+import oracle.jdbc.OracleTypes;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.*;
+import java.util.List;
 
 public class ShipTripStoreDB {
 
@@ -60,12 +63,80 @@ public class ShipTripStoreDB {
         try {
             Connection connection = databaseConnection.getConnection();
             CallableStatement cs = connection.prepareCall("{? = call get_port(?)}");
-            int portId=0;
+            cs.setInt(2, mmsi);
+            cs.registerOutParameter(1, Types.INTEGER);
+            cs.executeUpdate();
+            int portId= cs.getInt(1);
+            cs.close();
             return portId;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+    }
+
+    public void getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
+        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%n",
+                "Container ID", "ISO Code", "Payload", "Positionx","PositionY", "PositionZ");
+
+        int portId = getNextPortID(databaseConnection, mmsi);
+        String str = "Next Port ID: ";
+
+        File file = new File("offloadedContainers.txt");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        FileWriter fw = new FileWriter(file, false);
+
+
+        BufferedWriter bw = new BufferedWriter(fw);
+
+
+        try {
+            bw.write(str);
+            bw.write(portId);
+            bw.write(header);
+            Connection connection = databaseConnection.getConnection();
+            CallableStatement cs = connection.prepareCall("{? = call offloaded(?)}");
+            cs.setInt(2, mmsi);
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeUpdate();
+
+
+            ResultSet cs1 = (ResultSet) cs.getObject(1);
+
+            while(cs1.next()) {
+                int containerId = cs1.getInt(1);
+                String isoCode = cs1.getString(2);
+                int payload = cs1.getInt(3);
+                int positionx = cs1.getInt(4);
+                int positiony = cs1.getInt(5);
+                int positionz = cs1.getInt(6);
+
+                bw.write(containerId);
+                bw.write(isoCode);
+                bw.write(payload);
+                bw.write(positionx);
+                bw.write(positiony);
+                bw.write(positionz);
+            }
+            cs.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            bw.close();
+        }
+
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+
     }
 }

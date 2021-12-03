@@ -5,7 +5,6 @@ actor "Ship Captain" as SC
 participant ":ContainersOffLoadedUI" as UI
 participant ":ContainersOffLoadedController" as CTRL
 participant ":ShipTripStore" as SBST
-participant ":Port" as PORT
 
 activate SC
 SC -> UI :asks for the list of containers to be offloaded in the next port
@@ -14,19 +13,15 @@ UI --> SC : asks for mmsi
 deactivate UI
 SC -> UI : types requested data
 activate UI
-UI -> CTRL : getNextPort(mmsi)
-activate CTRL
-CTRL -> SBST : getNextPortID(databaseConection, mmsi)
-activate SBST
-deactivate SBST
-CTRL -> UI : port
-deactivate CTRL
+
 UI -> CTRL : getListOffloadedContainers(mmsi)
 activate CTRL
 CTRL -> SBST : getListOffloadedContainers(databaseConection, mmsi)
+
 activate SBST
-deactivate SBST
+SBST -> SBST : getNextPortID(databaseConection, mmsi)
 CTRL -> UI : offloadedList
+deactivate SBST
 deactivate CTRL
 UI --> SC : displays the list of containers to be offloaded in the next port
 deactivate UI
