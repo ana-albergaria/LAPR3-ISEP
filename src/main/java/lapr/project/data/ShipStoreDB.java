@@ -12,6 +12,50 @@ import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
 
+    /**
+     * Get a ship cargo (maximum capacity) by a cargo manifest ID.
+     * @param cargoManifestID cargo manifest ID.
+     * @return ship cargo.
+     */
+    public int getShipCargo(int cargoManifestID){
+        int result = 0;
+        String createFunction = "create or replace function get_max_capacity(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer\n" +
+                "is\n" +
+                "f_mmsi shipTrip.mmsi%type;\n" +
+                "f_max_capacity integer;\n" +
+                "begin\n" +
+                "select mmsi into f_mmsi\n" +
+                "from shipTrip\n" +
+                "where loading_cargo_id = f_cargoManifest_id OR unloading_cargo_id = f_cargoManifest_id;\n" +
+                "select currentCapacity into f_max_capacity\n" +
+                "from ship\n" +
+                "where mmsi = f_mmsi;\n" +
+                "return (f_max_capacity);\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;";
+        String runFunction = "{? = call get_max_capacity(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try(Statement createFunctionStat = connection.createStatement();
+            CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(cargoManifestID));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        }catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public String getNumberOfCMAndAverageContForYear(int year, int mmsi){
         String returnMessage=String.format("None cargo manifests were carryed in %d", year);
         String createProcedure = "CREATE OR REPLACE PROCEDURE count_CargoManifests_Avg_Containers (givenYear in Varchar, mmsiCode in Varchar, numCargoManifests out Integer, mediaCont out Integer)\n" +

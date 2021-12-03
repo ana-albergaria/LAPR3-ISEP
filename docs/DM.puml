@@ -112,10 +112,22 @@ class EnergyPower{
 class Truck {}
 
 /'Classes not in the Data Model'/
-class Quote {}
+/'class Quote {}'/
 class System {}
 /'End of Classes not in the Data Model'/
 
+class ShipTrip{
+    -shipMmsi
+    /'has attribute phase?'/
+    -departure_location_id
+    -arrival_location_id
+    -loading_cargo_id
+    -unloading_cargo_id
+    -est_departure_date
+    -est_arrival_date
+    -real_departure_date
+    -real_arrival_date
+}
 
 
 Company "1" -- "1..*" System : has >
@@ -147,7 +159,7 @@ Truck "*" -- "1" Container : transports >
 /'Relations that is in the Data Model but to be evaluated'/
 Ship "1" -- "*" CargoManifest
 Truck -- CargoManifest /' lacks multiplicity '/
-PortsAndWareHouse "1" -- "*" CargoManifest : delivered at <
+/'PortsAndWareHouse "1" -- "*" CargoManifest : delivered at <'/
 /'End of Relatiosn that is in the Data Model but to be evaluated'/
 
 /'Relations not in the Data Model'/
@@ -165,6 +177,13 @@ WarehouseManager "1" -- "1..*" Warehouse : manages >
 PortManager "1" -- "1..*" Port : manages >
 
 Ship "1" -- "1" EnergyPower : has >
+
+/'US204'/
+Container "1..*"-- "2..*" CargoManifest : associated with >
+CargoManifest -- Port : delivered at >
+Ship "1" -- "*" ShipTrip : does >
+ShipTrip "*" -- "1" Port : to >
+ShipTrip "1" -- "2" CargoManifest : relates to >
 
 
 
