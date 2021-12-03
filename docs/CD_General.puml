@@ -10,6 +10,7 @@ class Company{
     - designation
     - shipsBST
     + getBstShip()
+    +getShipTripStoreDB()
 }
 
 class BST{
@@ -216,6 +217,15 @@ class ShowPairsOfShipsController {
     +getPairsOfShips()
 }
 
+class GetContainerSituationController{
+    +getLocation(containerID, shipmentID)
+}
+
+class ShipTripStoreDB {
+    +getShipTripId(databaseConnection, containerId, shipmentId)
+    +getLocation(databaseConnection, shipTripId)
+}
+
 MovementSummaryController ..> Company
 MovementSummaryController ..> ShipStore
 MovementSummaryController -- MovementSummaryDto: creates >
@@ -263,6 +273,9 @@ ShipsFileUtils ..> ShipsFileDTO
 ShipsFileUtils ..> PositionDTO
 ImportShipsController ..> ShipsFileDTO
 ShipsFileDTO ..> PositionDTO
+GetContainerSituationController ..> Company
+GetContainerSituationController ..> ShipTripStoreDB
+Company "1" -- "1" ShipTripStoreDB : uses >
 
 BST <|- PositionsBST
 BST <|- ShipsBST
