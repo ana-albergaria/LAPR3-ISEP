@@ -39,12 +39,11 @@ public class ShipOccupancyRatesController {
      * Calculate occupancy rate with maxCapacity, initialNumContainers, addedContainerNum and removedContainersNum.
      * @param maxCapacity ship cargo.
      * @param initialNumContainers ship trip initial num containers.
-     * @param addedContainerNum containers added in loading cargo manifest.
-     * @param removedContainersNum containers removed in loading cargo manifest.
+     * @param alreadyAddedRemovedContainersTripNum containers added and removed in loading and unloading cargo manifest.
      * @return ship occupancy rate in percentage.
      */
-    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int addedContainerNum, int removedContainersNum){
-        double current = initialNumContainers+addedContainerNum-removedContainersNum;
+    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
+        double current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
         if (current>maxCapacity){
             return -1; //when invalid
         } else {
@@ -58,18 +57,14 @@ public class ShipOccupancyRatesController {
      * @return ship occupancy rate in percentage.
      */
     public double getShipOccupancyRateByCargoManifestID(int cargoManifestID){
-        int maxCapacity=0, initialNumContainers=0, addedContainersNum=0, removedContainersNum=0;
+        int maxCapacity=0, initialNumContainers=0, alreadyAddedRemovedContainersTripNum=0;
         ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
         maxCapacity=shipStoreDB.getShipCargo(cargoManifestID);
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         Date estDepDate = shipTripStoreDB.getEstDepartureDateFromShipTrip(cargoManifestID);
         initialNumContainers=shipTripStoreDB.getInitialNumContainersPerShipTrip(cargoManifestID,estDepDate);
-        CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
-        //ver se o cargo manifest é de loading ou unloading
-        //se for loading:
-        addedContainersNum=cargoManifestStoreDB.getNumContainersPerCargoManifest(cargoManifestID);
-        //se for unloading, acrescentar os removed
-        return calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum,removedContainersNum);
+        alreadyAddedRemovedContainersTripNum=shipTripStoreDB.getAddedRemovedContainersShipTripMoment(cargoManifestID);
+        return calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum);
     }
 
     /**
