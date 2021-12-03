@@ -22,6 +22,11 @@ public class ShipTripStoreDB {
     }
      */
 
+    /**
+     * Get the estimated departure date of a ship trip given a cargo manifest ID.
+     * @param cargoManifestID cargo manifest ID.
+     * @return estimated departure date.
+     */
     public java.util.Date getEstDepartureDateFromShipTrip(int cargoManifestID) {
         Date result = new java.util.Date(1970, Calendar.JANUARY, 1, 0, 0, 0);
         String createFunction = "create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type\n" +
@@ -58,6 +63,12 @@ public class ShipTripStoreDB {
         return result;
     }
 
+    /**
+     * Get a ship trip's initial num of containers given a cargo manifest ID and a estimates departure date.
+     * @param cargoManifestID cargo manifest ID.
+     * @param estDepartureDate Ship trip's estimated departure date.
+     * @return ship trip's initial num of containers.
+     */
     public int getInitialNumContainersPerShipTrip(int cargoManifestID, Date estDepartureDate) {
         int result = 0;
         String createFunction = "create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,\n" +

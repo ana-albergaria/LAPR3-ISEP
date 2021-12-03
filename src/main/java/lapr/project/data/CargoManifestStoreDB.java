@@ -7,6 +7,11 @@ import java.util.Date;
 
 public class CargoManifestStoreDB{
 
+    /**
+     * Get the number of containers loaded or unloaded by a cargo manifest.
+     * @param cargoManifestID cargo manifest ID.
+     * @return number of containers loaded or unloaded by a cargo manifest.
+     */
     public int getNumContainersPerCargoManifest(int cargoManifestID){
         int result = 0;
         String createFunction = "create or replace function get_num_containers_per_cargoManifest(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer\n" +
@@ -42,7 +47,13 @@ public class CargoManifestStoreDB{
         return result;
     }
 
-    public int getCargoManifestByMmsiAndDate(int cargoManifestID, Date date){
+    /**
+     * Get a cargo manifest given a mmsi and a date.
+     * @param mmsi ship's mmsi.
+     * @param date date to analyse.
+     * @return cargo manifest ID.
+     */
+    public int getCargoManifestByMmsiAndDate(int mmsi, Date date){
         int result = 0;
         String createFunction = "create or replace function get_cargo_manifest_by_mmsi_and_date(f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return cargoManifest.cargoManifest_id%type\n" +
                 "is\n" +
@@ -73,7 +84,7 @@ public class CargoManifestStoreDB{
             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
-            callableStatement.setString(2, String.valueOf(cargoManifestID));
+            callableStatement.setString(2, String.valueOf(mmsi));
             callableStatement.setString(3, String.valueOf(date));
 
             callableStatement.executeUpdate();
