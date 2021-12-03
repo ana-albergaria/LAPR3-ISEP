@@ -32,13 +32,13 @@ exception
 END;
 
 --get list of offloaded containers
-create or replace function offloaded(mmsi ship.mmsi%type) return SYS_REFCURSOR
+create or replace function offcontainers_id(mmsi ship.mmsi%type) return SYS_REFCURSOR
 is
     container_cursor SYS_REFCURSOR;
 
 
     unload_id ShipTrip.unloading_cargo_id%type;
-	location ShipTrip.arrival_location%type;
+	location_id ShipTrip.arrival_location%type;
 	arrival_date ShipTrip.real_arrival_date%type;
     departure_date ShipTrip.real_departure_date%type;
 CURSOR ship_trips(trip ShipTrip.MMSI%type) IS
@@ -55,14 +55,50 @@ FETCH ship_trips INTO unload_id, location_id, arrival_date, departure_date;
 
 		IF arrival_date IS null AND departure_date IS NOT null THEN
             open container_cursor for
-select container.container_id, container.isocode, container.payload, positioninvehicule.containerpositionx, positioninvehicule.containerpositiony, positioninvehicule.containerpositionz
-from container, positioninvehicule
+select containerincargomanifest.container_id
+from containerincargomanifest
 where cargomanifest_id = unload_id;
-return (container_cursor);
+--dbms_output.put_line (unload_id);
 END IF;
 END LOOP;
 CLOSE ship_trips;
+return (container_cursor);
 exception
     when no_data_found then
         return null;
-end;    
+end;
+
+--get information of containers
+create or replace FUNCTION container_info(mmsi ship.mmsi%type) return SYS_REFCURSOR
+is
+    info_cursor SYS_REFCURSOR;
+
+    id_container containerincargomanifest.container_id%type;
+    info_id container.container_id%type;
+    pos_x positioninvehicule.containerpositionx%type;
+    pos_y positioninvehicule.containerpositiony%type;
+    pos_Z positioninvehicule.containerpositionz%type;
+    test_cursor SYS_REFCURSOR;
+
+    --cursor_test SYS_REFCURSOR;
+BEGIN
+
+   test_cursor := offcontainers_id(mmsi);
+
+    loop
+fetch test_cursor into id_container;
+		EXIT WHEN test_cursor%notfound;
+open info_cursor for
+select container.container_id, container.isocode, container.payload, positioninvehicule.containerpositionx, positioninvehicule.containerpositiony, positioninvehicule.containerpositionz
+FROM container
+         left join positioninvehicule on container.container_id = positioninvehicule.container_id
+where container.container_id = id_container;
+--dbms_output.put_line (id_container);
+
+end loop;
+close test_cursor;
+return (info_cursor);
+exception
+    when no_data_found then
+        return null;
+END;
