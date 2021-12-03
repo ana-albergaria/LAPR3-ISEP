@@ -35,7 +35,7 @@ public class ShipTripStoreDB {
                 "return f_mmsi;\n" +
                 "exception\n" +
                 "when no_data_found then\n" +
-                "return 0;\n" +
+                "return -1;\n" +
                 "end;";
         String runFunction = "{? = call get_mmsi_by_cargo_manifest_id(?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
@@ -114,7 +114,7 @@ public class ShipTripStoreDB {
      * @return estimated departure date.
      */
     public java.util.Date getEstDepartureDateFromShipTrip(int cargoManifestID) {
-        Date result = new java.util.Date(1970, Calendar.JANUARY, 1, 0, 0, 0);
+        Date result = new java.util.Date(1970, Calendar.JANUARY,1);
         String createFunction = "create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type\n" +
                 "is\n" +
                 "f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
