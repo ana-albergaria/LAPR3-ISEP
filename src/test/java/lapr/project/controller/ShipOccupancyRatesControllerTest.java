@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
+import lapr.project.domain.model.Company;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,15 +16,15 @@ import static org.mockito.Mockito.mock;
  */
 public class ShipOccupancyRatesControllerTest {
 
-    //private Company comp;
+    private Company comp;
     private DatabaseConnection databaseConnection;
     private ShipOccupancyRatesController shipOccupancyRatesController;
-    //private ShipOccupancyRatesController ctrl;
+    private ShipOccupancyRatesController ctrl;
 
     @BeforeEach
     public void SetUp(){
-        //comp = new Company("Company");
-        //this.ctrl=new ShipOccupancyRatesController(comp);
+        comp = new Company("Company");
+        this.ctrl=new ShipOccupancyRatesController(comp);
         databaseConnection = mock(DatabaseConnection.class);
         shipOccupancyRatesController = mock(ShipOccupancyRatesController.class);
     }
@@ -35,9 +36,9 @@ public class ShipOccupancyRatesControllerTest {
     public void testOccupancyRatesCalculationWhenValid(){
         int maxCapacity1=75;
         int initialNumContainers1=15;
-        int alreadyAddedRemovedContainersTripNum1=12;
-        int expected=36;
-        int actual=shipOccupancyRatesController.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
+        int alreadyAddedRemovedContainersTripNum1=24;
+        int expected=52;
+        int actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
         Assertions.assertEquals(expected,actual);
     }
 
@@ -48,9 +49,9 @@ public class ShipOccupancyRatesControllerTest {
     public void testOccupancyRatesCalculationWhenInvalid(){
         int maxCapacity1=30;
         int initialNumContainers1=15;
-        int alreadyAddedRemovedContainersTripNum1=20;
+        int alreadyAddedRemovedContainersTripNum1=24;
         int expected=-1;
-        int actual=shipOccupancyRatesController.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
+        int actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
         Assertions.assertEquals(expected,actual);
     }
 
