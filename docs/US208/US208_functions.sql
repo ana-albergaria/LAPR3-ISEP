@@ -30,11 +30,25 @@ when no_data_found then
 return 0;
 end;
 
---GET_INITIAL_NUM_CONTAINERS_PER_SHIP_TRIP
-create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer --est date como parametro
+--GET_EST_DEPARTURE_DATE_FROM_SHIP_TRIP
+create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type
 is
 f_shiptrip_id shipTrip.shiptrip_id%type;
 f_est_departure_date shipTrip.est_departure_date%type;
+begin
+select shiptrip_id into f_shiptrip_id
+from shipTrip
+where loading_cargo_id = f_cargoManifest_id OR unloading_cargo_id = f_cargoManifest_id;
+select est_departure_date into f_est_departure_date
+from shipTrip
+where shiptrip_id = f_shiptrip_id;
+return f_est_departure_date;
+end;
+
+--GET_INITIAL_NUM_CONTAINERS_PER_SHIP_TRIP
+create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,
+f_est_departure_date shipTrip.est_departure_date%type) return integer --est date como parametro
+is
 f_comp_shiptrip_id shipTrip.shiptrip_id%type;
 f_comp_loading_cargo_id shipTrip.loading_cargo_id%type;
 f_comp_unloading_cargo_id shipTrip.unloading_cargo_id%type;
@@ -45,12 +59,6 @@ select shiptrip_id
 from shipTrip
 where est_departure_date < f_est_departure_date; --o f_est_departure_date ainda está vazio??
 begin
-select shiptrip_id into f_shiptrip_id
-from shipTrip
-where loading_cargo_id = f_cargoManifest_id OR unloading_cargo_id = f_cargoManifest_id;
-select est_departure_date into f_est_departure_date
-from shipTrip
-where shiptrip_id = f_shiptrip_id;
 select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id
 from shipTrip
 where shiptrip_id = f_comp_shiptrip_id;
