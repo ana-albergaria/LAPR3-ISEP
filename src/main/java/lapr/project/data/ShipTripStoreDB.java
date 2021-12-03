@@ -97,7 +97,7 @@ public class ShipTripStoreDB {
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(cargoManifestID));
-            callableStatement.registerOutParameter(3, Types.DATE);
+            callableStatement.setString(3, String.valueOf(estDepartureDate));
 
             callableStatement.executeUpdate();
 
