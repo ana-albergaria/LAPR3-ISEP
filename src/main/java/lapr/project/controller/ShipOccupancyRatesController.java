@@ -91,4 +91,13 @@ public class ShipOccupancyRatesController {
         return getShipOccupancyRateByCargoManifestID(cargoManifestID);
     }
 
+    /**
+     * Get MMSI by cargo manifest ID.
+     * @param cargoManifestID cargo manifest ID.
+     * @return ship MMSI.
+     */
+    public int getMmsiByCargoManifest(int cargoManifestID) {
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        return shipTripStoreDB.getMmsiByCargoManifestID(cargoManifestID);
+    }
 }
