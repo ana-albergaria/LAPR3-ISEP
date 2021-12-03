@@ -79,3 +79,28 @@ exception
 when no_data_found then
 return 0;
 end;
+
+--GET_ADDED_REMOVED_CONTAINERS_SHIP_TRIP_MOMENT
+--SHIP TRIP STORE
+create or replace function get_added_removed_containers_ship_trip_moment(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer --est date como parametro
+is
+f_shiptrip_id shipTrip.shiptrip_id%type;
+f_loading_cargo_id shipTrip.loading_cargo_id%type;
+f_unloading_cargo_id shipTrip.unloading_cargo_id%type;
+f_num_added_removed_containers_ship_trip_moment integer;
+begin
+select shiptrip_id into f_shiptrip_id
+from shipTrip
+where loading_cargo_id=f_cargoManifest_id or unloading_cargo_id=f_cargoManifest_id;
+select loading_cargo_id, unloading_cargo_id into f_loading_cargo_id, f_unloading_cargo_id
+from shipTrip
+where shiptrip_id = f_shiptrip_id;
+f_num_added_removed_containers_ship_trip_moment := f_num_added_removed_containers_ship_trip_moment + get_num_containers_per_cargoManifest(f_loading_cargo_id);
+if f_unloading_cargo_id=f_cargoManifest_id then
+f_num_added_removed_containers_ship_trip_moment := f_num_added_removed_containers_ship_trip_moment + get_num_containers_per_cargoManifest(f_unloading_cargo_id);
+end if;
+return f_num_added_removed_containers_ship_trip_moment;
+exception
+when no_data_found then
+return 0;
+end;

@@ -6,54 +6,43 @@ hide empty attributes
 skinparam classAttributeIconSize 0
 
 class ShipOccupancyRatesController{
-- getShipOccupancyRateByMmsiAndDate(mmsi, date)
-- getCargoManifestIDByMmsiAndDate(mmsi, date)
+- company
+- calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum)
 - getShipOccupancyRateByCargoManifestID(cargoManifestID)
-- calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum, removedContainersNum)
+- getCargoManifestIDByMmsiAndDate(mmsi, date)
+- getShipOccupancyRateByMmsiAndDate(mmsi, date)
 }
 
-class ShipStore{
-- getMaxCapacityByMmsi(mmsi)
+class ShipStoreDB{
+- getShipCargo(cargoManifestID)
 }
 
-class ShipTripStore{
-- getMmsiOfChosenShip(databaseConnection, cargoManifestID)
-- getShipTripByCargoManifestID(cargoManifestID)
-- getInitialNumContainersByShipTripID(shipTripID)
-- getLoadingCargoManifestIDByShipTripID(shipTripID)
-- getUnloadingCargoManifestIDByShipTripID(shipTripID)
+class ShipTripStoreDB{
+- getAddedRemovedContainersShipTripMoment(cargoManifestID)
+- getEstDepartureDateFromShipTrip(cargoManifestID)
+- getInitialNumContainersPerShipTrip(cargoManifestID,estDepartureDate)
 }
 
-class CargoManifestStore{
-- getLoadingCargoManifestIDByShipTripID(shipTripID)
-- getNumOfAddedContainersByLoadingCargoManifestID(loadingCargoManifestID)
-- getNumOfRemovedContainersByUnloadingCargoManifestID(unloadingCargoManifestID)
+class CargoManifestStoreDB{
+- getNumContainersPerCargoManifest(cargoManifestID)
+- getCargoManifestByMmsiAndDate(mmsi, date)
 }
 
 class Company{
-- getShipStore()
+- shipStoreDB
+- shipTripStoreDB
+- cargoManifestStoreDB
+- getShipTripStoreDB()
+- getShipStoreDB()
+- getCargoManifestStoreDB()
 }
-
-class Ship {
-- MMSI
-- cargo
-}
-
-'class ShipsStore{
-'- findShipByAnyCode(code)
-'}
-
-'class ShipsBST{
-'- findShipByMmsi(MMSI)
-'}
-
-'class BST{}
 
 ShipOccupancyRatesController ..> Company
-ShipOccupancyRatesController ..> ShipStore
-ShipOccupancyRatesController ..> ShipTripStore
-ShipOccupancyRatesController ..> CargoManifestStore
-Company "1" -- "1" ShipStore : uses >
-ShipStore "1" -- "1..*" Ship : uses >
+ShipOccupancyRatesController ..> ShipStoreDB
+ShipOccupancyRatesController ..> ShipTripStoreDB
+ShipOccupancyRatesController ..> CargoManifestStoreDB
+Company "1" -- "1" ShipStoreDB : uses >
+Company "1" -- "1" ShipTripStoreDB : uses >
+Company "1" -- "1" CargoManifestStoreDB : uses >
 
 @enduml
