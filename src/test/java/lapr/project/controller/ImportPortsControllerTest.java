@@ -1,13 +1,9 @@
 package lapr.project.controller;
 
-import lapr.project.BSTesinf.KDTree;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Port;
-import lapr.project.domain.model.Ship;
 import lapr.project.dto.PortFileDTO;
-import lapr.project.dto.ShipsFileDTO;
 import lapr.project.utils.PortsFileUtils;
-import lapr.project.utils.ShipsFileUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,36 +42,6 @@ class ImportPortsControllerTest {
                 addedPorts.add(this.comp.getPortStore().createPort(portsOfFile.get(i)));
             }
         }
-
-
-
-        /*for (KDTree.Node<Port> node : this.comp.getPortStore().getPorts2DTree().getListOfPortNodes()) {
-            System.out.println(node);
-        }
-
-         */
-
-        /*List<Port> portsOfTree = this.comp.getPortStore().getPorts2DTree().getAll();
-
-        System.out.println("LISTA VAZIA");
-        for (Port port : portsOfTree) {
-            System.out.println(port);
-        }
-
-         */
-
-
-        /*ctrl.balancePorts2DTree();
-        List<Port> portsOfTree = this.comp.getPortStore().getPorts2DTree().getAll();
-
-        for (Port port : portsOfTree) {
-            System.out.println(port);
-        }
-
-        System.out.println(portsOfTree.size());
-         */
-
-
 
         portsOfFileExp = portsFileUtils.getPortsDataToDto(expFileTest.toString());
         List<Port> expAddedPorts = new ArrayList<>();

@@ -1,5 +1,8 @@
 package lapr.project.controller;
 
+import lapr.project.data.CargoManifestStoreDB;
+import lapr.project.data.ShipStoreDB;
+import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.util.Date;
@@ -36,12 +39,11 @@ public class ShipOccupancyRatesController {
      * Calculate occupancy rate with maxCapacity, initialNumContainers, addedContainerNum and removedContainersNum.
      * @param maxCapacity ship cargo.
      * @param initialNumContainers ship trip initial num containers.
-     * @param addedContainerNum containers added in loading cargo manifest.
-     * @param removedContainersNum containers removed in loading cargo manifest.
+     * @param alreadyAddedRemovedContainersTripNum containers added and removed in loading and unloading cargo manifest.
      * @return ship occupancy rate in percentage.
      */
-    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int addedContainerNum, int removedContainersNum){
-        double current = initialNumContainers+addedContainerNum-removedContainersNum;
+    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
+        double current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
         if (current>maxCapacity){
             return -1; //when invalid
         } else {
@@ -55,12 +57,14 @@ public class ShipOccupancyRatesController {
      * @return ship occupancy rate in percentage.
      */
     public double getShipOccupancyRateByCargoManifestID(int cargoManifestID){
-        int maxCapacity=0, initialNumContainers=0, addedContainersNum=0, removedContainersNum=0;
-        /*maxCapacity=;
-        initialNumContainers=;
-        addedContainersNum=;
-        removedContainersNum=;*/
-        return calculateOccupancyRate(maxCapacity, initialNumContainers, addedContainersNum,removedContainersNum);
+        int maxCapacity=0, initialNumContainers=0, alreadyAddedRemovedContainersTripNum=0;
+        ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
+        maxCapacity=shipStoreDB.getShipCargo(cargoManifestID);
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        Date estDepDate = shipTripStoreDB.getEstDepartureDateFromShipTrip(cargoManifestID);
+        initialNumContainers=shipTripStoreDB.getInitialNumContainersPerShipTrip(cargoManifestID,estDepDate);
+        alreadyAddedRemovedContainersTripNum=shipTripStoreDB.getAddedRemovedContainersShipTripMoment(cargoManifestID);
+        return calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum);
     }
 
     /**
@@ -70,9 +74,10 @@ public class ShipOccupancyRatesController {
      * @return cargo manifest id.
      */
     public int getCargoManifestIDByMmsiAndDate(int mmsi, Date date){
-        /*int cargoManifestID =;
-        return cargoManifestID;*/
-        throw new IllegalArgumentException("to be developed");
+        CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
+        int cargoManifestID = cargoManifestStoreDB.getCargoManifestByMmsiAndDate(mmsi,date);
+        return cargoManifestID;
+        //throw new IllegalArgumentException("to be developed");
     }
 
     /**
@@ -86,4 +91,13 @@ public class ShipOccupancyRatesController {
         return getShipOccupancyRateByCargoManifestID(cargoManifestID);
     }
 
+    /**
+     * Get MMSI by cargo manifest ID.
+     * @param cargoManifestID cargo manifest ID.
+     * @return ship MMSI.
+     */
+    public int getMmsiByCargoManifest(int cargoManifestID) {
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        return shipTripStoreDB.getMmsiByCargoManifestID(cargoManifestID);
+    }
 }

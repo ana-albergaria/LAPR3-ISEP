@@ -9,6 +9,10 @@ activate ":System"
 deactivate ":System"
 C -> ":System" : types the container id
 activate ":System"
+":System" --> C : requests the shipment id
+deactivate ":System"
+C -> ":System" : types the shipment id
+activate ":System"
 ":System" --> C : displays the type and concrete instance of its current location
 deactivate ":System"
 

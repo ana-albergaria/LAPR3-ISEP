@@ -43,3 +43,29 @@ exception
     when no_data_found then
         return ('There is no ship trip for that container and shipment id. Please verify if you inserted your data correctly.');
 end;
+
+
+--TESTS
+--Check the Ship Trip ID for Container ID 2116393 and Shipment ID 374
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('the ship trip is: '||get_shiptrip_id(2549246,374));
+end;
+
+--Check the if raises exception and Ship Trip Id = -1 when there isn't data found
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('the ship trip is: '||get_shiptrip_id(1,2));
+end;
+
+--Check if the method works properly
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('The location id is: '||get_location(16347));
+end;
+
+--Check if raises exception
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('The location id is: '||get_location(2));
+end;

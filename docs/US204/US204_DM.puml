@@ -53,6 +53,7 @@ class Port {
     -lon
 }
 
+
 Client "1" -- "1..*" Container : ships >
 Container "1..*"-- "2..*" CargoManifest : associated with >
 Ship "1" -- "1..*" Container : transports >
@@ -60,6 +61,7 @@ CargoManifest -- Port : delivered at >
 Ship "1" -- "*" ShipTrip : does >
 ShipTrip "*" -- "1" Port : to >
 ShipTrip "1" -- "2" CargoManifest : relates to >
+
 
 
 @enduml
