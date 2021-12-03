@@ -1,12 +1,13 @@
 --get port id
 create or replace FUNCTION get_port(mmsi ship.mmsi%type) return integer
-IS
-    x Port.port_id%type;
+AS
+    next_port Port.port_id%type;
 
     unload_id ShipTrip.unloading_cargo_id%type;
-	location ShipTrip.arrival_location%type;
+	location_id ShipTrip.arrival_location%type;
 	arrival_date ShipTrip.real_arrival_date%type;
     departure_date ShipTrip.real_departure_date%type;
+
 CURSOR ship_trips(trip ShipTrip.MMSI%type) IS
 SELECT unloading_cargo_id, arrival_location, real_arrival_date, real_departure_date
 FROM ShipTrip
@@ -15,16 +16,19 @@ WHERE mmsi=trip;
 BEGIN
 OPEN ship_trips(mmsi);
 LOOP
-FETCH ship_trips INTO unload_id, location, arrival_date, departure_date;
+FETCH ship_trips INTO unload_id, location_id, arrival_date, departure_date;
 		EXIT WHEN ship_trips%notfound;
 
-		IF arrival_date = null AND departure_date != null THEN
-SELECT port_id INTO x FROM Port WHERE location_id=location;
-return x;
-
+		IF arrival_date IS null AND departure_date IS NOT null THEN
+            next_port := location_id;
 END IF;
 END LOOP;
 CLOSE ship_trips;
+return next_port;
+exception
+    when no_data_found then
+        return null;
+
 END;
 
 --get list of offloaded containers
@@ -46,10 +50,10 @@ WHERE mmsi=trip;
 begin
 OPEN ship_trips(mmsi);
 LOOP
-FETCH ship_trips INTO unload_id, location, arrival_date, departure_date;
+FETCH ship_trips INTO unload_id, location_id, arrival_date, departure_date;
 		EXIT WHEN ship_trips%notfound;
 
-		IF arrival_date = null AND departure_date != null THEN
+		IF arrival_date IS null AND departure_date IS NOT null THEN
             open container_cursor for
 select container.container_id, container.isocode, container.payload, positioninvehicule.containerpositionx, positioninvehicule.containerpositiony, positioninvehicule.containerpositionz
 from container, positioninvehicule
@@ -58,4 +62,7 @@ return (container_cursor);
 END IF;
 END LOOP;
 CLOSE ship_trips;
-end;
+exception
+    when no_data_found then
+        return null;
+end;    
