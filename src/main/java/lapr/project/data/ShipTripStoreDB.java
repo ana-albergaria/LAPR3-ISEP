@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ShipTripStoreDB {
-    
+
     /**
      * Get the estimated departure date of a ship trip given a cargo manifest ID.
      * @param cargoManifestID cargo manifest ID.
