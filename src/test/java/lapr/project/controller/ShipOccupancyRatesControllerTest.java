@@ -1,11 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.domain.model.Company;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * @author Marta Ribeiro (1201592)
+ */
 public class ShipOccupancyRatesControllerTest {
 
     private Company comp;
@@ -17,6 +19,9 @@ public class ShipOccupancyRatesControllerTest {
         this.ctrl=new ShipOccupancyRatesController(comp);
     }
 
+    /**
+     * Test to ensure the occupancy rate is correctly calculated when the values are valid.
+     */
     @Test
     public void testOccupancyRatesCalculationWhenValid(){
         int maxCapacity1=75;
@@ -28,6 +33,9 @@ public class ShipOccupancyRatesControllerTest {
         Assertions.assertEquals(expected,actual);
     }
 
+    /**
+     * Test to ensure the occupancy rate is -1 when the values are invalid.
+     */
     @Test
     public void testOccupancyRatesCalculationWhenInvalid(){
         int maxCapacity1=30;
