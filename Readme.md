@@ -1399,3 +1399,99 @@ For the tests, it is needed to instanciate a Datebaseconnection object and Calla
     }
 ```
 
+
+
+# US 202 - Find nearest Port to a Ship
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As a Traffic manager, I which to find the closest port of a ship given its CallSign, on a certain DateTime.
+### 1.2. Acceptance Criteria
+
+* using 2D-tree to find closest port
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Ship callSign
+  * DateTime
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* nearest Port to that Ship
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US202/US_202_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US202/US_202_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US202/US_202_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US202/US_202_CD.svg)
+
+# 4. Tests
+
+
+### PortStoreTest class
+
+**Test 1:** Test to ensure getNearestPort() is functioning correctly.
+```
+@Test
+    public void getNearestPort() {
+    }
+```
+
+### NearestPortController Class
+
+**Test 2:** Test to ensure getShipByCallSignTest() is functioning properly
+```
+@Test
+    public void getShipByCallSignTest() {
+    }
+```
+
+**Test 3:** Test to ensure getShipCoordinatesTest() is functioning properly
+```
+@Test
+    public void getShipCoordinatesTest() {
+    }
+```
+
+**Test 4:** Test to ensure findClosestPortTest() is functioning properly
+```
+@Test
+    public void findClosestPortTest() {
+    }
+```
