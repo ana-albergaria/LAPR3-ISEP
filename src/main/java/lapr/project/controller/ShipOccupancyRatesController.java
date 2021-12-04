@@ -5,8 +5,8 @@ import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
+import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  * Controller class to coordinate the calculation of ship's occupancy rate
@@ -81,7 +81,7 @@ public class ShipOccupancyRatesController {
      */
     public int getCargoManifestIDByMmsiAndDate(int mmsi, Date date){
         CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
-        int cargoManifestID = cargoManifestStoreDB.getCargoManifestByMmsiAndDate(mmsi,new java.sql.Date(date.getTime()));
+        int cargoManifestID = cargoManifestStoreDB.getCargoManifestByMmsiAndDate(mmsi,date);
         return cargoManifestID;
         //throw new IllegalArgumentException("to be developed");
     }
@@ -92,7 +92,7 @@ public class ShipOccupancyRatesController {
      * @param date date to analyse.
      * @return ship occupancy rate in percentage.
      */
-    public int getShipOccupancyRateByMmsiAndDate(int mmsi, Date date) throws SQLException{
+    public int getShipOccupancyRateByMmsiAndDate(int mmsi, java.sql.Date date) throws SQLException{
         int cargoManifestID = getCargoManifestIDByMmsiAndDate(mmsi,date);
         System.out.println("cargoManifestID: " + cargoManifestID);
         return getShipOccupancyRateByCargoManifestID(cargoManifestID);

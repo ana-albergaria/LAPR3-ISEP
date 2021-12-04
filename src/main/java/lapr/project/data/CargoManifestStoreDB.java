@@ -69,8 +69,9 @@ public class CargoManifestStoreDB{
                 "select shiptrip_id, unloading_cargo_id, est_departure_date, est_arrival_date, loading_cargo_id\n" +
                 "into f_shiptrip_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, f_cargoManifest_id\n" +
                 "from\n" +
+                "(select * from \n" +
                 "(select * from shipTrip\n" +
-                "where mmsi=f_mmsi AND est_departure_date<=f_date\n" +
+                "where mmsi=f_mmsi AND est_departure_date<=f_date)\n" +
                 "order by est_departure_date desc)\n" +
                 "where rownum=1;\n" +
                 "\n" +

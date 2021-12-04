@@ -127,15 +127,15 @@ public class ShipOccupancyRatesControllerTest {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }*/
+    }
 
-    /*@Test
+    @Test
     void testOccupancyRatesMoment2(){
         //mmsi: 212351001 and date: 25/02/2021 -> cmid: 77329
         System.out.println("testOccupancyRatesMoment2()");
         try {
             int expResult = 21; //valor esperado
-            int result = ctrl.getShipOccupancyRateByMmsiAndDate(212351001,new Date(2021,Calendar.FEBRUARY,25));
+            int result = ctrl.getShipOccupancyRateByMmsiAndDate(212351001, java.sql.Date.valueOf("2021-02-25"));
             System.out.println("exp: " + expResult);
             System.out.println("real: " + result);
             Assert.assertEquals(expResult, result);
