@@ -284,11 +284,12 @@ public class ShipTripStoreDB {
         if (!file.exists())
             file.createNewFile();
 
+        List<Integer> idList = new LinkedList<>();
+        Connection connection = databaseConnection.getConnection();
 
-        try (FileWriter fw = new FileWriter(file, false); BufferedWriter bw = new BufferedWriter(fw)) {
-            List<Integer> idList = new LinkedList<>();
-            Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call  offcontainers_id(?)}");
+        try (FileWriter fw = new FileWriter(file, false); BufferedWriter bw = new BufferedWriter(fw); CallableStatement cs = connection.prepareCall("{? = call  offcontainers_id(?)}")) {
+
+
             bw.write(idPort);
             bw.write(portId);
             bw.write(header);
@@ -341,11 +342,11 @@ public class ShipTripStoreDB {
         if (!file.exists())
             file.createNewFile();
 
+        List<Integer> listID = new LinkedList<>();
+        Connection connection = databaseConnection.getConnection();
 
-        try (FileWriter fw = new FileWriter(file, false); BufferedWriter bw = new BufferedWriter(fw)) {
-            List<Integer> listID = new LinkedList<>();
-            Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call  load_containers_id(?)}");
+        try (FileWriter fw = new FileWriter(file, false); BufferedWriter bw = new BufferedWriter(fw); CallableStatement cs = connection.prepareCall("{? = call  load_containers_id(?)}")) {
+
             bw.write(idPort);
             bw.write(portId);
             bw.write(header);
@@ -373,7 +374,7 @@ public class ShipTripStoreDB {
                 bw.write(positionY);
                 bw.write(positionZ);
             }
-            cs.close();
+            //cs.close();
             return listID;
         } catch (SQLException e) {
             e.printStackTrace();
