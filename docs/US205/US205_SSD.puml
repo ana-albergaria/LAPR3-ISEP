@@ -12,7 +12,6 @@ deactivate ":System"
 
 C -> ":System" : types requested data
 activate ":System"
-":System" --> C : displays the next Port ID
 
 ":System" --> C : displays the list of containers to be offloaded in the next port
 deactivate ":System"
