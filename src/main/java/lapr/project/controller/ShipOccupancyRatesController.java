@@ -44,7 +44,6 @@ public class ShipOccupancyRatesController {
      * @return ship occupancy rate in percentage.
      */
     public int calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
-        //permitir apenas ships com cargo != NA
         int current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
         if (current>maxCapacity){
             return -1; //when invalid
@@ -59,14 +58,18 @@ public class ShipOccupancyRatesController {
      * @return ship occupancy rate in percentage.
      */
     public int getShipOccupancyRateByCargoManifestID(int cargoManifestID) throws SQLException {
-        //permitir apenas ships com cargo != NA
         int maxCapacity=0, initialNumContainers=0, alreadyAddedRemovedContainersTripNum=0;
         ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
         maxCapacity=shipStoreDB.getShipCargo(cargoManifestID);
+        System.out.println("maxCapacity: " + maxCapacity);
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
-        Date estDepDate = shipTripStoreDB.getEstDepartureDateFromShipTrip(cargoManifestID);
+        java.sql.Date estDepDate = shipTripStoreDB.getEstDepartureDateFromShipTrip(cargoManifestID);
+        System.out.println("estDepDate: " + estDepDate + " | " + estDepDate.toString());
         initialNumContainers=shipTripStoreDB.getInitialNumContainersPerShipTrip(cargoManifestID,estDepDate);
+        System.out.println("initialNumContainers: " + initialNumContainers);
         alreadyAddedRemovedContainersTripNum=shipTripStoreDB.getAddedRemovedContainersShipTripMoment(cargoManifestID);
+        System.out.println("alreadyAddedRemovedContainersTripNum: " + alreadyAddedRemovedContainersTripNum);
+        System.out.println("result: " + calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum));
         return calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum);
     }
 
@@ -78,7 +81,7 @@ public class ShipOccupancyRatesController {
      */
     public int getCargoManifestIDByMmsiAndDate(int mmsi, Date date){
         CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
-        int cargoManifestID = cargoManifestStoreDB.getCargoManifestByMmsiAndDate(mmsi,date);
+        int cargoManifestID = cargoManifestStoreDB.getCargoManifestByMmsiAndDate(mmsi,new java.sql.Date(date.getTime()));
         return cargoManifestID;
         //throw new IllegalArgumentException("to be developed");
     }
@@ -90,8 +93,8 @@ public class ShipOccupancyRatesController {
      * @return ship occupancy rate in percentage.
      */
     public int getShipOccupancyRateByMmsiAndDate(int mmsi, Date date) throws SQLException{
-        //permitir apenas ships com cargo != NA
         int cargoManifestID = getCargoManifestIDByMmsiAndDate(mmsi,date);
+        System.out.println("cargoManifestID: " + cargoManifestID);
         return getShipOccupancyRateByCargoManifestID(cargoManifestID);
     }
 

@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.controller.App;
 
 import java.sql.*;
-import java.util.Date;
 
 /**
  * @author Marta Ribeiro (1201592)
@@ -61,20 +60,26 @@ public class CargoManifestStoreDB{
         String createFunction = "create or replace function get_cargo_manifest_by_mmsi_and_date(f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return cargoManifest.cargoManifest_id%type\n" +
                 "is\n" +
                 "f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
+                "f_unloading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
+                "f_est_departure_date shipTrip.est_departure_date%type;\n" +
+                "f_est_arrival_date shipTrip.est_arrival_date%type;\n" +
                 "f_cargoManifest_id cargoManifest.cargoManifest_id%type;\n" +
                 "begin\n" +
-                "select loading_cargo_id into f_cargoManifest_id\n" +
+                "\n" +
+                "select shiptrip_id, unloading_cargo_id, est_departure_date, est_arrival_date, loading_cargo_id\n" +
+                "into f_shiptrip_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, f_cargoManifest_id\n" +
                 "from\n" +
-                "    (select loading_cargo_id from shipTrip\n" +
-                "     where mmsi=f_mmsi AND est_departure_date<=f_date\n" +
-                "     order by est_departure_date desc)\n" +
+                "(select * from shipTrip\n" +
+                "where mmsi=f_mmsi AND est_departure_date<=f_date\n" +
+                "order by est_departure_date desc)\n" +
                 "where rownum=1;\n" +
-                "select shiptrip_id into f_shiptrip_id\n" +
-                "from shipTrip\n" +
-                "where loading_cargo_id=f_cargoManifest_id;\n" +
+                "\n" +
+                "if f_est_arrival_date <= f_date then\n" +
                 "select unloading_cargo_id into f_cargoManifest_id\n" +
                 "from shipTrip\n" +
-                "where shiptrip_id=f_shiptrip_id AND f_date>est_arrival_date;\n" +
+                "where shiptrip_id=f_shiptrip_id;\n" +
+                "end if;\n" +
+                "\n" +
                 "return (f_cargoManifest_id);\n" +
                 "exception\n" +
                 "when no_data_found then\n" +

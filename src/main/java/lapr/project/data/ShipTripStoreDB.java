@@ -117,8 +117,8 @@ public class ShipTripStoreDB {
      * @param cargoManifestID cargo manifest ID.
      * @return estimated departure date.
      */
-    public java.util.Date getEstDepartureDateFromShipTrip(int cargoManifestID) {
-        Date result = new java.util.Date(1970, Calendar.JANUARY,1);
+    public java.sql.Date getEstDepartureDateFromShipTrip(int cargoManifestID) {
+        java.sql.Date result = new java.sql.Date(new java.util.Date(2020, Calendar.JANUARY,1).getTime());
         String createFunction = "create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type\n" +
                 "is\n" +
                 "f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
@@ -159,30 +159,24 @@ public class ShipTripStoreDB {
      * @param estDepartureDate Ship trip's estimated departure date.
      * @return ship trip's initial num of containers.
      */
-    public int getInitialNumContainersPerShipTrip(int cargoManifestID, Date estDepartureDate) {
+    public int getInitialNumContainersPerShipTrip(int cargoManifestID, java.sql.Date estDepartureDate) {
         int result = 0;
         String createFunction = "create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,\n" +
-                "f_est_departure_date shipTrip.est_departure_date%type) return integer --est date como parametro\n" +
+                "f_est_departure_date shipTrip.est_departure_date%type) return integer\n" +
                 "is\n" +
-                "f_comp_shiptrip_id shipTrip.shiptrip_id%type;\n" +
-                "f_comp_loading_cargo_id shipTrip.loading_cargo_id%type;\n" +
-                "f_comp_unloading_cargo_id shipTrip.unloading_cargo_id%type;\n" +
+                "f_comp_loading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
+                "f_comp_unloading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
                 "f_initial_num_containers_per_ship_trip integer;\n" +
-                "cursor shipTrips\n" +
+                "cursor neededShipTrips\n" +
                 "is\n" +
-                "select shiptrip_id\n" +
+                "(select loading_cargo_id, unloading_cargo_id\n" +
                 "from shipTrip\n" +
-                "where est_departure_date < f_est_departure_date; --o f_est_departure_date ainda está vazio??\n" +
+                "where est_departure_date < f_est_departure_date);\n" +
                 "begin\n" +
-                "select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id\n" +
-                "from shipTrip\n" +
-                "where shiptrip_id = f_comp_shiptrip_id;\n" +
+                "open neededShipTrips;\n" +
                 "loop\n" +
-                "fetch shipTrips into f_comp_shiptrip_id;\n" +
-                "exit when shipTrips%notfound;\n" +
-                "select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id\n" +
-                "from shipTrip\n" +
-                "where shiptrip_id = f_comp_shiptrip_id;\n" +
+                "fetch neededShipTrips into f_comp_loading_cargo_id, f_comp_unloading_cargo_id;\n" +
+                "exit when neededShipTrips%notfound;\n" +
                 "f_initial_num_containers_per_ship_trip := f_initial_num_containers_per_ship_trip + get_num_containers_per_cargoManifest(f_comp_loading_cargo_id) - get_num_containers_per_cargoManifest(f_comp_unloading_cargo_id);\n" +
                 "end loop;\n" +
                 "return f_initial_num_containers_per_ship_trip;\n" +
