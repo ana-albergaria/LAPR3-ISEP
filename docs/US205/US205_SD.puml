@@ -16,10 +16,10 @@ activate UI
 
 UI -> CTRL : getListOffloadedContainers(mmsi)
 activate CTRL
-CTRL -> SBST : getListOffloadedContainers(databaseConection, mmsi)
+CTRL -> SBST : List<>offloadedList = getListOffloadedContainers(databaseConection, mmsi)
 
 activate SBST
-SBST -> SBST : getNextPortID(databaseConection, mmsi)
+SBST -> SBST : nextPortID = getNextPortID(databaseConection, mmsi)
 CTRL -> UI : offloadedList
 deactivate SBST
 deactivate CTRL

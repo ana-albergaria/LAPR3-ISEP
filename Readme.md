@@ -119,6 +119,8 @@ Each group should configure their database connection on the file:
 
 # RELATORY
 
+# SPRINT 1
+
 # US 101 - Import ships from a text file into a BST
 
 ## 1. Requirements Engineering
@@ -1027,14 +1029,373 @@ n/a
 * Test 3: ensures every Vessel Type has Top-N Ships with the most Travelled Distance associated with it.
 
 
+# SPRINT 2
+
+# US 104 - Get Container Situation
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Client, I want to know the current situation of a specific container being used to transport my goods.
+
+### 1.2. Acceptance Criteria
+
+* Clients provide the container identifier and get the type and the concrete
+  instance of its current location, e.g., PORT, Leixões or SHIP, WeFly.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Container ID
+  * Shipment ID
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* type and concrete instance of container location
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US204-SSD](./docs/US204/US204_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US204-MD](./docs/US204/US204_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US204-SD](./docs/US204/US204_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US204-CD](./docs/US204/US204_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getShipTripID() is functioning correctly.
+```
+@Test
+    public void getShipTripID() {
+    }
+```
+
+**Test 2:** Test to ensure getLocation() is functioning correctly.
+```
+@Test
+    public void getLocation() {
+    }
+```
+
+### GetContainerSituationController Class
+
+**Test 3:** Test to ensure getLocation() is functioning properly
+```
+@Test
+    public void getLocation(containerID, shipmentID) {
+    }
+```
 
 
 
 
+# US 104 - Get Available Ships on Monday Next Week
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Traffic manager, I need to know which ships will be available on Monday next week and their location.
+
+### 1.2. Acceptance Criteria
+
+* Monday next week is properly identified.
+* Only available ships are returned.
+* All available ships are returned.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * n/a
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* available ships next monday next week
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US210/US210_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US210/US210_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US210/US_210_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US210/US210_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getNextMondayAvailableShips() is functioning correctly.
+```
+@Test
+    public void getNextMondayAvailableShips() {
+    }
+```
+
+### FindAvailableShipsController Class
+
+**Test 3:** Test to ensure getNextMondayAvailableShips() is functioning properly
+```
+@Test
+    public void getNextMondayAvailableShips() {
+    }
+```
 
 
 
 
+# US 205 - Get List of Containers to be Offloaded in the Next Port
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Ship Captain, I want the list of containers to be offloaded in the next port, including container identifier, type, position, and load
+
+### 1.2. Acceptance Criteria
+
+* “next port” is properly identified.
+* The containers being offloaded are properly identified
+* Output is in accordance with the specification wrt the information about each container
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Ship mmsi
+
+* Selected data:
+  * n/a
 
 
+**Output Data:**
+
+* next Port
+* list of containers to be offloaded
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US205/US205_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US205/US205_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US205/US205_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US205/US205_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getPortIdTest() is functioning correctly.
+```
+@Test
+    public void getPortIdTest() {
+    }
+```
+
+**Test 2:** Test to ensure getOffloadedListTest() is functioning properly
+```
+@Test
+    public void getOffloadedListTest() {
+    }
+```
+
+### ContainersOffLoadedController Class
+
+**Test 3:** Test to ensure getOffloadedListTest() is functioning properly
+```
+@Test
+    public void getOffloadedListTest() {
+    }
+```
+
+
+
+
+# US 206 - Get List of Containers to be Loaded in the Next Port
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Ship Captain, I want the list of containers to be loaded in the next port, including container identifier, type, and load.
+
+### 1.2. Acceptance Criteria
+
+* “next port” is properly identified.
+* The containers being loaded are properly identified
+* Output is in accordance with the specification wrt the information about each container
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Ship mmsi
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* next Port
+* list of containers to be loaded
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US206/US206_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US206/US206_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US206/US206_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US206/US206_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getPortIdTest() is functioning correctly.
+```
+@Test
+    public void getPortIdTest() {
+    }
+```
+
+**Test 2:** Test to ensure getLoadedListTest() is functioning properly
+```
+@Test
+    public void getLoadedListTest() {
+    }
+```
+
+### ContainersLoadedController Class
+
+**Test 3:** Test to ensure getOffloadedListTest() is functioning properly
+```
+@Test
+    public void getOffloadedListTest() {
+    }
+```
 

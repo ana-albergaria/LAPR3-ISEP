@@ -5,6 +5,9 @@ import lapr.project.controller.App;
 import java.sql.*;
 import java.util.Date;
 
+/**
+ * @author Marta Ribeiro (1201592)
+ */
 public class CargoManifestStoreDB{
 
     /**

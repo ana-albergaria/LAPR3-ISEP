@@ -145,7 +145,7 @@ public class ShipStoreDB implements Persistable{
                 "select mmsi into f_mmsi\n" +
                 "from shipTrip\n" +
                 "where loading_cargo_id = f_cargoManifest_id OR unloading_cargo_id = f_cargoManifest_id;\n" +
-                "select currentCapacity into f_max_capacity\n" +
+                "select to_number(currentCapacity) into f_max_capacity\n" +
                 "from ship\n" +
                 "where mmsi = f_mmsi;\n" +
                 "return (f_max_capacity);\n" +
