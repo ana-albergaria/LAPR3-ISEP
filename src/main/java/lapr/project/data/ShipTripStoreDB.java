@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ShipTripStoreDB {
@@ -241,6 +242,12 @@ public class ShipTripStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
+    /**
+     * method to get the id of the nest Port in the Route
+     * @param databaseConnection connection to database
+     * @param mmsi ship mmsi
+     * @return port id
+     */
     public int getNextPortID(DatabaseConnection databaseConnection, int mmsi) {
 
         try {
@@ -259,14 +266,21 @@ public class ShipTripStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
-    public void getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException, SQLException {
+    /**
+     * method that writes the lsit with the information about offloaded containers in a file
+     * @param databaseConnection connection to database
+     * @param mmsi ship mmsi
+     * @return list with only Containers id's
+     * @throws IOException database exception
+     */
+    public List<Integer> getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
         String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%n",
                 "Container ID", "ISO Code", "Payload", "Positionx","PositionY", "PositionZ");
 
         int portId = getNextPortID(databaseConnection, mmsi);
         String str = "Next Port ID: ";
 
-        /*File file = new File("offloadedContainers.txt");
+        File file = new File("offloadedContainers.txt");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -276,16 +290,16 @@ public class ShipTripStoreDB {
         }
 
         FileWriter fw = new FileWriter(file, false);
+        BufferedWriter bw = new BufferedWriter(fw);
 
+        List<Integer> idList = new LinkedList<>();
 
-        BufferedWriter bw = new BufferedWriter(fw);*/
-        CallableStatement cs;
-        Connection connection = databaseConnection.getConnection();
-        cs = connection.prepareCall("{? = call offloaded(?)}");
         try {
-            /*bw.write(str);
+            Connection connection = databaseConnection.getConnection();
+            CallableStatement cs = connection.prepareCall("{? = call offloaded(?)}");
+            bw.write(str);
             bw.write(portId);
-            bw.write(header);*/
+            bw.write(header);
 
             cs.setInt(2, mmsi);
             cs.registerOutParameter(1, OracleTypes.CURSOR);
@@ -296,26 +310,27 @@ public class ShipTripStoreDB {
 
             while(cs1.next()) {
                 int containerId = cs1.getInt(1);
+                idList.add(containerId);
                 String isoCode = cs1.getString(2);
                 int payload = cs1.getInt(3);
                 int positionx = cs1.getInt(4);
                 int positiony = cs1.getInt(5);
                 int positionz = cs1.getInt(6);
 
-                /*bw.write(containerId);
+                bw.write(containerId);
                 bw.write(isoCode);
                 bw.write(payload);
                 bw.write(positionx);
                 bw.write(positiony);
-                bw.write(positionz);*/
+                bw.write(positionz);
             }
-
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
             cs.close();
-            //bw.close();
+            return idList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            fw.close();
+            bw.close();
         }
 
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");

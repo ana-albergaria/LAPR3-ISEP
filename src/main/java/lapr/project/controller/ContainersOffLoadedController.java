@@ -1,24 +1,42 @@
 package lapr.project.controller;
 
+import lapr.project.data.DatabaseConnection;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
-public class ContainersOffLoadedController {
-    Company comp;
-    ShipTripStoreDB store;
+import java.util.List;
 
+public class ContainersOffLoadedController {
+    /**
+     * Company instance of the session.
+     */
+    Company comp;
+
+    /**
+     * Constructor for the controller.
+     */
     public ContainersOffLoadedController() {
-        this.comp = App.getInstance().getCompany();
-        this.store = comp.getShipTripStoreDB();
+        this(App.getInstance().getCompany());
     }
 
+    /**
+     * Constructor receiving the company as an argument.
+     *
+     * @param company instance of company to be used.
+     */
     public ContainersOffLoadedController(Company company) {
         this.comp = company;
-        this.store = comp.getShipTripStoreDB();
     }
 
-    public void getListOffloadedContainers(int mmsi) throws Exception {
-        //store.getNextPortID(database, mmsi);
-        throw new Exception("to be developed.");
+    /**
+     * method that gets the next Port on the Route and the containers to be offloaded in it
+     * @param mmsi Ship mmsi
+     * @throws Exception database exception
+     */
+    public List<Integer> getListOffloadedContainers(int mmsi) throws Exception {
+        ShipTripStoreDB store = comp.getShipTripStoreDB();
+        DatabaseConnection connection = App.getInstance().getConnection();
+        return store.getListOffloadedContainers(connection, mmsi);
+        //throw new Exception("to be developed.");
     }
 }
