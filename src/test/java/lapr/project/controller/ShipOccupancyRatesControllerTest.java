@@ -113,7 +113,7 @@ public class ShipOccupancyRatesControllerTest {
 
     @Test
     void testOccupancyRatesCargoManifestNonexistentCargoManifest(){
-        System.out.println("Test3: testOccupancyRatesCargoManifestInvalidValues()");
+        System.out.println("Test5: testOccupancyRatesCargoManifestInvalidValues()");
         try {
             int cargoManifestID = 77330;
             int mmsi = ctrl.getMmsiByCargoManifest(cargoManifestID);
@@ -127,7 +127,7 @@ public class ShipOccupancyRatesControllerTest {
 
     @Test
     void testOccupancyRatesMomentNonexistentShip(){
-        System.out.println("Test4: testOccupancyRatesMomentNonexistentShip()");
+        System.out.println("Test6: testOccupancyRatesMomentNonexistentShip()");
         try {
             int mmsi=636092934;
             String date = "2021-02-25";
@@ -141,7 +141,7 @@ public class ShipOccupancyRatesControllerTest {
 
     @Test
     void testOccupancyRatesMomentShipNoShipTripsAtTime(){
-        System.out.println("Test5: testOccupancyRatesMomentShipNoShipTripsAtTime()");
+        System.out.println("Test7: testOccupancyRatesMomentShipNoShipTripsAtTime()");
         try {
             int mmsi=636092933;
             String date = "2021-02-25";
