@@ -38,10 +38,10 @@ public class ShipOccupancyRatesControllerTest {
     @Test
     void testOccupancyRatesCalculationWhenValid(){
         System.out.println("testOccupancyRatesCalculationWhenValid()");
-        int maxCapacity1=75;
-        int initialNumContainers1=15;
-        int alreadyAddedRemovedContainersTripNum1=24;
-        int expected=52;
+        int maxCapacity1=79;
+        int initialNumContainers1=14;
+        int alreadyAddedRemovedContainersTripNum1=7;
+        int expected=26;
         int actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
         System.out.println("exp: " + expected);
         System.out.println("real: " + actual);
@@ -54,9 +54,9 @@ public class ShipOccupancyRatesControllerTest {
     @Test
     void testOccupancyRatesCalculationWhenInvalid(){
         System.out.println("testOccupancyRatesCalculationWhenInvalid()");
-        int maxCapacity1=30;
-        int initialNumContainers1=15;
-        int alreadyAddedRemovedContainersTripNum1=24;
+        int maxCapacity1=20;
+        int initialNumContainers1=14;
+        int alreadyAddedRemovedContainersTripNum1=7;
         int expected=-1;
         int actual=ctrl.calculateOccupancyRate(maxCapacity1,initialNumContainers1,alreadyAddedRemovedContainersTripNum1);
         System.out.println("exp: " + expected);
@@ -65,9 +65,9 @@ public class ShipOccupancyRatesControllerTest {
     }
 
     /*
-    mmsi:636092933
+    mmsi:636092933  max:60
     no ship trips
-    mmsi:212351001
+    mmsi:212351001  max:79
     19822 - loading - de 06/02/2021 a 8/02/2021 -  0+10=10
             unloading: 724 -  10-1=9
     39824 - loading - de 11/02/2021 a 20/02/2021 -  9+8=17
@@ -81,7 +81,6 @@ public class ShipOccupancyRatesControllerTest {
      */
     @Test
     void testOccupancyRatesCargoManifest(){
-        //permitir apenas ships com cargo != NA
         //cmid: 77329
         System.out.println("testOccupancyRatesCargoManifest()");
         try {
@@ -101,13 +100,12 @@ public class ShipOccupancyRatesControllerTest {
      */
     @Test
     void testOccupancyRatesMoment(){
-        //permitir apenas ships com cargo != NA
         //mmsi: 212351001 and date: 25/02/2021 -> cmid: 77329
         System.out.println("testOccupancyRatesMoment()");
         try {
             int expResult = 21; //valor esperado
-            when(shipOccupancyRatesController.getShipOccupancyRateByMmsiAndDate(212351001,new Date(2021, Calendar.FEBRUARY,25))).thenReturn(21); //valor esperado
-            int result = shipOccupancyRatesController.getShipOccupancyRateByMmsiAndDate(212351001,new Date(2021, Calendar.FEBRUARY,25));
+            when(shipOccupancyRatesController.getShipOccupancyRateByMmsiAndDate(212351001,new java.sql.Date(new Date(2021,Calendar.FEBRUARY,25).getTime()))).thenReturn(21); //valor esperado
+            int result = shipOccupancyRatesController.getShipOccupancyRateByMmsiAndDate(212351001,new java.sql.Date(new Date(2021,Calendar.FEBRUARY,25).getTime()));
             System.out.println("exp: " + expResult);
             System.out.println("real: " + result);
             Assert.assertEquals(expResult, result);
@@ -115,5 +113,35 @@ public class ShipOccupancyRatesControllerTest {
             System.out.println(ex.getMessage());
         }
     }
+
+    /*@Test
+    void testOccupancyRatesCargoManifest2(){
+        //cmid: 77329
+        System.out.println("testOccupancyRatesCargoManifest2()");
+        try {
+            int expResult = 21; //valor esperado
+            int result = ctrl.getShipOccupancyRateByCargoManifestID(77329);
+            System.out.println("exp: " + expResult);
+            System.out.println("real: " + result);
+            Assert.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }*/
+
+    /*@Test
+    void testOccupancyRatesMoment2(){
+        //mmsi: 212351001 and date: 25/02/2021 -> cmid: 77329
+        System.out.println("testOccupancyRatesMoment2()");
+        try {
+            int expResult = 21; //valor esperado
+            int result = ctrl.getShipOccupancyRateByMmsiAndDate(212351001,new Date(2021,Calendar.FEBRUARY,25));
+            System.out.println("exp: " + expResult);
+            System.out.println("real: " + result);
+            Assert.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }*/
 
 }
