@@ -5,6 +5,7 @@ import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -42,12 +43,13 @@ public class ShipOccupancyRatesController {
      * @param alreadyAddedRemovedContainersTripNum containers added and removed in loading and unloading cargo manifest.
      * @return ship occupancy rate in percentage.
      */
-    public double calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
-        double current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
+    public int calculateOccupancyRate(int maxCapacity, int initialNumContainers, int alreadyAddedRemovedContainersTripNum){
+        //permitir apenas ships com cargo != NA
+        int current = initialNumContainers+alreadyAddedRemovedContainersTripNum;
         if (current>maxCapacity){
             return -1; //when invalid
         } else {
-            return (current/maxCapacity)*100;
+            return (current*100/maxCapacity);
         }
     }
 
@@ -56,7 +58,8 @@ public class ShipOccupancyRatesController {
      * @param cargoManifestID cargo manifest id.
      * @return ship occupancy rate in percentage.
      */
-    public double getShipOccupancyRateByCargoManifestID(int cargoManifestID){
+    public int getShipOccupancyRateByCargoManifestID(int cargoManifestID) throws SQLException {
+        //permitir apenas ships com cargo != NA
         int maxCapacity=0, initialNumContainers=0, alreadyAddedRemovedContainersTripNum=0;
         ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
         maxCapacity=shipStoreDB.getShipCargo(cargoManifestID);
@@ -86,7 +89,8 @@ public class ShipOccupancyRatesController {
      * @param date date to analyse.
      * @return ship occupancy rate in percentage.
      */
-    public double getShipOccupancyRateByMmsiAndDate(int mmsi, Date date){
+    public int getShipOccupancyRateByMmsiAndDate(int mmsi, Date date) throws SQLException{
+        //permitir apenas ships com cargo != NA
         int cargoManifestID = getCargoManifestIDByMmsiAndDate(mmsi,date);
         return getShipOccupancyRateByCargoManifestID(cargoManifestID);
     }

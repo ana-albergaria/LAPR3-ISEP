@@ -276,6 +276,8 @@ ShipsFileDTO ..> PositionDTO
 GetContainerSituationController ..> Company
 GetContainerSituationController ..> ShipTripStoreDB
 Company "1" -- "1" ShipTripStoreDB : uses >
+FindAvailableShipsController ..> Company
+FindAvailableShipsController ..> ShipTripStoreDB
 
 BST <|- PositionsBST
 BST <|- ShipsBST
