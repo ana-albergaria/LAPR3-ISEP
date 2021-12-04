@@ -7,10 +7,128 @@ import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.store.ShipStore;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
+
+
+    public String getNextMondayAvailableShips(){
+        String returnMessage = "";
+        String createValidatedShipProc = "create or replace PROCEDURE get_validated_ship_location(daydate in date, ship in Ship.mmsi%type, locations out varchar)\n" +
+                "IS\n" +
+                "    locationCode port.port_id%type;\n" +
+                "    shiptripid Shiptrip.shiptrip_id%type;\n" +
+                "    \n" +
+                "BEGIN\n" +
+                "        -- since we know the ship is available on monday we have to get the closest arrival to monday and extract its port\n" +
+                "        select shiptrip_id into shiptripid from shiptrip where mmsi = ship AND  \n" +
+                "        EST_ARRIVAL_DATE = (select max(EST_ARRIVAL_DATE) from shiptrip where mmsi=ship and EST_ARRIVAL_DATE < daydate);\n" +
+                "        select arrival_location into locationCode from shiptrip where shiptrip_id = shiptripid;\n" +
+                "        select name into locations from port where port_id = locationCode;\n" +
+                "END;\n" +
+                "\n";
+
+        String createFindLocationProc = "create or replace PROCEDURE check_availability_of_ship(daydate in date, chosenship in Ship.mmsi%type, isValid out boolean)\n" +
+                "IS\n" +
+                "    estDepartDate date;\n" +
+                "    estArrivalDate date;\n" +
+                "\n" +
+                "Cursor tripsOfShip IS\n" +
+                "        select est_departure_date, est_arrival_date\n" +
+                "        from shiptrip\n" +
+                "        where mmsi=chosenship;\n" +
+                "\n" +
+                "BEGIN\n" +
+                "open tripsOfShip;\n" +
+                "    LOOP\n" +
+                "        fetch tripsOfShip INTO estDepartDate, estArrivalDate;\n" +
+                "        Exit When tripsOfShip%notfound;\n" +
+                "        --if the arriavl date is before the monday is valid\n" +
+                "        if daydate > estArrivalDate then\n" +
+                "            isValid := true;\n" +
+                "        -- if the date was not before monday then if the depart date is AFTER monday ship is available\n" +
+                "        elsif daydate < estDepartDate then\n" +
+                "            isValid := true;\n" +
+                "        -- else false\n" +
+                "        else\n" +
+                "            isValid := false;\n" +
+                "            exit;\n" +
+                "        end if;\n" +
+                "    END LOOP;\n" +
+                "close tripsOfShip;\n" +
+                "END;";
+        String createMainProc = "create or replace PROCEDURE available_ships_after_day (daydate in Varchar, ships out Varchar, locationsOfShips out Varchar)\n" +
+                "IS\n" +
+                "    shipscode Ship.mmsi%type;\n" +
+                "    hasArrivalBefore integer;\n" +
+                "    availableShips Varchar(32700);\n" +
+                "    locations Varchar(32700);\n" +
+                "    nextmonday date;\n" +
+                "    isAvailable boolean;\n" +
+                "\n" +
+                "    Cursor shipsInTrips IS\n" +
+                "        select distinct (mmsi)\n" +
+                "        from shiptrip;\n" +
+                "\n" +
+                "BEGIN\n" +
+                "    nextMonday := TO_DATE(daydate, 'dd/mm/yyyy');\n" +
+                "    locationsOfShips := '';\n" +
+                "    ships := '';\n" +
+                "   open shipsInTrips;\n" +
+                "    LOOP\n" +
+                "        fetch shipsInTrips INTO shipscode;\n" +
+                "         dbms_output.put_line('code ' || shipscode);\n" +
+                "        Exit When shipsInTrips%notfound;\n" +
+                "        --makes avaialbility false by default\n" +
+                "        isAvailable := false;\n" +
+                "        --checks ships is available;\n" +
+                "        check_availability_of_ship(nextmonday, shipscode, isAvailable);\n" +
+                "        if isAvailable then\n" +
+                "             ships := ships || ' ' || shipscode;\n" +
+                "             get_validated_ship_location(nextMonday, shipscode, locations);\n" +
+                "             locationsOfShips := locationsOfShips || ' ' || locations;\n" +
+                "        end if;\n" +
+                "    END LOOP;\n" +
+                "    dbms_output.put_line('trip ' || ships);\n" +
+                "    dbms_output.put_line('trip ' || locationsOfShips);\n" +
+                "END;\n";
+
+        String runSP = "{ call available_ships_after_day(?,?,?) }";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try(Statement createPrcedureStat = connection.createStatement();
+            CallableStatement callableStatement = connection.prepareCall(runSP)) {
+            createPrcedureStat.execute(createValidatedShipProc);
+            createPrcedureStat.execute(createFindLocationProc);
+            createPrcedureStat.execute(createMainProc);
+            LocalDate dt = LocalDate.now();
+            String nextMonday = dt.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            System.out.println(nextMonday);
+            callableStatement.setString(1, nextMonday);
+            callableStatement.registerOutParameter(2, Types.VARCHAR);
+            callableStatement.registerOutParameter(3, Types.VARCHAR);
+
+
+            callableStatement.executeUpdate();
+
+            String ships = callableStatement.getString(2);
+            String locations = callableStatement.getString(3);
+            returnMessage = String.format("Ships:\n%s\nLocations:\n%s\n", ships, locations);
+        }catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnMessage;
+    }
 
     /**
      * Get a ship cargo (maximum capacity) by a cargo manifest ID.
