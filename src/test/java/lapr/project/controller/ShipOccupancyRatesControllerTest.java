@@ -37,7 +37,7 @@ public class ShipOccupancyRatesControllerTest {
      */
     @Test
     void testOccupancyRatesCalculationWhenValid(){
-        System.out.println("testOccupancyRatesCalculationWhenValid()");
+        System.out.println("Test1: testOccupancyRatesCalculationWhenValid()");
         int maxCapacity1=79;
         int initialNumContainers1=14;
         int alreadyAddedRemovedContainersTripNum1=7;
@@ -53,7 +53,7 @@ public class ShipOccupancyRatesControllerTest {
      */
     @Test
     void testOccupancyRatesCalculationWhenInvalid(){
-        System.out.println("testOccupancyRatesCalculationWhenInvalid()");
+        System.out.println("Test2: testOccupancyRatesCalculationWhenInvalid()");
         int maxCapacity1=20;
         int initialNumContainers1=14;
         int alreadyAddedRemovedContainersTripNum1=7;
@@ -76,53 +76,18 @@ public class ShipOccupancyRatesControllerTest {
             unloading: 87508 -  21-6=15
     */
 
-    /**
-     * Test to check if the occupancy rate of a ship is correctly calculated given a cargo manifest.
-     */
+    /*
     @Test
-    void testOccupancyRatesCargoManifest(){
+    void testOccupancyRatesCargoManifestValidValues(){
         //cmid: 77329
-        System.out.println("testOccupancyRatesCargoManifest()");
+        System.out.println("Test3: testOccupancyRatesCargoManifestValidValues()");
         try {
-            int expResult = 21; //valor esperado
-            when(shipOccupancyRatesController.getShipOccupancyRateByCargoManifestID(77329)).thenReturn(21); //valor esperado
-            int result = shipOccupancyRatesController.getShipOccupancyRateByCargoManifestID(77329);
-            System.out.println("exp: " + expResult);
-            System.out.println("real: " + result);
-            Assert.assertEquals(expResult, result);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    /**
-     * Test to check if the occupancy rate of a ship is correctly calculated given a mmsi and date.
-     */
-    @Test
-    void testOccupancyRatesMoment(){
-        //mmsi: 212351001 and date: 25/02/2021 -> cmid: 77329
-        System.out.println("testOccupancyRatesMoment()");
-        try {
-            int expResult = 21; //valor esperado
-            when(shipOccupancyRatesController.getShipOccupancyRateByMmsiAndDate(212351001,new java.sql.Date(new Date(2021,Calendar.FEBRUARY,25).getTime()))).thenReturn(21); //valor esperado
-            int result = shipOccupancyRatesController.getShipOccupancyRateByMmsiAndDate(212351001,new java.sql.Date(new Date(2021,Calendar.FEBRUARY,25).getTime()));
-            System.out.println("exp: " + expResult);
-            System.out.println("real: " + result);
-            Assert.assertEquals(expResult, result);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    /*@Test
-    void testOccupancyRatesCargoManifest2(){
-        //cmid: 77329
-        System.out.println("testOccupancyRatesCargoManifest2()");
-        try {
-            int expResult = 21; //valor esperado
-            int result = ctrl.getShipOccupancyRateByCargoManifestID(77329);
-            System.out.println("exp: " + expResult);
-            System.out.println("real: " + result);
+            int cargoManifestID = 77329;
+            int mmsi = ctrl.getMmsiByCargoManifest(cargoManifestID);
+            int expResult = 26; //valor esperado
+            int result = ctrl.getShipOccupancyRateByCargoManifestID(cargoManifestID);
+            System.out.println("OCCUPANCY RATE");
+            System.out.println("> For the Ship with MMSI [" + mmsi + "], the occupancy rate is " + result + "%, at the moment of the Cargo Manifest with ID [" + cargoManifestID + "].");
             Assert.assertEquals(expResult, result);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -130,14 +95,60 @@ public class ShipOccupancyRatesControllerTest {
     }
 
     @Test
-    void testOccupancyRatesMoment2(){
+    void testOccupancyRatesMomentValidValues(){
         //mmsi: 212351001 and date: 25/02/2021 -> cmid: 77329
-        System.out.println("testOccupancyRatesMoment2()");
+        System.out.println("Test4: testOccupancyRatesMomentValidValues()");
         try {
-            int expResult = 21; //valor esperado
-            int result = ctrl.getShipOccupancyRateByMmsiAndDate(212351001, java.sql.Date.valueOf("2021-02-25"));
-            System.out.println("exp: " + expResult);
-            System.out.println("real: " + result);
+            int mmsi=212351001;
+            String date = "2021-02-25";
+            int expResult = 26; //valor esperado
+            int result = ctrl.getShipOccupancyRateByMmsiAndDate(mmsi, java.sql.Date.valueOf(date));
+            System.out.println("OCCUPANCY RATE");
+            System.out.println("> For the Ship with MMSI [" + mmsi + "], the occupancy rate is " + result + "%, at " + date + ".");
+            Assert.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Test
+    void testOccupancyRatesCargoManifestNonexistentCargoManifest(){
+        System.out.println("Test3: testOccupancyRatesCargoManifestInvalidValues()");
+        try {
+            int cargoManifestID = 77330;
+            int mmsi = ctrl.getMmsiByCargoManifest(cargoManifestID);
+            int result = ctrl.getShipOccupancyRateByCargoManifestID(cargoManifestID);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IllegalArgumentException e){
+            System.out.println(e);
+        }
+    }
+
+    @Test
+    void testOccupancyRatesMomentNonexistentShip(){
+        System.out.println("Test4: testOccupancyRatesMomentNonexistentShip()");
+        try {
+            int mmsi=636092934;
+            String date = "2021-02-25";
+            int result = ctrl.getShipOccupancyRateByMmsiAndDate(mmsi, java.sql.Date.valueOf(date));
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IllegalArgumentException e){
+            System.out.println(e);
+        }
+    }
+
+    @Test
+    void testOccupancyRatesMomentShipNoShipTripsAtTime(){
+        System.out.println("Test5: testOccupancyRatesMomentShipNoShipTripsAtTime()");
+        try {
+            int mmsi=636092933;
+            String date = "2021-02-25";
+            int expResult = 0; //valor esperado
+            int result = ctrl.getShipOccupancyRateByMmsiAndDate(mmsi, java.sql.Date.valueOf(date));
+            System.out.println("OCCUPANCY RATE");
+            System.out.println("> For the Ship with MMSI [" + mmsi + "], the occupancy rate is " + result + "%, at " + date + ".");
             Assert.assertEquals(expResult, result);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

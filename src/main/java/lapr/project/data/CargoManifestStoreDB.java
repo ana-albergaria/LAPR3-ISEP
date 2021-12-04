@@ -10,6 +10,46 @@ import java.sql.*;
 public class CargoManifestStoreDB{
 
     /**
+     * Check if cargo manifest exists in the data base.
+     * @param cargoManifestID Cargo manifest ID.
+     * @return 1 if cargo manifest exists and 0 if it doesn't.
+     */
+    public int checkIfCargoManifestExists(int cargoManifestID) {
+        int result = 0;
+        String createFunction = "create or replace function check_if_cargoManifest_exists(f_cargoManifest_id cargomanifest.cargomanifest_id%type) return integer\n" +
+                "is\n" +
+                "f_result integer;\n" +
+                "begin\n" +
+                "select count(*) into f_result\n" +
+                "from cargomanifest\n" +
+                "where cargomanifest_id = f_cargomanifest_id;\n" +
+                "return (f_result);\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;";
+        String runFunction = "{? = call check_if_cargoManifest_exists(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(cargoManifestID));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
      * Get the number of containers loaded or unloaded by a cargo manifest.
      * @param cargoManifestID cargo manifest ID.
      * @return number of containers loaded or unloaded by a cargo manifest.
