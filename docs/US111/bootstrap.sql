@@ -2300,7 +2300,7 @@ insert into shipment (container_id, shiptrip_id) values (9803333, 48427);
 --FOR US208 AND US209:
 
 insert into ship (mmsi, vesseltypeid, imo, callsign, shipname, currentcapacity, draft, length, width) values (212351001, 70, 'IMO9305686', '5BZP4', 'HYUNDAI SINGAPORA', '79', 14.5, 303, 40);
-insert into ship (mmsi, vesseltypeid, imo, callsign, shipname, currentcapacity, draft, length, width) values (636092933, 79, 'IMO9225642', 'D5VK7', 'MSC ILONO', '79', 11.8, 299, 40);
+insert into ship (mmsi, vesseltypeid, imo, callsign, shipname, currentcapacity, draft, length, width) values (636092933, 79, 'IMO9225642', 'D5VK7', 'MSC ILONO', '60', 11.8, 299, 40);
 
 insert into cargomanifest (cargomanifest_id) values (19822);
 insert into cargomanifest (cargomanifest_id) values (724);
@@ -2350,8 +2350,8 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7104943, 87508, 20);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (961837, 87508, -9);
 
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81341, 212351000, 224858, 16485, 19822, 724, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (67131, 212351000, 13012, 11771, 39824, 45807, '11/02/2021', '20/02/2021', '11/03/2021', '17/06/2021');
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (68138, 212351000, 18867, 24795, 77329, 87508, '24/02/2021', '26/02/2021', '27/03/2021', '26/04/2021');
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81342, 212351000, 224858, 16485, 19822, 724, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (67132, 212351000, 13012, 11771, 39824, 45807, '11/02/2021', '20/02/2021', '11/03/2021', '17/06/2021');
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (68139, 212351000, 18867, 24795, 77329, 87508, '24/02/2021', '26/02/2021', '27/03/2021', '26/04/2021');
 
 --END OF INSERTS FOR US208 AND US209.
