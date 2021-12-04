@@ -1212,8 +1212,190 @@ For the tests, it is needed to instanciate a Datebaseconnection object and Calla
 
 
 
+# US 205 - Get List of Containers to be Offloaded in the Next Port
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Ship Captain, I want the list of containers to be offloaded in the next port, including container identifier, type, position, and load
+
+### 1.2. Acceptance Criteria
+
+* “next port” is properly identified.
+* The containers being offloaded are properly identified
+* Output is in accordance with the specification wrt the information about each container
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Ship mmsi
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* next Port
+* list of containers to be offloaded
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US205/US205_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US205/US205_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US205/US205_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US205/US205_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getPortIdTest() is functioning correctly.
+```
+@Test
+    public void getPortIdTest() {
+    }
+```
+
+**Test 2:** Test to ensure getOffloadedListTest() is functioning properly
+```
+@Test
+    public void getOffloadedListTest() {
+    }
+```
+
+### ContainersOffLoadedController Class
+
+**Test 3:** Test to ensure getOffloadedListTest() is functioning properly
+```
+@Test
+    public void getOffloadedListTest() {
+    }
+```
 
 
 
 
+# US 206 - Get List of Containers to be Loaded in the Next Port
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Ship Captain, I want the list of containers to be loaded in the next port, including container identifier, type, and load.
+
+### 1.2. Acceptance Criteria
+
+* “next port” is properly identified.
+* The containers being loaded are properly identified
+* Output is in accordance with the specification wrt the information about each container
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Ship mmsi
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* next Port
+* list of containers to be loaded
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US210-SSD](./docs/US206/US206_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US210-MD](./docs/US206/US206_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_210-SD](./docs/US206/US206_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US210-CD](./docs/US206/US206_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### ShipTripStoreDB class
+
+**Test 1:** Test to ensure getPortIdTest() is functioning correctly.
+```
+@Test
+    public void getPortIdTest() {
+    }
+```
+
+**Test 2:** Test to ensure getLoadedListTest() is functioning properly
+```
+@Test
+    public void getLoadedListTest() {
+    }
+```
+
+### ContainersLoadedController Class
+
+**Test 3:** Test to ensure getOffloadedListTest() is functioning properly
+```
+@Test
+    public void getOffloadedListTest() {
+    }
+```
 
