@@ -6,13 +6,14 @@ IS
 BEGIN
         -- since we know the ship is available on monday we have to get the closest arrival to monday and extract its port
         select shiptrip_id into shiptripid from shiptrip where mmsi = ship AND
-        EST_ARRIVAL_DATE = (select max(EST_ARRIVAL_DATE) from shiptrip where mmsi=ship and EST_ARRIVAL_DATE < daydate);
+        EST_ARRIVAL_DATE = (select max(EST_ARRIVAL_DATE) from shiptrip where mmsi=ship);
         select arrival_location into locationCode from shiptrip where shiptrip_id = shiptripid;
         select name into locations from port where port_id = locationCode;
+        dbms_output.put_line('cargo load id: ' || locations);
 END;
 
 
-create or replace PROCEDURE check_availability_of_ship(daydate in date, chosenship in Ship.mmsi%type, isValid out boolean)
+create or replace PROCEDURE check_availability_of_ship(daydate in date, ship in Ship.mmsi%type, isValid out boolean)
 IS
     estDepartDate date;
     estArrivalDate date;
@@ -20,7 +21,7 @@ IS
 Cursor tripsOfShip IS
         select est_departure_date, est_arrival_date
         from shiptrip
-        where mmsi=chosenship;
+        where mmsi=ship;
 
 BEGIN
 open tripsOfShip;
@@ -39,7 +40,6 @@ open tripsOfShip;
             exit;
         end if;
     END LOOP;
-close tripsOfShip;
 END;
 
 create or replace PROCEDURE available_ships_after_day (daydate in Varchar, ships out Varchar, locationsOfShips out Varchar)
@@ -56,6 +56,7 @@ IS
         from shiptrip;
 
 BEGIN
+
     nextMonday := TO_DATE(daydate, 'dd/mm/yyyy');
     locationsOfShips := '';
     ships := '';
@@ -76,4 +77,8 @@ BEGIN
     END LOOP;
     dbms_output.put_line('trip ' || ships);
     dbms_output.put_line('trip ' || locationsOfShips);
+     EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+        ships := 'no data';
+        locationsOfShips := 'no data';
 END;

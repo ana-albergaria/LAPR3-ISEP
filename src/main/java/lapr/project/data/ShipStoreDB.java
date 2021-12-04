@@ -29,13 +29,13 @@ public class ShipStoreDB implements Persistable{
                 "BEGIN\n" +
                 "        -- since we know the ship is available on monday we have to get the closest arrival to monday and extract its port\n" +
                 "        select shiptrip_id into shiptripid from shiptrip where mmsi = ship AND  \n" +
-                "        EST_ARRIVAL_DATE = (select max(EST_ARRIVAL_DATE) from shiptrip where mmsi=ship and EST_ARRIVAL_DATE < daydate);\n" +
+                "        EST_ARRIVAL_DATE = (select max(EST_ARRIVAL_DATE) from shiptrip where mmsi=ship);\n" +
                 "        select arrival_location into locationCode from shiptrip where shiptrip_id = shiptripid;\n" +
                 "        select name into locations from port where port_id = locationCode;\n" +
-                "END;\n" +
-                "\n";
+                "        dbms_output.put_line('cargo load id: ' || locations);\n" +
+                "END;";
 
-        String createFindLocationProc = "create or replace PROCEDURE check_availability_of_ship(daydate in date, chosenship in Ship.mmsi%type, isValid out boolean)\n" +
+        String createFindLocationProc = "create or replace PROCEDURE check_availability_of_ship(daydate in date, ship in Ship.mmsi%type, isValid out boolean)\n" +
                 "IS\n" +
                 "    estDepartDate date;\n" +
                 "    estArrivalDate date;\n" +
@@ -43,7 +43,7 @@ public class ShipStoreDB implements Persistable{
                 "Cursor tripsOfShip IS\n" +
                 "        select est_departure_date, est_arrival_date\n" +
                 "        from shiptrip\n" +
-                "        where mmsi=chosenship;\n" +
+                "        where mmsi=ship;\n" +
                 "\n" +
                 "BEGIN\n" +
                 "open tripsOfShip;\n" +
@@ -62,7 +62,6 @@ public class ShipStoreDB implements Persistable{
                 "            exit;\n" +
                 "        end if;\n" +
                 "    END LOOP;\n" +
-                "close tripsOfShip;\n" +
                 "END;";
         String createMainProc = "create or replace PROCEDURE available_ships_after_day (daydate in Varchar, ships out Varchar, locationsOfShips out Varchar)\n" +
                 "IS\n" +
@@ -72,12 +71,13 @@ public class ShipStoreDB implements Persistable{
                 "    locations Varchar(32700);\n" +
                 "    nextmonday date;\n" +
                 "    isAvailable boolean;\n" +
-                "\n" +
+                "    \n" +
                 "    Cursor shipsInTrips IS\n" +
                 "        select distinct (mmsi)\n" +
                 "        from shiptrip;\n" +
                 "\n" +
                 "BEGIN\n" +
+                "\n" +
                 "    nextMonday := TO_DATE(daydate, 'dd/mm/yyyy');\n" +
                 "    locationsOfShips := '';\n" +
                 "    ships := '';\n" +
@@ -98,7 +98,11 @@ public class ShipStoreDB implements Persistable{
                 "    END LOOP;\n" +
                 "    dbms_output.put_line('trip ' || ships);\n" +
                 "    dbms_output.put_line('trip ' || locationsOfShips);\n" +
-                "END;\n";
+                "     EXCEPTION\n" +
+                "        WHEN no_data_found THEN \n" +
+                "        ships := 'no data';\n" +
+                "        locationsOfShips := 'no data';\n" +
+                "END;";
 
         String runSP = "{ call available_ships_after_day(?,?,?) }";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
@@ -120,7 +124,17 @@ public class ShipStoreDB implements Persistable{
 
             String ships = callableStatement.getString(2);
             String locations = callableStatement.getString(3);
-            returnMessage = String.format("Ships:\n%s\nLocations:\n%s\n", ships, locations);
+            if(ships != null && locations !=null) {
+                StringBuilder result = new StringBuilder("Available ships:\n_______\n");
+                String[] locationsArray = locations.split(" ");
+                String[] shipsArray = ships.split(" ");
+                for (int i = 1; i < shipsArray.length; i++) {
+                    result.append(String.format("Ship code: %s\nLocation(Port): %s\n_______\n", shipsArray[i], locationsArray[i]));
+                }
+                returnMessage = result.toString();
+            }else{
+                return "No ship was found.";
+            }
         }catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
@@ -255,7 +269,8 @@ public class ShipStoreDB implements Persistable{
 
     @Override
     public boolean save(DatabaseConnection databaseConnection, Object object) {
-        boolean returnValue = false;
+        boolean returnValue;
+        returnValue = false;
         if(object instanceof Ship){
             try{
                 Ship toSave = (Ship) object;
