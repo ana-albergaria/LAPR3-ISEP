@@ -289,15 +289,15 @@ public class PositionsBST extends BST<ShipPosition> {
      * @return List with latitude and longitude
      */
     public List<Double> getPosInDateTime(Date dateTime) {
+
         List<ShipPosition> allPos = (List<ShipPosition>) inOrder();
         List<Double> coordinates = new LinkedList<>();
+        ShipPosition posi = new ShipPosition(dateTime);
+        posi.setBaseDateTime(dateTime);
 
-        for (ShipPosition pos : allPos) {
-            if (pos.getBaseDateTime().equals(dateTime)) {
-                coordinates.add(pos.getLat());
-                coordinates.add(pos.getLon());
-            }
-        }
+        ShipPosition coor = find(root, posi).getElement();
+        coordinates.add(coor.getLat());
+        coordinates.add(coor.getLon());
 
         return coordinates;
     }

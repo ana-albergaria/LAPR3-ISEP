@@ -19,7 +19,7 @@ public class NearestPortController {
      * empty constructor for the  Class
      */
     public NearestPortController() {
-        company = App.getInstance().getCompany();
+        this(App.getInstance().getCompany());
     }
 
     /**
@@ -58,7 +58,7 @@ public class NearestPortController {
     public Port findClosestPort(String callSign, Date dateTime) {
         Ship ship = getShipByCallSign(callSign);
         List<Double> coordinates = getShipCoordinates(ship, dateTime);
-        PortStore portStore = company.getPortStore();
+        PortStore portStore = this.company.getPortStore();
         return portStore.findClosestPort(coordinates);
     }
 }

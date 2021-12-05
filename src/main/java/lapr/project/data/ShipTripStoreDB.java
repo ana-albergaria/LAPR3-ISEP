@@ -275,6 +275,7 @@ public class ShipTripStoreDB {
     public List<Integer> getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
 
         int portId = getNextPortID(databaseConnection, mmsi);
+        System.out.println("Next Port: " + portId);
 
         File file = new File("offloadedContainers.txt");
         if (!file.exists())
@@ -299,12 +300,18 @@ public class ShipTripStoreDB {
 
             while (cs1.next()) {
                 int containerId = cs1.getInt(1);
+                System.out.println("Container id: " + containerId);
                 idList.add(containerId);
                 String isoCode = cs1.getString(2);
+                System.out.println("Container ISO: " + isoCode);
                 int payload = cs1.getInt(3);
+                System.out.println("Continer Load: " + payload);
                 int positionx = cs1.getInt(4);
                 int positiony = cs1.getInt(5);
                 int positionz = cs1.getInt(6);
+                System.out.println("Position in vehicule: " + positionx + ", " + positiony + ", " + positionz);
+                System.out.println();
+
 
                 bw.write(containerId);
                 bw.write(isoCode);
@@ -355,20 +362,25 @@ public class ShipTripStoreDB {
             ResultSet cs1 = (ResultSet) cs.getObject(1);
 
             while (cs1.next()) {
-                int Id = cs1.getInt(1);
-                listID.add(Id);
-                String ISOCode = cs1.getString(2);
-                int load = cs1.getInt(3);
-                int positionX = cs1.getInt(4);
-                int positionY = cs1.getInt(5);
-                int positionZ = cs1.getInt(6);
+                int containerId = cs1.getInt(1);
+                System.out.println("Container id: " + containerId);
+                listID.add(containerId);
+                String isoCode = cs1.getString(2);
+                System.out.println("Container ISO: " + isoCode);
+                int payload = cs1.getInt(3);
+                System.out.println("Continer Load: " + payload);
+                int positionx = cs1.getInt(4);
+                int positiony = cs1.getInt(5);
+                int positionz = cs1.getInt(6);
+                System.out.println("Position in vehicule: " + positionx + ", " + positiony + ", " + positionz);
+                System.out.println();
 
-                bw.write(Id);
-                bw.write(ISOCode);
-                bw.write(load);
-                bw.write(positionX);
-                bw.write(positionY);
-                bw.write(positionZ);
+                bw.write(containerId);
+                bw.write(isoCode);
+                bw.write(payload);
+                bw.write(positionx);
+                bw.write(positiony);
+                bw.write(positionz);
             }
             //cs.close();
             return listID;
