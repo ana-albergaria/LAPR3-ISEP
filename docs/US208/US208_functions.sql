@@ -1,3 +1,17 @@
+--CHECK IF SHIP EXISTS
+create or replace function check_if_ship_exists(f_mmsi ship.mmsi%type) return integer
+is
+f_result integer;
+begin
+select count(*) into f_result
+from ship
+where mmsi = f_mmsi;
+return (f_result);
+exception
+when no_data_found then
+return 0;
+end;
+
 --CHECK IF CARGO MANIFEST EXISTS
 create or replace function check_if_cargoManifest_exists(f_cargoManifest_id cargomanifest.cargomanifest_id%type) return integer
 is
