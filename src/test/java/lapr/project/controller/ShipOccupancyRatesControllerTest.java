@@ -76,6 +76,7 @@ public class ShipOccupancyRatesControllerTest {
             unloading: 87508 -  21-6=15
     */
 
+    /*
     @Test
     void testOccupancyRatesCargoManifestValidValues(){
         //cmid: 77329
@@ -152,6 +153,6 @@ public class ShipOccupancyRatesControllerTest {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-    }
+    }*/
 
 }
