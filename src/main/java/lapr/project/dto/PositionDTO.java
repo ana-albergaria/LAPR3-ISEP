@@ -72,51 +72,27 @@ public class PositionDTO {
         return baseDateTime;
     }
 
-    /**
-     * Returns the PositionDTO's latitude.
-     * @return the PositionDTO's latitude.
-     */
-    public double getLat() {
+    public double getLatDto() {
         return lat;
     }
 
-    /**
-     * Returns the PositionDTO's longitude.
-     * @return the PositionDTO's longitude.
-     */
-    public double getLon() {
+    public double getLonDto() {
         return lon;
     }
 
-    /**
-     * Returns the PositionDTO's sog.
-     * @return the PositionDTO's sog.
-     */
-    public double getSog() {
+    public double getSogDto() {
         return sog;
     }
 
-    /**
-     * Returns the PositionDTO's cog.
-     * @return the PositionDTO's cog.
-     */
-    public double getCog() {
+    public double getCogDto() {
         return cog;
     }
 
-    /**
-     * Returns the PositionDTO's heading.
-     * @return the PositionDTO's heading.
-     */
-    public int getHeading() {
+    public int getHeadingDto() {
         return heading;
     }
 
-    /**
-     * Returns the PositionDTO's transciever class.
-     * @return the PositionDTO's transciever class.
-     */
-    public String getTranscieverClass() {
+    public String getTranscieverClassDto() {
         return transcieverClass;
     }
 

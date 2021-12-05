@@ -149,14 +149,14 @@ public class KDTree<T> {
     }
 
     private Node<T> balanceTree(boolean divX, List<Node<T>> nodes) {
-        if (nodes == null || nodes.isEmpty())
+        if (nodes == null || nodes.isEmpty())//1
             return null;
-        nodes.sort(divX ? cmpX : cmpY);
-        int median = nodes.size() / 2;
-        Node<T> node = new Node<>(nodes.get(median).element, nodes.get(median).getX(), nodes.get(median).getY());
-        node.left = balanceTree(!divX, nodes.subList(0, median));
+        nodes.sort(divX ? cmpX : cmpY); //nlogn
+        int median = nodes.size() / 2; //1
+        Node<T> node = new Node<>(nodes.get(median).element, nodes.get(median).getX(), nodes.get(median).getY());//1
+        node.left = balanceTree(!divX, nodes.subList(0, median)); //logn
         if (median + 1 <= nodes.size() - 1)
-            node.right = balanceTree(!divX, nodes.subList(median+1, nodes.size()));
+            node.right = balanceTree(!divX, nodes.subList(median+1, nodes.size())); //logn
         insert(node.getElement(),node.getX(),node.getY());
         return node;
     }

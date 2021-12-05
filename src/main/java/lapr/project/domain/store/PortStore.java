@@ -1,7 +1,6 @@
 package lapr.project.domain.store;
 
 import lapr.project.BSTesinf.KDTree;
-import lapr.project.controller.App;
 import lapr.project.data.PortStoreDB;
 import lapr.project.domain.BST.Ports2DTree;
 import lapr.project.domain.model.Port;
@@ -28,8 +27,8 @@ public class PortStore {
      * @return Port instance
      */
     public Port createPort(PortFileDTO portFileDTO){
-        return new Port(portFileDTO.getIdentification(),portFileDTO.getName(),portFileDTO.getContinent(),
-                portFileDTO.getCountry(), portFileDTO.getLat(), portFileDTO.getLon());
+        return new Port(portFileDTO.getIdentificationDto(),portFileDTO.getNameDto(),portFileDTO.getContinentDto(),
+                portFileDTO.getCountryDto(), portFileDTO.getLatDto(), portFileDTO.getLonDto());
     }
 
     /**
