@@ -16,42 +16,42 @@ public class ShipPosition implements Comparable<ShipPosition> {
     /**
      * The MMSI of the Ship to which the ShipPosition refers to.
      */
-    private final int MMSI;
+    private int MMSI;
 
     /**
      * The ShipPosition's base date time.
      */
-    private final Date baseDateTime;
+    private Date baseDateTime;
 
     /**
      * The ShipPosition's latitude.
      */
-    private final double lat;
+    private double lat;
 
     /**
      * The ShipPosition's longitude.
      */
-    private final double lon;
+    private double lon;
 
     /**
      * The ShipPosition's sog.
      */
-    private final double sog;
+    private double sog;
 
     /**
      * The ShipPosition's cog.
      */
-    private final double cog;
+    private double cog;
 
     /**
      * The ShipPosition's heading.
      */
-    private final int heading;
+    private int heading;
 
     /**
      * The ShipPosition's transciever class.
      */
-    private final String transcieverClass;
+    private String transcieverClass;
 
     /**
      * Constructs an instance of ShipPosition receiving as a parameter the Ship's MMSI and the ShipPosition's base date time, latitude, longitude, SOG, COG, heading and transciever class.
@@ -81,6 +81,10 @@ public class ShipPosition implements Comparable<ShipPosition> {
         this.cog=cog;
         this.heading=heading;
         this.transcieverClass=transcieverClass;
+    }
+
+    public ShipPosition(Date newDate) {
+        this.baseDateTime=newDate;
     }
 
     /**
@@ -222,6 +226,10 @@ public class ShipPosition implements Comparable<ShipPosition> {
         }
         if (StringUtils.isBlank(transcieverClass))
             throw new IllegalArgumentException("Transciever Class cannot be blank.");
+    }
+
+    public void setBaseDateTime(Date newDate) {
+        this.baseDateTime = newDate;
     }
 
     /**
