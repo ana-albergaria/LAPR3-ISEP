@@ -110,6 +110,11 @@ public class EsinfDemo {
         }
 
         importPortsController.balancePorts2DTree();
+        List<Port> listOfBalancedPorts = comp.getPortStore().getPorts2DTree().getAll();
+        System.out.println();
+        for (Port port : listOfBalancedPorts) {
+            System.out.println(port);
+        }
 
         //find nearest Port to a ship
         NearestPortController nearestPortController = new NearestPortController(comp);
