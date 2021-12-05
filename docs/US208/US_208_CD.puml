@@ -9,19 +9,24 @@ class ShipOccupancyRatesController{
 - company
 - calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum)
 - getShipOccupancyRateByCargoManifestID(cargoManifestID)
+- checkIfCargoManifestExists(cargoManifestID)
+- getMmsiByCargoManifest(cargoManifestID)
 }
 
 class ShipStoreDB{
+- checkIfShipExists(mmsi)
 - getShipCargo(cargoManifestID)
 }
 
 class ShipTripStoreDB{
+- getMmsiByCargoManifestID(cargoManifestID)
 - getAddedRemovedContainersShipTripMoment(cargoManifestID)
 - getEstDepartureDateFromShipTrip(cargoManifestID)
 - getInitialNumContainersPerShipTrip(cargoManifestID,estDepartureDate)
 }
 
 class CargoManifestStoreDB{
+- checkIfCargoManifestExists(cargoManifestID)
 - getNumContainersPerCargoManifest(cargoManifestID)
 }
 

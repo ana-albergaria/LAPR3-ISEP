@@ -18,6 +18,7 @@ public class ShipTripStoreDB {
             "Container ID", "ISO Code", "Payload", "Positionx","PositionY", "PositionZ");
 
     private final String idPort = "Next Port ID: ";
+
     /**
      * Get MMSI by cargo manifest ID.
      * @param cargoManifestID cargo manifest ID.
@@ -74,7 +75,7 @@ public class ShipTripStoreDB {
                 "f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
                 "f_loading_cargo_id shipTrip.loading_cargo_id%type;\n" +
                 "f_unloading_cargo_id shipTrip.unloading_cargo_id%type;\n" +
-                "f_num_added_removed_containers_ship_trip_moment integer;\n" +
+                "f_num_added_removed_containers_ship_trip_moment integer:=0;\n" +
                 "begin\n" +
                 "select shiptrip_id into f_shiptrip_id\n" +
                 "from shipTrip\n" +
@@ -159,19 +160,19 @@ public class ShipTripStoreDB {
      * @param estDepartureDate Ship trip's estimated departure date.
      * @return ship trip's initial num of containers.
      */
-    public int getInitialNumContainersPerShipTrip(int cargoManifestID, java.sql.Date estDepartureDate) {
+    public int getInitialNumContainersPerShipTrip(int cargoManifestID, java.sql.Date estDepartureDate, int mmsi) {
         int result = 0;
         String createFunction = "create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,\n" +
-                "f_est_departure_date shipTrip.est_departure_date%type) return integer\n" +
+                "f_est_departure_date shipTrip.est_departure_date%type, f_mmsi ship.mmsi%type) return integer\n" +
                 "is\n" +
                 "f_comp_loading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
                 "f_comp_unloading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
-                "f_initial_num_containers_per_ship_trip integer;\n" +
+                "f_initial_num_containers_per_ship_trip integer:=0;\n" +
                 "cursor neededShipTrips\n" +
                 "is\n" +
                 "(select loading_cargo_id, unloading_cargo_id\n" +
                 "from shipTrip\n" +
-                "where est_departure_date < f_est_departure_date);\n" +
+                "where mmsi=f_mmsi AND est_departure_date < f_est_departure_date);\n" +
                 "begin\n" +
                 "open neededShipTrips;\n" +
                 "loop\n" +
@@ -184,7 +185,7 @@ public class ShipTripStoreDB {
                 "when no_data_found then\n" +
                 "return 0;\n" +
                 "end;";
-        String runFunction = "{? = call get_initial_num_containers_per_ship_trip(?,?)}";
+        String runFunction = "{? = call get_initial_num_containers_per_ship_trip(?,?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();
@@ -193,6 +194,7 @@ public class ShipTripStoreDB {
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(cargoManifestID));
             callableStatement.setString(3, String.valueOf(estDepartureDate));
+            callableStatement.setString(4, String.valueOf(mmsi));
 
             callableStatement.executeUpdate();
 

@@ -18,6 +18,45 @@ import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
 
+    /**
+     * Check if ship exists in the data base.
+     * @param mmsi Ship's mmsi.
+     * @return 1 if ship exists and 0 if it doesn't.
+     */
+    public int checkIfShipExists(int mmsi) {
+        int result = 0;
+        String createFunction = "create or replace function check_if_ship_exists(f_mmsi ship.mmsi%type) return integer\n" +
+                "is\n" +
+                "f_result integer;\n" +
+                "begin\n" +
+                "select count(*) into f_result\n" +
+                "from ship\n" +
+                "where mmsi = f_mmsi;\n" +
+                "return (f_result);\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;";
+        String runFunction = "{? = call check_if_ship_exists(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(mmsi));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public String getNextMondayAvailableShips(){
         String returnMessage = "";
