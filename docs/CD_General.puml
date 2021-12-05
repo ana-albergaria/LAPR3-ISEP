@@ -9,8 +9,13 @@ skinparam classAttributeIconSize 0
 class Company{
     - designation
     - shipsBST
+    - shipStoreDB
+    - shipTripStoreDB
+    - cargoManifestStoreDB
     + getBstShip()
-    +getShipTripStoreDB()
+    + getShipTripStoreDB()
+    + getShipStoreDB()
+    + getCargoManifestStoreDB()
 }
 
 class BST{
@@ -221,9 +226,35 @@ class GetContainerSituationController{
     +getLocation(containerID, shipmentID)
 }
 
+class ShipOccupancyRatesController{
+    - company
+    + calculateOccupancyRate(maxCapacity, initialNumContainers, alreadyAddedRemovedContainersTripNum)
+    + getShipOccupancyRateByCargoManifestID(cargoManifestID)
+    + getCargoManifestIDByMmsiAndDate(mmsi, date)
+    + checkIfCargoManifestExists(cargoManifestID)
+    + checkIfShipExists(mmsi)
+    + getShipOccupancyRateByMmsiAndDate(mmsi, date)
+    + getMmsiByCargoManifest(cargoManifestID)
+}
+
+class ShipStoreDB{
+    + checkIfShipExists(mmsi)
+    + getShipCargo(cargoManifestID)
+}
+
 class ShipTripStoreDB {
     +getShipTripId(databaseConnection, containerId, shipmentId)
     +getLocation(databaseConnection, shipTripId)
+    + getMmsiByCargoManifestID(cargoManifestID)
+    + getAddedRemovedContainersShipTripMoment(cargoManifestID)
+    + getEstDepartureDateFromShipTrip(cargoManifestID)
+    + getInitialNumContainersPerShipTrip(cargoManifestID,estDepartureDate)
+}
+
+class CargoManifestStoreDB{
+    + checkIfCargoManifestExists(cargoManifestID)
+    + getNumContainersPerCargoManifest(cargoManifestID)
+    + getCargoManifestByMmsiAndDate(mmsi, date)
 }
 
 MovementSummaryController ..> Company

@@ -2,8 +2,11 @@ package lapr.project.ui;
 
 import lapr.project.controller.*;
 import lapr.project.domain.model.Company;
+import lapr.project.domain.model.Port;
 import lapr.project.domain.model.Ship;
+import lapr.project.dto.PortFileDTO;
 import lapr.project.dto.ShipsFileDTO;
+import lapr.project.utils.PortsFileUtils;
 import lapr.project.utils.ShipsFileUtils;
 
 import java.io.IOException;
@@ -96,5 +99,22 @@ public class EsinfDemo {
         //ATTENTION: The results will be put in a file named: "us107ShowPairsOfShips"
         ShowPairsOfShipsController showPairsOfShipsController = new ShowPairsOfShipsController(comp);
         showPairsOfShipsController.getPairsOfShips();
+
+
+        //import Ports from a file
+        ImportPortsController importPortsController = new ImportPortsController(comp);
+        PortsFileUtils portsFileUtils = new PortsFileUtils();
+        List<PortFileDTO> portsOfFile = portsFileUtils.getPortsDataToDto("data-ships&ports/bports.csv");
+        for(PortFileDTO port : portsOfFile){
+            importPortsController.importPortFromFile(port);
+        }
+
+        importPortsController.balancePorts2DTree();
+
+        //find nearest Port to a ship
+        NearestPortController nearestPortController = new NearestPortController(comp);
+        Port nearesPort = nearestPortController.findClosestPort("DHBN", new SimpleDateFormat("dd/MM/yyyy hh:mm").parse("31/12/2020 06:57"));
+        System.out.println("--------------------------");
+        System.out.println("Nearest Port:" + nearesPort);
     }
 }

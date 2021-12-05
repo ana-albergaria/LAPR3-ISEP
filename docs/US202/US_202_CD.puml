@@ -25,6 +25,20 @@ class PositionBST {
 -getPosInDateTime(dateTime)
 }
 
+class ShipPosition {
+    -baseDateTime
+    -latitude
+    -longitude
+    -sog
+    -cog
+    -heading
+    -position
+    -transceiver
+    -getBaseDateTime()
+    -getLat()
+    -getLon()
+}
+
 class Company {
 - designation
 - portStore
@@ -53,6 +67,7 @@ ClosestShipController ..> Company
 ClosestShipController ..> PortTree
 ClosestShipController ..> PortStore
 ClosestShipController ..> ShipStore
+PositionBST "1" -- "1..*" ShipPosition : has >
 
 PortTree -|> 2DTree
 

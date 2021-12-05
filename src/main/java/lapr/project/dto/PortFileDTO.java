@@ -51,60 +51,30 @@ public class PortFileDTO {
         this.lon=lon;
     }
 
-    /**
-     * returns the Port's Identification
-     * @return Port's Identification
-     */
-    public int getIdentification(){
+    public int getIdentificationDto(){
         return this.identification;
     }
 
-    /**
-     * returns the Port's Name
-     * @return Port's Name
-     */
-    public String getName(){
+    public String getNameDto(){
         return this.name;
     }
 
-    /**
-     * returns the Port's Continent
-     * @return Port's Continent
-     */
-    public String getContinent(){
+    public String getContinentDto(){
         return this.continent;
     }
 
-    /**
-     * returns the Port's Country
-     * @return Port's Country
-     */
-    public String getCountry(){
+    public String getCountryDto(){
         return this.country;
     }
 
-    /**
-     * returns the Port's Latitude
-     * @return Port's Latitude
-     */
-    public double getLat(){
+    public double getLatDto(){
         return this.lat;
     }
 
-    /**
-     * returns the Port's Longitude
-     * @return Port's Longitude
-     */
-    public double getLon(){
+    public double getLonDto(){
         return this.lon;
     }
 
-    /**
-     * Method equals.
-     * @param otherObject the object to be compared with.
-     * @return true if a Port is equal to the object in "otherObject";
-     * false if a Port isn't equal to the object in "otherObject".
-     */
     @Override
     public boolean equals(Object otherObject){
         if(this == otherObject)
@@ -121,10 +91,6 @@ public class PortFileDTO {
             return false;
     }
 
-    /**
-     * Method toString.
-     * @return a String with the Port attributes and its values.
-     */
     @Override
     public String toString() {
         return "PortFileDTO{" +

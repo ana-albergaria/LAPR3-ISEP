@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.data.dataControllers.NumCargoManifestsController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +17,7 @@ class NumCargoManifestsControllerTest {
                 "10\n" +
                 "Average number of containers per cargo manifest:\n" +
                 "6\n";
+
         NumCargoManifestsController numCargoManifestsController = mock(NumCargoManifestsController.class);
         when(numCargoManifestsController.getNumberOfCMAndAverageContForYear(year, mmsi)).thenReturn(expectedReturn);
         String returned = numCargoManifestsController.getNumberOfCMAndAverageContForYear(year, mmsi);

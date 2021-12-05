@@ -10,9 +10,14 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ShipTripStoreDB {
+    private final String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%n",
+            "Container ID", "ISO Code", "Payload", "Positionx","PositionY", "PositionZ");
+
+    private final String idPort = "Next Port ID: ";
 
     /**
      * Get MMSI by cargo manifest ID.
@@ -70,7 +75,7 @@ public class ShipTripStoreDB {
                 "f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
                 "f_loading_cargo_id shipTrip.loading_cargo_id%type;\n" +
                 "f_unloading_cargo_id shipTrip.unloading_cargo_id%type;\n" +
-                "f_num_added_removed_containers_ship_trip_moment integer;\n" +
+                "f_num_added_removed_containers_ship_trip_moment integer:=0;\n" +
                 "begin\n" +
                 "select shiptrip_id into f_shiptrip_id\n" +
                 "from shipTrip\n" +
@@ -113,8 +118,8 @@ public class ShipTripStoreDB {
      * @param cargoManifestID cargo manifest ID.
      * @return estimated departure date.
      */
-    public java.util.Date getEstDepartureDateFromShipTrip(int cargoManifestID) {
-        Date result = new java.util.Date(1970, Calendar.JANUARY,1);
+    public java.sql.Date getEstDepartureDateFromShipTrip(int cargoManifestID) {
+        java.sql.Date result = new java.sql.Date(new java.util.Date(2020, Calendar.JANUARY,1).getTime());
         String createFunction = "create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type\n" +
                 "is\n" +
                 "f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
@@ -155,30 +160,24 @@ public class ShipTripStoreDB {
      * @param estDepartureDate Ship trip's estimated departure date.
      * @return ship trip's initial num of containers.
      */
-    public int getInitialNumContainersPerShipTrip(int cargoManifestID, Date estDepartureDate) {
+    public int getInitialNumContainersPerShipTrip(int cargoManifestID, java.sql.Date estDepartureDate, int mmsi) {
         int result = 0;
         String createFunction = "create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,\n" +
-                "f_est_departure_date shipTrip.est_departure_date%type) return integer --est date como parametro\n" +
+                "f_est_departure_date shipTrip.est_departure_date%type, f_mmsi ship.mmsi%type) return integer\n" +
                 "is\n" +
-                "f_comp_shiptrip_id shipTrip.shiptrip_id%type;\n" +
-                "f_comp_loading_cargo_id shipTrip.loading_cargo_id%type;\n" +
-                "f_comp_unloading_cargo_id shipTrip.unloading_cargo_id%type;\n" +
-                "f_initial_num_containers_per_ship_trip integer;\n" +
-                "cursor shipTrips\n" +
+                "f_comp_loading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
+                "f_comp_unloading_cargo_id cargoManifest.cargoManifest_id%type;\n" +
+                "f_initial_num_containers_per_ship_trip integer:=0;\n" +
+                "cursor neededShipTrips\n" +
                 "is\n" +
-                "select shiptrip_id\n" +
+                "(select loading_cargo_id, unloading_cargo_id\n" +
                 "from shipTrip\n" +
-                "where est_departure_date < f_est_departure_date; --o f_est_departure_date ainda está vazio??\n" +
+                "where mmsi=f_mmsi AND est_departure_date < f_est_departure_date);\n" +
                 "begin\n" +
-                "select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id\n" +
-                "from shipTrip\n" +
-                "where shiptrip_id = f_comp_shiptrip_id;\n" +
+                "open neededShipTrips;\n" +
                 "loop\n" +
-                "fetch shipTrips into f_comp_shiptrip_id;\n" +
-                "exit when shipTrips%notfound;\n" +
-                "select loading_cargo_id, unloading_cargo_id into f_comp_loading_cargo_id, f_comp_unloading_cargo_id\n" +
-                "from shipTrip\n" +
-                "where shiptrip_id = f_comp_shiptrip_id;\n" +
+                "fetch neededShipTrips into f_comp_loading_cargo_id, f_comp_unloading_cargo_id;\n" +
+                "exit when neededShipTrips%notfound;\n" +
                 "f_initial_num_containers_per_ship_trip := f_initial_num_containers_per_ship_trip + get_num_containers_per_cargoManifest(f_comp_loading_cargo_id) - get_num_containers_per_cargoManifest(f_comp_unloading_cargo_id);\n" +
                 "end loop;\n" +
                 "return f_initial_num_containers_per_ship_trip;\n" +
@@ -186,7 +185,7 @@ public class ShipTripStoreDB {
                 "when no_data_found then\n" +
                 "return 0;\n" +
                 "end;";
-        String runFunction = "{? = call get_initial_num_containers_per_ship_trip(?,?)}";
+        String runFunction = "{? = call get_initial_num_containers_per_ship_trip(?,?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();
@@ -195,6 +194,7 @@ public class ShipTripStoreDB {
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(cargoManifestID));
             callableStatement.setString(3, String.valueOf(estDepartureDate));
+            callableStatement.setString(4, String.valueOf(mmsi));
 
             callableStatement.executeUpdate();
 
@@ -241,6 +241,12 @@ public class ShipTripStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
+    /**
+     * method to get the id of the nest Port in the Route
+     * @param databaseConnection connection to database
+     * @param mmsi ship mmsi
+     * @return port id
+     */
     public int getNextPortID(DatabaseConnection databaseConnection, int mmsi) {
 
         try {
@@ -259,33 +265,31 @@ public class ShipTripStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
-    public void getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException, SQLException {
-        String header = String.format("%-15s%-15s%-15s%-15s%-14s%-15s%n",
-                "Container ID", "ISO Code", "Payload", "Positionx","PositionY", "PositionZ");
+    /**
+     * Method to get the list of containers being offloaded in the next Port.
+     * @param databaseConnection connection to database
+     * @param mmsi ship mmsi
+     * @return list with only Containers id's
+     * @throws IOException database exception
+     */
+    public List<Integer> getListOffloadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
 
         int portId = getNextPortID(databaseConnection, mmsi);
-        String str = "Next Port ID: ";
+        System.out.println("Next Port: " + portId);
 
-        /*File file = new File("offloadedContainers.txt");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        File file = new File("offloadedContainers.txt");
+        if (!file.exists())
+            file.createNewFile();
 
-        FileWriter fw = new FileWriter(file, false);
-
-
-        BufferedWriter bw = new BufferedWriter(fw);*/
-        CallableStatement cs;
+        List<Integer> idList = new LinkedList<>();
         Connection connection = databaseConnection.getConnection();
-        cs = connection.prepareCall("{? = call offloaded(?)}");
-        try {
-            /*bw.write(str);
+
+        try (FileWriter fw = new FileWriter(file, false); BufferedWriter bw = new BufferedWriter(fw); CallableStatement cs = connection.prepareCall("{? = call  offcontainers_id(?)}")) {
+
+
+            bw.write(idPort);
             bw.write(portId);
-            bw.write(header);*/
+            bw.write(header);
 
             cs.setInt(2, mmsi);
             cs.registerOutParameter(1, OracleTypes.CURSOR);
@@ -294,28 +298,95 @@ public class ShipTripStoreDB {
 
             ResultSet cs1 = (ResultSet) cs.getObject(1);
 
-            while(cs1.next()) {
+            while (cs1.next()) {
                 int containerId = cs1.getInt(1);
+                System.out.println("Container id: " + containerId);
+                idList.add(containerId);
                 String isoCode = cs1.getString(2);
+                System.out.println("Container ISO: " + isoCode);
                 int payload = cs1.getInt(3);
+                System.out.println("Continer Load: " + payload);
                 int positionx = cs1.getInt(4);
                 int positiony = cs1.getInt(5);
                 int positionz = cs1.getInt(6);
+                System.out.println("Position in vehicule: " + positionx + ", " + positiony + ", " + positionz);
+                System.out.println();
 
-                /*bw.write(containerId);
+
+                bw.write(containerId);
                 bw.write(isoCode);
                 bw.write(payload);
                 bw.write(positionx);
                 bw.write(positiony);
-                bw.write(positionz);*/
+                bw.write(positionz);
             }
-
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
             cs.close();
-            //bw.close();
+            return idList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+
+    }
+
+    /**
+     * Method to get the list of containers being loaded in the next Port.
+     * @param databaseConnection connection to database
+     * @param mmsi ship mmsi
+     * @return list with only Containers id's
+     * @throws IOException database exception
+     */
+    public List<Integer> getListLoadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
+
+        int portId = getNextPortID(databaseConnection, mmsi);
+        System.out.println("Next Port: " + portId);
+
+        File file = new File("loadedContainers.txt");
+        if (!file.exists())
+            file.createNewFile();
+
+        List<Integer> listID = new LinkedList<>();
+        Connection connection = databaseConnection.getConnection();
+
+        try (FileWriter fw = new FileWriter(file, false); BufferedWriter bw = new BufferedWriter(fw); CallableStatement cs = connection.prepareCall("{? = call  load_containers_id(?)}")) {
+
+            bw.write(idPort);
+            bw.write(portId);
+            bw.write(header);
+
+            cs.setInt(2, mmsi);
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeUpdate();
+
+
+            ResultSet cs1 = (ResultSet) cs.getObject(1);
+
+            while (cs1.next()) {
+                int containerId = cs1.getInt(1);
+                System.out.println("Container id: " + containerId);
+                listID.add(containerId);
+                String isoCode = cs1.getString(2);
+                System.out.println("Container ISO: " + isoCode);
+                int payload = cs1.getInt(3);
+                System.out.println("Continer Load: " + payload);
+                int positionx = cs1.getInt(4);
+                int positiony = cs1.getInt(5);
+                int positionz = cs1.getInt(6);
+                System.out.println("Position in vehicule: " + positionx + ", " + positiony + ", " + positionz);
+                System.out.println();
+
+                bw.write(containerId);
+                bw.write(isoCode);
+                bw.write(payload);
+                bw.write(positionx);
+                bw.write(positiony);
+                bw.write(positionz);
+            }
+            //cs.close();
+            return listID;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");

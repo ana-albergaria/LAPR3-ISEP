@@ -80,3 +80,13 @@ Then, the occupancy rate should be manually calculated and its result should be 
 
 This test is similar with test 1, but should have invalid values (result <0% or >100%).
 Then, the returned value given by the algorithm should be -1.
+
+**Test 3:** Test to check the occupancy rate by cargo manifest is correctly calculated when the cargo manifest exists in the Data Base.
+
+**Test 4:** Test to check the occupancy rate by mmsi and date is correctly calculated when the ship with the given mmsi exists in the Data Base.
+
+**Test 5:** Test to check the occupancy rate by cargo manifest throws an exception when the cargo manifest doesn't exist in the Data Base.
+
+**Test 6:** Test to check the occupancy rate by mmsi and date throws an exception when the ship doesn't exist in the Data Base.
+
+**Test 7:** Test to check the occupancy rate by mmsi and date is 0% when the ship has no ship trips in the Data Base as for before the given date.
