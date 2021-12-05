@@ -340,6 +340,7 @@ public class ShipTripStoreDB {
     public List<Integer> getListLoadedContainers(DatabaseConnection databaseConnection, int mmsi) throws IOException {
 
         int portId = getNextPortID(databaseConnection, mmsi);
+        System.out.println("Next Port: " + portId);
 
         File file = new File("loadedContainers.txt");
         if (!file.exists())
