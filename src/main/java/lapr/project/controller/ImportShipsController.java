@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.domain.BST.PositionsBST;
-import lapr.project.domain.BST.ShipTree;
 import lapr.project.domain.BST.ShipTreeMmsi;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
@@ -90,9 +89,9 @@ public class ImportShipsController {
             try {
                 this.ship = store.createShip(shipsFileDTO);
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
-                        shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
-                        shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
-                        shipsFileDTO.getPositionDTO().getHeading(), shipsFileDTO.getPositionDTO().getTranscieverClass());
+                        shipsFileDTO.getPositionDTO().getLatDto(),shipsFileDTO.getPositionDTO().getLonDto(),
+                        shipsFileDTO.getPositionDTO().getSogDto(), shipsFileDTO.getPositionDTO().getCogDto(),
+                        shipsFileDTO.getPositionDTO().getHeadingDto(), shipsFileDTO.getPositionDTO().getTranscieverClassDto());
             }catch (IllegalArgumentException e){
                 System.out.println("NOT ADDED : " + e);
                 return false;
@@ -102,9 +101,9 @@ public class ImportShipsController {
             try{
                 this.ship=store.getShipsBstMmsi().getShipByMmsiCode(shipsFileDTO.getMmsi());
                 this.shipPosition = new ShipPosition(shipsFileDTO.getMmsi(),shipsFileDTO.getPositionDTO().getBaseDateTime(),
-                        shipsFileDTO.getPositionDTO().getLat(),shipsFileDTO.getPositionDTO().getLon(),
-                        shipsFileDTO.getPositionDTO().getSog(), shipsFileDTO.getPositionDTO().getCog(),
-                        shipsFileDTO.getPositionDTO().getHeading(), shipsFileDTO.getPositionDTO().getTranscieverClass());
+                        shipsFileDTO.getPositionDTO().getLatDto(),shipsFileDTO.getPositionDTO().getLonDto(),
+                        shipsFileDTO.getPositionDTO().getSogDto(), shipsFileDTO.getPositionDTO().getCogDto(),
+                        shipsFileDTO.getPositionDTO().getHeadingDto(), shipsFileDTO.getPositionDTO().getTranscieverClassDto());
             }catch (IllegalArgumentException e){
                 System.out.println("NOT ADDED : " + e);
                 return false;
