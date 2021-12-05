@@ -35,20 +35,27 @@ class ImportPortsControllerTest {
     void importPortFromFile() {
         PortsFileUtils portsFileUtils = new PortsFileUtils();
         portsOfFile = portsFileUtils.getPortsDataToDto(fileTest.toString());
-        List<Port> addedPorts = new ArrayList<>();
 
         for (int i = 0; i < portsOfFile.size(); i++) {
-            if (ctrl.importPortFromFile(portsOfFile.get(i))) {
-                addedPorts.add(this.comp.getPortStore().createPort(portsOfFile.get(i)));
-            }
+            ctrl.importPortFromFile(portsOfFile.get(i));
         }
 
-        portsOfFileExp = portsFileUtils.getPortsDataToDto(expFileTest.toString());
         List<Port> expAddedPorts = new ArrayList<>();
-        for (int i = 0; i < portsOfFileExp.size(); i++) {
-            expAddedPorts.add(this.comp.getPortStore().createPort(portsOfFileExp.get(i)));
-        }
-        Assert.assertEquals(expAddedPorts, addedPorts);
+
+        Port port1 = new Port(10563,"Copenhagen","Europe","Denmark",55.7,12.61666667);
+        Port port2 = new Port(10138, "Marsaxlokk", "Europe", "Malta", 35.84194, 14.54306);
+        Port port3 = new Port(10860, "Matarani", "America", "Peru", -17.0, -72.1);
+        Port port4 = new Port(10358, "Aarhus", "Europe", "Denmark", 56.15, 10.21666667);
+
+        expAddedPorts.add(port1);
+        expAddedPorts.add(port2);
+        expAddedPorts.add(port3);
+        expAddedPorts.add(port4);
+
+        ctrl.balancePorts2DTree();
+        List<Port> listOfBalancedPorts = this.comp.getPortStore().getPorts2DTree().getAll();
+
+        Assert.assertEquals(expAddedPorts, listOfBalancedPorts);
     }
 
 

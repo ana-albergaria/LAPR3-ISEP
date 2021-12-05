@@ -231,5 +231,24 @@ public class KDTree<T> {
         else
             insert(node, currentNode.right, !divX);
     }
+
+
+    public List<T> getAll() {
+        List<T> result = new LinkedList<>();
+        getAll(result, root);
+        return result;
+    }
+
+    private void getAll(List<T> result, Node<T> node) {
+        if(node == null)
+            return;
+        result.add(node.getElement());
+        if(node.left != null)
+            getAll(result, node.left);
+        if(node.right != null)
+            getAll(result, node.right);
+    }
+
+
 }
 
