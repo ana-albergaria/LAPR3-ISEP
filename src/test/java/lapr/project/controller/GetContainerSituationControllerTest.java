@@ -1,14 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
-import lapr.project.data.ShipTripStoreDB;
+import lapr.project.data.dataControllers.GetContainerSituationController;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+import lapr.project.data.dataControllers.findAvailableShipsController;
 import lapr.project.domain.model.Company;
 import org.junit.Test;
 

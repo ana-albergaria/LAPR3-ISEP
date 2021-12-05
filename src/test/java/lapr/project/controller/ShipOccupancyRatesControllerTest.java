@@ -1,18 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
+import lapr.project.data.dataControllers.ShipOccupancyRatesController;
 import lapr.project.domain.model.Company;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
-
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * @author Marta Ribeiro (1201592)

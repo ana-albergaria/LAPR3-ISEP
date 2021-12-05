@@ -1,6 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
+import lapr.project.data.dataControllers.ContainersLoadedController;
 import lapr.project.domain.model.Company;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
