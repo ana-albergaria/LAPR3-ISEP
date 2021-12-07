@@ -14,7 +14,7 @@ public class CargoManifestStoreDB{
      * Check if cargo manifest exceeds given ship capacity.
      * @param cargoManifestID Cargo manifest's ID.
      * @param mmsi Desired Ship's mmsi.
-     * @return
+     * @return -1 if the input values are invalid, 0 if it exceeds the capacity and 1 if it doesn't.
      */
     public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
         int result = 0;

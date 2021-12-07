@@ -1,0 +1,26 @@
+@startuml
+
+hide empty methods
+hide empty attributes
+'left to right direction
+skinparam classAttributeIconSize 0
+
+class CheckIfContainerExceedsShipCapacityController{
+- company
+- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+}
+
+class CargoManifestStoreDB{
+- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+}
+
+class Company{
+- cargoManifestStoreDB
+- getCargoManifestStoreDB()
+}
+
+CheckIfContainerExceedsShipCapacityController ..> Company
+CheckIfContainerExceedsShipCapacityController ..> CargoManifestStoreDB
+Company "1" -- "1" CargoManifestStoreDB : uses >
+
+@enduml

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="365px" preserveAspectRatio="none" style="width:374px;height:365px;background:#FFFFFF;" version="1.1" viewBox="0 0 374 365" width="374px" zoomAndPan="magnify"><defs><filter height="300%" id="f1gcqzmno7pew5" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[8b7774a30c2a3667a84edc7b1d0ac185]
+class CheckIfContainerExceedsShipCapacityController--><rect codeLine="7" fill="#FEFECE" filter="url(#f1gcqzmno7pew5)" height="75.6719" id="CheckIfContainerExceedsShipCapacityController" style="stroke:#A80036;stroke-width:1.5;" width="342" x="7" y="7"/><ellipse cx="40.9" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M42.9,19.5 Q43.1031,19 43.3375,18.75 Q43.5719,18.5 43.8375,18.5 Q44.3063,18.5 44.6031,18.7813 Q44.9,19.0625 44.9,19.7188 L44.9,21.2813 Q44.9,21.9375 44.6188,22.2188 Q44.3375,22.5 43.9,22.5 Q43.5094,22.5 43.2594,22.3281 Q43.0094,22.1563 42.9,21.7031 Q42.8531,21.3906 42.6813,21.2188 Q42.3688,20.8906 41.8063,20.7031 Q41.2438,20.5 40.6813,20.5 Q39.9781,20.5 39.3844,20.7813 Q38.8063,21.0625 38.3531,21.6875 Q37.9,22.3125 37.9,23.1719 L37.9,24.0938 Q37.9,25.125 38.7438,25.8125 Q39.5875,26.5 41.0875,26.5 Q41.9781,26.5 42.6031,26.2969 Q42.9625,26.1875 43.3688,25.8281 Q43.6344,25.625 43.775,25.5625 Q43.9156,25.5 44.0875,25.5 Q44.4156,25.5 44.65,25.7656 Q44.9,26.0156 44.9,26.375 Q44.9,26.7188 44.5563,27.125 Q44.0563,27.7188 43.2594,28.0469 Q42.2125,28.5 40.9313,28.5 Q39.4313,28.5 38.2281,27.9063 Q37.2594,27.4375 36.5719,26.4219 Q35.9,25.4063 35.9,24.2031 L35.9,23.1094 Q35.9,21.8594 36.4938,20.7656 Q37.1031,19.6719 38.15,19.0938 Q39.2125,18.5 40.4,18.5 Q41.1188,18.5 41.7438,18.75 Q42.3688,19 42.9,19.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="268" x="59.1" y="27.9102">CheckIfContainerExceedsShipCapacityController</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="348" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="13" y="54.4189">-company</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="348" y1="60.8359" y2="60.8359"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="330" x="13" y="76.2549">-checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)</text><!--MD5=[9287bc2a51302962a18a68bfc2848f3a]
+class CargoManifestStoreDB--><rect codeLine="12" fill="#FEFECE" filter="url(#f1gcqzmno7pew5)" height="53.8359" id="CargoManifestStoreDB" style="stroke:#A80036;stroke-width:1.5;" width="342" x="16" y="298"/><ellipse cx="119.75" cy="314" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M121.75,310.5 Q121.9531,310 122.1875,309.75 Q122.4219,309.5 122.6875,309.5 Q123.1563,309.5 123.4531,309.7813 Q123.75,310.0625 123.75,310.7188 L123.75,312.2813 Q123.75,312.9375 123.4688,313.2188 Q123.1875,313.5 122.75,313.5 Q122.3594,313.5 122.1094,313.3281 Q121.8594,313.1563 121.75,312.7031 Q121.7031,312.3906 121.5313,312.2188 Q121.2188,311.8906 120.6563,311.7031 Q120.0938,311.5 119.5313,311.5 Q118.8281,311.5 118.2344,311.7813 Q117.6563,312.0625 117.2031,312.6875 Q116.75,313.3125 116.75,314.1719 L116.75,315.0938 Q116.75,316.125 117.5938,316.8125 Q118.4375,317.5 119.9375,317.5 Q120.8281,317.5 121.4531,317.2969 Q121.8125,317.1875 122.2188,316.8281 Q122.4844,316.625 122.625,316.5625 Q122.7656,316.5 122.9375,316.5 Q123.2656,316.5 123.5,316.7656 Q123.75,317.0156 123.75,317.375 Q123.75,317.7188 123.4063,318.125 Q122.9063,318.7188 122.1094,319.0469 Q121.0625,319.5 119.7813,319.5 Q118.2813,319.5 117.0781,318.9063 Q116.1094,318.4375 115.4219,317.4219 Q114.75,316.4063 114.75,315.2031 L114.75,314.1094 Q114.75,312.8594 115.3438,311.7656 Q115.9531,310.6719 117,310.0938 Q118.0625,309.5 119.25,309.5 Q119.9688,309.5 120.5938,309.75 Q121.2188,310 121.75,310.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="126" x="140.25" y="318.9102">CargoManifestStoreDB</text><line style="stroke:#A80036;stroke-width:1.5;" x1="17" x2="357" y1="330" y2="330"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="330" x="22" y="345.4189">-checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)</text><!--MD5=[02e4b9b7573f1156f41e60aa5b4e25a4]
+class Company--><rect codeLine="16" fill="#FEFECE" filter="url(#f1gcqzmno7pew5)" height="75.6719" id="Company" style="stroke:#A80036;stroke-width:1.5;" width="149" x="211.5" y="144"/><ellipse cx="255.3" cy="160" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M257.3,156.5 Q257.5031,156 257.7375,155.75 Q257.9719,155.5 258.2375,155.5 Q258.7063,155.5 259.0031,155.7813 Q259.3,156.0625 259.3,156.7188 L259.3,158.2813 Q259.3,158.9375 259.0188,159.2188 Q258.7375,159.5 258.3,159.5 Q257.9094,159.5 257.6594,159.3281 Q257.4094,159.1563 257.3,158.7031 Q257.2531,158.3906 257.0813,158.2188 Q256.7688,157.8906 256.2063,157.7031 Q255.6438,157.5 255.0813,157.5 Q254.3781,157.5 253.7844,157.7813 Q253.2063,158.0625 252.7531,158.6875 Q252.3,159.3125 252.3,160.1719 L252.3,161.0938 Q252.3,162.125 253.1438,162.8125 Q253.9875,163.5 255.4875,163.5 Q256.3781,163.5 257.0031,163.2969 Q257.3625,163.1875 257.7688,162.8281 Q258.0344,162.625 258.175,162.5625 Q258.3156,162.5 258.4875,162.5 Q258.8156,162.5 259.05,162.7656 Q259.3,163.0156 259.3,163.375 Q259.3,163.7188 258.9563,164.125 Q258.4563,164.7188 257.6594,165.0469 Q256.6125,165.5 255.3313,165.5 Q253.8313,165.5 252.6281,164.9063 Q251.6594,164.4375 250.9719,163.4219 Q250.3,162.4063 250.3,161.2031 L250.3,160.1094 Q250.3,158.8594 250.8938,157.7656 Q251.5031,156.6719 252.55,156.0938 Q253.6125,155.5 254.8,155.5 Q255.5188,155.5 256.1438,155.75 Q256.7688,156 257.3,156.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="53" x="275.7" y="164.9102">Company</text><line style="stroke:#A80036;stroke-width:1.5;" x1="212.5" x2="359.5" y1="176" y2="176"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="113" x="217.5" y="191.4189">-cargoManifestStoreDB</text><line style="stroke:#A80036;stroke-width:1.5;" x1="212.5" x2="359.5" y1="197.8359" y2="197.8359"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="137" x="217.5" y="213.2549">-getCargoManifestStoreDB()</text><!--MD5=[c938fbb66762e15d5994021c0d019cad]
+link CheckIfContainerExceedsShipCapacityController to Company--><path codeLine="21" d="M207.8,83.25 C221.84,100.81 238.65,121.81 253.07,139.84 " fill="none" id="CheckIfContainerExceedsShipCapacityController-to-Company" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="256.3,143.87,253.8097,134.3412,253.18,139.9629,247.5583,139.3331,256.3,143.87" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[cb4380154da42c78e4674d7c53ea4965]
+link CheckIfContainerExceedsShipCapacityController to CargoManifestStoreDB--><path codeLine="22" d="M179.2,83.2 C180.99,138.42 184.32,241.07 185.99,292.67 " fill="none" id="CheckIfContainerExceedsShipCapacityController-to-CargoManifestStoreDB" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="186.15,297.8,189.8653,288.6788,185.9929,292.8025,181.8693,288.9301,186.15,297.8" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[4ab6be66d0b2d15e041dac1ecef1ebf3]
+link Company to CargoManifestStoreDB--><path codeLine="23" d="M259.99,220.05 C242.8,244.52 220.7,276.01 205.34,297.88 " fill="none" id="Company-CargoManifestStoreDB" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#000000" points="239.1267,263.2678,246.7297,257.5542,241.9193,254.1764,239.1267,263.2678" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="28" x="251" y="264.4951">uses</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="248.1024" y="241.2284">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="201.7718" y="287.3132">1</text><!--MD5=[5863ffa47560ece0f2ddf90646b625d1]
+@startuml
+
+hide empty methods
+hide empty attributes
+'left to right direction
+skinparam classAttributeIconSize 0
+
+class CheckIfContainerExceedsShipCapacityController{
+- company
+- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+}
+
+class CargoManifestStoreDB{
+- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+}
+
+class Company{
+- cargoManifestStoreDB
+- getCargoManifestStoreDB()
+}
+
+CheckIfContainerExceedsShipCapacityController ..> Company
+CheckIfContainerExceedsShipCapacityController ..> CargoManifestStoreDB
+Company "1" - - "1" CargoManifestStoreDB : uses >
+
+@enduml
+
+@startuml
+
+hide empty methods
+hide empty attributes
+skinparam classAttributeIconSize 0
+
+class CheckIfContainerExceedsShipCapacityController{
+- company
+- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+}
+
+class CargoManifestStoreDB{
+- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+}
+
+class Company{
+- cargoManifestStoreDB
+- getCargoManifestStoreDB()
+}
+
+CheckIfContainerExceedsShipCapacityController ..> Company
+CheckIfContainerExceedsShipCapacityController ..> CargoManifestStoreDB
+Company "1" - - "1" CargoManifestStoreDB : uses >
+
+@enduml
+
+PlantUML version 1.2021.11(Sat Oct 02 14:26:11 BST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>
