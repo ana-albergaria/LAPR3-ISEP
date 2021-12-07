@@ -3,11 +3,82 @@ package lapr.project.data;
 import lapr.project.controller.App;
 
 import java.sql.*;
+import java.util.Calendar;
 
 /**
  * @author Marta Ribeiro (1201592)
  */
 public class CargoManifestStoreDB{
+
+    /**
+     * Check if cargo manifest exceeds given ship capacity.
+     * @param cargoManifestID Cargo manifest's ID.
+     * @param mmsi Desired Ship's mmsi.
+     * @return
+     */
+    public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
+        int result = 0;
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        String createFunction = "create or replace function check_if_cargoManifest_exceeds_ship_capacity\n" +
+                "(f_cargoManifest_id cargomanifest.cargomanifest_id%type, f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return integer\n" +
+                "is\n" +
+                "f_result integer;\n" +
+                "f_numContainers integer;\n" +
+                "f_check integer;\n" +
+                "f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;\n" +
+                "f_maxCapacity integer;\n" +
+                "f_estDepDate shipTrip.est_departure_date%type;\n" +
+                "f_initialNumContainers integer;\n" +
+                "f_alreadyAddedRemovedContainersTripNum integer;\n" +
+                "f_resultado integer;\n" +
+                "begin\n" +
+                "f_check:=check_if_ship_exists(f_mmsi);\n" +
+                "if f_check=0 then\n" +
+                "return -1;\n" +
+                "end if;\n" +
+                "f_check:=check_if_cargoManifest_exists(f_cargoManifest_id);\n" +
+                "if f_check=0 then\n" +
+                "return -1;\n" +
+                "end if;\n" +
+                "f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);\n" +
+                "f_comp_cargoManifest_id:=get_cargo_manifest_by_mmsi_and_date(f_mmsi, f_date);\n" +
+                "f_maxCapacity:=get_max_capacity(f_comp_cargoManifest_id);\n" +
+                "f_estDepDate:=get_est_departure_date_from_ship_trip(f_comp_cargoManifest_id);\n" +
+                "f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_estDepDate,f_mmsi);\n" +
+                "f_alreadyAddedRemovedContainersTripNum:=get_added_removed_containers_ship_trip_moment(f_comp_cargoManifest_id);\n" +
+                "f_resultado:=((f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum)*100)/f_maxCapacity;\n" +
+                "if ((f_numContainers*100/f_maxCapacity)+(f_resultado))>100 then\n" +
+                "return 0;\n" +
+                "end if;\n" +
+                "if (((f_numContainers*100)/f_maxCapacity)+(f_resultado))<=100 then\n" +
+                "return 1;\n" +
+                "end if;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return -1;\n" +
+                "end;";
+        String runFunction = "{? = call check_if_cargoManifest_exists(?,?,?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(cargoManifestID));
+            callableStatement.setString(3, String.valueOf(mmsi));
+            callableStatement.setString(4, String.valueOf(date));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /**
      * Check if cargo manifest exists in the data base.
