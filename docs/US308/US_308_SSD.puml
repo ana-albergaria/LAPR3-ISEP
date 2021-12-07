@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor "Traffic Manager" as SC
+
+activate SC
+SC-> ":System" : asks to know if a cargo manifest exceeds the occupancy rate of a given ship
+activate ":System"
+":System" --> SC : asks for data(i.e.,cargoManifestID, mmsi)
+SC-> ":System" : inserts needed data
+":System" --> SC : informs of operation success or fail
+
+deactivate ":System"
+
+@enduml
