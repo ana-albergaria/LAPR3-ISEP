@@ -2,8 +2,6 @@ package lapr.project.data.dataControllers;
 
 import lapr.project.controller.App;
 import lapr.project.data.CargoManifestStoreDB;
-import lapr.project.data.ShipStoreDB;
-import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.sql.Date;

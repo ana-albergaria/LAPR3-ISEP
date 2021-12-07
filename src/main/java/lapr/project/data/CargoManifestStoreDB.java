@@ -25,6 +25,7 @@ public class CargoManifestStoreDB{
                 "f_result integer;\n" +
                 "f_numContainers integer;\n" +
                 "f_check integer;\n" +
+                "f_check2 integer;\n" +
                 "f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;\n" +
                 "f_maxCapacity integer;\n" +
                 "f_estDepDate shipTrip.est_departure_date%type;\n" +
@@ -36,8 +37,8 @@ public class CargoManifestStoreDB{
                 "if f_check=0 then\n" +
                 "return -1;\n" +
                 "end if;\n" +
-                "f_check:=check_if_cargoManifest_exists(f_cargoManifest_id);\n" +
-                "if f_check=0 then\n" +
+                "f_check2:=check_if_cargoManifest_exists(f_cargoManifest_id);\n" +
+                "if f_check2=0 then\n" +
                 "return -1;\n" +
                 "end if;\n" +
                 "f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);\n" +

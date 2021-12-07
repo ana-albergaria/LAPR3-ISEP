@@ -26,8 +26,8 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         shipOccupancyRatesController = mock(CheckIfContainerExceedsShipCapacityController.class);
     }
 
-    //mmsi:636092933  max:30
-    //atual:0
+    //mmsi:212351004  max:30
+    //atual:0 (no passado fez +2 e -2)
     //0+32=32 -> excede     82846
     //0+5=5 -> tem espaço   82847
     //cmid invalido: 77330
@@ -39,7 +39,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         //cmid: 77329
         System.out.println("Test1: testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace()");
         int cargoManifestID = 82847;
-        int mmsi = 636092933;
+        int mmsi = 212351004;
         int expResult = 1; //valor esperado: 1 -> tem espaço
         int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi);
         Assert.assertEquals(expResult, result);
@@ -50,7 +50,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         //mmsi: 212351001 and date: 25/02/2021 -> cmid: 77329
         System.out.println("Test2: testcheckIfCargoManifestExceedsShipCapacityValidValuesNotEnoughSpace()");
         int cargoManifestID = 82846;
-        int mmsi= 636092933;
+        int mmsi= 212351004;
         int expResult = 0; //valor esperado: 1 -> tem espaço
         int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
         Assert.assertEquals(expResult, result);
@@ -60,7 +60,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
     void testcheckIfCargoManifestExceedsShipCapacityInvalidValueCargoManifestID(){
         System.out.println("Test3: testcheckIfCargoManifestExceedsShipCapacityInvalidValueCargoManifestID()");
         int cargoManifestID = 77330;
-        int mmsi= 636092933;
+        int mmsi= 212351004;
         int expResult = -1; //valor esperado: 1 -> tem espaço
         int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
         Assert.assertEquals(expResult, result);
@@ -70,7 +70,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
     void testcheckIfCargoManifestExceedsShipCapacityInvalidValueMMSI(){
         System.out.println("Test4: testcheckIfCargoManifestExceedsShipCapacityInvalidValueMMSI()");
         int cargoManifestID = 82847;
-        int mmsi= 636092934;
+        int mmsi= 212351004;
         int expResult = -1; //valor esperado: 1 -> tem espaço
         int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
         Assert.assertEquals(expResult, result);

@@ -2324,7 +2324,6 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3705156, 39824, -11);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3753096, 39824, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3753096, 39824, null);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4162565, 39824, 24);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (6807391, 39824, null);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (5308377, 39824, -11);
@@ -2359,12 +2358,12 @@ insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, l
 
 --FOR US308:
 
-insert into ship (mmsi, vesseltypeid, imo, callsign, shipname, currentcapacity, draft, length, width) values (212351004, 70, 'IMO9307686', '5BSP4', 'HYUNDEI SINGAPORA', '79', 14.5, 303, 40);
-
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81347, 212351004, 224858, 16485, 19823, 19824, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
+insert into ship (mmsi, vesseltypeid, imo, callsign, shipname, currentcapacity, draft, length, width) values (212351004, 70, 'IMO9307686', '5BSP4', 'HYUNDEI SINGAPORA', '30', 14.5, 303, 40);
 
 insert into cargomanifest (cargomanifest_id) values (19823);
 insert into cargomanifest (cargomanifest_id) values (19824);
+
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81347, 212351004, 224858, 16485, 19823, 19824, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
 
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19823, -25);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 19823, 2);
