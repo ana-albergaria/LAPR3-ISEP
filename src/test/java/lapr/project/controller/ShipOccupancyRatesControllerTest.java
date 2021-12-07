@@ -60,7 +60,7 @@ public class ShipOccupancyRatesControllerTest {
     }
 
     /*
-    mmsi:636092933  max:60
+    mmsi:636092933  max:30
     no ship trips
     mmsi:212351001  max:79
     19822 - loading - de 06/02/2021 a 8/02/2021 -  0+10=10
