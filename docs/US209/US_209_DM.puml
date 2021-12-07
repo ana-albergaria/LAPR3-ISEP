@@ -4,7 +4,7 @@ hide empty methods
 hide empty attributes
 skinparam classAttributeIconSize 0
 
-class PortManager{
+class ShipCaptain{
     -name
 }
 
@@ -42,7 +42,7 @@ class Container{
     -isoCode
 }
 
-PortManager "1" -- "1..*" ShipTripDocumentation : analyses >
+ShipCaptain "1" -- "1..*" ShipTripDocumentation : analyses >
 Company "1" -- "1..*" Ship : owns >
 Ship "1" -- "1..*" ShipTripDocumentation : owns >
 CargoManifest "1..*" -- "1..*" Container : contains >
