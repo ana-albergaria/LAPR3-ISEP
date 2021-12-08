@@ -155,7 +155,7 @@ This US doesn't have any dependencies.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-!![US_101_SSD](./docs/US101/US_101_SSD.svg)
+!![US_101_SSD](docs/Sprint 1/US101/US_101_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -167,7 +167,7 @@ The present US isn't held many times during the business. As the business grows,
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US_101_DM](./docs/US101/US_101_DM.svg)
+![US_101_DM](docs/Sprint 1/US101/US_101_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -179,11 +179,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_101_SD](./docs/US101/US_101_SD.svg)
+![US_101_SD](docs/Sprint 1/US101/US_101_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US_101_CD](./docs/US101/US_101_CD.svg)
+![US_101_CD](docs/Sprint 1/US101/US_101_CD.svg)
 
 # 4. Tests
 
@@ -347,7 +347,7 @@ As a **traffic manager**, I wish to search the details of a ship using **any of 
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US_102_SSD](./docs/US102/US_102_SSD.svg)
+![US_102_SSD](docs/Sprint 1/US102/US_102_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -360,7 +360,7 @@ The present US is held many times during the business. As the traffic manager do
 ### 2.1. Relevant Domain Model Excerpt
 
 
-![US_102_DM](./docs/US102/US_102_DM.svg)
+![US_102_DM](docs/Sprint 1/US102/US_102_DM.svg)
 
 
 ### 2.2. Other Remarks
@@ -374,13 +374,13 @@ n/a
 
 ### 3.2.1 Sequence Diagram
 
-![US_102_SD](./docs/US102/SD_102.svg)
+![US_102_SD](docs/Sprint 1/US102/SD_102.svg)
 
 ## 3.3. Class Diagram (CD)
 
 ### 3.3.1 Class Diagram
 
-![US_102_CD](./docs/US102/CD_102.svg)
+![US_102_CD](docs/Sprint 1/US102/CD_102.svg)
 
 # 4. Tests
 
@@ -443,7 +443,7 @@ As a traffic manager, I wish to have the positional messages temporally organize
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US103-SSD](./docs/US103/US103_SSD.svg)
+![US103-SSD](docs/Sprint 1/US103/US103_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -455,7 +455,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US103-MD](./docs/US103/US103_DM.svg)
+![US103-MD](docs/Sprint 1/US103/US103_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -467,11 +467,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US103-SD](./docs/US103/US103_SD.svg)
+![US103-SD](docs/Sprint 1/US103/US103_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US103-CD](./docs/US103/US103_CD.svg)
+![US103-CD](docs/Sprint 1/US103/US103_CD.svg)
 
 # 4. Tests
 
@@ -607,7 +607,7 @@ There is a depencency with the craetion of a Ship object, and also with the exis
 
 ### 1.6 System Sequence Diagram (SSD)
 
-![SSD_104-MD](./docs/US104/SSD_104.svg)
+![SSD_104-MD](docs/Sprint 1/US104/SSD_104.svg)
 
 ### 1.7 Other Relevant Remarks
 
@@ -616,7 +616,7 @@ There is a depencency with the craetion of a Ship object, and also with the exis
 ### 2.1. Relevant Domain Model Excerpt
 *In this section, it is suggested to present an excerpt of the domain model that is seen as relevant to fulfill this requirement.*
 
-![US104-MD](./docs/US104/DM_104.svg)
+![US104-MD](docs/Sprint 1/US104/DM_104.svg)
 
 ### 2.2. Other Remarks
 
@@ -628,13 +628,13 @@ n/a
 
 *In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software objects' interactions that allows to fulfill the requirement.*
 
-![USXX-SD](./docs/US104/SD_104.svg)
+![USXX-SD](docs/Sprint 1/US104/SD_104.svg)
 
 ## 3.3. Class Diagram (CD)
 
 *In this section, it is suggested to present an UML static view representing the main domain related software classes that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
 
-![USXX-CD](./docs/US104/CD_104.svg)
+![USXX-CD](docs/Sprint 1/US104/CD_104.svg)
 
 # 4. Tests
 *In this section, it is suggested to systematize how the tests were designed to allow a correct measurement of requirements fulfilling.*
@@ -694,7 +694,7 @@ As a traffic manager, I wish to have the pairs of ships with route with close de
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US107-SSD](./docs/US107/US107_SSD.svg)
+![US107-SSD](docs/Sprint 1/US107/US107_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -706,7 +706,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US107-MD](./docs/US107/US107_DM.svg)
+![US107-MD](docs/Sprint 1/US107/US107_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -718,15 +718,15 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US107-SD](./docs/US107/US107_SD.svg)
+![US107-SD](docs/Sprint 1/US107/US107_SD.svg)
 
 ### 3.1.1 Partial Sequence Diagram
 
-![US107_fillTreeMapForEachShip](./docs/US107/US107_fillTreeMapForEachShip.svg)
+![US107_fillTreeMapForEachShip](docs/Sprint 1/US107/US107_fillTreeMapForEachShip.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![US107-CD](./docs/US107/US107_CD.svg)
+![US107-CD](docs/Sprint 1/US107/US107_CD.svg)
 
 # 4. Tests
 
@@ -842,7 +842,7 @@ movements, Travelled Distance and Delta Distance.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US105_SSD](./docs/US105/US105_SSD.svg)
+![US105_SSD](docs/Sprint 1/US105/US105_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -852,7 +852,7 @@ movements, Travelled Distance and Delta Distance.
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![105DM_excerpt](./docs/US105/105DM_excerpt.svg)
+![105DM_excerpt](docs/Sprint 1/US105/105DM_excerpt.svg)
 
 ### 2.2. Other Remarks
 
@@ -864,12 +864,12 @@ n/a
 
 ## 3.2. Sequence Diagram (SD)
 
-![US105_SD](./docs/US105/US105_SD.svg)
+![US105_SD](docs/Sprint 1/US105/US105_SD.svg)
 
 
 ## 3.3. Class Diagram (CD)
 
-![US105_CD](./docs/US105/US105_CD.svg)
+![US105_CD](docs/Sprint 1/US105/US105_CD.svg)
 
 
 # 4. Tests
@@ -964,7 +964,7 @@ Yes, you can assume a Traffic Manager will be performing those tasks."
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US106_SSD](./docs/US106/US106_SSD.svg)
+![US106_SSD](docs/Sprint 1/US106/US106_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -976,7 +976,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![106DM_excerpt](./docs/US106/106DM_excerpt.svg)
+![106DM_excerpt](docs/Sprint 1/US106/106DM_excerpt.svg)
 
 ### 2.2. Other Remarks
 
@@ -989,12 +989,12 @@ n/a
 
 ## 3.2. Sequence Diagram (SD)
 
-![US106_SD](./docs/US106/US106_SD.svg)
+![US106_SD](docs/Sprint 1/US106/US106_SD.svg)
 
 
 ## 3.3. Class Diagram (CD)
 
-![US106_CD](./docs/US106/US106_CD.svg)
+![US106_CD](docs/Sprint 1/US106/US106_CD.svg)
 
 
 # 4. Tests
@@ -1063,7 +1063,7 @@ As Client, I want to know the current situation of a specific container being us
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US204-SSD](./docs/US204/US204_SSD.svg)
+![US204-SSD](docs/Sprint 2/US204/US204_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1075,7 +1075,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US204-MD](./docs/US204/US204_DM.svg)
+![US204-MD](docs/Sprint 2/US204/US204_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1087,11 +1087,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US204-SD](./docs/US204/US204_SD.svg)
+![US204-SD](docs/Sprint 2/US204/US204_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US204-CD](./docs/US204/US204_CD.svg)
+![US204-CD](docs/Sprint 2/US204/US204_CD.svg)
 
 # 4. Tests
 
@@ -1157,7 +1157,7 @@ As Traffic manager, I need to know which ships will be available on Monday next 
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US210-SSD](./docs/US210/US210_SSD.svg)
+![US210-SSD](docs/Sprint 2/US210/US210_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1169,7 +1169,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US210-MD](./docs/US210/US210_DM.svg)
+![US210-MD](docs/Sprint 2/US210/US210_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1181,11 +1181,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_210-SD](./docs/US210/US_210_SD.svg)
+![US_210-SD](docs/Sprint 2/US210/US_210_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US210-CD](./docs/US210/US210_CD.svg)
+![US210-CD](docs/Sprint 2/US210/US210_CD.svg)
 
 # 4. Tests
 
@@ -1245,7 +1245,7 @@ As Ship Captain, I want the list of containers to be offloaded in the next port,
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US210-SSD](./docs/US205/US205_SSD.svg)
+![US210-SSD](docs/Sprint 2/US205/US205_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1257,7 +1257,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US210-MD](./docs/US205/US205_DM.svg)
+![US210-MD](docs/Sprint 2/US205/US205_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1269,11 +1269,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_210-SD](./docs/US205/US205_SD.svg)
+![US_210-SD](docs/Sprint 2/US205/US205_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US210-CD](./docs/US205/US205_CD.svg)
+![US210-CD](docs/Sprint 2/US205/US205_CD.svg)
 
 # 4. Tests
 
@@ -1340,7 +1340,7 @@ As Ship Captain, I want the list of containers to be loaded in the next port, in
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US210-SSD](./docs/US206/US206_SSD.svg)
+![US210-SSD](docs/Sprint 2/US206/US206_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1352,7 +1352,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US210-MD](./docs/US206/US206_DM.svg)
+![US210-MD](docs/Sprint 2/US206/US206_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1364,11 +1364,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_210-SD](./docs/US206/US206_SD.svg)
+![US_210-SD](docs/Sprint 2/US206/US206_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US210-CD](./docs/US206/US206_CD.svg)
+![US210-CD](docs/Sprint 2/US206/US206_CD.svg)
 
 # 4. Tests
 
@@ -1447,7 +1447,7 @@ The year to search for cargo manifests.
 
 ### 1.6 System Sequence Diagram (SSD)
 
-![SSD_104-MD](docs/US207/US_207_SSD.svg)
+![SSD_104-MD](docs/Sprint 2/US207/US_207_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
@@ -1456,7 +1456,7 @@ The year to search for cargo manifests.
 ### 2.1. Relevant Domain Model Excerpt
 *In this section, it is suggested to present an excerpt of the domain model that is seen as relevant to fulfill this requirement.*
 
-![US104-MD](docs/US207/US_207_DM.svg)
+![US104-MD](docs/Sprint 2/US207/US_207_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1493,13 +1493,13 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 *In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software objects' interactions that allows to fulfill the requirement.*
 
-![USXX-SD](docs/US207/US_207_SD.svg)
+![USXX-SD](docs/Sprint 2/US207/US_207_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
 *In this section, it is suggested to present an UML static view representing the main domain related software classes that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
 
-![USXX-CD](docs/US207/US_207_CD.svg)
+![USXX-CD](docs/Sprint 2/US207/US_207_CD.svg)
 
 # 4. Tests
 *In this section, it is suggested to systematize how the tests were designed to allow a correct measurement of requirements fulfilling.*
@@ -1539,7 +1539,7 @@ As a Traffic manager, I which to find the closest port of a ship given its CallS
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US210-SSD](./docs/US202/US_202_SSD.svg)
+![US210-SSD](docs/Sprint 2/US202/US_202_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1551,7 +1551,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US210-MD](./docs/US202/US_202_DM.svg)
+![US210-MD](docs/Sprint 2/US202/US_202_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1563,11 +1563,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_210-SD](./docs/US202/US_202_SD.svg)
+![US_210-SD](docs/Sprint 2/US202/US_202_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US210-CD](./docs/US202/US_202_CD.svg)
+![US210-CD](docs/Sprint 2/US202/US_202_CD.svg)
 
 # 4. Tests
 
@@ -1643,7 +1643,7 @@ This US has dependencies with the US101, since the business data base needs to e
 
 ### 1.5. System Sequence Diagram (SSD)
 
-![US_208_SSD](./docs/US208/US_208_SSD.svg)
+![US_208_SSD](docs/Sprint 2/US208/US_208_SSD.svg)
 
 
 ### 1.6 Other Relevant Remarks
@@ -1655,7 +1655,7 @@ The present US is held many times during the business. As the Ship Captain manag
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US_208_DM](./docs/US208/US_208_DM.svg)
+![US_208_DM](docs/Sprint 2/US208/US_208_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1667,11 +1667,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_208_SD](./docs/US208/US_208_SD.svg)
+![US_208_SD](docs/Sprint 2/US208/US_208_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US_208_CD](./docs/US208/US_208_CD.svg)
+![US_208_CD](docs/Sprint 2/US208/US_208_CD.svg)
 
 # 4. Tests
 
@@ -1736,7 +1736,7 @@ This US has dependencies with the US101, since the business data base needs to e
 
 ### 1.5. System Sequence Diagram (SSD)
 
-![US_209_SSD](./docs/US209/US_209_SSD.svg)
+![US_209_SSD](docs/Sprint 2/US209/US_209_SSD.svg)
 
 
 ### 1.6 Other Relevant Remarks
@@ -1748,7 +1748,7 @@ The present US is held many times during the business. As the Ship Captain manag
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US_209_DM](./docs/US209/US_209_DM.svg)
+![US_209_DM](docs/Sprint 2/US209/US_209_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1760,11 +1760,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_209_SD](./docs/US209/US_209_SD.svg)
+![US_209_SD](docs/Sprint 2/US209/US_209_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US_209_CD](./docs/US209/US_209_CD.svg)
+![US_209_CD](docs/Sprint 2/US209/US_209_CD.svg)
 
 # 4. Tests
 
@@ -1822,7 +1822,7 @@ As Traffic manager, I need to know which ships will be available on Monday next 
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US210-SSD](docs/US210/US210_SSD.svg)
+![US210-SSD](docs/Sprint 2/US210/US210_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
@@ -1834,7 +1834,7 @@ n/a
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US210-MD](docs/US210/US210_DM.svg)
+![US210-MD](docs/Sprint 2/US210/US210_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -1846,11 +1846,11 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_210-SD](docs/US210/US_210_SD.svg)
+![US_210-SD](docs/Sprint 2/US210/US_210_SD.svg)
 
 ## 3.2. Class Diagram (CD)
 
-![US210-CD](docs/US210/US210_CD.svg)
+![US210-CD](docs/Sprint 2/US210/US210_CD.svg)
 
 # 4. Tests
 
