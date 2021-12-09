@@ -1,4 +1,27 @@
---CHECK IF CARGO MANIFEST EXCEEDS SHIP CAPACITY
+--TRIGGER FOR NUMBER OF CONTAINERS GREATER THAN MAX NUMBER OF CONTAINERS
+create or replace trigger trgContainers
+before insert on ShipTrip
+for each row
+declare
+f_cargoManifest_id cargomanifest.cargomanifest_id%type;
+f_mmsi shipTrip.mmsi%type;
+f_realDepDate shipTrip.real_departure_date%type;
+f_containers_before integer;
+f_containers_max integer;
+f_containers_after integer;
+begin
+f_cargoManifest_id:= :new.loading_cargo_id;
+f_mmsi:= :new.mmsi;
+f_realDepDate:= get_real_departure_date_from_ship_trip(f_cargoManifest_id);
+f_containers_max:= get_max_capacity(f_cargoManifest_id);
+f_containers_before:=get_initial_num_containers_per_ship_trip_2(f_cargoManifest_id,f_realDepDate,f_mmsi);
+f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);
+if f_containers_after>f_containers_max then
+raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');
+end if;
+end;
+
+--CHECK IF CARGO MANIFEST EXCEEDS SHIP CAPACITY ->> APAGAR <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 create or replace function check_if_cargoManifest_exceeds_ship_capacity
 (f_cargoManifest_id cargomanifest.cargomanifest_id%type, f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return integer
 is
@@ -8,7 +31,7 @@ f_check integer;
 f_check2 integer;
 f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;
 f_maxCapacity integer;
-f_estDepDate shipTrip.est_departure_date%type;
+f_realDepDate shipTrip.real_departure_date%type;
 f_initialNumContainers integer;
 f_alreadyAddedRemovedContainersTripNum integer;
 f_resultado integer;
@@ -24,8 +47,8 @@ end if;
 f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);
 f_comp_cargoManifest_id:=get_cargo_manifest_by_mmsi_and_date(f_mmsi, f_date);
 f_maxCapacity:=get_max_capacity(f_comp_cargoManifest_id);
-f_estDepDate:=get_est_departure_date_from_ship_trip(f_comp_cargoManifest_id);
-f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_estDepDate,f_mmsi);
+f_realDepDate:=get_real_departure_date_from_ship_trip(f_comp_cargoManifest_id);
+f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_realDepDate,f_mmsi);
 f_alreadyAddedRemovedContainersTripNum:=get_added_removed_containers_ship_trip_moment(f_comp_cargoManifest_id);
 f_resultado:=f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum;
 if (f_numContainers+f_resultado)>f_maxCapacity then
