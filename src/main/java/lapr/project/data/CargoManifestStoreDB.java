@@ -10,6 +10,10 @@ import java.util.Calendar;
  */
 public class CargoManifestStoreDB{
 
+    public void createShipTripTriggerWarningOccupancy(int shipTripID){
+
+    }
+
     /**
      * Check if cargo manifest exceeds given ship capacity.
      * @param cargoManifestID Cargo manifest's ID.

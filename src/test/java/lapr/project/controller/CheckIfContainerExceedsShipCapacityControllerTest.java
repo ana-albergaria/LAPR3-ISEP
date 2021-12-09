@@ -42,7 +42,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int cargoManifestID = 82847;
         int mmsi = 212351004;
         int expResult = 1; //valor esperado: 1 -> tem espaço
-        int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi);
+        int result = ctrl.checkIfCargoManifestExceedsShipCapacity();
         Assertions.assertEquals(expResult, result);
     }
 
@@ -53,7 +53,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int cargoManifestID = 82846;
         int mmsi= 212351004;
         int expResult = 0; //valor esperado: 0 -> não tem espaço
-        int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
+        int result = ctrl.checkIfCargoManifestExceedsShipCapacity();
         Assertions.assertEquals(expResult, result);
     }
 
@@ -63,7 +63,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int cargoManifestID = 77330;
         int mmsi= 212351004;
         int expResult = -1; //valor esperado: -1 -> cargo manifest id invalido
-        int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
+        int result = ctrl.checkIfCargoManifestExceedsShipCapacity();
         Assertions.assertEquals(expResult, result);
     }
 
@@ -73,9 +73,8 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int cargoManifestID = 82847;
         int mmsi= 636092934;
         int expResult = -1; //valor esperado: -1 -> mmsi invalido
-        int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
+        int result = ctrl.checkIfCargoManifestExceedsShipCapacity();
         Assertions.assertEquals(expResult, result);
-    }
-    */
+    }*/
 
 }
