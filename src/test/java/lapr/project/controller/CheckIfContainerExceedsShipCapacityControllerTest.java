@@ -34,6 +34,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
     //cmid invalido: 77330
     //mmsi invalido: 636092934
 
+    /*
     @Test
     void testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace(){
         //cmid: 77329
@@ -75,5 +76,6 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int result = ctrl.checkIfCargoManifestExceedsShipCapacity(cargoManifestID,mmsi);
         Assertions.assertEquals(expResult, result);
     }
+    */
 
 }
