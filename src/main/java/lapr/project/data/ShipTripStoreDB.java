@@ -22,6 +22,47 @@ public class ShipTripStoreDB {
     /**
      * Create shipTrip
      * @param shipTripID ship trip id
+     * @return -1 if the input information is wrong, otherwise it returns 1
+     */
+    public int deleteShipTrip(int shipTripID) {
+        int result = 1;
+        String createFunction = "create or replace function delete_shipTrip\n" +
+                "(f_shiptrip_id shiptrip.shiptrip_id%type) return integer\n" +
+                "is\n" +
+                "begin\n" +
+                "delete\n" +
+                "from shipTrip\n" +
+                "where\n" +
+                "shiptrip_id = f_shiptrip_id;\n" +
+                "return 1;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return -1;\n" +
+                "end;";
+        String runFunction = "{? = call delete_shipTrip(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(shipTripID));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * Create shipTrip
+     * @param shipTripID ship trip id
      * @param mmsi ship mmsi
      * @param depLocation departure location
      * @param arriLocation arrival location
@@ -42,7 +83,6 @@ public class ShipTripStoreDB {
                 "f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type,\n" +
                 "f_real_departure_date shiptrip.real_departure_date%type, f_real_arrival_date shiptrip.real_arrival_date%type) return integer\n" +
                 "is\n" +
-                "f_result integer;\n" +
                 "f_check integer;\n" +
                 "f_check2 integer;\n" +
                 "begin\n" +

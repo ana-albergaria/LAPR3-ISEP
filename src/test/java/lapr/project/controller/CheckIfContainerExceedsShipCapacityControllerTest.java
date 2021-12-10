@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import static org.mockito.Mockito.mock;
 
@@ -25,6 +27,13 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         this.ctrl=new CheckIfContainerExceedsShipCapacityController(comp);
         databaseConnection = mock(DatabaseConnection.class);
         shipOccupancyRatesController = mock(CheckIfContainerExceedsShipCapacityController.class);
+        /*try{
+            ctrl.deleteShipTrip(81348);
+            ctrl.deleteShipTrip();
+            ctrl.deleteShipTrip();
+            ctrl.deleteShipTrip();
+        } catch (SQLException ignored) {
+        }*/
     }
 
     //mmsi:212351004  max:30
@@ -34,11 +43,31 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
     //cmid invalido: 77330
     //mmsi invalido: 636092934
 
-    /*
+    //int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate,
+    //java.sql.Date realDepDate, java.sql.Date realArriDate
+/*
     @Test
     void testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace(){
         //cmid: 77329
         System.out.println("Test1: testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace()");
+        int shipTripID = 81348;
+        int mmsi = 212351004;
+        int depLocation = 224858;
+        int arriLocation = 16485;
+        int loadCargID = 82847;
+        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
+        Date estArriDate = new Date(Calendar.getInstance().getTime().getTime());
+
+        int expResult = 1; //valor esperado: 1 -> tem espaço
+        int result = ctrl.checkIfCargoManifestExceedsShipCapacity();
+        Assertions.assertEquals(expResult, result);
+    }*/
+
+    /*@Test
+    void testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace(){
+        //cmid: 77329
+        System.out.println("Test1: testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace()");
+        int shipTripID =
         int cargoManifestID = 82847;
         int mmsi = 212351004;
         int expResult = 1; //valor esperado: 1 -> tem espaço

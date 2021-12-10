@@ -17,8 +17,24 @@ f_containers_max:= get_max_capacity(f_cargoManifest_id);
 f_containers_before:=get_initial_num_containers_per_ship_trip_2(f_cargoManifest_id,f_realDepDate,f_mmsi);
 f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);
 if f_containers_after>f_containers_max then
+--dbms_output.put_line('Trigger Fired! Number of containers exceeds ship capacity.');
 raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');
 end if;
+end;
+
+--DELETE SHIP TRIP
+create or replace function delete_shipTrip
+(f_shiptrip_id shiptrip.shiptrip_id%type) return integer
+is
+begin
+delete
+from shipTrip
+where
+shiptrip_id = f_shiptrip_id;
+return 1;
+exception
+when no_data_found then
+return -1;
 end;
 
 --CREATE SHIP TRIP
@@ -28,7 +44,6 @@ f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.l
 f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type,
 f_real_departure_date shiptrip.real_departure_date%type, f_real_arrival_date shiptrip.real_arrival_date%type) return integer
 is
-f_result integer;
 f_check integer;
 f_check2 integer;
 begin

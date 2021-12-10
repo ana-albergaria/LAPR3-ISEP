@@ -31,11 +31,16 @@ public class CheckIfContainerExceedsShipCapacityController {
         this.company=companyy;
     }
 
-    public int checkIfCargoManifestExceedsShipCapacity(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate,
+    public int tryToCeateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate,
                                                        java.sql.Date realDepDate, java.sql.Date realArriDate){
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         return shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, unloadCargID, estDepDate, estArriDate,
         realDepDate, realArriDate);
+    }
+
+    public int deleteShipTrip(int shipTripID){
+        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+        return shipTripStoreDB.deleteShipTrip(shipTripID);
     }
 
 }
