@@ -14,13 +14,7 @@ public class CargoManifestStoreDB{
 
     }
 
-    /**
-     * Check if cargo manifest exceeds given ship capacity.
-     * @param cargoManifestID Cargo manifest's ID.
-     * @param mmsi Desired Ship's mmsi.
-     * @return -1 if the input values are invalid, 0 if it exceeds the capacity and 1 if it doesn't.
-     */
-    public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
+    /*public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
         int result = 0;
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         String createFunction = "create or replace function check_if_cargoManifest_exceeds_ship_capacity\n" +
@@ -83,7 +77,7 @@ public class CargoManifestStoreDB{
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
     /**
      * Check if cargo manifest exists in the data base.

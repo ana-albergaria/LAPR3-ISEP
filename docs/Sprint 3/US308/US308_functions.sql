@@ -40,7 +40,7 @@ end;
 --CREATE SHIP TRIP
 create or replace function create_shipTrip
 (f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,
-f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type, f_unloading_cargo_id shiptrip.unloading_cargo_id%type,
+f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type,
 f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type,
 f_real_departure_date shiptrip.real_departure_date%type, f_real_arrival_date shiptrip.real_arrival_date%type) return integer
 is
@@ -55,49 +55,8 @@ f_check2:=check_if_cargoManifest_exists(f_loading_cargo_id);
 if f_check2=0 then
 return -1;
 end if;
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, f_real_departure_date, f_real_arrival_date);
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, NULL, f_est_departure_date, f_est_arrival_date, f_real_departure_date, f_real_arrival_date);
 return 1;
-exception
-when no_data_found then
-return -1;
-end;
-
---CHECK IF CARGO MANIFEST EXCEEDS SHIP CAPACITY ->> APAGAR <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-create or replace function check_if_cargoManifest_exceeds_ship_capacity
-(f_cargoManifest_id cargomanifest.cargomanifest_id%type, f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return integer
-is
-f_result integer;
-f_numContainers integer;
-f_check integer;
-f_check2 integer;
-f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;
-f_maxCapacity integer;
-f_realDepDate shipTrip.real_departure_date%type;
-f_initialNumContainers integer;
-f_alreadyAddedRemovedContainersTripNum integer;
-f_resultado integer;
-begin
-f_check:=check_if_ship_exists(f_mmsi);
-if f_check=0 then
-return -1;
-end if;
-f_check2:=check_if_cargoManifest_exists(f_cargoManifest_id);
-if f_check2=0 then
-return -1;
-end if;
-f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);
-f_comp_cargoManifest_id:=get_cargo_manifest_by_mmsi_and_date(f_mmsi, f_date);
-f_maxCapacity:=get_max_capacity(f_comp_cargoManifest_id);
-f_realDepDate:=get_real_departure_date_from_ship_trip(f_comp_cargoManifest_id);
-f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_realDepDate,f_mmsi);
-f_alreadyAddedRemovedContainersTripNum:=get_added_removed_containers_ship_trip_moment(f_comp_cargoManifest_id);
-f_resultado:=f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum;
-if (f_numContainers+f_resultado)>f_maxCapacity then
-return 0; --ultrapassa
-end if;
-if (f_numContainers+f_resultado)<=f_maxCapacity then
-return 1; --tem espaço suficiente
-end if;
 exception
 when no_data_found then
 return -1;

@@ -31,13 +31,27 @@ public class CheckIfContainerExceedsShipCapacityController {
         this.company=companyy;
     }
 
-    public int tryToCeateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate,
-                                                       java.sql.Date realDepDate, java.sql.Date realArriDate){
+    /**
+     * Try to create ship trip to see if the trigger is fired.
+     * @param shipTripID ship trip id.
+     * @param mmsi ship mmsi.
+     * @param depLocation departure location.
+     * @param arriLocation arrival location.
+     * @param loadCargID loading cargo manifest id.
+     * @param estDepDate estimated departure date.
+     * @param estArriDate estimates arrival date.
+     * @return -1 if the input information is wrong, otherwise it returns 1.
+     */
+    public int tryToCeateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate){
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
-        return shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, unloadCargID, estDepDate, estArriDate,
-        realDepDate, realArriDate);
+        return shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate);
     }
 
+    /**
+     * Delete ship trip.
+     * @param shipTripID ship trip id.
+     * @return -1 if the input information is wrong, otherwise it returns 1.
+     */
     public int deleteShipTrip(int shipTripID){
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         return shipTripStoreDB.deleteShipTrip(shipTripID);
