@@ -16193,48 +16193,50 @@ insert into ship (mmsi, vesseltypeid, imo, callsign, shipname, currentcapacity, 
 insert into cargomanifest (cargomanifest_id) values (19823);
 insert into cargomanifest (cargomanifest_id) values (19824);
 
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81347, 212351004, 224858, 16485, 19823, 19824, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
-
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19823, -25);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 19823, 2);
 
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19824, -25);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 19824, 2);
 
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81347, 212351004, 224858, 16485, 19823, 19824, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
+
 insert into cargomanifest (cargomanifest_id) values (82846);
 
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 82846, -25);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 82846, 2);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2701262, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2733809, 82846, 6);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (144449, 82846, 4);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1623809, 82846, -4);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3272382, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1475321, 82846, null);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (666915, 82846, 3);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4107082, 82846, 21);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3011850, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1506075, 82846, 4);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (5887416, 82846, -18);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7636252, 82846, -21);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8527619, 82846, 23);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3355821, 82846, 0);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (5002135, 82846, -19);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3143910, 82846, 18);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7305599, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (6686080, 82846, -8);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2661497, 82846, -30);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2877511, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4847076, 82846, -7);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3113560, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7213722, 82846, -25);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1049486, 82846, null);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4889108, 82846, -18);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8284377, 82846, -25);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1382188, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1475321, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1506075, 82846, 4);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1623809, 82846, -4);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2650387, 82846, -26);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2661497, 82846, -30);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2701262, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2733809, 82846, 6);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2802505, 82846, -12);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2877511, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3011850, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3113560, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3143910, 82846, 18);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3272382, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3355821, 82846, 0);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4107082, 82846, 21);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4847076, 82846, -7);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 82846, -25);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4889108, 82846, -18);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (5002135, 82846, -19);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (5887416, 82846, -18);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (6686080, 82846, -8);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7213722, 82846, -25);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7305599, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7636252, 82846, -21);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7749375, 82846, 11);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 82846, 2);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82846, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8527619, 82846, 23);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8284377, 82846, -25);
 
 insert into cargomanifest (cargomanifest_id) values (82847);
 

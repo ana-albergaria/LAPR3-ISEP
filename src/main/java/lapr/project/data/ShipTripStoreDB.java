@@ -20,6 +20,109 @@ public class ShipTripStoreDB {
     private final String idPort = "Next Port ID: ";
 
     /**
+     * Create shipTrip
+     * @param shipTripID ship trip id
+     * @return -1 if the input information is wrong, otherwise it returns 1
+     */
+    public int deleteShipTrip(int shipTripID) {
+        int result = 1;
+        String createFunction = "create or replace function delete_shipTrip\n" +
+                "(f_shiptrip_id shiptrip.shiptrip_id%type) return integer\n" +
+                "is\n" +
+                "begin\n" +
+                "delete\n" +
+                "from shipTrip\n" +
+                "where\n" +
+                "shiptrip_id = f_shiptrip_id;\n" +
+                "return 1;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return -1;\n" +
+                "end;";
+        String runFunction = "{? = call delete_shipTrip(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(shipTripID));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * Create shipTrip
+     * @param shipTripID ship trip id
+     * @param mmsi ship mmsi
+     * @param depLocation departure location
+     * @param arriLocation arrival location
+     * @param loadCargID loading cargo manifest id
+     * @param estDepDate estimated departure date
+     * @param estArriDate estimates arrival date
+     * @return -1 if the input information is wrong, otherwise it returns 1
+     */
+    public int createShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) {
+        int result = 1;
+        String createFunction = "create or replace function create_shipTrip\n" +
+                "(f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,\n" +
+                "f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type,\n" +
+                "f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type) return integer\n" +
+                "is\n" +
+                "f_check integer;\n" +
+                "f_check2 integer;\n" +
+                "begin\n" +
+                "f_check:=check_if_ship_exists(f_mmsi);\n" +
+                "if f_check=0 then\n" +
+                "return -1;\n" +
+                "end if;\n" +
+                "f_check2:=check_if_cargoManifest_exists(f_loading_cargo_id);\n" +
+                "if f_check2=0 then\n" +
+                "return -1;\n" +
+                "end if;\n" +
+                "insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, NULL, f_est_departure_date, f_est_arrival_date, NULL, NULL);\n" +
+                "return 1;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return -1;\n" +
+                "end;";
+        String runFunction = "{? = call create_shipTrip(?,?,?,?,?,?,?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(shipTripID));
+            callableStatement.setString(3, String.valueOf(mmsi));
+            callableStatement.setString(4, String.valueOf(depLocation));
+            callableStatement.setString(5, String.valueOf(arriLocation));
+            callableStatement.setString(6, String.valueOf(loadCargID));
+            callableStatement.setString(7, String.valueOf(estDepDate));
+            callableStatement.setString(8, String.valueOf(estArriDate));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
      * Get MMSI by cargo manifest ID.
      * @param cargoManifestID cargo manifest ID.
      * @return Ship MMSI.

@@ -1,42 +1,108 @@
---CHECK IF CARGO MANIFEST EXCEEDS SHIP CAPACITY
-
-create or replace function check_if_cargoManifest_exceeds_ship_capacity
-(f_cargoManifest_id cargomanifest.cargomanifest_id%type, f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return integer
-is
-f_result integer;
-f_numContainers integer;
-f_check integer;
-f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;
-f_maxCapacity integer;
+--TRIGGER FOR NUMBER OF CONTAINERS GREATER THAN MAX NUMBER OF CONTAINERS
+create or replace trigger trgContainers
+before insert or update on ShipTrip
+                            for each row
+declare
+f_shiptrip_id shiptrip.shiptrip_id%type;
+f_cargoManifest_id cargomanifest.cargomanifest_id%type;
+f_mmsi shipTrip.mmsi%type;
 f_estDepDate shipTrip.est_departure_date%type;
-f_initialNumContainers integer;
-f_alreadyAddedRemovedContainersTripNum integer;
-f_resultado integer;
+f_containers_before integer;
+f_containers_max integer;
+f_containers_after integer;
+begin
+f_shiptrip_id:= :new.shiptrip_id;
+f_cargoManifest_id:= :new.loading_cargo_id;
+f_mmsi:= :new.mmsi;
+f_estDepDate:= :new.est_departure_date;
+f_containers_max:= get_max_capacity(f_cargoManifest_id);
+f_containers_before:=get_initial_num_containers_per_ship_trip(f_cargoManifest_id,f_estDepDate,f_mmsi);
+f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);
+if f_containers_after>f_containers_max then
+--dbms_output.put_line('Trigger Fired! Number of containers exceeds ship capacity.');
+raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');
+delete from shipTrip where shiptrip_id = f_shiptrip_id;
+end if;
+end;
+
+--DELETE SHIP TRIP
+create or replace function delete_shipTrip
+(f_shiptrip_id shiptrip.shiptrip_id%type) return integer
+is
+begin
+delete
+from shipTrip
+where
+shiptrip_id = f_shiptrip_id;
+return 1;
+exception
+when no_data_found then
+return -1;
+end;
+
+--CREATE SHIP TRIP
+create or replace function create_shipTrip
+(f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,
+f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type,
+f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type,
+f_real_departure_date shiptrip.real_departure_date%type, f_real_arrival_date shiptrip.real_arrival_date%type) return integer
+is
+f_check integer;
+f_check2 integer;
 begin
 f_check:=check_if_ship_exists(f_mmsi);
 if f_check=0 then
 return -1;
 end if;
-f_check:=check_if_cargoManifest_exists(f_cargoManifest_id);
-if f_check=0 then
+f_check2:=check_if_cargoManifest_exists(f_loading_cargo_id);
+if f_check2=0 then
 return -1;
 end if;
-f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);
-f_comp_cargoManifest_id:=get_cargo_manifest_by_mmsi_and_date(f_mmsi, f_date);
-f_maxCapacity:=get_max_capacity(f_comp_cargoManifest_id);
-f_estDepDate:=get_est_departure_date_from_ship_trip(f_comp_cargoManifest_id);
-f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_estDepDate,f_mmsi);
-f_alreadyAddedRemovedContainersTripNum:=get_added_removed_containers_ship_trip_moment(f_comp_cargoManifest_id);
-f_resultado:=((f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum)*100)/f_maxCapacity;
-if ((f_numContainers*100/f_maxCapacity)+(f_resultado))>100 then
-return 0;
-end if;
-if (((f_numContainers*100)/f_maxCapacity)+(f_resultado))<=100 then
+insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, NULL, f_est_departure_date, f_est_arrival_date, f_real_departure_date, f_real_arrival_date);
 return 1;
-end if;
 exception
 when no_data_found then
 return -1;
+end;
+
+--GET REAL DEPARTURE DATE FROM SHIP TRIP
+create or replace function get_real_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.real_departure_date%type
+is
+f_shiptrip_id shipTrip.shiptrip_id%type;
+f_real_departure_date shipTrip.real_departure_date%type;
+begin
+select shiptrip_id into f_shiptrip_id
+from shipTrip
+where loading_cargo_id = f_cargoManifest_id OR unloading_cargo_id = f_cargoManifest_id;
+select real_departure_date into f_real_departure_date
+from shipTrip
+where shiptrip_id = f_shiptrip_id;
+return f_real_departure_date;
+end;
+
+--GET INITIAL NUM CONTAINERS PER SHIP TRIP WITH REAL DATES
+create or replace function get_initial_num_containers_per_ship_trip_2(f_cargoManifest_id cargoManifest.cargoManifest_id%type,
+f_real_departure_date shipTrip.real_departure_date%type, f_mmsi ship.mmsi%type) return integer
+is
+f_comp_loading_cargo_id cargoManifest.cargoManifest_id%type;
+f_comp_unloading_cargo_id cargoManifest.cargoManifest_id%type;
+f_initial_num_containers_per_ship_trip integer:=0;
+cursor neededShipTrips
+is
+(select loading_cargo_id, unloading_cargo_id
+from shipTrip
+where mmsi=f_mmsi AND real_departure_date < f_real_departure_date);
+begin
+open neededShipTrips;
+loop
+fetch neededShipTrips into f_comp_loading_cargo_id, f_comp_unloading_cargo_id;
+exit when neededShipTrips%notfound;
+f_initial_num_containers_per_ship_trip := f_initial_num_containers_per_ship_trip + get_num_containers_per_cargoManifest(f_comp_loading_cargo_id) - get_num_containers_per_cargoManifest(f_comp_unloading_cargo_id);
+end loop;
+return f_initial_num_containers_per_ship_trip;
+exception
+when no_data_found then
+return 0;
 end;
 
 ---------------------------------------------------------------------------REUSING US209:---------------------------------------------------------------------------

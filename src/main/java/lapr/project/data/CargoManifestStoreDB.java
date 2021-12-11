@@ -10,13 +10,11 @@ import java.util.Calendar;
  */
 public class CargoManifestStoreDB{
 
-    /**
-     * Check if cargo manifest exceeds given ship capacity.
-     * @param cargoManifestID Cargo manifest's ID.
-     * @param mmsi Desired Ship's mmsi.
-     * @return -1 if the input values are invalid, 0 if it exceeds the capacity and 1 if it doesn't.
-     */
-    public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
+    public void createShipTripTriggerWarningOccupancy(int shipTripID){
+
+    }
+
+    /*public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
         int result = 0;
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         String createFunction = "create or replace function check_if_cargoManifest_exceeds_ship_capacity\n" +
@@ -28,7 +26,7 @@ public class CargoManifestStoreDB{
                 "f_check2 integer;\n" +
                 "f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;\n" +
                 "f_maxCapacity integer;\n" +
-                "f_estDepDate shipTrip.est_departure_date%type;\n" +
+                "f_realDepDate shipTrip.real_departure_date%type;\n" +
                 "f_initialNumContainers integer;\n" +
                 "f_alreadyAddedRemovedContainersTripNum integer;\n" +
                 "f_resultado integer;\n" +
@@ -44,21 +42,21 @@ public class CargoManifestStoreDB{
                 "f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);\n" +
                 "f_comp_cargoManifest_id:=get_cargo_manifest_by_mmsi_and_date(f_mmsi, f_date);\n" +
                 "f_maxCapacity:=get_max_capacity(f_comp_cargoManifest_id);\n" +
-                "f_estDepDate:=get_est_departure_date_from_ship_trip(f_comp_cargoManifest_id);\n" +
-                "f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_estDepDate,f_mmsi);\n" +
+                "f_realDepDate:=get_real_departure_date_from_ship_trip(f_comp_cargoManifest_id);\n" +
+                "f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_realDepDate,f_mmsi);\n" +
                 "f_alreadyAddedRemovedContainersTripNum:=get_added_removed_containers_ship_trip_moment(f_comp_cargoManifest_id);\n" +
-                "f_resultado:=((f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum)*100)/f_maxCapacity;\n" +
-                "if ((f_numContainers*100/f_maxCapacity)+(f_resultado))>100 then\n" +
-                "return 0;\n" +
+                "f_resultado:=f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum;\n" +
+                "if (f_numContainers+f_resultado)>f_maxCapacity then\n" +
+                "return 0; --ultrapassa\n" +
                 "end if;\n" +
-                "if (((f_numContainers*100)/f_maxCapacity)+(f_resultado))<=100 then\n" +
-                "return 1;\n" +
+                "if (f_numContainers+f_resultado)<=f_maxCapacity then\n" +
+                "return 1; --tem espaço suficiente\n" +
                 "end if;\n" +
                 "exception\n" +
                 "when no_data_found then\n" +
                 "return -1;\n" +
                 "end;";
-        String runFunction = "{? = call check_if_cargoManifest_exists(?,?,?)}";
+        String runFunction = "{? = call check_if_cargoManifest_exceeds_ship_capacity(?,?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();
@@ -79,7 +77,7 @@ public class CargoManifestStoreDB{
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
     /**
      * Check if cargo manifest exists in the data base.
