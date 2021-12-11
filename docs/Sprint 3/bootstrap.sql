@@ -427,7 +427,7 @@ insert into port (port_id, name, location_id) values (224858, 'Hamburg', 7681);
 insert into port (port_id, name, location_id) values (228264, 'Vlone', 6693);
 insert into port (port_id, name, location_id) values (246265, 'Ambarli', 2141);
 
--- will trigger errors
+-- will trigger errors -- answer 9/12: create the needed data.
 -- puerto rico guanica 13610
 -- venezuela 19974
 -- Algiers 13523
