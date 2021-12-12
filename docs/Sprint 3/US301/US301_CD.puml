@@ -1,0 +1,30 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class CreateFreightNetworkController{
+    +createFreightNetworkFromDb()
+}
+
+class PortStoreDb{
+    +getExistentPorts()
+    +getSeaDists()
+}
+
+class CountryStoreDb{
+    +getExistentCapitals()
+    +getCountries()
+    +getBorders()
+}
+class Company {
+    -designation
+    +getShipTripStoreDB()
+}
+
+CreateFreightNetworkController ..> Company
+CreateFreightNetworkController ..> PortStoreDb
+Company "1" -- "1" PortStoreDb : uses >
+CreateFreightNetworkController ..> CountryStoreDb
+Company "1" -- "1" CountryStoreDb : uses >
+
+@enduml
