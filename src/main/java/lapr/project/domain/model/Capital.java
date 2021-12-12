@@ -3,11 +3,31 @@ package lapr.project.domain.model;
 import java.util.Objects;
 
 public class Capital extends Location {
-    private String name;
+    /**
+     * The capital name
+     */
+    private final String name;
+    /**
+     * The latitude
+     */
     private double latitude;
+    /**
+     * The longitude
+     */
     private double longitude;
+    /**
+     * The country name
+     */
     private String countryName;
 
+    /**
+     * Constructs an instance of Capital receiving the following parameters:
+     *
+     * @param name name
+     * @param latitude latitude
+     * @param longitude longitude
+     * @param countryName the country name
+     */
     public Capital(String name, double latitude, double longitude, String countryName) {
         super(latitude, longitude, countryName);
         checkName(name);
