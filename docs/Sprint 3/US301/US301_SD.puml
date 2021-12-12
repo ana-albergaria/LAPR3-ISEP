@@ -8,6 +8,7 @@ participant ":Company" as CMP
 participant ":CountryStoreDb" as CSTORE
 participant ":CountryStore" as LSTORE
 participant ":PortStoreDb" as STORE
+participant ":PortStore" as PSTORE
 participant ":Port" as PORT
 participant ":Capital" as CAP
 participant ":Country" as CTRY
@@ -45,28 +46,37 @@ deactivate CSTORE
 CTRL -> CMP : portsStoreDb = getPortStoreDb()
 activate CMP
 deactivate CMP
-CTRL -> STORE : List<Location> existentPorts = portStoreDb.getExistentPorts()
+CTRL -> STORE : List<PortDto> existentPorts = portStoreDb.getExistentPorts()
 activate STORE
 STORE -> STORE: resultSet = getPortsInDatabase()
 alt for each port in resultset
 STORE -> PORT** : create(continent, country, portCode, portName, latitude, longitude, Map<Integer, Integer> toPortsDistances)
 STORE -> STORE : existentPorts.add(port)
 end
-alt for each port in existentPorts
-CTRL -> LSTORE : addPortOfCountry(countryName, port)
-activate LSTORE
-deactivate LSTORE
-end
+deactivate STORE
+
+CTRL -> CMP: portStore = getPortStore()
+activate CMP
+deactivate CMP
+
+CTRL -> PSTORE : importPortsList(existentPorts)
+activate PSTORE
+deactivate PSTORE
 deactivate STORE
 CTRL -> CMP : getFreigthNetwork()
 activate CMP
 deactivate CMP
 CTRL -> CSTORE : getCountries()
-alt for each country inside countries list
+activate CSTORE
+deactivate CSTORE
+CTRL -> PSTORE: getPorts()
+activate PSTORE
+deactivate PSTORE
+alt for each capital in countries list
 CTRL -> NET : add(capital)
-alt for each port in country
-CTRL -> NET : add(port)
 end
+alt for each port in portsList
+CTRL -> NET : add(port)
 end
 alt for each country in countries list
 CTRL -> LSTORE : <String, Integer>Map borders =  getBordersDistances()
@@ -75,17 +85,17 @@ deactivate LSTORE
 alt for each border in borders
 CTRL -> NET : addEdge(country.getCapital, border.key, border.value)
 end
-CTRL -> LSTORE: getClosestPortFromCapital(countryName)
+CTRL -> LSTORE: getClosestPortFromCapital(countryName, portStore.getCountryPorts(countryName))
 activate LSTORE
 deactivate LSTORE
 CTRL -> LSTORE: getLocationsDistance(capital.lat, capital.lon, port.lat, port.lon)
 activate LSTORE
 deactivate LSTORE
 CTRL -> NET : addEdge(country.Capital, closest.Port, dist)
-alt for each port in countryPorts
-alt for each toDistance in port
-CTRL -> NET : addEdge(port, toDistance.key, border.value)
 end
+alt for each port in ports
+alt for each toDistance in port
+CTRL -> NET : addEdge(port, portStore.getPortbyId(key), dist)
 end
 end
 CTRL --> UI : result
