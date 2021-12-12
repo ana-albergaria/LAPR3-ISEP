@@ -2,7 +2,6 @@ package lapr.project.domain.model;
 
 import java.util.Objects;
 
-//classe abstrata?
 public abstract class Location {
     /**
      * The location latitude.

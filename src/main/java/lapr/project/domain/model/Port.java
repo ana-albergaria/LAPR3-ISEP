@@ -123,27 +123,7 @@ public class Port extends Location implements Comparable<Port> {
             throw new IllegalArgumentException("Country name cannot be null.");
         }
     }
-
-    /**
-     * Checks if the Port's latitude is correct, and if not throws an error message.
-     * @param lat the Port's latitude.
-     */
-    private void checkLat(double lat){
-        if (lat<-90 || (lat>90 && lat!=91)){
-            throw new IllegalArgumentException("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.");
-        }
-    }
-
-    /**
-     * Checks if the Port's longitude is correct, and if not throws an error message.
-     * @param lon the Port's longitude.
-     */
-    private void checkLon(double lon){
-        if (lon<-180 || (lon>180 && lon!=181)){
-            throw new IllegalArgumentException("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.");
-        }
-    }
-
+    
     /**
      * returns the Port's Identification
      * @return Port's Identification
