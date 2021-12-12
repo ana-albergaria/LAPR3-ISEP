@@ -3,7 +3,7 @@ package lapr.project.domain.model;
 import java.util.Objects;
 
 public class Capital {
-    private String name;
+    private final String name;
 
     public Capital(String name) {
         checkName(name);

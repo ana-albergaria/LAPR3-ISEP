@@ -6,35 +6,35 @@ public class Country {
     /**
      * The continent of the country
      */
-    private String continent;
+    private final String continent;
     /**
      * The Alpha2-Code of the country
      */
-    private String alpha2Code;
+    private final String alpha2Code;
     /**
      * The Alpha3-Code of the country
      */
-    private String alpha3Code;
+    private final String alpha3Code;
     /**
      * The name of the country
      */
-    private String name;
+    private final String name;
     /**
      * The population of the country
      */
-    private double population;
+    private final double population;
     /**
      * The capital of the country
      */
-    private Capital capital;
+    private final Capital capital;
     /**
      * The latitude of the country
      */
-    private double latitude;
+    private final double latitude;
     /**
      * The longitude of the country
      */
-    private double longitude;
+    private final double longitude;
 
     /**
      * Constructs an instance of Country receiving continent, alpha2code, alpha3code,
