@@ -2,10 +2,14 @@ package lapr.project.domain.model;
 
 import java.util.Objects;
 
-public class Capital {
-    private final String name;
+public class Capital extends Location {
+    private String name;
+    private double latitude;
+    private double longitude;
+    private String countryName;
 
-    public Capital(String name) {
+    public Capital(String name, double latitude, double longitude, String countryName) {
+        super(latitude, longitude, countryName);
         checkName(name);
         this.name = name;
     }

@@ -1,8 +1,9 @@
 package lapr.project.domain.model;
 
+import java.util.Map;
 import java.util.Objects;
 
-public class Port implements Comparable<Port> {
+public class Port extends Location implements Comparable<Port> {
     /**
      * identification of the Port
      */
@@ -32,6 +33,10 @@ public class Port implements Comparable<Port> {
      * longitude of Port's location
      */
     private final double lon;
+    /**
+     * The reachable ports and the seadistances
+     */
+    private Map<Integer, Double> toPortsDistance;
 
     /**
      * constructs an instance of Port, receiving as parameter identification, name, continent, country, latitude and longitude
@@ -43,18 +48,40 @@ public class Port implements Comparable<Port> {
      * @param lon Port's Longitude
      */
     public Port(int identification, String name, String continent, String country, double lat, double lon) {
+        super(lat, lon, country);
         checkIdentification(identification);
         checkPortName(name);
         checkContinentName(continent);
-        checkCountryName(country);
-        checkLat(lat);
-        checkLon(lon);
         this.identification=identification;
         this.name=name;
         this.continent=continent;
         this.country=country;
         this.lat = lat;
         this.lon=lon;
+    }
+
+    /**
+     * constructs an instance of Port, receiving as parameter identification, name, continent, country, latitude and longitude
+     * @param identification Port's Identification
+     * @param name Port's Name
+     * @param continent Port's Continent
+     * @param country Port's Country
+     * @param lat Port's Latitude
+     * @param lon Port's Longitude
+     * @param toPortsDistance the reachable ports and the seadistances
+     */
+    public Port(int identification, String name, String continent, String country, double lat, double lon, Map<Integer, Double> toPortsDistance) {
+        super(lat, lon, country);
+        checkIdentification(identification);
+        checkPortName(name);
+        checkContinentName(continent);
+        this.identification=identification;
+        this.name=name;
+        this.continent=continent;
+        this.country=country;
+        this.lat = lat;
+        this.lon=lon;
+        this.toPortsDistance = toPortsDistance;
     }
 
     /**

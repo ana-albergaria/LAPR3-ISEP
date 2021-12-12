@@ -1,5 +1,6 @@
 package lapr.project.domain.model;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class Country {
@@ -35,6 +36,10 @@ public class Country {
      * The longitude of the country
      */
     private final double longitude;
+    /**
+     * The borders of the country
+     */
+    private final Map<String, Double> borders;
 
     /**
      * Constructs an instance of Country receiving continent, alpha2code, alpha3code,
@@ -56,7 +61,8 @@ public class Country {
                    double population,
                    Capital capital,
                    double latitude,
-                   double longitude) {
+                   double longitude,
+                   Map<String, Double> borders) {
         checkContinent(continent);
         checkAlpha2Code(alpha2Code);
         checkAlpha3Code(alpha3Code);
@@ -65,6 +71,7 @@ public class Country {
         checkCapital(capital);
         checkLatitude(latitude);
         checkLongitude(longitude);
+        checkBorders(borders);
         this.continent = continent;
         this.alpha2Code = alpha2Code;
         this.alpha3Code = alpha3Code;
@@ -73,6 +80,7 @@ public class Country {
         this.capital = capital;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.borders = borders;
     }
 
     /**
@@ -152,6 +160,16 @@ public class Country {
     private void checkLongitude(double longitude){
         if (longitude<-180 || (longitude>180 && longitude!=181)){
             throw new IllegalArgumentException("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.");
+        }
+    }
+
+    /**
+     * Checks if the borders of the country is correct, and if not throws an error message.
+     * @param borders
+     */
+    private void checkBorders(Map<String, Double> borders){
+        if(borders.isEmpty()){
+            throw new IllegalArgumentException("A country must have borders.");
         }
     }
 
