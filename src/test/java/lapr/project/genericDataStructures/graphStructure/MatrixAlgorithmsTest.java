@@ -106,13 +106,13 @@ class MatrixAlgorithmsTest {
 
         assertEquals("Faro", path.peekFirst());
 
-        path = Algorithms.BreadthFirstSearch(incompleteMap, "Porto");
+        path = Algorithms.DepthFirstSearch(incompleteMap, "Porto");
         assertEquals(7, path.size(), "Should give seven vertices");
 
         assertEquals("Porto", path.removeFirst(), "DepthFirst Porto");
         assertTrue(new LinkedList<>(Arrays.asList("Aveiro", "Braga", "Vila Real")).contains(path.removeFirst()), "DepthFirst Porto");
 
-        path = Algorithms.BreadthFirstSearch(incompleteMap, "Viseu");
+        path = Algorithms.DepthFirstSearch(incompleteMap, "Viseu");
         List<String> expected = new LinkedList<>(Arrays.asList("Viseu", "Guarda", "Castelo Branco"));
         assertEquals(expected, path, "DepthFirst Viseu");
     }
@@ -122,7 +122,7 @@ class MatrixAlgorithmsTest {
      */
     @Test
     public void testShortestPath() {
-        /*System.out.println("Test of shortest path");
+        System.out.println("Test of shortest path");
 
         LinkedList<String> shortPath = new LinkedList<>();
 
@@ -159,7 +159,8 @@ class MatrixAlgorithmsTest {
         lenPath = Algorithms.shortestPath(completeMap, "Porto", "Castelo Branco", Integer::compare, Integer::sum, 0, shortPath);
         assertEquals(365, lenPath, "Length path should be 0 if vertices are the same");
         assertEquals(Arrays.asList("Porto", "Aveiro", "Leiria", "Castelo Branco"), shortPath, "Shortest Path Porto - Castelo Branco");
-         */
+
+
     }
 
     /**
@@ -205,7 +206,7 @@ class MatrixAlgorithmsTest {
      */
     @Test
     public void testminDistGraph() {
-        
+
     }
     
     

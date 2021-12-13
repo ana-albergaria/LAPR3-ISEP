@@ -1,5 +1,7 @@
 package lapr.project.genericDataStructures.graphStructure;
 
+import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
+
 import java.util.*;
 import java.util.function.BinaryOperator;
 
@@ -183,8 +185,8 @@ public class Algorithms {
      * @param sum sum two elements of type E
      * @return the minimum distance graph
      */
-    /* NEED TO TEST THIS METHOD
-    public static <V,E> MatrixGraph <V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
+    //NEED TO TEST THIS METHOD
+    /*public static <V,E> MatrixGraph<V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
         int numVerts = g.numVertices();
         if(numVerts == 0)
             return null;
@@ -219,4 +221,5 @@ public class Algorithms {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
      */
+
 }
