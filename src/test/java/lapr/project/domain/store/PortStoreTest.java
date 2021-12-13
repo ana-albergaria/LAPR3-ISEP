@@ -1,13 +1,11 @@
 package lapr.project.domain.store;
 
-import lapr.project.domain.BST.Ports2DTree;
-import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.dataStructures.Ports2DTree;
+import lapr.project.domain.dataStructures.PositionsBST;
 import lapr.project.domain.model.Port;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.ShipSortMmsi;
-import lapr.project.dto.PositionDTO;
-import lapr.project.dto.ShipsFileDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

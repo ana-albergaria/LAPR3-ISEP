@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 
-import lapr.project.domain.BST.ShipTreeMmsi;
+import lapr.project.domain.dataStructures.ShipTreeMmsi;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 

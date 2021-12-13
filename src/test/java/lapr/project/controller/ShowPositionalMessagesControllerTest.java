@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.dataStructures.PositionsBST;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static org.junit.Assert.*;
 
 public class ShowPositionalMessagesControllerTest {
 

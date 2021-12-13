@@ -1,6 +1,6 @@
 package lapr.project.domain.store;
 
-import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.dataStructures.PositionsBST;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.ShipSortMmsi;

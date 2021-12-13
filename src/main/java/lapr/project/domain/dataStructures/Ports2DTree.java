@@ -1,8 +1,7 @@
-package lapr.project.domain.BST;
+package lapr.project.domain.dataStructures;
 
 import lapr.project.BSTesinf.KDTree;
 import lapr.project.domain.model.Port;
-import lapr.project.domain.model.Ship;
 
 import java.util.ArrayList;
 import java.util.List;

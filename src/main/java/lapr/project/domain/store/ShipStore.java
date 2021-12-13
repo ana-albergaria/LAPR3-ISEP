@@ -1,7 +1,7 @@
 package lapr.project.domain.store;
 
 import lapr.project.data.ShipStoreDB;
-import lapr.project.domain.BST.*;
+import lapr.project.domain.dataStructures.*;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.ShipSortMmsi;

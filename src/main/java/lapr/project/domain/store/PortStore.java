@@ -2,7 +2,7 @@ package lapr.project.domain.store;
 
 import lapr.project.BSTesinf.KDTree;
 import lapr.project.data.PortStoreDB;
-import lapr.project.domain.BST.Ports2DTree;
+import lapr.project.domain.dataStructures.Ports2DTree;
 import lapr.project.domain.model.Port;
 import lapr.project.dto.PortFileDTO;
 

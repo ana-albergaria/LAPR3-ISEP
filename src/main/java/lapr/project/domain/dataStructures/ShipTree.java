@@ -1,4 +1,4 @@
-package lapr.project.domain.BST;
+package lapr.project.domain.dataStructures;
 
 import lapr.project.BSTesinf.AVL;
 import lapr.project.domain.model.Ship;

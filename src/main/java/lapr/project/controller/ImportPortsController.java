@@ -1,6 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.domain.BST.Ports2DTree;
+import lapr.project.domain.dataStructures.Ports2DTree;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Port;

@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.domain.BST.PositionsBST;
-import lapr.project.domain.BST.ShipTreeMmsi;
+import lapr.project.domain.dataStructures.PositionsBST;
+import lapr.project.domain.dataStructures.ShipTreeMmsi;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.store.ShipStore;

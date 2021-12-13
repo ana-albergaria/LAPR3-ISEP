@@ -1,6 +1,6 @@
 package lapr.project.domain.model;
 
-import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.dataStructures.PositionsBST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

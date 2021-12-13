@@ -1,6 +1,6 @@
 package lapr.project.domain.model;
 
-import lapr.project.domain.BST.PositionsBST;
+import lapr.project.domain.dataStructures.PositionsBST;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
