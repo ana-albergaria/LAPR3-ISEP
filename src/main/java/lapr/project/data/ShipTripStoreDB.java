@@ -19,6 +19,79 @@ public class ShipTripStoreDB {
 
     private final String idPort = "Next Port ID: ";
 
+    public void triggerContainers() {
+        String createTrigger = "create or replace trigger trgContainers\n" +
+                "before insert on ShipTrip\n" +
+                "for each row\n" +
+                "declare\n" +
+                "f_shiptrip_id shiptrip.shiptrip_id%type;\n" +
+                "f_cargoManifest_id cargomanifest.cargomanifest_id%type;\n" +
+                "f_mmsi shipTrip.mmsi%type;\n" +
+                "f_estDepDate shipTrip.est_departure_date%type;\n" +
+                "f_containers_before integer;\n" +
+                "f_containers_max integer;\n" +
+                "f_containers_after integer;\n" +
+                "begin\n" +
+                "f_shiptrip_id:= :new.shiptrip_id;\n" +
+                "f_cargoManifest_id:= :new.loading_cargo_id;\n" +
+                "f_mmsi:= :new.mmsi;\n" +
+                "f_estDepDate:= :new.est_departure_date;\n" +
+                "f_containers_max:= get_max_capacity(f_cargoManifest_id);\n" +
+                "f_containers_before:=get_initial_num_containers_per_ship_trip(f_cargoManifest_id,f_estDepDate,f_mmsi);\n" +
+                "f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);\n" +
+                "if f_containers_after>f_containers_max then\n" +
+                "raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');\n" +
+                "delete from shipTrip where shiptrip_id = f_shiptrip_id;\n" +
+                "end if;\n" +
+                "end;";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createTriggerStat = connection.createStatement();) {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    /**
+     * Check if shipTrip exists
+     * @param shipTripID ship trip id
+     * @return 0 if it doesn't exist, otherwise it returns 1
+     */
+    public int checkIfShipTripExists(int shipTripID) {
+        int result = 1;
+        String createFunction = "create or replace function check_if_shipTrip_exists(f_shipTrip_id shipTrip.shipTrip_id%type) return integer\n" +
+                "is\n" +
+                "f_result integer;\n" +
+                "begin\n" +
+                "select count(*) into f_result\n" +
+                "from shipTrip\n" +
+                "where shipTrip_id = f_shipTrip_id;\n" +
+                "return (f_result);\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;";
+        String runFunction = "{? = call check_if_shipTrip_exists(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(shipTripID));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     /**
      * Create shipTrip
      * @param shipTripID ship trip id

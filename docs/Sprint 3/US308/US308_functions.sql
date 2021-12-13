@@ -25,6 +25,20 @@ delete from shipTrip where shiptrip_id = f_shiptrip_id;
 end if;
 end;
 
+--CHECK IF SHIP TRIP EXISTS
+create or replace function check_if_shipTrip_exists(f_shipTrip_id shipTrip.shipTrip_id%type) return integer
+is
+f_result integer;
+begin
+select count(*) into f_result
+from shipTrip
+where shipTrip_id = f_shipTrip_id;
+return (f_result);
+exception
+when no_data_found then
+return 0;
+end;
+
 --DELETE SHIP TRIP
 create or replace function delete_shipTrip
 (f_shiptrip_id shiptrip.shiptrip_id%type) return integer

@@ -44,7 +44,9 @@ public class CheckIfContainerExceedsShipCapacityController {
      */
     public int tryToCeateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate){
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
-        return shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate);
+        shipTripStoreDB.triggerContainers();
+        int resultCreate = shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate);
+        return shipTripStoreDB.checkIfShipTripExists(shipTripID);
     }
 
     /**

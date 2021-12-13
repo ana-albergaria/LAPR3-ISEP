@@ -68,13 +68,13 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         ctrl.deleteShipTrip(81348);
         int shipTripID = 81348;
         int mmsi = 212351004;
-        int depLocation = 224858;
-        int arriLocation = 16485;
+        int depLocation = 16485;
+        int arriLocation = 224858;
         int loadCargID = 82846;
         Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
         Date estArriDate = new Date(2022,12,1);
         int result = ctrl.tryToCeateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = -1; //valor esperado: -1 -> não tem espaço
+        int expResult = 0; //valor esperado: 0 -> não tem espaço, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
     }
 
@@ -90,7 +90,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
         Date estArriDate = new Date(2022,12,1);
         int result = ctrl.tryToCeateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = -1; //valor esperado: -1 -> cargo manifest id invalido
+        int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
     }
 
@@ -106,7 +106,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
         Date estArriDate = new Date(2022,12,1);
         int result = ctrl.tryToCeateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = -1; //valor esperado: -1 -> cargo manifest id invalido
+        int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
     }*/
 
