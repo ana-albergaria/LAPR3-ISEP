@@ -1,4 +1,4 @@
-package lapr.project.BSTesinf;
+package lapr.project.genericDataStructures;
 
 import java.awt.geom.Point2D;
 import java.util.*;

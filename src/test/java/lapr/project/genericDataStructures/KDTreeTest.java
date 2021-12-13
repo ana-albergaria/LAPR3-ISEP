@@ -1,4 +1,4 @@
-package lapr.project.BSTesinf;
+package lapr.project.genericDataStructures;
 
 
 

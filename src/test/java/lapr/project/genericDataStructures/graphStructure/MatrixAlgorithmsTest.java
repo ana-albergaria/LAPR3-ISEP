@@ -1,7 +1,7 @@
-package lapr.project.domain.dataStructures.graphStructure;
+package lapr.project.genericDataStructures.graphStructure;
 
 
-import lapr.project.domain.dataStructures.graphStructure.matrix.MatrixGraph;
+import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

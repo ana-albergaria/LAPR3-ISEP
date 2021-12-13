@@ -1,6 +1,4 @@
-package lapr.project.domain.dataStructures.graphStructure;
-
-import lapr.project.domain.dataStructures.graphStructure.matrix.MatrixGraph;
+package lapr.project.genericDataStructures.graphStructure;
 
 import java.util.*;
 import java.util.function.BinaryOperator;

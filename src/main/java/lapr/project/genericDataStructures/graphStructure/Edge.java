@@ -1,4 +1,4 @@
-package lapr.project.domain.dataStructures.graphStructure;
+package lapr.project.genericDataStructures.graphStructure;
 
 import java.util.Objects;
 

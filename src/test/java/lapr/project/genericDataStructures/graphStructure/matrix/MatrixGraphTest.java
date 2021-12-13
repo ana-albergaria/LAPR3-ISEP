@@ -1,9 +1,9 @@
-package lapr.project.domain.dataStructures.graphStructure.matrix;
+package lapr.project.genericDataStructures.graphStructure.matrix;
 
 
 
-import lapr.project.domain.dataStructures.graphStructure.Edge;
-import lapr.project.domain.dataStructures.graphStructure.Graph;
+import lapr.project.genericDataStructures.graphStructure.Edge;
+import lapr.project.genericDataStructures.graphStructure.Graph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

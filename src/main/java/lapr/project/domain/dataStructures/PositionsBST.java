@@ -1,6 +1,6 @@
 package lapr.project.domain.dataStructures;
 
-import lapr.project.BSTesinf.BST;
+import lapr.project.genericDataStructures.BST;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.shared.Constants;
 

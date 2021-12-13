@@ -1,6 +1,6 @@
 package lapr.project.domain.dataStructures;
 
-import lapr.project.BSTesinf.AVL;
+import lapr.project.genericDataStructures.AVL;
 import lapr.project.domain.model.Ship;
 
 public abstract class ShipTree <E extends  Ship> extends AVL<Ship> {

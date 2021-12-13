@@ -1,6 +1,6 @@
 package lapr.project.domain.dataStructures;
 
-import lapr.project.BSTesinf.KDTree;
+import lapr.project.genericDataStructures.KDTree;
 import lapr.project.domain.model.Port;
 
 import java.util.ArrayList;

@@ -1,5 +1,5 @@
 
-package lapr.project.BSTesinf;
+package lapr.project.genericDataStructures;
 
 import org.junit.jupiter.api.Test;
 

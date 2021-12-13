@@ -1,8 +1,8 @@
-package lapr.project.domain.dataStructures.graphStructure.matrix;
+package lapr.project.genericDataStructures.graphStructure.matrix;
 
-import lapr.project.domain.dataStructures.graphStructure.CommonGraph;
-import lapr.project.domain.dataStructures.graphStructure.Edge;
-import lapr.project.domain.dataStructures.graphStructure.Graph;
+import lapr.project.genericDataStructures.graphStructure.CommonGraph;
+import lapr.project.genericDataStructures.graphStructure.Edge;
+import lapr.project.genericDataStructures.graphStructure.Graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
