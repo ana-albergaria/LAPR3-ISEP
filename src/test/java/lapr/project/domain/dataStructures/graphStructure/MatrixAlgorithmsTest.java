@@ -205,8 +205,6 @@ class MatrixAlgorithmsTest {
      */
     @Test
     public void testminDistGraph() {
-
-        throw new UnsupportedOperationException("Not supported yet.");
         
     }
     
