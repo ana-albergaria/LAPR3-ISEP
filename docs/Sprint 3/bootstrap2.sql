@@ -15919,3 +15919,39 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82847, null);
 
 --END OF INSERTS FOR US308.
+
+--INSERTS FOR US306
+
+insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (111, 10.48333333, -66.866667, 'Venezuela');
+insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (555, 8.966666667, -79.533333, 'Panama');
+insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (222, 39.93333333, 32.866667, 'Turkey');
+insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (333, 41.31666667, 19.816667, 'Albania');
+insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (444, 52.51666667, 13.4, 'Germany');
+
+insert into warehouse (warehouse_id, name, location_id) values (11111, 'WarehouseA', 111);
+insert into warehouse (warehouse_id, name, location_id) values (22222, 'WarehouseB', 222);
+insert into warehouse (warehouse_id, name, location_id) values (33333, 'WarehouseC', 333);
+insert into warehouse (warehouse_id, name, location_id) values (44444, 'WarehouseD', 444);
+insert into warehouse (warehouse_id, name, location_id) values (55555, 'WarehouseE', 555);
+
+insert into cargomanifest (cargomanifest_id) values (82848);
+
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 82848, -25);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 82848, 2);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2701262, 82848, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82848, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82848, null);
+
+insert into cargomanifest (cargomanifest_id) values (82849);
+
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 82849, -25);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 82849, 2);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (2701262, 82849, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82849, null);
+insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82849, null);
+
+--insert into truck (truck_id) values (912351004);
+
+--insert into trucktrip (trucktrip_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81348, 912351004, 16485, 11111, 19823, 19824, '08/12/2021', '14/01/2022', '10/12/2021', '14/01/2022');
+
+--END OF INSERTS FOR US306
