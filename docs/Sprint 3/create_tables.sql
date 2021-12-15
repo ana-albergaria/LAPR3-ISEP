@@ -13,7 +13,7 @@ drop table continent;
 drop table container;
 drop table ship;
 drop table cargomanifest;
-drop table warehouse;
+--drop table warehouse;
 --drop table truck;
 --drop table truckTrip;
 
@@ -177,12 +177,13 @@ create table containerInCargoManifest(
 	constraint fk_containerInCargoManifest_cargoManifest FOREIGN KEY (cargoManifest_id) references cargoManifest(cargoManifest_id)
 );
 
-create table warehouse(
-                          warehouse_id integer constraint pk_warehouse PRIMARY KEY,
-                          name varchar(40) NOT NULL,
-                          location_id integer not null,
-                          constraint fk_warehouse_placeLocation FOREIGN KEY (location_id) references placeLocation(location_id)
-);
+--create table warehouse(
+--                          warehouse_id integer constraint pk_warehouse PRIMARY KEY,
+--                          name varchar(40) NOT NULL,
+--                          maxCapacity varchar(10),
+--                          location_id integer not null,
+--                          constraint fk_warehouse_placeLocation FOREIGN KEY (location_id) references placeLocation(location_id)
+--);
 
 --create table truck(
 --	truck_id integer constraint pk_truck PRIMARY KEY NOT NULL

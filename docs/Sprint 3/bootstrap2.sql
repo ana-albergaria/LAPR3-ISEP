@@ -15928,11 +15928,11 @@ insert into PlaceLocation (location_id, locationlatitude, locationLongitude, cou
 insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (333, 41.31666667, 19.816667, 'Albania');
 insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (444, 52.51666667, 13.4, 'Germany');
 
-insert into warehouse (warehouse_id, name, location_id) values (11111, 'WarehouseA', 111);
-insert into warehouse (warehouse_id, name, location_id) values (22222, 'WarehouseB', 222);
-insert into warehouse (warehouse_id, name, location_id) values (33333, 'WarehouseC', 333);
-insert into warehouse (warehouse_id, name, location_id) values (44444, 'WarehouseD', 444);
-insert into warehouse (warehouse_id, name, location_id) values (55555, 'WarehouseE', 555);
+--insert into warehouse (warehouse_id, name, location_id) values (11111, 'WarehouseA', 111);
+--insert into warehouse (warehouse_id, name, location_id) values (22222, 'WarehouseB', 222);
+--insert into warehouse (warehouse_id, name, location_id) values (33333, 'WarehouseC', 333);
+--insert into warehouse (warehouse_id, name, location_id) values (44444, 'WarehouseD', 444);
+--insert into warehouse (warehouse_id, name, location_id) values (55555, 'WarehouseE', 555);
 
 insert into cargomanifest (cargomanifest_id) values (82848);
 
