@@ -15,13 +15,11 @@ f_shiptrip_id:= :new.shiptrip_id;
 f_cargoManifest_id:= :new.loading_cargo_id;
 f_mmsi:= :new.mmsi;
 f_estDepDate:= :new.est_departure_date;
-f_containers_max:= get_max_capacity(f_cargoManifest_id);
+select currentCapacity into f_containers_max from Ship where mmsi=f_mmsi;
 f_containers_before:=get_initial_num_containers_per_ship_trip(f_cargoManifest_id,f_estDepDate,f_mmsi);
-f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);
+f_containers_after:=f_containers_before+get_num_containers_per_cargomanifest(f_cargomanifest_id);
 if f_containers_after>f_containers_max then
---dbms_output.put_line('Trigger Fired! Number of containers exceeds ship capacity.');
 raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');
-delete from shipTrip where shiptrip_id = f_shiptrip_id;
 end if;
 end;
 /

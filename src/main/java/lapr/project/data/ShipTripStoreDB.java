@@ -21,7 +21,7 @@ public class ShipTripStoreDB {
 
     public void triggerContainers() {
         String createTrigger = "create or replace trigger trgContainers\n" +
-                "before insert on ShipTrip\n" +
+                "before insert or update on ShipTrip\n" +
                 "for each row\n" +
                 "declare\n" +
                 "f_shiptrip_id shiptrip.shiptrip_id%type;\n" +
@@ -36,12 +36,11 @@ public class ShipTripStoreDB {
                 "f_cargoManifest_id:= :new.loading_cargo_id;\n" +
                 "f_mmsi:= :new.mmsi;\n" +
                 "f_estDepDate:= :new.est_departure_date;\n" +
-                "f_containers_max:= get_max_capacity(f_cargoManifest_id);\n" +
+                "select currentCapacity into f_containers_max from Ship where mmsi=f_mmsi;\n" +
                 "f_containers_before:=get_initial_num_containers_per_ship_trip(f_cargoManifest_id,f_estDepDate,f_mmsi);\n" +
-                "f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);\n" +
+                "f_containers_after:=f_containers_before+get_num_containers_per_cargomanifest(f_cargomanifest_id);\n" +
                 "if f_containers_after>f_containers_max then\n" +
                 "raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');\n" +
-                "delete from shipTrip where shiptrip_id = f_shiptrip_id;\n" +
                 "end if;\n" +
                 "end;";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();

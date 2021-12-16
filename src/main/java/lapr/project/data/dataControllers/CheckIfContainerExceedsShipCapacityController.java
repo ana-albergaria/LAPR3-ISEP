@@ -42,7 +42,7 @@ public class CheckIfContainerExceedsShipCapacityController {
      * @param estArriDate estimates arrival date.
      * @return -1 if the input information is wrong, otherwise it returns 1.
      */
-    public int tryToCeateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate){
+    public int tryToCreateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate){
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         shipTripStoreDB.triggerContainers();
         int resultCreate = shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate);

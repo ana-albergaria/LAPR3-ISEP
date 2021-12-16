@@ -7,20 +7,24 @@ skinparam classAttributeIconSize 0
 
 class CheckIfContainerExceedsShipCapacityController{
 - company
-- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+- tryToCeateShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate)
+- deleteShipTrip(shipTripID)
 }
 
-class CargoManifestStoreDB{
-- checkIfCargoManifestExceedsShipCapacity(cargoManifestID, mmsi)
+class ShipTripStoreDB{
+- triggerContainers()
+- checkIfShipTripExists(shipTripID)
+- deleteShipTrip(shipTripID)
+- createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate)
 }
 
 class Company{
-- cargoManifestStoreDB
-- getCargoManifestStoreDB()
+- cargoShipTripStoreDB
+- getShipTripStoreDB()
 }
 
 CheckIfContainerExceedsShipCapacityController ..> Company
-CheckIfContainerExceedsShipCapacityController ..> CargoManifestStoreDB
-Company "1" -- "1" CargoManifestStoreDB : uses >
+CheckIfContainerExceedsShipCapacityController ..> ShipTripStoreDB
+Company "1" -- "1" ShipTripStoreDB : uses >
 
 @enduml
