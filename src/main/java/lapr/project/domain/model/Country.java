@@ -1,5 +1,6 @@
 package lapr.project.domain.model;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -9,77 +10,38 @@ public class Country {
      */
     private final String continent;
     /**
-     * The Alpha2-Code of the country
-     */
-    private final String alpha2Code;
-    /**
-     * The Alpha3-Code of the country
-     */
-    private final String alpha3Code;
-    /**
      * The name of the country
      */
     private final String name;
-    /**
-     * The population of the country
-     */
-    private final double population;
     /**
      * The capital of the country
      */
     private final Capital capital;
     /**
-     * The latitude of the country
-     */
-    private final double latitude;
-    /**
-     * The longitude of the country
-     */
-    private final double longitude;
-    /**
      * The borders of the country
      */
-    private final Map<String, Double> borders;
+    private final List<String> borders;
 
     /**
      * Constructs an instance of Country receiving continent, alpha2code, alpha3code,
      * name, population, capital, latitude, longitude
      *
      * @param continent the continent
-     * @param alpha2Code the Alpha2-Code
-     * @param alpha3Code the Alpha3-Code
      * @param name the name
      * @param population the population
      * @param capital the capital
-     * @param latitude the latitude
-     * @param longitude the longitude
      */
     public Country(String continent,
-                   String alpha2Code,
-                   String alpha3Code,
                    String name,
-                   double population,
                    Capital capital,
-                   double latitude,
-                   double longitude,
-                   Map<String, Double> borders) {
+                   List<String> borders) {
         checkContinent(continent);
-        checkAlpha2Code(alpha2Code);
-        checkAlpha3Code(alpha3Code);
         checkName(name);
-        checkPopulation(population);
         checkCapital(capital);
-        checkLatitude(latitude);
-        checkLongitude(longitude);
         checkBorders(borders);
         this.continent = continent;
-        this.alpha2Code = alpha2Code;
-        this.alpha3Code = alpha3Code;
         this.name = name;
-        this.population = population;
         this.capital = capital;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.borders = borders;
     }
 
@@ -167,7 +129,7 @@ public class Country {
      * Checks if the borders of the country is correct, and if not throws an error message.
      * @param borders
      */
-    private void checkBorders(Map<String, Double> borders){
+    private void checkBorders(List<String> borders){
         if(borders.isEmpty()){
             throw new IllegalArgumentException("A country must have borders.");
         }
