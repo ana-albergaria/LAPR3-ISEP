@@ -44,7 +44,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
 
     delete from shipTrip where shiptrip_id = 81348;*/
 
-    /*@Test
+    @Test
     void testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace(){
         //0+5=5 -> tem espaço   82847
         System.out.println("Test1: testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace()");
@@ -108,6 +108,6 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int result = ctrl.tryToCeateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
         int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
-    }*/
+    }
 
 }
