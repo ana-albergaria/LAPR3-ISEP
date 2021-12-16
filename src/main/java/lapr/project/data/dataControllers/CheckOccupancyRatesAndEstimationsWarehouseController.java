@@ -4,6 +4,7 @@ import lapr.project.controller.App;
 import lapr.project.data.CargoManifestStoreDB;
 import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
+import lapr.project.data.WarehouseStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.sql.Date;
@@ -56,13 +57,15 @@ public class CheckOccupancyRatesAndEstimationsWarehouseController {
      * @param warehouseID warehouse id.
      * @return warehouse occupancy rate in percentage.
      */
-    public int getShipOccupancyRateByWarehouseID(int warehouseID) throws SQLException {
+    public int getOccupancyRateByWarehouseID(int warehouseID) throws SQLException {
         if (checkIfWarehouseExists(warehouseID)==0){
             return -1; //inv
         }
-        int maxCapacity = 0; //get with sql
+        WarehouseStoreDB warehouseStoreDB = this.company.getWarehouseStoreDB();
+        int maxCapacity = warehouseStoreDB.getWarehouseMaxCapacity(warehouseID); //get with sql
         int currentCapacity = 0; //get with sql
-        throw new IllegalArgumentException("to develop");
+        int result = calculateOccupancyRate(maxCapacity,currentCapacity);
+        return result;
     }
 
     /**
@@ -71,7 +74,8 @@ public class CheckOccupancyRatesAndEstimationsWarehouseController {
      * @return 1 if the warehouse exists and 0 if it doesn't.
      */
     public int checkIfWarehouseExists(int warehouse_id) {
-        throw new IllegalArgumentException("to develop");
+        WarehouseStoreDB warehouseStoreDB = this.company.getWarehouseStoreDB();
+        return warehouseStoreDB.checkIfWarehouseExists(warehouse_id);
     }
 
 }
