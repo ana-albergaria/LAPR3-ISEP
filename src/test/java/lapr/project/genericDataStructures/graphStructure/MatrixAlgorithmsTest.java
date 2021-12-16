@@ -159,7 +159,7 @@ class MatrixAlgorithmsTest {
         lenPath = Algorithms.shortestPath(completeMap, "Porto", "Castelo Branco", Integer::compare, Integer::sum, 0, shortPath);
         assertEquals(365, lenPath, "Length path should be 0 if vertices are the same");
         assertEquals(Arrays.asList("Porto", "Aveiro", "Leiria", "Castelo Branco"), shortPath, "Shortest Path Porto - Castelo Branco");
-        
+
          */
 
 
