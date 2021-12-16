@@ -44,6 +44,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
 
     delete from shipTrip where shiptrip_id = 81348;*/
 
+    /*
     @Test
     void testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace(){
         //0+5=5 -> tem espaço   82847
@@ -109,5 +110,6 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
     }
+     */
 
 }
