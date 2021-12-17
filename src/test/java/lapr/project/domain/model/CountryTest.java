@@ -78,14 +78,6 @@ class CountryTest {
     }
 
 
-    /**
-     * test to ensure borders cannot be empty
-     */
-    @Test
-    public void ensureBordersNotEmpty() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Country(continent2,names[0],capital1, new ArrayList<>()));
-        assertEquals("A country must have borders.", thrown.getMessage());
-    }
 
 
 
