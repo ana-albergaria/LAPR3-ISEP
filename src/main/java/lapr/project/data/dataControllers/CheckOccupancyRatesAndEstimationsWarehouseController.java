@@ -63,9 +63,8 @@ public class CheckOccupancyRatesAndEstimationsWarehouseController {
         }
         WarehouseStoreDB warehouseStoreDB = this.company.getWarehouseStoreDB();
         int maxCapacity = warehouseStoreDB.getWarehouseMaxCapacity(warehouseID); //get with sql
-        int currentCapacity = 0; //get with sql
-        int result = calculateOccupancyRate(maxCapacity,currentCapacity);
-        return result;
+        int currentCapacity = warehouseStoreDB.getCurrentContainersWarehouse(warehouseID); //get with sql
+        return calculateOccupancyRate(maxCapacity,currentCapacity);
     }
 
     /**
