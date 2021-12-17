@@ -61,4 +61,28 @@ public abstract class Location {
             throw new IllegalArgumentException("Name cannot be null.");
         }
     }
+
+    /**
+     * returns the Port's Country
+     * @return Port's Country
+     */
+    public String getCountry(){
+        return this.countryName;
+    }
+
+    /**
+     * returns the Port's Latitude
+     * @return Port's Latitude
+     */
+    public double getLat(){
+        return this.latitude;
+    }
+
+    /**
+     * returns the Port's Longitude
+     * @return Port's Longitude
+     */
+    public double getLon(){
+        return this.longitude;
+    }
 }
