@@ -83,8 +83,7 @@ public class CountryStoreDb {
     private String getCountryContinent(DatabaseConnection databaseConnection, int cont_id){
         String continent="NA";
         Connection connection = databaseConnection.getConnection();
-        String sqlCommand = "select name from continent where continent_id = ?";
-        List<String> borders = new ArrayList<>();
+        String sqlCommand = "select continent_name from continent where continent_id = ?";
         try (PreparedStatement getContinent = connection.prepareStatement(
                 sqlCommand)) {
             getContinent.setInt(1,cont_id);

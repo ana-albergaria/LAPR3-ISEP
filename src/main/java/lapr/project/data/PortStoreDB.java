@@ -1,12 +1,116 @@
 package lapr.project.data;
 
+import lapr.project.domain.model.Capital;
+import lapr.project.domain.model.Country;
 import lapr.project.domain.model.Port;
 
+import javax.xml.crypto.Data;
+import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PortStoreDB implements Persistable {
+
+    public List<Port> getExistentPorts(DatabaseConnection databaseConnection){
+        Connection connection = databaseConnection.getConnection();
+        List<Port> ports = new ArrayList<>();
+        String sqlCommand = "select * from port";
+        String name, countryName;
+        int locationId, portId;
+        double latitude, longitude;
+        try (PreparedStatement getAllPorts = connection.prepareStatement(
+                sqlCommand)) {
+            try (ResultSet portsResult = getAllPorts.executeQuery()) {
+                while(portsResult.next()){
+                    name = portsResult.getNString(2);
+                    portId = portsResult.getInt(1);
+                    locationId = portsResult.getInt(3);
+                    System.out.println(name);
+                    System.out.println(portId);
+                    System.out.println(locationId);
+                    latitude = getLocationLatitude(databaseConnection, locationId);
+                    longitude = getLocationLongitude(databaseConnection, locationId);
+                    countryName = getLocationCountry(databaseConnection, locationId);
+                    System.out.println(latitude);
+                    System.out.println(longitude);
+                    System.out.println(countryName);
+                    System.out.println();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            databaseConnection.registerError(ex);
+        }
+        return ports;
+    }
+
+    private double getLocationLatitude(DatabaseConnection databaseConnection, int id) throws SQLException {
+        Connection connection = databaseConnection.getConnection();
+        double latitude = 0;
+        String sqlCommand = "select * from placelocation where location_id = ?";
+        try (PreparedStatement getLocation = connection.prepareStatement(
+                sqlCommand)) {
+            getLocation.setInt(1, id);
+            try (ResultSet locationResult = getLocation.executeQuery()) {
+                if(locationResult.next()){
+                    latitude = locationResult.getDouble(2);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            databaseConnection.registerError(ex);
+        }
+
+        return  latitude;
+    }
+    private double getLocationLongitude(DatabaseConnection databaseConnection, int id) throws SQLException {
+        Connection connection = databaseConnection.getConnection();
+        double longitude = 0;
+        String sqlCommand = "select * from placelocation where location_id = ?";
+        try (PreparedStatement getLocation = connection.prepareStatement(
+                sqlCommand)) {
+            getLocation.setInt(1, id);
+            try (ResultSet locationResult = getLocation.executeQuery()) {
+                if(locationResult.next()){
+                    longitude = locationResult.getDouble(3);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            databaseConnection.registerError(ex);
+        }
+
+        return  longitude;
+    }
+
+    private String getLocationCountry(DatabaseConnection databaseConnection, int id) throws SQLException {
+        Connection connection = databaseConnection.getConnection();
+        String sqlCommand = "select * from placelocation where location_id = ?";
+        try (PreparedStatement getLocation = connection.prepareStatement(
+                sqlCommand)) {
+            getLocation.setInt(1, id);
+            try (ResultSet locationResult = getLocation.executeQuery()) {
+                if(locationResult.next()){
+                    return locationResult.getNString(4);
+                }else{
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            databaseConnection.registerError(ex);
+            return null;
+        }
+    }
+
+
     @Override
     public boolean save(DatabaseConnection databaseConnection, Object object) {
         Connection connection = databaseConnection.getConnection();
