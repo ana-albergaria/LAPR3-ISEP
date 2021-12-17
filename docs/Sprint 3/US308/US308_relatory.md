@@ -23,8 +23,13 @@ This US has dependencies with US208 and US209, since it reuses them for calculat
 **Input Data:**
 
 * Typed data:
-    * cargo manifest ID
+    * ship trip ID
     * mmsi
+    * departure location
+    * arrival location
+    * loading cargo manifest id
+    * estimated departure date
+    * estimated arrival date
 
 * Selected data:
     * n/a
@@ -37,7 +42,7 @@ This US has dependencies with US208 and US209, since it reuses them for calculat
 
 ### 1.5. System Sequence Diagram (SSD)
 
-![US_308_SSD](./docs/US308/US_308_SSD.svg)
+![US_308_SSD](./docs/Sprint 3/US308/US_308_SSD.svg)
 
 
 ### 1.6 Other Relevant Remarks
@@ -49,7 +54,8 @@ The present US is held many times during the business. As the Traffic Manager ma
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US_308_DM](./docs/US308/US_308_DM.svg)
+![US_308_DM](./docs/Sprint 3/US308/US_308_DM.svg)
+
 
 ### 2.2. Other Remarks
 
@@ -61,18 +67,23 @@ n/a
 
 ## 3.1. Sequence Diagram (SD)
 
-![US_308_SD](./docs/US308/US_308_SD.svg)
+![US_308_SD](./docs/Sprint 3/US308/US_308_SD.svg)
+
 
 ## 3.2. Class Diagram (CD)
 
-![US_308_CD](./docs/US308/US_308_CD.svg)
+![US_308_CD](./docs/Sprint 3/US308/US_308_CD.svg)
+
 
 # 4. Tests
 
 ### ShipOccupancyRatesController class test:
 
-**Test 1:** Test to check if the method returns -1 when the cargo manifest ID is invalid.
 
-**Test 2:** Test to check if the method returns 0 when the cargo manifest ID has too much container for the desired ship.
+**Test 1:** Test to check if that the ship is created when the desired ship has enough space for the containers in the cargo manifest.
 
-**Test 3:** Test to check if the method returns 1 when the desired ship has enough space for the containers in the cargo manifest.
+**Test 2:** Test to check if the ship is not created when the cargo manifest ID has too much container for the desired ship.
+
+**Test 3:** Test to check if the ship is not created when the cargo manifest ID is invalid.
+
+**Test 4:** Test to check if the ship is not created when the ship ID (mmsi) is invalid.

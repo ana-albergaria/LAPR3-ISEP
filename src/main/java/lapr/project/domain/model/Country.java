@@ -28,7 +28,6 @@ public class Country {
      *
      * @param continent the continent
      * @param name the name
-     * @param population the population
      * @param capital the capital
      */
     public Country(String continent,
@@ -38,7 +37,6 @@ public class Country {
         checkContinent(continent);
         checkName(name);
         checkCapital(capital);
-        checkBorders(borders);
         this.continent = continent;
         this.name = name;
         this.capital = capital;
@@ -136,5 +134,13 @@ public class Country {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Country{" +
+                "continent='" + continent + '\'' +
+                ", name='" + name + '\'' +
+                ", capital=" + capital +
+                ", borders=" + borders +
+                '}';
+    }
 }

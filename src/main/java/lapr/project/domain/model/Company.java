@@ -4,6 +4,7 @@ import auth.AuthFacade;
 import lapr.project.data.CargoManifestStoreDB;
 import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
+import lapr.project.data.WarehouseStoreDB;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.store.ShipStore;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,11 @@ public class Company {
      * The company's authfacade.
      */
     private final AuthFacade authFacade;
+
+    /**
+     * The Warehouse Store Date Base.
+     */
+    private final WarehouseStoreDB warehouseStoreDB;
 
     /**
      * The Ship Store.
@@ -58,6 +64,16 @@ public class Company {
         this.shipTripStoreDB = new ShipTripStoreDB();
         this.shipStoreDB = new ShipStoreDB();
         this.cargoManifestStoreDB=new CargoManifestStoreDB();
+        this.warehouseStoreDB=new WarehouseStoreDB();
+    }
+
+    /**
+     * Returns the Warehouse Store Data Base.
+     *
+     * @return Warehouse Store Data Base.
+     */
+    public WarehouseStoreDB getWarehouseStoreDB(){
+        return warehouseStoreDB;
     }
 
     /**

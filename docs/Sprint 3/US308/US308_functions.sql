@@ -15,15 +15,14 @@ f_shiptrip_id:= :new.shiptrip_id;
 f_cargoManifest_id:= :new.loading_cargo_id;
 f_mmsi:= :new.mmsi;
 f_estDepDate:= :new.est_departure_date;
-f_containers_max:= get_max_capacity(f_cargoManifest_id);
+select currentCapacity into f_containers_max from Ship where mmsi=f_mmsi;
 f_containers_before:=get_initial_num_containers_per_ship_trip(f_cargoManifest_id,f_estDepDate,f_mmsi);
-f_containers_after:=f_containers_before+get_added_removed_containers_ship_trip_moment(f_cargoManifest_id);
+f_containers_after:=f_containers_before+get_num_containers_per_cargomanifest(f_cargomanifest_id);
 if f_containers_after>f_containers_max then
---dbms_output.put_line('Trigger Fired! Number of containers exceeds ship capacity.');
 raise_application_error(-20001,'Currently, the ship doesnt have enough capacity for the cargo manifest.');
-delete from shipTrip where shiptrip_id = f_shiptrip_id;
 end if;
 end;
+/
 
 --CHECK IF SHIP TRIP EXISTS
 create or replace function check_if_shipTrip_exists(f_shipTrip_id shipTrip.shipTrip_id%type) return integer
@@ -38,6 +37,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --DELETE SHIP TRIP
 create or replace function delete_shipTrip
@@ -47,12 +47,13 @@ begin
 delete
 from shipTrip
 where
-shiptrip_id = f_shiptrip_id;
+        shiptrip_id = f_shiptrip_id;
 return 1;
 exception
 when no_data_found then
 return -1;
 end;
+/
 
 --CREATE SHIP TRIP
 create or replace function create_shipTrip
@@ -78,6 +79,7 @@ exception
 when no_data_found then
 return -1;
 end;
+/
 
 --GET REAL DEPARTURE DATE FROM SHIP TRIP
 create or replace function get_real_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.real_departure_date%type
@@ -93,6 +95,7 @@ from shipTrip
 where shiptrip_id = f_shiptrip_id;
 return f_real_departure_date;
 end;
+/
 
 --GET INITIAL NUM CONTAINERS PER SHIP TRIP WITH REAL DATES
 create or replace function get_initial_num_containers_per_ship_trip_2(f_cargoManifest_id cargoManifest.cargoManifest_id%type,
@@ -118,6 +121,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 ---------------------------------------------------------------------------REUSING US209:---------------------------------------------------------------------------
 
@@ -134,6 +138,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --GET CARGO MANIFEST BY MMSI AND DATE
 create or replace function get_cargo_manifest_by_mmsi_and_date(f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return cargoManifest.cargoManifest_id%type
@@ -162,6 +167,7 @@ exception
 when no_data_found then
 return -1;
 end;
+/
 
 ---------------------------------------------------------------------------REUSING US208:---------------------------------------------------------------------------
 
@@ -178,6 +184,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --GET ADDED AND REMOVED CONTAINERS IN A SHIP TRIP FOR A MOMENT
 create or replace function get_added_removed_containers_ship_trip_moment(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer --est date como parametro
@@ -202,6 +209,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --GET EST DEPARTURE DATE FROM SHIP TRIP
 create or replace function get_est_departure_date_from_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return shipTrip.est_departure_date%type
@@ -217,6 +225,7 @@ from shipTrip
 where shiptrip_id = f_shiptrip_id;
 return f_est_departure_date;
 end;
+/
 
 --GET INITIAL NUM CONTAINERS PER SHIP TRIP
 create or replace function get_initial_num_containers_per_ship_trip(f_cargoManifest_id cargoManifest.cargoManifest_id%type,
@@ -242,6 +251,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --GET SHIP MAX CAPACITY
 create or replace function get_max_capacity(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer
@@ -260,6 +270,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --GET MMSI BY CARGO MANIFEST ID
 create or replace function get_mmsi_by_cargo_manifest_id(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer --est date como parametro
@@ -278,6 +289,7 @@ exception
 when no_data_found then
 return -1;
 end;
+/
 
 --GET NUM CONTAINERS PER CARGO MANIFEST
 create or replace function get_num_containers_per_cargoManifest(f_cargoManifest_id cargoManifest.cargoManifest_id%type) return integer
@@ -292,3 +304,4 @@ exception
 when no_data_found then
 return 0;
 end;
+/

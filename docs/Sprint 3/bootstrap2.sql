@@ -15928,11 +15928,11 @@ insert into PlaceLocation (location_id, locationlatitude, locationLongitude, cou
 insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (333, 41.31666667, 19.816667, 'Albania');
 insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (444, 52.51666667, 13.4, 'Germany');
 
---insert into warehouse (warehouse_id, name, location_id) values (11111, 'WarehouseA', 111);
---insert into warehouse (warehouse_id, name, location_id) values (22222, 'WarehouseB', 222);
---insert into warehouse (warehouse_id, name, location_id) values (33333, 'WarehouseC', 333);
---insert into warehouse (warehouse_id, name, location_id) values (44444, 'WarehouseD', 444);
---insert into warehouse (warehouse_id, name, location_id) values (55555, 'WarehouseE', 555);
+insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (11111, 'WarehouseA', 10, 111);
+insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (22222, 'WarehouseB', 20, 222);
+insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (33333, 'WarehouseC', 30, 333);
+insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (44444, 'WarehouseD', 40, 444);
+insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (55555, 'WarehouseE', 50, 555);
 
 insert into cargomanifest (cargomanifest_id) values (82848);
 
@@ -15950,8 +15950,8 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82849, null);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82849, null);
 
---insert into truck (truck_id) values (912351004);
+insert into truck (truck_id) values (111111111);
 
---insert into trucktrip (trucktrip_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81348, 912351004, 16485, 11111, 19823, 19824, '08/12/2021', '14/01/2022', '10/12/2021', '14/01/2022');
+insert into trucktrip (trucktrip_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11111, 111111111, 1741, 111, 19823, 19824, '08/12/2021', '14/01/2022', '10/12/2021', '14/01/2022');
 
 --END OF INSERTS FOR US306
