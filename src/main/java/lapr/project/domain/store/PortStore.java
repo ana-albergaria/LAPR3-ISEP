@@ -6,12 +6,23 @@ import lapr.project.domain.dataStructures.Ports2DTree;
 import lapr.project.domain.model.Port;
 import lapr.project.dto.PortFileDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class PortStore {
     private Ports2DTree ports2DTree = new Ports2DTree();
+    private List<Port> portsList = new ArrayList<>();
 
+    public void importPorts(List<Port> existentPorts){
+        for(Port port : existentPorts){
+            if(validatePort(port) && !portsList.contains(port)){
+                portsList.add(port);
+            }
+        }
+    }
+
+    public List<Port> getPortsList (){return portsList;}
 
     /**
      * Returns the 2D Tree of Ports
@@ -76,6 +87,25 @@ public class PortStore {
     public Port findClosestPort(List<Double> coordinates) {
 
         return ports2DTree.findClosestPort(coordinates);
+    }
+
+    public List<Port> getPortsByCountry(String countryName){
+        List<Port> portsInCountry = new ArrayList<>();
+        for(Port port : portsList){
+            if(port.getCountry().equalsIgnoreCase(countryName)){
+                portsInCountry.add(port);
+            }
+        }
+        return portsInCountry;
+    }
+
+    public Port getPortById(int id){
+        for(Port port : portsList){
+            if(port.getIdentification()== id){
+                return port;
+            }
+        }
+        throw new IllegalArgumentException("Could not find a port with the given id: " + id);
     }
 
 

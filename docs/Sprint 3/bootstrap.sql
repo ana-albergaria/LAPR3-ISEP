@@ -73,14 +73,14 @@ insert into Country (country_name, continent_id) values ('Guyana', 1);
 insert into Country (country_name, continent_id) values ('Venezuela', 1);
 
 insert into border (country_a, country_b) values ('Belize', ' Mexico');
-insert into border (country_a, country_b) values ('Canada', ' United States of America');
+insert into border (country_a, country_b) values ('Canada', ' United States');
 insert into border (country_a, country_b) values ('Costa Rica', ' Nicaragua ');
 insert into border (country_a, country_b) values ('Costa Rica', ' Panama');
 insert into border (country_a, country_b) values ('Guatemala', ' Mexico');
 insert into border (country_a, country_b) values ('Guatemala', ' El Salvador');
 insert into border (country_a, country_b) values ('Honduras', ' El Salvador');
 insert into border (country_a, country_b) values ('Honduras', ' Nicaragua');
-insert into border (country_a, country_b) values ('Mexico', ' United States of America');
+insert into border (country_a, country_b) values ('Mexico', ' United States');
 insert into border (country_a, country_b) values ('Panama', ' Colombia ');
 insert into border (country_a, country_b) values ('Argentina', ' Bolivia');
 insert into border (country_a, country_b) values ('Argentina', ' Brazil');

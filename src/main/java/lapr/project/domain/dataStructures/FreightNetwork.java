@@ -18,4 +18,8 @@ public class FreightNetwork {
     public void addDistance(Location locOrigin, Location locDestination, Double distance) {
         freightNetwork.addEdge(locOrigin, locDestination, distance);
     }
+
+    public Graph<Location, Double> getFreightNetwork() {
+        return freightNetwork;
+    }
 }

@@ -6,12 +6,13 @@ import lapr.project.domain.model.Port;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.ShipSortMmsi;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +52,33 @@ public class PortStoreTest {
 
         Port actual = store.findClosestPort(coordinates);
 
-        Assertions.assertEquals(exp, actual);
+        assertEquals(exp, actual);
+    }
+
+    @Test
+    public void importPorts(){
+        List<Port> existentPorts = new ArrayList<>();
+        existentPorts.add(port1);
+        existentPorts.add(port2);
+
+        store.importPorts(existentPorts);
+        assertEquals(2, store.getPortsList().size(), "List size should be 2");
+
+        store.importPorts(existentPorts);
+        assertEquals(2, store.getPortsList().size(), "List size should remain 2, not add repeated ports");
+    }
+
+    @Test
+    public void getPortsTest(){
+        List<Port> existentPorts = new ArrayList<>();
+        existentPorts.add(port1);
+        existentPorts.add(port2);
+
+        store.importPorts(existentPorts);
+        List<Port> getPorts = store.getPortsList();
+
+        for(int i = 0; i<existentPorts.size(); i++){
+            assertEquals(existentPorts.get(i), getPorts.get(i));
+        }
     }
 }

@@ -133,6 +133,17 @@ public class Country {
         }
     }
 
+    public Capital getCapital() {
+        return capital;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getBorders() {
+        return borders;
+    }
 
     @Override
     public String toString() {

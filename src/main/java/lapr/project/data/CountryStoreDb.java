@@ -22,7 +22,6 @@ public class CountryStoreDb {
                 int count = 0;
                 while(countriesResultSet.next()){
                     name = countriesResultSet.getNString(1);
-                    System.out.println(name);
 
                     List<String> borders = getCountryBorders(databaseConnection,name);
                     continent = getCountryContinent(databaseConnection, countriesResultSet.getInt(2));
@@ -34,6 +33,9 @@ public class CountryStoreDb {
             Logger.getLogger(PortStoreDB.class.getName())
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
+        }
+        for (Country country : countries){
+            System.out.println(country);
         }
         return countries;
     }
@@ -68,8 +70,7 @@ public class CountryStoreDb {
             getCountryBorders.setString(1,country);
             try (ResultSet bordersResult = getCountryBorders.executeQuery()) {
                     while(bordersResult.next()){
-                        borders.add(bordersResult.getNString(2));
-                        System.out.println(bordersResult.getNString(2));
+                        borders.add(bordersResult.getNString(2).trim());
                     }
             }
         } catch (SQLException ex) {
@@ -89,8 +90,27 @@ public class CountryStoreDb {
             getContinent.setInt(1,cont_id);
             try (ResultSet continentResult = getContinent.executeQuery()) {
                 if(continentResult.next()){
-                    System.out.println(continentResult.getNString(1));
                     continent =  continentResult.getNString(1);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            databaseConnection.registerError(ex);
+        }
+        return continent;
+    }
+
+    public String getCountryContinentByName(DatabaseConnection databaseConnection, String country_name){
+        String continent="NA";
+        Connection connection = databaseConnection.getConnection();
+        String sqlCommand = "select continent_id from country where country_name = ?";
+        try (PreparedStatement getContinent = connection.prepareStatement(
+                sqlCommand)) {
+            getContinent.setString(1,country_name);
+            try (ResultSet continentResult = getContinent.executeQuery()) {
+                if(continentResult.next()){
+                    continent =  getCountryContinent(databaseConnection, continentResult.getInt(1));
                 }
             }
         } catch (SQLException ex) {

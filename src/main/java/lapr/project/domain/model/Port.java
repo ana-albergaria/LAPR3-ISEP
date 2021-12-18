@@ -172,21 +172,23 @@ public class Port extends Location implements Comparable<Port> {
         return this.lon;
     }
 
+    public Map<Integer, Double> getToPortsDistance() {
+        return toPortsDistance;
+    }
 
-    /**
-     * Method toString.
-     * @return a String with the Port attributes and its values.
-     */
     @Override
     public String toString() {
         return "Port{" +
-                "Identification=" + identification +
-                ", Name=" + name +
-                ", Continent=" + continent +
-                ", Country='" + country + '\'' +
-                ", Latitude='" + lat + '\'' +
-                ", Longitude='" + lon +
-                '}';
+                "identification=" + identification +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", country='" + country + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", toPortsDistance=" + toPortsDistance +
+                '}'+
+                "\n"
+                ;
     }
 
     /**

@@ -8,6 +8,7 @@ drop table sea_dist;
 drop table port;
 drop table placeLocation;
 drop table border;
+drop table capital;
 drop table country;
 drop table continent;
 drop table container;
