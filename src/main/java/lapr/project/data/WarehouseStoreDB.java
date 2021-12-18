@@ -7,6 +7,66 @@ import java.sql.*;
 public class WarehouseStoreDB {
 
     /**
+     * Get number of containers currently in the warehouse.
+     * @param warehouse_id Warehouse's id.
+     * @return number of containers currently in the warehouse.
+     */
+    public int getCurrentContainersWarehouse(int warehouse_id) {
+        int result = 0;
+        String createFunction = "create or replace function get_current_containers_warehouse(f_warehouse_id warehouse.warehouse_id%type, f_current_date shipTrip.est_departure_date%type) return integer\n" +
+                "is\n" +
+                "f_comp_cargo_id cargoManifest.cargoManifest_id%type;\n" +
+                "f_current_containers integer:=0;\n" +
+                "cursor neededCargosPut\n" +
+                "is\n" +
+                "(select unloading_cargo_id\n" +
+                "from truckTrip\n" +
+                "where arrival_location=(select location_id from warehouse where warehouse_id=f_warehouse_id) AND est_arrival_date < f_current_date);\n" +
+                "cursor neededCargosTake\n" +
+                "is\n" +
+                "(select loading_cargo_id\n" +
+                "from truckTrip\n" +
+                "where departure_location=(select location_id from warehouse where warehouse_id=f_warehouse_id) AND est_departure_date < f_current_date);\n" +
+                "begin\n" +
+                "open neededCargosPut;\n" +
+                "loop\n" +
+                "fetch neededCargosPut into f_comp_cargo_id;\n" +
+                "exit when neededCargosPut%notfound;\n" +
+                "f_current_containers:= f_current_containers + get_num_containers_per_cargoManifest(f_comp_cargo_id);\n" +
+                "end loop;\n" +
+                "open neededCargosTake;\n" +
+                "loop\n" +
+                "fetch neededCargosTake into f_comp_cargo_id;\n" +
+                "exit when neededCargosTake%notfound;\n" +
+                "f_current_containers:= f_current_containers - get_num_containers_per_cargoManifest(f_comp_cargo_id);\n" +
+                "end loop;\n" +
+                "return f_current_containers;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;\n";
+        String runFunction = "{? = call check_if_warehouse_exists(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(warehouse_id));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
      * Check if warehouse exists in the data base.
      * @param warehouse_id Warehouse's id.
      * @return 1 if warehouse exists and 0 if it doesn't.
