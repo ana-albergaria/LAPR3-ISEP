@@ -14,7 +14,7 @@ public class FreightNetwork {
     private final Graph<Location, Double> freightNetwork;
 
     public FreightNetwork() {
-        freightNetwork = new MatrixGraph<>(true);
+        freightNetwork = new MatrixGraph<>(false);
     }
 
     public void addLocation(Location location) {
