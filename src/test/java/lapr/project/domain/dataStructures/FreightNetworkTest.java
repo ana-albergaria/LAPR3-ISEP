@@ -8,9 +8,7 @@ import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -83,6 +81,7 @@ class FreightNetworkTest {
         freightNetwork.addDistance(capital6, capital8, 120.0);
         freightNetwork.addDistance(capital7, capital8, 300.0);
         freightNetwork.addDistance(capital1, capital8, 123.0);
+        freightNetwork.addDistance(capital8, capital3, 120.0);
 
 
     }
@@ -100,11 +99,27 @@ class FreightNetworkTest {
 
     @Test
     void getOrderedCapitalsList() {
-        /*List<Map.Entry<Capital, Integer>> orderedCapitals = freightNetwork.getOrderedCapitalsList();
 
-        for (Map.Entry<Capital,Integer> entry : orderedCapitals) {
+        Map<Capital, Integer> expMap = new LinkedHashMap<>();
+        expMap.put(capital8, 5);
+        expMap.put(capital2, 4);
+        expMap.put(capital1, 3);
+        expMap.put(capital3, 3);
+        expMap.put(capital5, 2);
+        expMap.put(capital7, 1);
+        expMap.put(capital4, 1);
+        expMap.put(capital6, 1);
+
+        List<Map.Entry<Capital, Integer>> expList = new ArrayList<>(expMap.entrySet());
+
+        List<Map.Entry<Capital, Integer>> list = freightNetwork.getOrderedCapitalsList();
+
+        /*for (Map.Entry<Capital,Integer> entry : list) {
             System.out.println("Capital: " + entry.getKey().getName() + "   | Borders: " + entry.getValue());
         }
          */
+        
+        assertEquals(expList, list);
+
     }
 }

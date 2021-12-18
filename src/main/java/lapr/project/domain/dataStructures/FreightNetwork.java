@@ -5,10 +5,7 @@ import lapr.project.domain.model.Location;
 import lapr.project.genericDataStructures.graphStructure.Graph;
 import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FreightNetwork {
     private final Graph<Location, Double> freightNetwork;
@@ -30,7 +27,7 @@ public class FreightNetwork {
     }
 
     public List< Map.Entry<Capital,Integer> > getOrderedCapitalsList() {
-        /*Map<Capital, Integer> unorderedCapitals = new HashMap<>();
+        Map<Capital, Integer> unorderedCapitals = new LinkedHashMap<>();
 
         for (Location location : freightNetwork.vertices()) {
             if(location instanceof Capital) {
@@ -43,9 +40,9 @@ public class FreightNetwork {
         orderedCapitals.sort( Map.Entry.<Capital, Integer> comparingByValue().reversed() );
 
         return orderedCapitals;
-         */
 
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Map<Capital, Integer> getCapitalsToColor() {
