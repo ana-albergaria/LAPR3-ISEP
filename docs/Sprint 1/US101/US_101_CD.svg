@@ -145,8 +145,8 @@ class PositionDTO{
 - transcieverClass
 - PositionDTO(baseDateTime, lat, lon, sog, cog, heading, transcieverClass)
 - getBaseDateTime()
-- getLat()
-- getLon()
+- getLatitude()
+- getLongitude()
 - getSog()
 - getCog()
 - getHeading()
@@ -303,8 +303,8 @@ class PositionDTO{
 - transcieverClass
 - PositionDTO(baseDateTime, lat, lon, sog, cog, heading, transcieverClass)
 - getBaseDateTime()
-- getLat()
-- getLon()
+- getLatitude()
+- getLongitude()
 - getSog()
 - getCog()
 - getHeading()

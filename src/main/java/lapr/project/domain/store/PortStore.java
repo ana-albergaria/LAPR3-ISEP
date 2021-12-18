@@ -68,7 +68,7 @@ public class PortStore {
         }
         PortStoreDB portStoreDatabase = new PortStoreDB();
         /*portStoreDatabase.save(App.getInstance().getConnection(), port);*/
-        return ports2DTree.addNode(port, port.getLat(), port.getLon());
+        return ports2DTree.addNode(port, port.getLatitude(), port.getLongitude());
     }
 
     /**

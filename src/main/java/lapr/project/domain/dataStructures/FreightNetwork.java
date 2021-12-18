@@ -29,7 +29,7 @@ public class FreightNetwork {
         return freightNetwork;
     }
 
-    private List< Map.Entry<Capital,Integer> > getOrderedCapitalsList() {
+    public List< Map.Entry<Capital,Integer> > getOrderedCapitalsList() {
         /*Map<Capital, Integer> unorderedCapitals = new HashMap<>();
 
         for (Location location : freightNetwork.vertices()) {
@@ -44,10 +44,11 @@ public class FreightNetwork {
 
         return orderedCapitals;
          */
+
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private Map<Capital, Integer> getCapitalsToColor() {
+    public Map<Capital, Integer> getCapitalsToColor() {
         /*
         List<Map.Entry<Capital,Integer>> orderedCapitals = getOrderedCapitalsList();
 

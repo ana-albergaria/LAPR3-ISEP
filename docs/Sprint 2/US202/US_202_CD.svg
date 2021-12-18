@@ -56,8 +56,8 @@ class ShipPosition {
     -position
     -transceiver
     -getBaseDateTime()
-    -getLat()
-    -getLon()
+    -getLatitude()
+    -getLongitude()
 }
 
 class Company {
@@ -132,8 +132,8 @@ class ShipPosition {
     -position
     -transceiver
     -getBaseDateTime()
-    -getLat()
-    -getLon()
+    -getLatitude()
+    -getLongitude()
 }
 
 class Company {

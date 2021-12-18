@@ -71,18 +71,18 @@ public abstract class Location {
     }
 
     /**
-     * returns the Port's Latitude
-     * @return Port's Latitude
+     * returns the Latitude
+     * @return the Latitude
      */
-    public double getLat(){
+    public double getLatitude(){
         return this.latitude;
     }
 
     /**
-     * returns the Port's Longitude
-     * @return Port's Longitude
+     * returns the Longitude
+     * @return the Longitude
      */
-    public double getLon(){
+    public double getLongitude(){
         return this.longitude;
     }
 }

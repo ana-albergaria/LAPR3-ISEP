@@ -58,10 +58,10 @@ public class CountryStore {
 
     public Port getClosestPortFromCapital(Country country, List<Port> countryPorts){
         Capital capital = country.getCapital();
-        double distance = DistanceUtils.distanceBetweenInKm(capital.getLatitude(), countryPorts.get(0).getLat(), capital.getLongitude(), countryPorts.get(0).getLon());
+        double distance = DistanceUtils.distanceBetweenInKm(capital.getLatitude(), countryPorts.get(0).getLatitude(), capital.getLongitude(), countryPorts.get(0).getLongitude());
         Port closest = countryPorts.get(0);
         for(int i=1; i<countryPorts.size(); i++){
-            double currentDistance = DistanceUtils.distanceBetweenInKm(capital.getLatitude(), countryPorts.get(i).getLat(), capital.getLongitude(), countryPorts.get(i).getLon());
+            double currentDistance = DistanceUtils.distanceBetweenInKm(capital.getLatitude(), countryPorts.get(i).getLatitude(), capital.getLongitude(), countryPorts.get(i).getLongitude());
             if(currentDistance < distance){
                 closest = countryPorts.get(i);
             }

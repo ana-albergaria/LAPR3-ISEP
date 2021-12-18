@@ -4,7 +4,6 @@ import lapr.project.controller.App;
 import lapr.project.data.CountryStoreDb;
 import lapr.project.data.PortStoreDB;
 import lapr.project.domain.dataStructures.FreightNetwork;
-import lapr.project.domain.dataStructures.Ports2DTree;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Country;
 import lapr.project.domain.model.Port;
@@ -68,8 +67,8 @@ public class CreateFreightNetworkController {
             if(countryPorts.size() > 0) {
                 Port closestPort = countryStore.getClosestPortFromCapital(country, countryPorts);
 
-                double capitalPortDistance = DistanceUtils.distanceBetweenInKm(country.getCapital().getLatitude(), closestPort.getLat(),
-                        country.getCapital().getLongitude(), closestPort.getLon());
+                double capitalPortDistance = DistanceUtils.distanceBetweenInKm(country.getCapital().getLatitude(), closestPort.getLatitude(),
+                        country.getCapital().getLongitude(), closestPort.getLongitude());
 
                 freightNetwork.addDistance(country.getCapital(), closestPort, capitalPortDistance);
             }

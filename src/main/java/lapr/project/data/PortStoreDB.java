@@ -1,11 +1,7 @@
 package lapr.project.data;
 
-import lapr.project.domain.model.Capital;
-import lapr.project.domain.model.Country;
 import lapr.project.domain.model.Port;
 
-import javax.xml.crypto.Data;
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -208,8 +204,8 @@ public class PortStoreDB implements Persistable {
         boolean returnValue = false;
         try (PreparedStatement saveShipUpdate = connection.prepareStatement(
                 sqlCommand)) {
-            saveShipUpdate.setDouble(1,port.getLat());
-            saveShipUpdate.setDouble(2,port.getLon());
+            saveShipUpdate.setDouble(1,port.getLatitude());
+            saveShipUpdate.setDouble(2,port.getLongitude());
             saveShipUpdate.setString(3,port.getCountry());
             saveShipUpdate.executeUpdate();
             returnValue = true;
@@ -229,8 +225,8 @@ public class PortStoreDB implements Persistable {
         String sqlCommand = "select * from placeLocation where (locationlatitude = ? AND locationlongitude = ?)";
         try (PreparedStatement getShipPositionStatement = connection.prepareStatement(
                 sqlCommand)) {
-            getShipPositionStatement.setDouble(1, port.getLat());
-            getShipPositionStatement.setDouble(2, port.getLon());
+            getShipPositionStatement.setDouble(1, port.getLatitude());
+            getShipPositionStatement.setDouble(2, port.getLongitude());
             try (ResultSet addressesResultSet = getShipPositionStatement.executeQuery()) {
                 if (addressesResultSet.next())  {
                     returnVal= addressesResultSet.getInt("location_id");

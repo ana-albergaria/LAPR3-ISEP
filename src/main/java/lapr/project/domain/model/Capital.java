@@ -34,14 +34,6 @@ public class Capital extends Location {
         this.name = name;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
     /**
      * Checks if the name of the Capital is correct, and if not throws an error message.
      * @param name of the capital
@@ -50,5 +42,13 @@ public class Capital extends Location {
         if(Objects.isNull(name)){
             throw new IllegalArgumentException("Name cannot be null.");
         }
+    }
+
+    /**
+     * Gets the Capital name
+     * @return capital name
+     */
+    public String getName() {
+        return name;
     }
 }

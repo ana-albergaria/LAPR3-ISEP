@@ -184,19 +184,19 @@ public class PortTest {
     }
 
     /**
-     * ensure getLat() works correctly by returning the correct latitude of a Port
+     * ensure getLatitude() works correctly by returning the correct latitude of a Port
      */
     @Test
     public void testGetLatitude() {
-        Assertions.assertEquals(port1.getLat(), -30.033056);
+        Assertions.assertEquals(port1.getLatitude(), -30.033056);
     }
 
     /**
-     * ensure getLon() works correctly by returning the correct longitude of a Port
+     * ensure getLongitude() works correctly by returning the correct longitude of a Port
      */
     @Test
     public void testGetLongitude() {
-        Assertions.assertEquals(port1.getLon(), -51.230000);
+        Assertions.assertEquals(port1.getLongitude(), -51.230000);
     }
 
     /**
