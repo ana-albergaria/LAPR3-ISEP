@@ -20,20 +20,6 @@ public class Port extends Location implements Comparable<Port> {
     private final String continent;
 
     /**
-     * country where the Port is located
-     */
-    private String country;
-
-    /**
-     * latitude of Port's location
-     */
-    private double lat;
-
-    /**
-     * longitude of Port's location
-     */
-    private double lon;
-    /**
      * The reachable ports and the seadistances
      */
     private Map<Integer, Double> toPortsDistance;
@@ -141,30 +127,7 @@ public class Port extends Location implements Comparable<Port> {
     public String getContinent(){
         return this.continent;
     }
-    
-    /**
-     * returns the Port's Country
-     * @return Port's Country
-     */
-    public String getCountry(){
-        return this.country;
-    }
 
-    /**
-     * returns the Port's Latitude
-     * @return Port's Latitude
-     */
-    public double getLat(){
-        return this.lat;
-    }
-
-    /**
-     * returns the Port's Longitude
-     * @return Port's Longitude
-     */
-    public double getLon(){
-        return this.lon;
-    }
 
     public Map<Integer, Double> getToPortsDistance() {
         return toPortsDistance;
@@ -176,9 +139,6 @@ public class Port extends Location implements Comparable<Port> {
                 "identification=" + identification +
                 ", name='" + name + '\'' +
                 ", continent='" + continent + '\'' +
-                ", country='" + country + '\'' +
-                ", lat=" + lat +
-                ", lon=" + lon +
                 ", toPortsDistance=" + toPortsDistance +
                 '}'+
                 "\n"
