@@ -40,23 +40,18 @@ public class FreightNetwork {
         orderedCapitals.sort( Map.Entry.<Capital, Integer> comparingByValue().reversed() );
 
         return orderedCapitals;
-
-
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Map<Capital, Integer> getCapitalsToColor() {
-        /*
+
         List<Map.Entry<Capital,Integer>> orderedCapitals = getOrderedCapitalsList();
 
-        Map<Capital, Integer> capitalsToColor = new HashMap<>();
+        Map<Capital, Integer> capitalsToColor = new LinkedHashMap<>();
 
         for (Map.Entry<Capital, Integer> entry : orderedCapitals) {
             Capital capital = entry.getKey();
             capitalsToColor.put(capital, null);
         }
         return capitalsToColor;
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

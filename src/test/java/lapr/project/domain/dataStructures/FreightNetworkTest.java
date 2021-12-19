@@ -118,8 +118,32 @@ class FreightNetworkTest {
             System.out.println("Capital: " + entry.getKey().getName() + "   | Borders: " + entry.getValue());
         }
          */
-        
+
+
         assertEquals(expList, list);
 
+    }
+
+
+    @Test
+    void getCapitalsToColor() {
+        Map<Capital, Integer> expMap = new LinkedHashMap<>();
+        expMap.put(capital8, null);
+        expMap.put(capital2, null);
+        expMap.put(capital1, null);
+        expMap.put(capital3, null);
+        expMap.put(capital5, null);
+        expMap.put(capital7, null);
+        expMap.put(capital4, null);
+        expMap.put(capital6, null);
+
+        Map<Capital, Integer> map = freightNetwork.getCapitalsToColor();
+
+        /*for (Map.Entry<Capital,Integer> entry : map.entrySet()) {
+            System.out.println("Capital: " + entry.getKey().getName() + "   | Color: " + entry.getValue());
+        }
+         */
+
+        assertEquals(expMap, map);
     }
 }
