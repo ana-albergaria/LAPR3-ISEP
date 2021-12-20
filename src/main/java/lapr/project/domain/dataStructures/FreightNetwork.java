@@ -82,10 +82,8 @@ public class FreightNetwork {
         Capital capital = listCapitals.get(capKey);
 
         for (Location vAdj : freightNetwork.adjVertices(capital)) {
-            if(vAdj instanceof Capital) {
-                if (result.get((Capital) vAdj) != null) {
-                    availableColors[result.get((Capital) vAdj)] = false;
-                }
+            if(vAdj instanceof Capital && result.get((Capital) vAdj) != null) {
+                availableColors[result.get((Capital) vAdj)] = false;
             }
         }
 
