@@ -48,8 +48,8 @@ public class CountryStore {
         double lonFromCountry = country.getCapital().getLongitude();
         for(String countryName : countryBorders){
             Country toCountry = getCountryByName(countryName);
-            double latToCountry = country.getCapital().getLatitude();
-            double lonToCountry = country.getCapital().getLongitude();
+            double latToCountry = toCountry.getCapital().getLatitude();
+            double lonToCountry = toCountry.getCapital().getLongitude();
             Double distance = DistanceUtils.distanceBetweenInKm(latFromCountry, latToCountry, lonFromCountry, lonToCountry);
             distances.put(toCountry, distance);
         }

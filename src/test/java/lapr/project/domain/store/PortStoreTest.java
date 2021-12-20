@@ -56,6 +56,11 @@ public class PortStoreTest {
     }
 
     @Test
+    public void validatePortFalse(){
+        assertFalse(store.validatePort(null));
+    }
+
+    @Test
     public void importPorts(){
         List<Port> existentPorts = new ArrayList<>();
         existentPorts.add(port1);
@@ -64,6 +69,7 @@ public class PortStoreTest {
         store.importPorts(existentPorts);
         assertEquals(2, store.getPortsList().size(), "List size should be 2");
 
+        existentPorts.add(null);
         store.importPorts(existentPorts);
         assertEquals(2, store.getPortsList().size(), "List size should remain 2, not add repeated ports");
     }
@@ -81,4 +87,39 @@ public class PortStoreTest {
             assertEquals(existentPorts.get(i), getPorts.get(i));
         }
     }
+
+    @Test
+    public void getPortsByCountryTest(){
+        List<Port> existentPorts = new ArrayList<>();
+        existentPorts.add(port1);
+        existentPorts.add(port2);
+
+        store.importPorts(existentPorts);
+        List<Port> getPorts = store.getPortsByCountry("Portugal");
+
+        for(int i = 0; i<existentPorts.size(); i++){
+            assertEquals(existentPorts.get(i), getPorts.get(i));
+        }
+
+        List<Port> emptyPorts = store.getPortsByCountry("Germany");
+
+        assertTrue(emptyPorts.isEmpty());
+    }
+
+    @Test
+    public void getPortByNameTest(){
+        List<Port> existentPorts = new ArrayList<>();
+        existentPorts.add(port1);
+        existentPorts.add(port2);
+
+        store.importPorts(existentPorts);
+
+        assertEquals(port1, store.getPortById(123456789));
+
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> store.getPortById(6767676));
+        assertEquals("Could not find a port with the given id: 6767676",  thrown.getMessage(), "Not found port should throw an exception");
+
+    }
+
+
 }

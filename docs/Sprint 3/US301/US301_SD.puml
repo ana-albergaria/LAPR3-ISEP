@@ -20,22 +20,18 @@ activate UI
 
 UI -> CTRL : CreateFreightNetworkFromDb()
 activate CTRL
-CTRL -> CMP : countryStoreDb = getCountryStoreDb()
-activate CMP
-deactivate CMP
-CTRL -> CSTORE : List<CountryDto> existentCountries = getExistentCountries()
+CTRL -> CSTORE** : create
+CTRL -> CSTORE : List<Country> existentCountries = getExistentCountries()
 activate CSTORE
-CSTORE -> CSTORE: resultSet = getPortsInDatabase()
+CSTORE -> CSTORE: resultSet = getCountriesInDatabase()
 CSTORE -> CTRL: existentCountries
 deactivate CSTORE
 CTRL -> CMP : countryStore = getCountryStore()
 activate CMP
 deactivate CMP
-alt for each countryDto in existentCountries
+alt for each country in existentCountries
 CTRL -> LSTORE : createCountry(countryDto)
 activate LSTORE
-LSTORE -> CAP** : capital = create(dto.getCapitalName, dto.getCapitallatitude, dto.getCaitalLon, dto.getCountryName),
-LSTORE -> CTRY** : create(dto.getCountryName, dto.getBorders, dto.getContinent, capital)
 LSTORE -> CTRL : country
 deactivate LSTORE
 CTRL -> LSTORE: saveCountry(country)
@@ -43,10 +39,8 @@ activate LSTORE
 deactivate LSTORE
 end
 deactivate CSTORE
-CTRL -> CMP : portsStoreDb = getPortStoreDb()
-activate CMP
-deactivate CMP
-CTRL -> STORE : List<PortDto> existentPorts = portStoreDb.getExistentPorts()
+CTRL -> STORE** : create
+CTRL -> STORE : List<Port> existentPorts = portStoreDb.getExistentPorts()
 activate STORE
 STORE -> STORE: resultSet = getPortsInDatabase()
 alt for each port in resultset
