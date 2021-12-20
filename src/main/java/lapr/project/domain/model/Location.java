@@ -85,4 +85,6 @@ public abstract class Location {
     public double getLongitude(){
         return this.longitude;
     }
+
+
 }

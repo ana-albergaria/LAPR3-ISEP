@@ -44,11 +44,19 @@ public class Capital extends Location {
         }
     }
 
-    /**
-     * Gets the Capital name
-     * @return capital name
-     */
+
     public String getName() {
         return name;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Capital{" +
+                "name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", countryName='" + countryName + '\'' +
+                '}';
     }
 }

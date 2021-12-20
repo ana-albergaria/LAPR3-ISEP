@@ -167,6 +167,7 @@ public class Port extends Location implements Comparable<Port> {
             return false;
     }
 
+
     /**
      * Method compareTo.
      * @param o the Port to be compared with.
