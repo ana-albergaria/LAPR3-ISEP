@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -63,6 +66,9 @@ public class PortTest {
     public void ensureNullPortNameNotAllowed(){
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], null, continent1, country1, lats[0], lons[0]));
         assertEquals("Port name cannot be null.", thrown.getMessage());
+
+        IllegalArgumentException thrown2 = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], null, continent1, country1, lats[0], lons[0], new HashMap<>()));
+        assertEquals("Port name cannot be null.", thrown2.getMessage());
     }
 
     /**
@@ -72,6 +78,10 @@ public class PortTest {
     public void ensureNullContinentNameNotAllowed(){
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], null, country1, lats[0], lons[0]));
         assertEquals("Continent name cannot be null.", thrown.getMessage());
+
+        IllegalArgumentException thrown2 = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], null, country1, lats[0], lons[0], new HashMap<>()));
+        assertEquals("Continent name cannot be null.", thrown2.getMessage());
+
     }
 
     /**
@@ -81,6 +91,9 @@ public class PortTest {
     public void ensureNullCountryNameNotAllowed(){
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], continent1, null, lats[0], lons[0]));
         assertEquals("Country name cannot be null.", thrown.getMessage());
+
+        IllegalArgumentException thrown2 = assertThrows(IllegalArgumentException.class, () -> new Port(identifications[0], names[0], continent1, null, lats[0], lons[0], new HashMap<>()));
+        assertEquals("Country name cannot be null.", thrown2.getMessage());
     }
 
     /**
@@ -290,6 +303,14 @@ public class PortTest {
     public void testEqualsSameAtts() {
         Port port = new Port(identifications[0], names[0], continent1, country1, lats[0], lons[0]);
         assertEquals(port1, port);
+    }
+
+    @Test
+    public void getToPortsDistanceTest(){
+        Map<Integer, Double> dists = new HashMap<>();
+        dists.put(1234, 123.0);
+        Port port = new Port(identifications[0], names[0], continent1, country1, lats[0], lons[0], dists);
+        assertEquals(dists, port.getToPortsDistance());
     }
 
 
