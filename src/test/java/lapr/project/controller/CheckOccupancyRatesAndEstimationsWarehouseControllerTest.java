@@ -3,7 +3,12 @@ package lapr.project.controller;
 import lapr.project.data.DatabaseConnection;
 import lapr.project.data.dataControllers.CheckOccupancyRatesAndEstimationsWarehouseController;
 import lapr.project.domain.model.Company;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
 
 import static org.mockito.Mockito.mock;
 
@@ -36,76 +41,73 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
 
     truckTrip: 11111
         chegam a: 111   |   data: 9/12/2021     |   qtd:2   |   ficam: 2
-    truckTrip: 11111
-        chegam a: 111   |   data: 9/12/2021     |   qtd:2   |   ficam: 2
+    truckTrip: 11112
+        saem de: 111    |   data: 18/01/2022    |   qtd:2   |   ficam: 0
      */
-
-    /*
+/*
     @Test
-    void testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace(){
-        //0+5=5 -> tem espaço   82847
-        System.out.println("Test1: testcheckIfCargoManifestExceedsShipCapacityValidValuesEnoughSpace()");
-        ctrl.deleteShipTrip(81348);
-        int shipTripID = 81348;
-        int mmsi = 212351004;
-        int depLocation = 224858;
-        int arriLocation = 16485;
-        int loadCargID = 82847;
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
-        int result = ctrl.tryToCreateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = 1; //valor esperado: 1 -> tem espaço
-        Assertions.assertEquals(expResult, result);
+    void testOccupancyRatesWarehouseValidValues1(){
+        //whid: 11111
+        try {
+            int warehouseID = 11111;
+            int expResult = 20; //valor esperado
+            int result = ctrl.getOccupancyRateByWarehouseID(warehouseID);
+            Assertions.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Test
-    void testcheckIfCargoManifestExceedsShipCapacityValidValuesNotEnoughSpace(){
-        //0+34=34 -> excede     82846
-        System.out.println("Test2: testcheckIfCargoManifestExceedsShipCapacityValidValuesNotEnoughSpace()");
-        ctrl.deleteShipTrip(81348);
-        int shipTripID = 81348;
-        int mmsi = 212351004;
-        int depLocation = 16485;
-        int arriLocation = 224858;
-        int loadCargID = 82846;
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
-        int result = ctrl.tryToCreateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = 0; //valor esperado: 0 -> não tem espaço, logo ship trip nao é criada
-        Assertions.assertEquals(expResult, result);
+    void testOccupancyRatesWarehouseValidValues2(){
+        //whid: 22222
+        try {
+            int warehouseID = 22222;
+            int expResult = 0; //valor esperado
+            int result = ctrl.getOccupancyRateByWarehouseID(warehouseID);
+            Assertions.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Test
-    void testcheckIfCargoManifestExceedsShipCapacityInvalidValueCargoManifestID(){
-        System.out.println("Test3: testcheckIfCargoManifestExceedsShipCapacityInvalidValueCargoManifestID()");
-        ctrl.deleteShipTrip(81348);
-        int shipTripID = 81348;
-        int mmsi = 212351004;
-        int depLocation = 224858;
-        int arriLocation = 16485;
-        int loadCargID = 77330;
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
-        int result = ctrl.tryToCreateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
-        Assertions.assertEquals(expResult, result);
+    void testOccupancyRatesNonExistentWarehouse(){
+        //whid: 99999
+        try {
+            int warehouseID = 99999;
+            int expResult = -1; //valor esperado
+            int result = ctrl.getOccupancyRateByWarehouseID(warehouseID);
+            Assertions.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Test
-    void testcheckIfCargoManifestExceedsShipCapacityInvalidValueMMSI(){
-        System.out.println("Test4: testcheckIfCargoManifestExceedsShipCapacityInvalidValueMMSI()");
-        ctrl.deleteShipTrip(81348);
-        int shipTripID = 81348;
-        int mmsi = 636092934;
-        int depLocation = 224858;
-        int arriLocation = 16485;
-        int loadCargID = 82847;
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
-        int result = ctrl.tryToCreateShipTrip(shipTripID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
-        int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
+    void testEstimationValidValues1(){
+        //whid: 11111
+        try{
+        int warehouseID = 11111;
+        int expResult = 2; //valor esperado
+        int result = ctrl.getContainersOut30Days(warehouseID); //vou ter de ir buscar com um cursor os loadings da warehouse para um truck e somar o nr de contentores nos loadings
         Assertions.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
-    */
 
+    @Test
+    void testEstimationNonExistentWarehouse(){
+        //whid: 99999
+        try {
+        int warehouseID = 99999;
+        int expResult = -1; //valor esperado
+        int result = ctrl.getContainersOut30Days(warehouseID);
+        Assertions.assertEquals(expResult, result);
+        } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+        }
+    }
+*/
 }

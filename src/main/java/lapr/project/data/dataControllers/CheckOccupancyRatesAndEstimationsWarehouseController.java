@@ -69,22 +69,25 @@ public class CheckOccupancyRatesAndEstimationsWarehouseController {
 
     /**
      * Check if a warehouse exists in the data base.
-     * @param warehouse_id Warehouse's id.
+     * @param warehouseID Warehouse's id.
      * @return 1 if the warehouse exists and 0 if it doesn't.
      */
-    public int checkIfWarehouseExists(int warehouse_id) {
+    public int checkIfWarehouseExists(int warehouseID) {
         WarehouseStoreDB warehouseStoreDB = this.company.getWarehouseStoreDB();
-        return warehouseStoreDB.checkIfWarehouseExists(warehouse_id);
+        return warehouseStoreDB.checkIfWarehouseExists(warehouseID);
     }
 
     /**
      * Get an estimate of the containers leaving the warehouse in the next 30 days.
-     * @param warehouse_id warehouse id.
+     * @param warehouseID warehouse id.
      * @return an estimate of the containers leaving the warehouse in the next 30 days.
      */
-    public int getContainersOut30Days(int warehouse_id) {
+    public int getContainersOut30Days(int warehouseID) throws SQLException {
+        if (checkIfWarehouseExists(warehouseID)==0){
+            return -1; //inv
+        }
         WarehouseStoreDB warehouseStoreDB = this.company.getWarehouseStoreDB();
-        int numContainers = warehouseStoreDB.getNumContainersOutWarehouse(warehouse_id);
+        int numContainers = warehouseStoreDB.getNumContainersOutWarehouse(warehouseID);
         return numContainers;
     }
 

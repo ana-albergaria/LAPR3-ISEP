@@ -30,7 +30,7 @@ public class WarehouseStoreDB {
                 "from containerInCargoManifest\n" +
                 "where cargomanifest_id = (select loading_cargo_id from trucktrip where departure_location = f_warehouse_location) AND\n" +
                 "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND\n" +
-                "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) < f_finalDate;\n" +
+                "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) <= f_finalDate;\n" +
                 "return (f_num_containers_out_warehouse);\n" +
                 "exception\n" +
                 "when no_data_found then\n" +
@@ -44,8 +44,8 @@ public class WarehouseStoreDB {
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(warehouse_id));
-            callableStatement.setString(2, String.valueOf(currentDate));
-            callableStatement.setString(2, String.valueOf(finalDate));
+            callableStatement.setString(3, String.valueOf(currentDate));
+            callableStatement.setString(4, String.valueOf(finalDate));
 
             callableStatement.executeUpdate();
 
