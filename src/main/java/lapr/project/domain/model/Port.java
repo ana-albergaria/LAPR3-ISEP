@@ -20,20 +20,6 @@ public class Port extends Location implements Comparable<Port> {
     private final String continent;
 
     /**
-     * country where the Port is located
-     */
-    private final String country;
-
-    /**
-     * latitude of Port's location
-     */
-    private final double lat;
-
-    /**
-     * longitude of Port's location
-     */
-    private final double lon;
-    /**
      * The reachable ports and the seadistances
      */
     private Map<Integer, Double> toPortsDistance;
@@ -55,9 +41,6 @@ public class Port extends Location implements Comparable<Port> {
         this.identification=identification;
         this.name=name;
         this.continent=continent;
-        this.country=country;
-        this.lat = lat;
-        this.lon=lon;
     }
 
     /**
@@ -78,9 +61,6 @@ public class Port extends Location implements Comparable<Port> {
         this.identification=identification;
         this.name=name;
         this.continent=continent;
-        this.country=country;
-        this.lat = lat;
-        this.lon=lon;
         this.toPortsDistance = toPortsDistance;
     }
 
@@ -148,45 +128,21 @@ public class Port extends Location implements Comparable<Port> {
         return this.continent;
     }
 
-    /**
-     * returns the Port's Country
-     * @return Port's Country
-     */
-    public String getCountry(){
-        return this.country;
+
+    public Map<Integer, Double> getToPortsDistance() {
+        return toPortsDistance;
     }
 
-    /**
-     * returns the Port's Latitude
-     * @return Port's Latitude
-     */
-    public double getLat(){
-        return this.lat;
-    }
-
-    /**
-     * returns the Port's Longitude
-     * @return Port's Longitude
-     */
-    public double getLon(){
-        return this.lon;
-    }
-
-
-    /**
-     * Method toString.
-     * @return a String with the Port attributes and its values.
-     */
     @Override
     public String toString() {
         return "Port{" +
-                "Identification=" + identification +
-                ", Name=" + name +
-                ", Continent=" + continent +
-                ", Country='" + country + '\'' +
-                ", Latitude='" + lat + '\'' +
-                ", Longitude='" + lon +
-                '}';
+                "identification=" + identification +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", toPortsDistance=" + toPortsDistance +
+                '}'+
+                "\n"
+                ;
     }
 
     /**
@@ -210,6 +166,7 @@ public class Port extends Location implements Comparable<Port> {
         else
             return false;
     }
+
 
     /**
      * Method compareTo.

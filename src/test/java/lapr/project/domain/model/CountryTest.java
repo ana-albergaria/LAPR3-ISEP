@@ -77,9 +77,21 @@ class CountryTest {
         assertEquals("Capital cannot be null.", thrown.getMessage());
     }
 
+    @Test
+    public void getCapitalTest(){
+        assertEquals(capital1, country1.getCapital());
+    }
+
+    @Test
+    public void getNameTest(){
+        assertEquals(names[0], country1.getName());
+    }
 
 
-
+    @Test
+    public void getBorders(){
+        assertEquals(borders, country1.getBorders());
+    }
 
 
 

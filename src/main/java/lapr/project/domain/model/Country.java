@@ -54,42 +54,12 @@ public class Country {
     }
 
     /**
-     * Checks if the Alpha2-Code is correct, and if not throws an error message.
-     * @param alpha2Code the alpha2-code
-     */
-    public void checkAlpha2Code(String alpha2Code){
-        if(Objects.isNull(alpha2Code)){
-            throw new IllegalArgumentException("Alpha2-Code cannot be null.");
-        }
-    }
-
-    /**
-     * Checks if the Alpha3-Code is correct, and if not throws an error message.
-     * @param alpha3Code the alpha3-code
-     */
-    public void checkAlpha3Code(String alpha3Code){
-        if(Objects.isNull(alpha3Code)){
-            throw new IllegalArgumentException("Alpha3-Code cannot be null.");
-        }
-    }
-
-    /**
      * Checks if the name of the Country is correct, and if not throws an error message.
      * @param name the name
      */
     public void checkName(String name){
         if(Objects.isNull(name)){
             throw new IllegalArgumentException("Name cannot be null.");
-        }
-    }
-
-    /**
-     * Checks if the population of the Country is correct, and if not throws an error message.
-     * @param population the population
-     */
-    public void checkPopulation(double population){
-        if(population < 0){
-            throw new IllegalArgumentException("Population cannot be below 0");
         }
     }
 
@@ -104,26 +74,6 @@ public class Country {
     }
 
     /**
-     * Checks if the latitude is correct, and if not throws an error message.
-     * @param latitude the latitude
-     */
-    private void checkLatitude(double latitude){
-        if (latitude<-90 || (latitude>90 && latitude!=91)){
-            throw new IllegalArgumentException("Latitude must be between -90 and 90. It might also be 91 in case of being unavailable.");
-        }
-    }
-
-    /**
-     * Checks if the longitude is correct, and if not throws an error message.
-     * @param longitude the longitude
-     */
-    private void checkLongitude(double longitude){
-        if (longitude<-180 || (longitude>180 && longitude!=181)){
-            throw new IllegalArgumentException("Longitude must be between -180 and 180. It might also be 181 in case of being unavailable.");
-        }
-    }
-
-    /**
      * Checks if the borders of the country is correct, and if not throws an error message.
      * @param borders
      */
@@ -133,6 +83,17 @@ public class Country {
         }
     }
 
+    public Capital getCapital() {
+        return capital;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getBorders() {
+        return borders;
+    }
 
     @Override
     public String toString() {

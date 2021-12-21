@@ -298,14 +298,6 @@ public abstract class Ship implements Comparable<Ship> {
         return cargo;
     }
 
-    /**
-     * Method to update the Ship's positionsBST.
-     * @param positionsBST the new positionsBST.
-     */
-    public void setPositionsBST(PositionsBST positionsBST) {
-        this.positionsBST = positionsBST;
-    }
-
     public void addPosition(ShipPosition position) {
         this.positionsBST.insert(position);
     }

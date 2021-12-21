@@ -54,7 +54,7 @@ public class ShipPositionTest {
     }
 
     /**
-     * Test to ensure that getLat works correctly.
+     * Test to ensure that getLatitude works correctly.
      */
     @Test
     public void getLat() {
@@ -63,7 +63,7 @@ public class ShipPositionTest {
     }
 
     /**
-     * Test to ensure that getLon works correctly.
+     * Test to ensure that getLongitude works correctly.
      */
     @Test
     public void getLon() {

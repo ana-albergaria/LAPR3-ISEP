@@ -43,4 +43,20 @@ public class Capital extends Location {
             throw new IllegalArgumentException("Name cannot be null.");
         }
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Capital{" +
+                "name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", countryName='" + countryName + '\'' +
+                '}';
+    }
 }

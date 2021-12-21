@@ -88,6 +88,15 @@ public class ShipTest {
     }
 
     /**
+     * Test to ensure CallSign cannot be blank.
+     */
+    @Test
+    public void ensureBlankCallSignNotAllowed(){
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new ShipSortMmsi(positionsBST, mmsi1, vesselName, imo, null, 70, 294,32,13.6,"79"));
+        assertEquals("Call sign cannot be null.", thrown.getMessage());
+    }
+
+    /**
      * Test to ensure IMO cannot have less than 10 chars.
      */
     @Test

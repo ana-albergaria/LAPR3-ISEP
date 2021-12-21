@@ -5,6 +5,8 @@ import lapr.project.data.CargoManifestStoreDB;
 import lapr.project.data.ShipStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.data.WarehouseStoreDB;
+import lapr.project.domain.dataStructures.FreightNetwork;
+import lapr.project.domain.store.CountryStore;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.store.ShipStore;
 import org.apache.commons.lang3.StringUtils;
@@ -50,6 +52,9 @@ public class Company {
      */
     private final CargoManifestStoreDB cargoManifestStoreDB;
 
+    private final CountryStore countryStore;
+
+    public final FreightNetwork freightNetwork;
     /**
      * Constructs an instance of Company receiving as a parameter the Company's designation
      * @param designation the Company's designation
@@ -65,6 +70,8 @@ public class Company {
         this.shipStoreDB = new ShipStoreDB();
         this.cargoManifestStoreDB=new CargoManifestStoreDB();
         this.warehouseStoreDB=new WarehouseStoreDB();
+        this.countryStore = new CountryStore();
+        this.freightNetwork = new FreightNetwork();
     }
 
     /**
@@ -125,7 +132,9 @@ public class Company {
     }
 
 
+    public CountryStore getCountryStore(){return this.countryStore;}
 
+    public FreightNetwork getFreightNetwork(){return this.freightNetwork;}
 
 
 }

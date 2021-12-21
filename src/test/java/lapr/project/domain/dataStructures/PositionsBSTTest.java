@@ -3,6 +3,7 @@ package lapr.project.domain.dataStructures;
 import lapr.project.domain.model.Ship;
 import lapr.project.domain.model.ShipPosition;
 import lapr.project.domain.model.ShipSortMmsi;
+import lapr.project.utils.DistanceUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -206,7 +207,7 @@ public class PositionsBSTTest {
         double lat1 = 33.3;
         double lon1 = 44.4;
         double expected = 0.0;
-        assertEquals(expected, instance.distanceBetweenInKm(lat1, lat1, lon1, lon1), "equal positions should result in "+expected);
+        assertEquals(expected, DistanceUtils.distanceBetweenInKm(lat1, lat1, lon1, lon1), "equal positions should result in "+expected);
     }
 
     @Test
