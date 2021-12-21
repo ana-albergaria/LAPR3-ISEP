@@ -77,4 +77,15 @@ public class CheckOccupancyRatesAndEstimationsWarehouseController {
         return warehouseStoreDB.checkIfWarehouseExists(warehouse_id);
     }
 
+    /**
+     * Get an estimate of the containers leaving the warehouse in the next 30 days.
+     * @param warehouse_id warehouse id.
+     * @return an estimate of the containers leaving the warehouse in the next 30 days.
+     */
+    public int getContainersOut30Days(int warehouse_id) {
+        WarehouseStoreDB warehouseStoreDB = this.company.getWarehouseStoreDB();
+        int numContainers = warehouseStoreDB.getNumContainersOutWarehouse(warehouse_id);
+        return numContainers;
+    }
+
 }

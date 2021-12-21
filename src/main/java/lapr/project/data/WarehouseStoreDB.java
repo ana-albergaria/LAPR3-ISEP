@@ -7,6 +7,11 @@ import java.util.Calendar;
 
 public class WarehouseStoreDB {
 
+    /**
+     * Get an estimate of the containers leaving the warehouse during the next 30 days.
+     * @param warehouse_id warehouse id.
+     * @return estimate of the containers leaving the warehouse during the next 30 days.
+     */
     public int getNumContainersOutWarehouse(int warehouse_id){
         int result = 0;
         Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
