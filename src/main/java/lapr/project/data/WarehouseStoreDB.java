@@ -3,8 +3,56 @@ package lapr.project.data;
 import lapr.project.controller.App;
 
 import java.sql.*;
+import java.util.Calendar;
 
 public class WarehouseStoreDB {
+
+    public int getNumContainersOutWarehouse(int warehouse_id){
+        int result = 0;
+        Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
+        Calendar sum30 = Calendar.getInstance();
+        sum30.clear();
+        sum30.setTime(currentDate);
+        sum30.add(Calendar.DATE, 30);
+        Date finalDate = new Date(sum30.getTime().getTime());
+        String createFunction = "create or replace function get_num_containers_out_warehouse(f_warehouse_id warehouse.warehouse_id%type,f_currentDate truckTrip.est_departure_date%type, f_finalDate truckTrip.est_departure_date%type) return integer\n" +
+                "is\n" +
+                "f_num_containers_out_warehouse integer;\n" +
+                "f_warehouse_location warehouse.location_id%type;\n" +
+                "begin\n" +
+                "select location_id into f_warehouse_location from warehouse where warehouse_id=f_warehouse_id;\n" +
+                "select count(*) into f_num_containers_out_warehouse\n" +
+                "from containerInCargoManifest\n" +
+                "where cargomanifest_id = (select loading_cargo_id from trucktrip where departure_location = f_warehouse_location) AND\n" +
+                "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND\n" +
+                "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) < f_finalDate;\n" +
+                "return (f_num_containers_out_warehouse);\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;\n";
+        String runFunction = "{? = call check_if_warehouse_exists(?,?,?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(warehouse_id));
+            callableStatement.setString(2, String.valueOf(currentDate));
+            callableStatement.setString(2, String.valueOf(finalDate));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /**
      * Get number of containers currently in the warehouse.
