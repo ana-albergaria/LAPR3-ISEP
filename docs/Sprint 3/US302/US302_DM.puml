@@ -39,12 +39,12 @@ class TrafficManager {}
 
 
 /'Multiplicidade'/
-Company -- FreightNetwork : knows >
+Company "1" -- "1" FreightNetwork : knows >
 Location <|-- Port
 Location <|-- Capital
-FreightNetwork -- Location : of >
-Country -- Capital : has >
+FreightNetwork "*" -- "1..*" Location : of >
+Country "1" -- "1" Capital : has >
 /'Dúvidas'/
-TrafficManager -- FreightNetwork : manages >
+TrafficManager "1..*" -- "1" FreightNetwork : manages >
 
 @enduml

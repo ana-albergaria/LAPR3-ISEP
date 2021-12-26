@@ -78,24 +78,24 @@ class FreightNetworkTest {
 
         map.addDistance(h, g, 1.0);
         map.addDistance(h, k, 1.0);
-        map.addDistance(h, j, 1.0);
+        map.addDistance(h, j, 4.0);
         map.addDistance(h, i, 1.0);
-        map.addDistance(h, a, 1.0);
+        map.addDistance(h, a, 6.0);
 
         map.addDistance(k, g, 1.0);
-        map.addDistance(k, e, 1.0);
-        map.addDistance(k, j, 1.0);
+        map.addDistance(k, e, 5.0);
+        map.addDistance(k, j, 13.0);
         map.addDistance(k, d, 1.0);
 
         map.addDistance(d, i, 1.0);
         map.addDistance(d, c, 1.0);
-        map.addDistance(d, b, 1.0);
+        map.addDistance(d, b, 3.0);
 
         map.addDistance(g, f, 1.0);
 
         map.addDistance(i, j, 1.0);
 
-        map.addDistance(a, b, 1.0);
+        map.addDistance(a, b, 7.0);
 
         map.addDistance(e, f, 1.0);
 
@@ -172,6 +172,7 @@ class FreightNetworkTest {
         }
         System.out.println();
          */
+
 
         Map<Capital, Integer> expMap = new LinkedHashMap<>();
         expMap.put(h, 0);
