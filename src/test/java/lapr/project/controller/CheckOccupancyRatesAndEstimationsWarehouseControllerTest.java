@@ -44,7 +44,8 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
     truckTrip: 11112
         saem de: 111    |   data: 18/01/2022    |   qtd:2   |   ficam: 0
      */
-/*
+
+    /*
     @Test
     void testOccupancyRatesWarehouseValidValues1(){
         //whid: 11111
@@ -109,5 +110,7 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
         System.out.println(ex.getMessage());
         }
     }
-*/
+    
+     */
+
 }
