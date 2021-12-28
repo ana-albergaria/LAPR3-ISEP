@@ -14,13 +14,13 @@ class CapitalTest {
 
     @BeforeEach
     void setUp() {
-        capital1 = new Capital("Nicosia",lats[0],lons[0],countryNames[0]);
+        capital1 = new Capital("Nicosia",lats[0],lons[0],countryNames[0], "Europe");
 
     }
 
     @Test
     void ensureNotNullNameIsAllowed() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Capital(null, lats[0],lons[0],countryNames[0]));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Capital(null, lats[0],lons[0],countryNames[0], "Europe"));
         assertEquals("Name cannot be null.", thrown.getMessage());
     }
 }

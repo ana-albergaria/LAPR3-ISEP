@@ -14,10 +14,6 @@ public class Port extends Location implements Comparable<Port> {
      */
     private final String name;
 
-    /**
-     * continent where Port is located
-     */
-    private final String continent;
 
     /**
      * The reachable ports and the seadistances
@@ -34,13 +30,12 @@ public class Port extends Location implements Comparable<Port> {
      * @param lon Port's Longitude
      */
     public Port(int identification, String name, String continent, String country, double lat, double lon) {
-        super(lat, lon, country);
+        super(lat, lon, country, continent);
         checkIdentification(identification);
         checkPortName(name);
         checkContinentName(continent);
         this.identification=identification;
         this.name=name;
-        this.continent=continent;
     }
 
     /**
@@ -54,13 +49,12 @@ public class Port extends Location implements Comparable<Port> {
      * @param toPortsDistance the reachable ports and the seadistances
      */
     public Port(int identification, String name, String continent, String country, double lat, double lon, Map<Integer, Double> toPortsDistance) {
-        super(lat, lon, country);
+        super(lat, lon, country, continent);
         checkIdentification(identification);
         checkPortName(name);
         checkContinentName(continent);
         this.identification=identification;
         this.name=name;
-        this.continent=continent;
         this.toPortsDistance = toPortsDistance;
     }
 
@@ -120,14 +114,6 @@ public class Port extends Location implements Comparable<Port> {
         return this.name;
     }
 
-    /**
-     * returns the Port's Continent
-     * @return Port's Continent
-     */
-    public String getContinent(){
-        return this.continent;
-    }
-
 
     public Map<Integer, Double> getToPortsDistance() {
         return toPortsDistance;
@@ -138,7 +124,6 @@ public class Port extends Location implements Comparable<Port> {
         return "Port{" +
                 "identification=" + identification +
                 ", name='" + name + '\'' +
-                ", continent='" + continent + '\'' +
                 ", toPortsDistance=" + toPortsDistance +
                 '}'+
                 "\n"

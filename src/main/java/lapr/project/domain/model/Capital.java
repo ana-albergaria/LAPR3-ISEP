@@ -7,18 +7,6 @@ public class Capital extends Location {
      * The capital name
      */
     private final String name;
-    /**
-     * The latitude
-     */
-    private double latitude;
-    /**
-     * The longitude
-     */
-    private double longitude;
-    /**
-     * The country name
-     */
-    private String countryName;
 
     /**
      * Constructs an instance of Capital receiving the following parameters:
@@ -28,8 +16,8 @@ public class Capital extends Location {
      * @param longitude longitude
      * @param countryName the country name
      */
-    public Capital(String name, double latitude, double longitude, String countryName) {
-        super(latitude, longitude, countryName);
+    public Capital(String name, double latitude, double longitude, String countryName, String continent) {
+        super(latitude, longitude, countryName, continent);
         checkName(name);
         this.name = name;
     }
@@ -54,9 +42,7 @@ public class Capital extends Location {
     public String toString() {
         return "Capital{" +
                 "name='" + name + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", countryName='" + countryName + '\'' +
-                '}';
+                super.toString()
+                ;
     }
 }

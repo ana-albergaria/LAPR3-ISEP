@@ -84,7 +84,7 @@ public class CreateFreightNetworkController {
         return true;
     }
 
-    private void importDataFromDatabase(){
+    public void importDataFromDatabase(){
         CountryStoreDb countryStoreDb = new CountryStoreDb();
         List<Country> existentCountries = countryStoreDb.getExistentCountries(App.getInstance().getConnection());
 

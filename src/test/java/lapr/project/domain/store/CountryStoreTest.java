@@ -33,11 +33,11 @@ class CountryStoreTest {
         List<String> bordersEsp = new ArrayList<>();
         bordersEsp.add("Portugal");
         bordersEsp.add("France");
-        Capital br = new Capital("Brasilia", 12.3, 12.3, "Brazil");
-        Capital pt = new Capital("Lisbon",  38.736946, -9.142685, "Portugal");
-        Capital esp = new Capital("Madrid", 40.416775, -3.703790, "Spain");
-        Capital eng = new Capital("London", 10.2, 14.2, "England");
-        Capital fr = new Capital("Paris", 4.5, 12.2, "France");
+        Capital br = new Capital("Brasilia", 12.3, 12.3, "Brazil", "South America");
+        Capital pt = new Capital("Lisbon",  38.736946, -9.142685, "Portugal", "Europe");
+        Capital esp = new Capital("Madrid", 40.416775, -3.703790, "Spain", "Europe");
+        Capital eng = new Capital("London", 10.2, 14.2, "England", "Europe");
+        Capital fr = new Capital("Paris", 4.5, 12.2, "France", "Europe");
         c1 = new Country("America", "Brazil", br, new ArrayList<>());
         c2 = new Country("Europe", "Portugal", pt, bordersPt);
         c3 = new Country("Europe", "England", eng, borders);

@@ -16,6 +16,8 @@ public abstract class Location {
      */
     private String countryName;
 
+    private String continent;
+
     /**
      * Constructs an instance of Location receiving the following parameters:
      *
@@ -23,13 +25,14 @@ public abstract class Location {
      * @param longitude longitude
      * @param countryName country name
      */
-    public Location(double latitude, double longitude, String countryName) {
+    public Location(double latitude, double longitude, String countryName, String continent) {
         checkLat(latitude);
         checkLon(longitude);
         checkCountryName(countryName);
         this.latitude = latitude;
         this.longitude = longitude;
         this.countryName = countryName;
+        this.continent = continent;
     }
 
     /**
@@ -87,4 +90,16 @@ public abstract class Location {
     }
 
 
+    public String getContinent(){
+        return this.continent;
+    }
+
+    @Override
+    public String toString() {
+        return "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", countryName='" + countryName + '\'' +
+                ", continent='" + continent + '\'' +
+                "}\n";
+    }
 }
