@@ -1,58 +1,20 @@
-create or replace procedure begin_US306
-IS
-begin
-EXECUTE IMMEDIATE 'create table tempCont(
-                                            container_id integer NOT NULL,
-                                            temperature_kept numeric(6,2),
-                                            gross numeric(5,2) NOT NULL,
-                                            constraint fk_tempCont_container FOREIGN KEY (container_id) references container(container_id),
-                                            constraint chk_gross check(gross >= 0)
-                   )';
-end begin_US306;
-/
-
-create or replace function put_desired_containers_in_table(f_warehouse_id warehouse.warehouse_id%type,f_currentDate truckTrip.est_departure_date%type, f_finalDate truckTrip.est_departure_date%type) return integer
+--GET NUM CONTAINERS OUT WAREHOUSE NEXT 30 DAYS
+create or replace function get_num_containers_out_warehouse(f_warehouse_id warehouse.warehouse_id%type,f_currentDate truckTrip.est_departure_date%type, f_finalDate truckTrip.est_departure_date%type) return integer
 is
-f_container_id containerInCargoManifest.container_id%type;
-f_temperature_kept containerInCargoManifest.temperature_kept%type;
-f_gross container.gross%type;
+f_num_containers_out_warehouse integer:=0;
 f_warehouse_location warehouse.location_id%type;
-cursor desiredContainers
-is
-(select container_id
+begin
+select location_id into f_warehouse_location from warehouse where warehouse_id=f_warehouse_id;
+select count(*) into f_num_containers_out_warehouse
 from containerInCargoManifest
 where cargomanifest_id = (select loading_cargo_id from trucktrip where departure_location = f_warehouse_location) AND
-(select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND
-(select est_departure_date from truckTrip where departure_location = f_warehouse_location) <= f_finalDate);
-begin
-begin_us306;
-select location_id into f_warehouse_location from warehouse where warehouse_id=f_warehouse_id;
-open desiredContainers;
-loop
-fetch desiredContainers into f_container_id;
-exit when desiredContainers%notfound;
-select temperature_kept into f_temperature_kept
-from containerInCargoManifest
-where container_id = f_container_id;
-select gross into f_gross
-from container
-where container_id = f_container_id;
-insert into tempCont (container_id, temperature_kept, gross) values (f_container_id, f_temperature_kept, f_gross);
-end loop;
-return 1;
+        (select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND
+        (select est_departure_date from truckTrip where departure_location = f_warehouse_location) <= f_finalDate;
+return (f_num_containers_out_warehouse);
 exception
 when no_data_found then
 return 0;
 end;
-/
-
-create or replace procedure end_US306
-IS
-begin
-execute immediate 'drop table tempCont';
-exception
-WHEN OTHERS THEN null;
-end end_US306;
 /
 
 --CHECK IF WAREHOUSE EXISTS

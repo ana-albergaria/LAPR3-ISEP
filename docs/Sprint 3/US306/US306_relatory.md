@@ -70,13 +70,15 @@ n/a
 
 # 4. Tests
 
-### ... class test:
+### CheckOccupancyRatesAndEstimationsWarehouseController class test:
 
 
-**Test 1:** Test to check if ...
+**Test 1:** First test to check that the occupancy rate is correctly calculated for valid values.
 
-**Test 2:** Test to check if ...
+**Test 2:** Second test to check that the occupancy rate is correctly calculated for valid values.
 
-**Test 3:** Test to check if ...
+**Test 3:** Test to check that the occupancy rate is -1 (invalid) when the warehouse does not exist.
 
-**Test 4:** Test to check if ...
+**Test 4:** Test to check that the number of containers leaving the warehouse in the next 30 days is correctly calculated for valid values.
+
+**Test 5:** Test to check that the number of containers leaving the warehouse in the next 30 days is -1 (invalid) when the warehouse does not exist.
