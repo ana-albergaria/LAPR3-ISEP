@@ -51,6 +51,65 @@ public class ShipTripStoreDB {
         }
     }
 
+    public void triggerShipAvailability() {
+        String createFunction = "create or replace PROCEDURE check_availability_of_ship(daydate in date, ship in Ship.mmsi%type, isValid out boolean)\n" +
+                "IS\n" +
+                "    estDepartDate date;\n" +
+                "    estArrivalDate date;\n" +
+                "\n" +
+                "Cursor tripsOfShip IS\n" +
+                "        select est_departure_date, est_arrival_date\n" +
+                "        from shiptrip\n" +
+                "        where mmsi=ship;\n" +
+                "\n" +
+                "BEGIN\n" +
+                "open tripsOfShip;\n" +
+                "    LOOP\n" +
+                "        fetch tripsOfShip INTO estDepartDate, estArrivalDate;\n" +
+                "        Exit When tripsOfShip%notfound;\n" +
+                "        --if the arriavl date is before the monday is valid\n" +
+                "        if daydate > estArrivalDate then\n" +
+                "            isValid := true;\n" +
+                "        -- if the date was not before monday then if the depart date is AFTER monday ship is available\n" +
+                "        elsif daydate < estDepartDate then\n" +
+                "            isValid := true;\n" +
+                "        -- else false\n" +
+                "        else\n" +
+                "            isValid := false;\n" +
+                "            exit;\n" +
+                "        end if;\n" +
+                "    END LOOP;\n" +
+                "END;";
+
+        String createTrigger ="create or replace trigger trgShipAvailability\n" +
+                "before insert or update on ShipTrip\n" +
+                "                            for each row\n" +
+                "declare\n" +
+                "f_mmsi shipTrip.mmsi%type;\n" +
+                "f_estDepDate shipTrip.est_departure_date%type;\n" +
+                "f_isValid boolean;\n" +
+                "\n" +
+                "begin\n" +
+                "f_mmsi:= :new.mmsi;\n" +
+                "f_estDepDate:= :new.est_departure_date;\n" +
+                "f_isValid := false;\n" +
+                "check_availability_of_ship(f_estDepDate, f_mmsi, f_isValid);\n" +
+                "if not f_isValid then\n" +
+                "raise_application_error(-20010,'Currently, the ship is not available in this date.');\n" +
+                "end if;\n" +
+                "end;";
+
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createTriggerStat = connection.createStatement();) {
+            createTriggerStat.execute(createFunction);
+            createTriggerStat.execute(createTrigger);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
     /**
      * Check if shipTrip exists
      * @param shipTripID ship trip id
@@ -143,7 +202,7 @@ public class ShipTripStoreDB {
      * @param estArriDate estimates arrival date
      * @return -1 if the input information is wrong, otherwise it returns 1
      */
-    public int createShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) {
+    public int createShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) throws SQLException {
         int result = 1;
         String createFunction = "create or replace function create_shipTrip\n" +
                 "(f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,\n" +
@@ -188,6 +247,10 @@ public class ShipTripStoreDB {
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
+            if(e.getErrorCode() == 20010){
+                throw new SQLException("ORA-20010 - Currently, the ship is not available in this date.");
+            }
+            System.out.println(e.getErrorCode());
         } catch (Exception e) {
             e.printStackTrace();
         }
