@@ -42,7 +42,7 @@ class ClosenessPlacesControllerTest {
 
     @BeforeEach
     void setUp() {
-        company = App.getInstance().getCompany();
+        company = new Company("Cmp");
 
         map = company.getFreightNetwork();
 
@@ -114,7 +114,7 @@ class ClosenessPlacesControllerTest {
 
     @Test
     public void getClosenessPlacesControllerTest(){
-        ClosenessPlacesController closenessPlacesController = new ClosenessPlacesController();
+        ClosenessPlacesController closenessPlacesController = new ClosenessPlacesController(company);
         Map<String, List<Map.Entry<Location, Double>>> result = closenessPlacesController.getClosenessPlacesByContinent();
         assertEquals(port3, result.get("Europe").get(0).getKey(), "in this case port3 is the first of the sorted list");
         assertEquals(a, result.get("Europe").get(result.get("Europe").size()-1).getKey(), "capital A is the last index of the list with the highest closeness value");
