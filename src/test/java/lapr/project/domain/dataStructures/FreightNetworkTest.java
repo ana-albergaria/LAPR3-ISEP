@@ -3,6 +3,8 @@ package lapr.project.domain.dataStructures;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
+import lapr.project.genericDataStructures.graphStructure.Algorithms;
+import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
 import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -347,7 +349,7 @@ class FreightNetworkTest {
          */
     }
     @Test
-    public void getNetworkContinetsTest(){
+    public void getNetworkContinentsTest(){
         HashSet<String> exp = new HashSet<>();
         exp.add(continent1);
         exp.add(continent2);
@@ -375,6 +377,18 @@ class FreightNetworkTest {
 
     @Test
     public void getClosenessPlacesByContinent(){
+        Map<String, List<Map.Entry<Location, Double>>> result = map.closenessPlacesByContinent();
+        Double expectedCapitalK=0.0;
+        Graph<Location, Double> continentNetwork = Algorithms.minDistGraph(map.getSubGraphByContinent("Europe"), Double::compare, Double::sum);
+
+        assert continentNetwork != null;
+        for (Edge<Location, Double> edge : continentNetwork.incomingEdges(k)){
+            expectedCapitalK += edge.getWeight();
+        }
+
         System.out.println(map.closenessPlacesByContinent());
+        expectedCapitalK = expectedCapitalK / (continentNetwork.vertices().size()-1);
+        assertEquals(0, result.get("Europe").get(0).getValue(), "First value is 0 since port3 doesn't have any connection");
+        assertEquals(expectedCapitalK, result.get("Europe").get(1).getValue(), "Second value should be capital k with 2.36 value");
     }
 }

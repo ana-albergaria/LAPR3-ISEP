@@ -117,8 +117,8 @@ public class FreightNetwork {
         return currentContinents;
     }
 
-    public Map<String, Map<Location, Double>> closenessPlacesByContinent(){
-        Map<String, Map<Location, Double>> closenessPlacesByContinent = new HashMap<>();
+    public Map<String, List<Map.Entry<Location, Double>>> closenessPlacesByContinent(){
+        Map<String, List<Map.Entry<Location, Double>>> closenessPlacesByContinent = new HashMap<>();
         HashSet<String> continents = getNetworkContinents();
         for(String continent : continents){
             Graph<Location, Double> contGraph = getSubGraphByContinent(continent);
@@ -127,7 +127,7 @@ public class FreightNetwork {
         return closenessPlacesByContinent;
     }
 
-    private Map<Location, Double> getClosenessPlaces(Graph<Location, Double> places){
+    private List<Map.Entry<Location, Double>> getClosenessPlaces(Graph<Location, Double> places){
         Graph<Location, Double> dists = Algorithms.minDistGraph(places, Double::compare, Double::sum);
         Map<Location, Double> countriesMap = new HashMap<>();
         assert dists != null;
@@ -139,10 +139,18 @@ public class FreightNetwork {
             for(Edge<Location,Double> edge : vertEdges){
                 sum += edge.getWeight();
             }
-            closenessNumber = sum / vertEdges.size();
+            closenessNumber = sum / (dists.vertices().size()-1);
             countriesMap.put(location, closenessNumber);
         }
-        return countriesMap;
+        List<Map.Entry<Location, Double>> toBeSortedMap = new ArrayList<>(countriesMap.entrySet());
+        toBeSortedMap.sort(Map.Entry.<Location, Double> comparingByValue());
+/*
+        Map<Location, Double> sortedCountriesMap = new HashMap<>();
+
+        for (Map.Entry<Location, Double> entry : toBeSortedMap){
+            sortedCountriesMap.put(entry.getKey(), entry.getValue());
+        }*/
+        return toBeSortedMap;
     }
 
     public Graph<Location, Double> getSubGraphByContinent(String continent){

@@ -87,12 +87,11 @@ public class CreateFreightNetworkController {
     public void importDataFromDatabase(){
         CountryStoreDb countryStoreDb = new CountryStoreDb();
         List<Country> existentCountries = countryStoreDb.getExistentCountries(App.getInstance().getConnection());
-
-        countryStore.importCountriesList(existentCountries);
+        this.countryStore.importCountriesList(existentCountries);
 
         PortStoreDB portStoreDb = new PortStoreDB();
         List<Port> existentPorts = portStoreDb.getExistentPorts(App.getInstance().getConnection());
 
-        portStore.importPorts(existentPorts);
+        this.portStore.importPorts(existentPorts);
     }
 }
