@@ -30,6 +30,7 @@ class Ship{
 class ShipTrip{
     **ship_trip_id: integer**
     ---
+    FK route_id : integer
     FK mmsi: integer
     FK departure_location_id: integer
     FK arrival_location_id: integer
@@ -39,6 +40,7 @@ class ShipTrip{
     real_departure_date: date
     est_arrival_date : date
     real_arrival_date : date
+    phase:integer
 }
 /'class TripLeg{
 
@@ -120,6 +122,7 @@ class Port {
 class Warehouse {
     **warehouseId**:INTEGER
     ---
+    maxCapacity:integer
     Name:varchar(40)
     fk_location_id: integer
 }
@@ -157,7 +160,14 @@ class Shipment{
     **shipment_id**: integer
     --
     FK_container_id
-    FK_shiptrip_id
+    FK_route_id
+    FK_registration_code
+}
+
+class Route{
+    **route_id**: integer
+    --
+    total_phases : integer
 }
 
 class Border{
@@ -174,15 +184,34 @@ class Seadists{
 }
 
 
-/'class Truck{
+class Truck{
     truckID
 }
-
+/'
 class Transports{
     truckId FK
     warehouseId FK
 }'/
 
+class Client {
+    **registration_code : integer**
+}
+
+class TruckTrip {
+    **trucktrip_id : integer**
+    --
+    FK_route_id : integer
+    FK_truck_id integer
+    FK_departure_location integer
+    FK_arrival_location integer
+    FK_loading_cargo_id integer
+    FK_unloading_cargo_id integer
+    est_departure_date date
+    est_arrival_date date
+    real_departure_date date
+    real_arrival_date date
+    phase:integer
+}
 
 
 
@@ -219,6 +248,9 @@ Shipment "1..*" -- "1" ShipTrip
 Border "1..*" -- "1..*" Country
 Country "1" -- "1" Capital
 Seadists "1..*" -- "1..*" Port
-
+Shipment "1..*" -- "1" Route
+Route "1" -- "*" ShipTrip
+Route "1" -- "*" TruckTrip
+Client "1" -- "1..*" Shipment
 
 @enduml
