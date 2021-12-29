@@ -36,7 +36,7 @@ public class WarehouseStoreDB {
                 "when no_data_found then\n" +
                 "return 0;\n" +
                 "end;\n";
-        String runFunction = "{? = call check_if_warehouse_exists(?,?,?)}";
+        String runFunction = "{? = call get_num_containers_out_warehouse(?,?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();
@@ -65,7 +65,8 @@ public class WarehouseStoreDB {
      * @return number of containers currently in the warehouse.
      */
     public int getCurrentContainersWarehouse(int warehouse_id) {
-        int result = 0;
+        int result = -1;
+        Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
         String createFunction = "create or replace function get_current_containers_warehouse(f_warehouse_id warehouse.warehouse_id%type, f_current_date shipTrip.est_departure_date%type) return integer\n" +
                 "is\n" +
                 "f_comp_cargo_id cargoManifest.cargoManifest_id%type;\n" +
@@ -96,9 +97,9 @@ public class WarehouseStoreDB {
                 "return f_current_containers;\n" +
                 "exception\n" +
                 "when no_data_found then\n" +
-                "return 0;\n" +
+                "return -1;\n" +
                 "end;\n";
-        String runFunction = "{? = call check_if_warehouse_exists(?)}";
+        String runFunction = "{? = call get_current_containers_warehouse(?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();
@@ -106,6 +107,7 @@ public class WarehouseStoreDB {
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(warehouse_id));
+            callableStatement.setString(3, String.valueOf(currentDate));
 
             callableStatement.executeUpdate();
 

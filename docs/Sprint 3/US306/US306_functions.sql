@@ -1,3 +1,22 @@
+--GET NUM CONTAINERS OUT WAREHOUSE NEXT 30 DAYS
+create or replace function get_num_containers_out_warehouse(f_warehouse_id warehouse.warehouse_id%type,f_currentDate truckTrip.est_departure_date%type, f_finalDate truckTrip.est_departure_date%type) return integer
+is
+f_num_containers_out_warehouse integer:=0;
+f_warehouse_location warehouse.location_id%type;
+begin
+select location_id into f_warehouse_location from warehouse where warehouse_id=f_warehouse_id;
+select count(*) into f_num_containers_out_warehouse
+from containerInCargoManifest
+where cargomanifest_id = (select loading_cargo_id from trucktrip where departure_location = f_warehouse_location) AND
+        (select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND
+        (select est_departure_date from truckTrip where departure_location = f_warehouse_location) <= f_finalDate;
+return (f_num_containers_out_warehouse);
+exception
+when no_data_found then
+return 0;
+end;
+/
+
 --CHECK IF WAREHOUSE EXISTS
 create or replace function check_if_warehouse_exists(f_warehouse_id warehouse.warehouse_id%type) return integer
 is

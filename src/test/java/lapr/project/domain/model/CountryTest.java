@@ -36,10 +36,10 @@ class CountryTest {
         continent1 = "America";
         continent2 = "Europe";
 
-        capital1 = new Capital("Nicosia",lats[0], lons[0], names[0]);
-        capital2 = new Capital("Valletta",lats[1],lons[1], names[1]);
-        capital3 = new Capital("Athens", lats[2], lons[2], names[2]);
-        capital4 = new Capital("Lisbon", lats[3], lons[3], names[3]);
+        capital1 = new Capital("Nicosia",lats[0], lons[0], names[0], continent2);
+        capital2 = new Capital("Valletta",lats[1],lons[1], names[1], continent2);
+        capital3 = new Capital("Athens", lats[2], lons[2], names[2], continent2);
+        capital4 = new Capital("Lisbon", lats[3], lons[3], names[3], continent2);
 
         borders.add("Belize");
         borders.add("Canada");

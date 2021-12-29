@@ -186,7 +186,7 @@ public class Algorithms {
      * @return the minimum distance graph
      */
     //NEED TO TEST THIS METHOD
-    /*public static <V,E> MatrixGraph<V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
+    public static <V,E> MatrixGraph<V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
         int numVerts = g.numVertices();
         if(numVerts == 0)
             return null;
@@ -201,6 +201,7 @@ public class Algorithms {
                     mat[i][j] = edge.getWeight();
             }
         }
+
         //OBTAIN THE MATRIX WITH LEAST COSTS BETWEEN EDGES
         for (int k = 0; k < numVerts; k++) {
             for (int i = 0; i < numVerts; i++) {
@@ -208,7 +209,7 @@ public class Algorithms {
                     for (int j = 0; j < numVerts; j++) {
                         if(j != k && j != i && mat[k][j] != null) {
                             E s = sum.apply(mat[i][k], mat[k][j]);
-                            if(mat[i][j] == null && ce.compare(mat[i][j],s) > 0) {
+                            if(mat[i][j] == null || ce.compare(mat[i][j],s) > 0) {
                                 mat[i][j] = s;
                             }
                         }
@@ -216,10 +217,17 @@ public class Algorithms {
                 }
             }
         }
+
+/*        for (int k = 0; k < mat.length; k++) {
+            for (int i = 0; i < mat.length; i++) {
+                System.out.print(mat[k][i]);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }*/
         return new MatrixGraph<>(g.isDirected(), g.vertices(), mat);
 
         //throw new UnsupportedOperationException("Not supported yet.");
     }
-     */
 
 }

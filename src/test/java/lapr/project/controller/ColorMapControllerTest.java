@@ -56,17 +56,17 @@ class ColorMapControllerTest {
         port3 = new Port(identifications[2], names[2], continent2, countryNames[2], lats[2], lons[2], seaDists);
         port4 = new Port(identifications[3], names[3], continent1, countryNames[3], lats[3], lons[3], seaDists);
 
-        a = new Capital(mapCapitals[0], lats[0],lats[1],countryNames[0]);
-        b = new Capital(mapCapitals[1],lats[0],lats[1],countryNames[1]);
-        c = new Capital(mapCapitals[2],lats[0],lats[1],countryNames[2]);
-        d = new Capital(mapCapitals[3],lats[0],lats[1],countryNames[3]);
-        e = new Capital(mapCapitals[4],lats[0],lats[1],countryNames[4]);
-        f = new Capital(mapCapitals[5],lats[0],lats[1],countryNames[5]);
-        g = new Capital(mapCapitals[6],lats[0],lats[1],countryNames[6]);
-        h = new Capital(mapCapitals[7],lats[0],lats[1],countryNames[7]);
-        i = new Capital(mapCapitals[8],lats[0],lats[1],countryNames[7]);
-        j = new Capital(mapCapitals[9],lats[0],lats[1],countryNames[7]);
-        k = new Capital(mapCapitals[10],lats[0],lats[1],countryNames[7]);
+        a = new Capital(mapCapitals[0], lats[0],lats[1],countryNames[0], continent2);
+        b = new Capital(mapCapitals[1],lats[0],lats[1],countryNames[1], continent2);
+        c = new Capital(mapCapitals[2],lats[0],lats[1],countryNames[2], continent2);
+        d = new Capital(mapCapitals[3],lats[0],lats[1],countryNames[3], continent2);
+        e = new Capital(mapCapitals[4],lats[0],lats[1],countryNames[4], continent2);
+        f = new Capital(mapCapitals[5],lats[0],lats[1],countryNames[5], continent2);
+        g = new Capital(mapCapitals[6],lats[0],lats[1],countryNames[6], continent2);
+        h = new Capital(mapCapitals[7],lats[0],lats[1],countryNames[7], continent2);
+        i = new Capital(mapCapitals[8],lats[0],lats[1],countryNames[7],continent2);
+        j = new Capital(mapCapitals[9],lats[0],lats[1],countryNames[7], continent2);
+        k = new Capital(mapCapitals[10],lats[0],lats[1],countryNames[7], continent2);
 
         map.addLocation(a);
         map.addLocation(b);

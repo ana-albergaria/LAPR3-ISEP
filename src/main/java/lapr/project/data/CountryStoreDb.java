@@ -25,7 +25,7 @@ public class CountryStoreDb {
 
                     List<String> borders = getCountryBorders(databaseConnection,name);
                     continent = getCountryContinent(databaseConnection, countriesResultSet.getInt(2));
-                    Capital c =  getCountryCapital(databaseConnection, name);
+                    Capital c =  getCountryCapital(databaseConnection, name, continent);
                     countries.add(new Country(continent, name, c, borders));
                 }
             }
@@ -40,7 +40,7 @@ public class CountryStoreDb {
         return countries;
     }
 
-    private Capital getCountryCapital(DatabaseConnection databaseConnection, String country){
+    private Capital getCountryCapital(DatabaseConnection databaseConnection, String country, String continent){
         Capital c1 = null;
         Connection connection = databaseConnection.getConnection();
         String sqlCommand = "select * from capital where country_name = ?";
@@ -50,7 +50,7 @@ public class CountryStoreDb {
             try (ResultSet foundCapital = getCapital.executeQuery()) {
                 if(foundCapital.next()){
                     c1 = new Capital(foundCapital.getNString(1), foundCapital.getDouble(3),
-                            foundCapital.getDouble(4), foundCapital.getNString(2));
+                            foundCapital.getDouble(4), foundCapital.getNString(2), continent);
                 }
             }
         } catch (SQLException ex) {

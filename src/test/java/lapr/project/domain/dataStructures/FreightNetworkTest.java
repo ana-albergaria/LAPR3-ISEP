@@ -1,7 +1,10 @@
 package lapr.project.domain.dataStructures;
 
 import lapr.project.domain.model.Capital;
+import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
+import lapr.project.genericDataStructures.graphStructure.Graph;
+import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,25 +42,25 @@ class FreightNetworkTest {
         continent2 = "Europe";
 
         seaDists = new HashMap<>();
-        seaDists.put(12501, 1200.0);
-        seaDists.put(13409, 500.0);
+        seaDists.put(123456789, 1200.0);
+        seaDists.put(369258147, 500.0);
 
         port1 = new Port(identifications[0], names[0], continent1, countryNames[0], lats[0], lons[0], seaDists);
-        port2 = new Port(identifications[0], names[1], continent1, countryNames[1], lats[1], lons[1], seaDists);
+        port2 = new Port(identifications[1], names[1], continent1, countryNames[1], lats[1], lons[1], seaDists);
         port3 = new Port(identifications[2], names[2], continent2, countryNames[2], lats[2], lons[2], seaDists);
         port4 = new Port(identifications[3], names[3], continent1, countryNames[3], lats[3], lons[3], seaDists);
 
-        a = new Capital(mapCapitals[0], lats[0],lats[1],countryNames[0]);
-        b = new Capital(mapCapitals[1],lats[0],lats[1],countryNames[1]);
-        c = new Capital(mapCapitals[2],lats[0],lats[1],countryNames[2]);
-        d = new Capital(mapCapitals[3],lats[0],lats[1],countryNames[3]);
-        e = new Capital(mapCapitals[4],lats[0],lats[1],countryNames[4]);
-        f = new Capital(mapCapitals[5],lats[0],lats[1],countryNames[5]);
-        g = new Capital(mapCapitals[6],lats[0],lats[1],countryNames[6]);
-        h = new Capital(mapCapitals[7],lats[0],lats[1],countryNames[7]);
-        i = new Capital(mapCapitals[8],lats[0],lats[1],countryNames[7]);
-        j = new Capital(mapCapitals[9],lats[0],lats[1],countryNames[7]);
-        k = new Capital(mapCapitals[10],lats[0],lats[1],countryNames[7]);
+        a = new Capital(mapCapitals[0], lats[0],lats[1],countryNames[0], continent2);
+        b = new Capital(mapCapitals[1],lats[0],lats[1],countryNames[1], continent2);
+        c = new Capital(mapCapitals[2],lats[0],lats[1],countryNames[2], continent2);
+        d = new Capital(mapCapitals[3],lats[0],lats[1],countryNames[3], continent2);
+        e = new Capital(mapCapitals[4],lats[0],lats[1],countryNames[4], continent2);
+        f = new Capital(mapCapitals[5],lats[0],lats[1],countryNames[5], continent2);
+        g = new Capital(mapCapitals[6],lats[0],lats[1],countryNames[6], continent2);
+        h = new Capital(mapCapitals[7],lats[0],lats[1],countryNames[7], continent2);
+        i = new Capital(mapCapitals[8],lats[0],lats[1],countryNames[7], continent2);
+        j = new Capital(mapCapitals[9],lats[0],lats[1],countryNames[7], continent2);
+        k = new Capital(mapCapitals[10],lats[0],lats[1],countryNames[7], continent2);
 
         map.addLocation(a);
         map.addLocation(b);
@@ -342,5 +345,36 @@ class FreightNetworkTest {
         }
         System.out.println();
          */
+    }
+    @Test
+    public void getNetworkContinetsTest(){
+        HashSet<String> exp = new HashSet<>();
+        exp.add(continent1);
+        exp.add(continent2);
+        System.out.println(map.getNetworkContinents());
+        assertEquals(exp, map.getNetworkContinents());
+    }
+
+    @Test
+    public void getSubGraphByContinentTest(){
+        map.addDistance(port1, port2, 12.0);
+        map.addDistance(port3, port2, 12.0);
+        map.addDistance(port4, port3, 12.0);
+        map.addDistance(port1, port3, 12.0);
+        map.addDistance(port1, port4, 12.0);
+
+        Graph<Location, Double> expected = new MatrixGraph<>(false);
+        expected.addVertex(port1);
+        expected.addVertex(port2);
+        expected.addVertex(port4);
+        expected.addEdge(port1, port2, 12.0);
+        expected.addEdge(port1, port4, 12.0);
+
+        assertEquals(expected, map.getSubGraphByContinent(continent1));
+    }
+
+    @Test
+    public void getClosenessPlacesByContinent(){
+        System.out.println(map.closenessPlacesByContinent());
     }
 }

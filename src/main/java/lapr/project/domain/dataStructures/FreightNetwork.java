@@ -3,10 +3,14 @@ package lapr.project.domain.dataStructures;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
+import lapr.project.genericDataStructures.graphStructure.Algorithms;
+import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
 import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.DoubleBinaryOperator;
 
 public class FreightNetwork {
     private final Graph<Location, Double> freightNetwork;
@@ -103,5 +107,51 @@ public class FreightNetwork {
         }
         throw new UnsupportedOperationException("An error has occured. " +
                 "It isn't possible to assign more colors than the number of vertices.");
+    }
+
+    protected HashSet<String> getNetworkContinents(){
+        HashSet<String> currentContinents = new HashSet<>();
+        for(Location location : freightNetwork.vertices()){
+            currentContinents.add(location.getContinent());
+        }
+        return currentContinents;
+    }
+
+    public Map<String, Map<Location, Double>> closenessPlacesByContinent(){
+        Map<String, Map<Location, Double>> closenessPlacesByContinent = new HashMap<>();
+        HashSet<String> continents = getNetworkContinents();
+        for(String continent : continents){
+            Graph<Location, Double> contGraph = getSubGraphByContinent(continent);
+            closenessPlacesByContinent.put(continent, getClosenessPlaces(contGraph));
+        }
+        return closenessPlacesByContinent;
+    }
+
+    private Map<Location, Double> getClosenessPlaces(Graph<Location, Double> places){
+        Graph<Location, Double> dists = Algorithms.minDistGraph(places, Double::compare, Double::sum);
+        Map<Location, Double> countriesMap = new HashMap<>();
+        assert dists != null;
+        double sum, closenessNumber;
+        for (Location location : dists.vertices()){
+            sum = 0;
+            Collection<Edge<Location, Double>> vertEdges = dists.incomingEdges(location); // can be either incoming or outcoming since its not directed
+
+            for(Edge<Location,Double> edge : vertEdges){
+                sum += edge.getWeight();
+            }
+            closenessNumber = sum / vertEdges.size();
+            countriesMap.put(location, closenessNumber);
+        }
+        return countriesMap;
+    }
+
+    public Graph<Location, Double> getSubGraphByContinent(String continent){
+        Graph<Location, Double> continentNetwork = new MatrixGraph<>(this.freightNetwork);
+        for(Location location : continentNetwork.vertices()){
+            if(!location.getContinent().equalsIgnoreCase(continent)){
+                continentNetwork.removeVertex(location);
+            }
+        }
+        return  continentNetwork;
     }
 }
