@@ -19,6 +19,108 @@ public class ShipTripStoreDB {
 
     private final String idPort = "Next Port ID: ";
 
+    public void triggerContainersWarehouse() {
+        String createTrigger = "create or replace trigger trgContainersWarehouse\n" +
+                "before insert or update on ShipTrip\n" +
+                "for each row\n" +
+                "declare\n" +
+                "f_shiptrip_id shiptrip.shiptrip_id%type;\n" +
+                "f_cargoManifest_id cargomanifest.cargomanifest_id%type;\n" +
+                "f_arrival_location shipTrip.arrival_location%type;\n" +
+                "f_warehouse_id warehouse.warehouse_id%type;\n" +
+                "f_estArrDate shipTrip.est_arrival_date%type;\n" +
+                "f_containers_before integer;\n" +
+                "f_containers_max integer;\n" +
+                "f_containers_after integer;\n" +
+                "begin\n" +
+                "f_shiptrip_id:= :new.shiptrip_id;\n" +
+                "f_cargoManifest_id:= :new.unloading_cargo_id;\n" +
+                "f_arrival_location:= :new.arrival_location;\n" +
+                "select warehouse_id into f_warehouse_id from warehouse where location_id=f_arrival_location;\n" +
+                "f_estArrDate:= :new.est_arrival_date;\n" +
+                "f_containers_before:=get_current_containers_warehouse(f_warehouse_id,f_estArrDate);\n" +
+                "select maxCapacity into f_containers_max from Warehouse where warehouse_id=f_warehouse_id;\n" +
+                "f_containers_after:=f_containers_before+get_num_containers_per_cargomanifest(f_cargomanifest_id);\n" +
+                "if f_containers_after>f_containers_max then\n" +
+                "raise_application_error(-20001,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');\n" +
+                "end if;\n" +
+                "end;";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createTriggerStat = connection.createStatement();) {
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    /**
+     * Create shipTrip
+     * @param shipTripID ship trip id
+     * @param mmsi ship mmsi
+     * @param depLocation departure location
+     * @param arriLocation arrival location
+     * @param loadCargID loading cargo manifest id
+     * @param unloadCargID unloading cargo manifest id
+     * @param estDepDate estimated departure date
+     * @param estArriDate estimates arrival date
+     * @return -1 if the input information is wrong, otherwise it returns 1
+     */
+    public int createShipTripWithUnloading(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) throws SQLException {
+        int result = 1;
+        String createFunction = "create or replace function create_shipTrip_with_unloading\n" +
+                "(f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,\n" +
+                "f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type, f_unloading_cargo_id shiptrip.unloading_cargo_id%type,\n" +
+                "f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type) return integer\n" +
+                "is\n" +
+                "f_check integer;\n" +
+                "f_check2 integer;\n" +
+                "begin\n" +
+                "f_check:=check_if_ship_exists(f_mmsi);\n" +
+                "if f_check=0 then\n" +
+                "return -1;\n" +
+                "end if;\n" +
+                "f_check2:=check_if_cargoManifest_exists(f_loading_cargo_id);\n" +
+                "if f_check2=0 then\n" +
+                "return -1;\n" +
+                "end if;\n" +
+                "insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);\n" +
+                "return 1;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return -1;\n" +
+                "end;";
+        String runFunction = "{? = call create_shipTrip(?,?,?,?,?,?,?,?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(shipTripID));
+            callableStatement.setString(3, String.valueOf(mmsi));
+            callableStatement.setString(4, String.valueOf(depLocation));
+            callableStatement.setString(5, String.valueOf(arriLocation));
+            callableStatement.setString(6, String.valueOf(loadCargID));
+            callableStatement.setString(7, String.valueOf(unloadCargID));
+            callableStatement.setString(8, String.valueOf(estDepDate));
+            callableStatement.setString(9, String.valueOf(estArriDate));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+            if(e.getErrorCode() == 20010){
+                throw new SQLException("ORA-20010 - Currently, the ship is not available in this date.");
+            }
+            System.out.println(e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public void triggerContainers() {
         String createTrigger = "create or replace trigger trgContainers\n" +
                 "before insert or update on ShipTrip\n" +
