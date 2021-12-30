@@ -1,10 +1,7 @@
 package lapr.project.domain.model;
 
 import auth.AuthFacade;
-import lapr.project.data.CargoManifestStoreDB;
-import lapr.project.data.ShipStoreDB;
-import lapr.project.data.ShipTripStoreDB;
-import lapr.project.data.WarehouseStoreDB;
+import lapr.project.data.*;
 import lapr.project.domain.dataStructures.FreightNetwork;
 import lapr.project.domain.store.CountryStore;
 import lapr.project.domain.store.PortStore;
@@ -48,6 +45,11 @@ public class Company {
     private final ShipTripStoreDB shipTripStoreDB;
 
     /**
+     * The Truck Trip Store Data Base.
+     */
+    private final TruckTripStoreDB truckTripStoreDB;
+
+    /**
      * The Cargo Manifest Store Data Base.
      */
     private final CargoManifestStoreDB cargoManifestStoreDB;
@@ -67,6 +69,7 @@ public class Company {
         this.shipsStore = new ShipStore();
         this.portStore = new PortStore();
         this.shipTripStoreDB = new ShipTripStoreDB();
+        this.truckTripStoreDB = new TruckTripStoreDB();
         this.shipStoreDB = new ShipStoreDB();
         this.cargoManifestStoreDB=new CargoManifestStoreDB();
         this.warehouseStoreDB=new WarehouseStoreDB();
@@ -108,6 +111,15 @@ public class Company {
      */
     public ShipTripStoreDB getShipTripStoreDB() {
         return shipTripStoreDB;
+    }
+
+    /**
+     * Returns the Truck Trip Store DataBase.
+     *
+     * @return the Truck Trip Store DataBase.
+     */
+    public TruckTripStoreDB getTruckTripStoreDB(){
+        return truckTripStoreDB;
     }
 
     public ShipStoreDB getShipStoreDB() {
