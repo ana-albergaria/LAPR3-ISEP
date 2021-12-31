@@ -15196,8 +15196,8 @@ insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_l
 insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (84901, 1, 229767000, 13390, 20512, 64229, 86476, '24/02/2021', '14/06/2021', '21/03/2021', '30/04/2021');
 insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (57328, 1, 258692000, 22522, 25350, 71971, 45806, '29/03/2021', '10/06/2021', '28/03/2021', '02/06/2021');
 insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (71434, 1, 636019825, 27728, 23247, 54091, 82845, '15/02/2021', '02/05/2021', '07/03/2021', '05/05/2021');
-insert into shiptrip (shiptrip_id, route_id mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (62258, 1, 229767000, 21457, 11180, 83244, 89260, '15/02/2021', '06/05/2021', '20/03/2021', '23/05/2021');
-insert into shiptrip (shiptrip_id, route_id mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (16586, 2, 210950000, 26670, 18682, 89260, 62590, '14/02/2021', '11/04/2021', '02/02/2021', '02/05/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (62258, 1, 229767000, 21457, 11180, 83244, 89260, '15/02/2021', '06/05/2021', '20/03/2021', '23/05/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (16586, 2, 210950000, 26670, 18682, 89260, 62590, '14/02/2021', '11/04/2021', '02/02/2021', '02/05/2021');
 insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (59448, 2, 229767000, 22770, 18682, 87507, 16358, '12/03/2021', '18/06/2021', '10/03/2021', '03/04/2021');
 insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (30076, 2, 249047000, 28313, 23247, 71971, 73258, '09/03/2021', '31/05/2021', '06/02/2021', '29/05/2021');
 insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (64050, 2, 258692000, 20847, 216592, 723, 723, '18/02/2021', '27/06/2021', '27/02/2021', '10/06/2021');
@@ -15298,7 +15298,13 @@ insert into shipment (container_id, route_id, registration_code) values (531766,
 insert into shipment (container_id, route_id, registration_code) values (3086183, 4, 3);
 insert into shipment (container_id, route_id, registration_code) values (8335151, 5, 2);
 
---5 shipments inserted
+--FOR US305 CONTROLLER
+insert into shipment (container_id, route_id, registration_code) values (144449, 7, 10);
+insert into shipment (container_id, route_id, registration_code) values (1962396, 8, 9);
+insert into shipment (container_id, route_id, registration_code) values (7560668, 9, 8);
+insert into shipment (container_id, route_id, registration_code) values (5655299, 10, 7);
+
+--9 shipments inserted
 
 --FOR US208 AND US209:
 
@@ -15353,9 +15359,9 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (7104943, 87508, 20);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (961837, 87508, -9);
 
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81342, 212351001, 224858, 16485, 19822, 724, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (67132, 212351001, 13012, 11771, 39824, 45807, '11/02/2021', '20/02/2021', '11/03/2021', '17/06/2021');
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (68139, 212351001, 18867, 24795, 77329, 87508, '24/02/2021', '26/02/2021', '27/03/2021', '26/04/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81342, 4, 212351001, 224858, 16485, 19822, 724, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (67132, 5, 212351001, 13012, 11771, 39824, 45807, '11/02/2021', '20/02/2021', '11/03/2021', '17/06/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (68139, 6, 212351001, 18867, 24795, 77329, 87508, '24/02/2021', '26/02/2021', '27/03/2021', '26/04/2021');
 
 --END OF INSERTS FOR US208 AND US209.
 
@@ -15372,7 +15378,7 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19824, -25);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 19824, 2);
 
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81347, 212351004, 224858, 16485, 19823, 19824, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81347, 5, 212351004, 224858, 16485, 19823, 19824, '06/02/2021', '08/02/2021', '26/02/2021', '08/05/2021');
 
 insert into cargomanifest (cargomanifest_id) values (82846);
 
@@ -15457,11 +15463,11 @@ insert into truck (truck_id) values (12345);
 insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11111, 1, 11111, 1741, 111, 19823, 19824, '08/12/2021', '9/12/2021', '10/12/2021', '14/12/2021');
 
 --US305 THIRD SITUATION
-insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11113, 9, 12345, 111, 333, 19825, 19826, '02/06/2021', '17/06/2021', '04/06/2021', null);
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11113, 9, 12345, 111, 333, 19823, 19824, '02/06/2021', '17/06/2021', '04/06/2021', null);
 
 --US305 FOURTH SITUATION
-insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11114, 10, 12345, 4366, 444, 19825, 19826, '02/06/2021', '17/06/2021', '04/06/2021', '26/06/2021');
-insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11115, 10, 12345, 444, 555, 19825, 19826, '18/06/2021', '19/06/2021', '19/06/2021', '21/06/2021');
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11114, 10, 12345, 4366, 444, 19823, 19824, '02/06/2021', '17/06/2021', '04/06/2021', '26/06/2021');
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11115, 10, 12345, 444, 555, 19823, 19824, '18/06/2021', '19/06/2021', '19/06/2021', '21/06/2021');
 
 insert into cargomanifest (cargomanifest_id) values (19825);
 insert into cargomanifest (cargomanifest_id) values (19826);

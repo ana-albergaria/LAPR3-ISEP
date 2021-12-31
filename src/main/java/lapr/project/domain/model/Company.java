@@ -43,6 +43,10 @@ public class Company {
      * The Ship Trip Store Data Base.
      */
     private final ShipTripStoreDB shipTripStoreDB;
+    /**
+     * The Route Store Data Base.
+     */
+    private final RouteStoreDB routeStoreDB;
 
     /**
      * The Truck Trip Store Data Base.
@@ -73,6 +77,7 @@ public class Company {
         this.shipStoreDB = new ShipStoreDB();
         this.cargoManifestStoreDB=new CargoManifestStoreDB();
         this.warehouseStoreDB=new WarehouseStoreDB();
+        this.routeStoreDB = new RouteStoreDB();
         this.countryStore = new CountryStore();
         this.freightNetwork = new FreightNetwork();
     }
@@ -111,6 +116,14 @@ public class Company {
      */
     public ShipTripStoreDB getShipTripStoreDB() {
         return shipTripStoreDB;
+    }
+    /**
+     * Returns the Route Store DataBase.
+     *
+     * @return the Route Store DataBase.
+     */
+    public RouteStoreDB getRouteStoreDB() {
+        return routeStoreDB;
     }
 
     /**
