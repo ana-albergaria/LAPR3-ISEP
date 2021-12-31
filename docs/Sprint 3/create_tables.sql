@@ -207,9 +207,9 @@ create table warehouse(
     constraint fk_warehouse_placeLocation FOREIGN KEY (location_id) references placeLocation(location_id)
 );
 
-
 create table truck(
-    truck_id integer not null constraint pk_truck PRIMARY KEY
+    truck_id integer not null constraint pk_truck PRIMARY KEY,
+    name varchar(40) NOT NULL
 );
 
 create table truckTrip(

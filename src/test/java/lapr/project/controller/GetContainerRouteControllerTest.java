@@ -82,7 +82,7 @@ class GetContainerRouteControllerTest {
         sb.append("Departure Location: Port Batumi, Departure Date: 21.03.04, Arrival Location: Port Split, Arrival Date: 21.05.12, Transport: Ship\n");
         sb.append("Departure Location: Port Split, Departure Date: 21.05.14, Arrival Location: Port San Vicente, Arrival Date: 21.05.29, Transport: Ship\n");
         sb.append("Departure Location: Port San Vicente, Departure Date: 21.05.29, Arrival Location: Port Genoa, Arrival Date: 21.06.01, Transport: Ship\n");
-        sb.append("Departure Location: Port Genoa, Departure Date: 21.06.04, Arrival Location: Warehouse WarehouseD, Arrival Date: 21.06.26, Transport: Truck\n");
+        sb.append("Departure Location: Warehouse WarehouseB, Departure Date: 21.06.04, Arrival Location: Warehouse WarehouseD, Arrival Date: 21.06.26, Transport: Truck\n");
         sb.append("Departure Location: Warehouse WarehouseD, Departure Date: 21.06.19, Arrival Location: Warehouse WarehouseE, Arrival Date: 21.06.21, Transport: Truck\n");
         sb.append("  > Container has arrived at its final destination at Warehouse WarehouseE < ");
 

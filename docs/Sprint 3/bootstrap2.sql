@@ -15457,8 +15457,8 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82849, null);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82849, null);
 
-insert into truck (truck_id) values (11111);
-insert into truck (truck_id) values (12345);
+insert into truck (truck_id, name) values (11111, 'Axel');
+insert into truck (truck_id, name) values (12345, 'Blaze');
 
 insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11111, 1, 11111, 1741, 111, 19823, 19824, '08/12/2021', '9/12/2021', '10/12/2021', '14/12/2021');
 
@@ -15466,7 +15466,7 @@ insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arr
 insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11113, 9, 12345, 111, 333, 19823, 19824, '02/06/2021', '17/06/2021', '04/06/2021', null);
 
 --US305 FOURTH SITUATION
-insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11114, 10, 12345, 4366, 444, 19823, 19824, '02/06/2021', '17/06/2021', '04/06/2021', '26/06/2021');
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11114, 10, 12345, 222, 444, 19823, 19824, '02/06/2021', '17/06/2021', '04/06/2021', '26/06/2021');
 insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (11115, 10, 12345, 444, 555, 19823, 19824, '18/06/2021', '19/06/2021', '19/06/2021', '21/06/2021');
 
 insert into cargomanifest (cargomanifest_id) values (19825);
@@ -15482,34 +15482,4 @@ insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arr
 
 --END OF INSERTS FOR US306
 
---INSERTS FOR US307
 
-insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (14011, 54.1505, 12.105, 'Germany');
-
-insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (1401111, 'WarehouseA', 3, 14011);
-
-insert into route(route_id) values(1401);
-insert into route(route_id) values(1402);
-
-insert into cargomanifest (cargomanifest_id) values (19846);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19846, -25);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 19846, 2);
-insert into cargomanifest (cargomanifest_id) values (19848);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19848, -25);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8054992, 19848, 2);
-
-insert into cargomanifest (cargomanifest_id) values (19847);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19847, -25);
-insert into cargomanifest (cargomanifest_id) values (19850);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19850, -25);
-
-insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (14111, 1401, 11111, 111, 14011, 19848, 19846, '18/04/2022', '19/04/2022', null, null);
-
-insert into cargomanifest (cargomanifest_id) values (19851);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (9608504, 19851, -25);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3462818, 19851, -25);
-insert into cargomanifest (cargomanifest_id) values (19852);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (9608504, 19852, -25);
-insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3462818, 19852, -25);
-
---END OF INSERTS FOR US307
