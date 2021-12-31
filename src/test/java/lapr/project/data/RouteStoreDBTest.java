@@ -120,4 +120,40 @@ class RouteStoreDBTest {
         String route = routeStoreDB.getContainerPath(databaseConnection,10);
         assertEquals(sb.toString(), route);
     }
+
+    //FIRST SITUATION: the container is at the a location
+    @Disabled
+    @Test
+    void getContainerSituationInALocation() {
+        String expectedLocation = "PORT, Izola";
+        String location = routeStoreDB.getContainerSituation(databaseConnection, 7);
+        assertEquals(expectedLocation, location);
+    }
+
+    //THIRD SITUATION: the container is in a truck
+    @Disabled
+    @Test
+    void getContainerSituationInAShip() {
+        String expectedLocation = "SHIP, VARAMO";
+        String location = routeStoreDB.getContainerSituation(databaseConnection, 8);
+        assertEquals(expectedLocation, location);
+    }
+
+    //THIRD SITUATION: the container is in a Truck
+    @Disabled
+    @Test
+    void getContainerSituationInATruck() {
+        String expectedLocation = "TRUCK, Blaze";
+        String location = routeStoreDB.getContainerSituation(databaseConnection, 9);
+        assertEquals(expectedLocation, location);
+    }
+
+    //FOURTH SITUATION: the container has arrived its final destination
+    @Disabled
+    @Test
+    void getContainerSituationInFinalDestination() {
+        String expectedLocation = "WAREHOUSE, WarehouseE";
+        String location = routeStoreDB.getContainerSituation(databaseConnection, 10);
+        assertEquals(expectedLocation, location);
+    }
 }

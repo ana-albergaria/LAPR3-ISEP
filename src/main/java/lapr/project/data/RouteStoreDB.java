@@ -42,4 +42,20 @@ public class RouteStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
+    public String getContainerSituation(DatabaseConnection databaseConnection, int routeId) {
+        try {
+            Connection connection = databaseConnection.getConnection();
+            CallableStatement cs = connection.prepareCall("{? = call get_location(?)}");
+            cs.setInt(2, routeId);
+            cs.registerOutParameter(1, Types.VARCHAR);
+            cs.executeUpdate();
+            String location = cs.getString(1);
+            cs.close();
+            return location;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+    }
+
 }

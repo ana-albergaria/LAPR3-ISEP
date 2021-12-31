@@ -2,6 +2,7 @@ package lapr.project.data.dataControllers;
 
 import lapr.project.controller.App;
 import lapr.project.data.DatabaseConnection;
+import lapr.project.data.RouteStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
@@ -35,15 +36,18 @@ public class GetContainerSituationController {
     /**
      * Method which obtains the current location of a certain container.
      * @param containerID the container id
-     * @param shipmentID the shipment id
+     * @param registrationCode the shipment id
      *
      * @return current location of the container
      */
-    public String getLocation(int containerID, int shipmentID) throws SQLException {
-        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
+    public String getLocation(int containerID, int registrationCode) throws SQLException {
+        RouteStoreDB routeStoreDB = this.company.getRouteStoreDB();
         DatabaseConnection connection = App.getInstance().getConnection();
-        int shipTripID = shipTripStoreDB.getShipTripId(connection, containerID, shipmentID);
-        String containerLocation = shipTripStoreDB.getLocation(connection, shipTripID);
+        String routeID = routeStoreDB.getRouteId(connection, containerID, registrationCode);
+        if(routeID.equals("10 – invalid container id") || routeID.equals("11 – container is not leased by client") || routeID.equalsIgnoreCase("Invalid data"))
+            return routeID;
+
+        String containerLocation = routeStoreDB.getContainerSituation(connection, Integer.parseInt(routeID));
         return containerLocation;
     }
 }

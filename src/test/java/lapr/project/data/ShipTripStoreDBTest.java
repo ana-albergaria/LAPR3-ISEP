@@ -25,26 +25,6 @@ class ShipTripStoreDBTest {
     }
 
     @Test
-    void getShipTripId() {
-        try {
-            int expResult = 16347;
-            when(shipTripStoreDB.getShipTripId(databaseConnection, 2549246,374)).thenReturn(16347);
-            int result = shipTripStoreDB.getShipTripId(databaseConnection, 2549246,374);
-            Assert.assertEquals(expResult, result);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    @Test
-    void getLocation() {
-        String expResult = "PORT, Constantza";
-        when(shipTripStoreDB.getLocation(databaseConnection, 16347)).thenReturn("PORT, Constantza");
-        String result = shipTripStoreDB.getLocation(databaseConnection, 16347);
-        Assert.assertEquals(expResult, result);
-    }
-
-    @Test
     void getPortIdTest() {
         int actID;
         try {

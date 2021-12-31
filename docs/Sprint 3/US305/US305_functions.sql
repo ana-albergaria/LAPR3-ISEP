@@ -90,6 +90,7 @@ BEGIN
             departure_location := 'Port ' || departure_location;
         END IF;
 
+        --correct below
         SELECT COUNT(*) INTO isArrivalPort FROM PORT WHERE location_id=c_arrival_location;
         IF isArrivalPort = 0 THEN
             SELECT name INTO arrival_location FROM WAREHOUSE where location_id=c_arrival_location;
