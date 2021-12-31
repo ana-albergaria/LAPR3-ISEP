@@ -79,14 +79,34 @@ BEGIN
         departure_location := 'Port ' || departure_location;
         SELECT name INTO arrival_location FROM PORT where port_id=c_arrival_location;
         arrival_location := 'Port ' || arrival_location;
-      ELSE --if the type of transport is a truck then the arrival and departure location must be a warehouse
-        SELECT name INTO departure_location FROM WAREHOUSE where location_id=c_departure_location;
-        departure_location := 'Warehouse ' || departure_location;
-        SELECT name INTO arrival_location FROM WAREHOUSE where location_id=c_arrival_location;
-        arrival_location := 'Warehouse ' || arrival_location;
+      ELSE --if the type of transport is a truck
+        --there are 2 options:
+        --if the departure location is a Port, then the arrival location must be a Warehouse;
+        --if the departure location is a Warehouse, then arrival location can be either a Port OR Warehouse.
+        SELECT COUNT(*) INTO isDeparturePort FROM PORT WHERE location_id=c_departure_location;
+        IF isDeparturePort = 0 THEN --the departure location is a Warehouse
+            SELECT name INTO departure_location FROM WAREHOUSE where location_id=c_departure_location;
+            departure_location := 'Warehouse ' || departure_location;
+            --check whether arrival location is a Warehouse or Port
+            SELECT COUNT(*) INTO isArrivalPort FROM PORT WHERE location_id=c_arrival_location;
+            IF isArrivalPort = 0 THEN
+                SELECT name INTO arrival_location FROM WAREHOUSE where location_id=c_arrival_location;
+                arrival_location := 'Warehouse ' || arrival_location;
+            ELSE
+                SELECT name INTO arrival_location FROM PORT where location_id=c_arrival_location;
+                arrival_location := 'Port ' || arrival_location;
+            END IF;
+
+        ELSE --the departure location is a Port, therefore the arrival location must be a Warehouse
+            SELECT name INTO departure_location FROM PORT where location_id=c_departure_location;
+            departure_location := 'Port ' || departure_location;
+            SELECT name INTO arrival_location FROM WAREHOUSE where location_id=c_arrival_location;
+            arrival_location := 'Warehouse ' || arrival_location;
+        END IF;
+
       END IF;
 
-      IF c_real_departure_date IS NULL THEN --the container is at the location (the departure location of a trip is the arrival location of the trip BEFORE)
+      IF c_real_departure_date IS NULL THEN --the container is at the location
         route := route || '  > Current Container Location: ' || departure_location || ' < ';
         return route;
       ELSE --the container is NOT in the location
