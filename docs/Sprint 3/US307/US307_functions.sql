@@ -1,18 +1,18 @@
 --TRIGGER FOR NUMBER OF CONTAINERS UNLOADING MANIFEST BECOMES GREATER THAN MAX NUMBER OF CONTAINERS WAREHOUSE
 create or replace trigger trgContainersWarehouse
-before insert or update on ShipTrip
-                            for each row
+before insert or update on TruckTrip
+for each row
 declare
-f_shiptrip_id shiptrip.shiptrip_id%type;
+f_trucktrip_id trucktrip.trucktrip_id%type;
 f_cargoManifest_id cargomanifest.cargomanifest_id%type;
-f_arrival_location shipTrip.arrival_location%type;
+f_arrival_location truckTrip.arrival_location%type;
 f_warehouse_id warehouse.warehouse_id%type;
-f_estArrDate shipTrip.est_arrival_date%type;
+f_estArrDate truckTrip.est_arrival_date%type;
 f_containers_before integer;
 f_containers_max integer;
 f_containers_after integer;
 begin
-f_shiptrip_id:= :new.shiptrip_id;
+f_trucktrip_id:= :new.trucktrip_id;
 f_cargoManifest_id:= :new.unloading_cargo_id;
 f_arrival_location:= :new.arrival_location;
 select warehouse_id into f_warehouse_id from warehouse where location_id=f_arrival_location;
@@ -24,16 +24,19 @@ if f_containers_after>f_containers_max then
 raise_application_error(-20001,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');
 end if;
 end;
+/
 
---CREATE SHIP TRIP WITH UNLOADING CARGO MANIFEST
-create or replace function create_shipTrip_with_unloading(f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,
-f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type, f_unloading_cargo_id shiptrip.unloading_cargo_id%type,
-f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type) return integer
+--CREATE TRUCK TRIP WITH UNLOADING CARGO MANIFEST
+create or replace function create_truckTrip_with_unloading
+(f_trucktrip_id trucktrip.trucktrip_id%type, f_truck_id trucktrip.truck_id%type, f_departure_location trucktrip.departure_location%type,
+f_arrival_location trucktrip.arrival_location%type, f_loading_cargo_id trucktrip.loading_cargo_id%type, f_unloading_cargo_id trucktrip.unloading_cargo_id%type,
+f_est_departure_date trucktrip.est_departure_date%type, f_est_arrival_date trucktrip.est_arrival_date%type) return integer
 is
 f_check integer;
 f_check2 integer;
+f_check3 integer;
 begin
-f_check:=check_if_ship_exists(f_mmsi);
+f_check:=check_if_truck_exists(f_truck_id);
 if f_check=0 then
 return -1;
 end if;
@@ -41,23 +44,42 @@ f_check2:=check_if_cargoManifest_exists(f_loading_cargo_id);
 if f_check2=0 then
 return -1;
 end if;
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);
+f_check3:=check_if_cargoManifest_exists(f_unloading_cargo_id);
+if f_check3=0 then
+return -1;
+end if;
+insert into trucktrip (trucktrip_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_trucktrip_id, f_truck_id, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);
 return 1;
 exception
 when no_data_found then
 return -1;
 end;
+/
 
----------------------------------------------------------------------------REUSES:---------------------------------------------------------------------------
+--DELETE TRUCK TRIP - IMPORTADO
+create or replace function delete_truckTrip
+(f_trucktrip_id trucktrip.trucktrip_id%type) return integer
+is
+begin
+delete
+from truckTrip
+where
+trucktrip_id = f_trucktrip_id;
+return 1;
+exception
+when no_data_found then
+return -1;
+end;
+/
 
---CHECK IF SHIP TRIP EXISTS
-create or replace function check_if_shipTrip_exists(f_shipTrip_id shipTrip.shipTrip_id%type) return integer
+--CHECK IF TRUCK TRIP EXISTS - IMPORTADO
+create or replace function check_if_truckTrip_exists(f_truckTrip_id truckTrip.truckTrip_id%type) return integer
 is
 f_result integer;
 begin
 select count(*) into f_result
-from shipTrip
-where shipTrip_id = f_shipTrip_id;
+from truckTrip
+where truckTrip_id = f_truckTrip_id;
 return (f_result);
 exception
 when no_data_found then
@@ -65,21 +87,22 @@ return 0;
 end;
 /
 
---DELETE SHIP TRIP
-create or replace function delete_shipTrip
-(f_shiptrip_id shiptrip.shiptrip_id%type) return integer
+--CHECK IF TRUCK EXISTS
+create or replace function check_if_truck_exists(f_truck_id truck.truck_id%type) return integer
 is
+f_result integer;
 begin
-delete
-from shipTrip
-where
-        shiptrip_id = f_shiptrip_id;
-return 1;
+select count(*) into f_result
+from truck
+where truck_id = f_truck_id;
+return (f_result);
 exception
 when no_data_found then
-return -1;
+return 0;
 end;
 /
+
+---------------------------------------------------------------------------REUSES:---------------------------------------------------------------------------
 
 --CHECK IF CARGO MANIFEST EXISTS
 create or replace function check_if_cargoManifest_exists(f_cargoManifest_id cargomanifest.cargomanifest_id%type) return integer

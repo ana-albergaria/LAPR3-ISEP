@@ -2,6 +2,7 @@ package lapr.project.data.dataControllers;
 
 import lapr.project.controller.App;
 import lapr.project.data.ShipTripStoreDB;
+import lapr.project.data.TruckTripStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.sql.Date;
@@ -31,9 +32,9 @@ public class CheckIfContainerExceedsWarehouseCapacityController {
     }
 
     /**
-     * Try to create ship trip to see if the trigger is fired.
-     * @param shipTripID ship trip id.
-     * @param mmsi ship mmsi.
+     * Try to create truck trip to see if the trigger is fired.
+     * @param truckTripID truck trip id.
+     * @param truckID truck id.
      * @param depLocation departure location.
      * @param arriLocation arrival location.
      * @param loadCargID loading cargo manifest id.
@@ -42,21 +43,21 @@ public class CheckIfContainerExceedsWarehouseCapacityController {
      * @param estArriDate estimates arrival date.
      * @return -1 if the input information is wrong, otherwise it returns 1.
      */
-    public int tryToCreateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, int unloadCargID, Date estDepDate, Date estArriDate) throws SQLException {
-        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
-        shipTripStoreDB.triggerContainersWarehouse();
-        int resultCreate = shipTripStoreDB.createShipTripWithUnloading(shipTripID, mmsi, depLocation, arriLocation, loadCargID, unloadCargID, estDepDate, estArriDate);
-        return shipTripStoreDB.checkIfShipTripExists(shipTripID);
+    public int tryToCreateTruckTrip(int truckTripID, int truckID, int depLocation, int arriLocation, int loadCargID, int unloadCargID, Date estDepDate, Date estArriDate) throws SQLException {
+        TruckTripStoreDB truckTripStoreDB = this.company.getTruckTripStoreDB();
+        truckTripStoreDB.triggerContainersWarehouse();
+        int resultCreate = truckTripStoreDB.createTruckTripWithUnloading(truckTripID, truckID, depLocation, arriLocation, loadCargID, unloadCargID, estDepDate, estArriDate);
+        return truckTripStoreDB.checkIfTruckTripExists(truckTripID);
     }
 
     /**
-     * Delete ship trip.
-     * @param shipTripID ship trip id.
+     * Delete truck trip.
+     * @param truckTripID truck trip id.
      * @return -1 if the input information is wrong, otherwise it returns 1.
      */
-    public int deleteShipTrip(int shipTripID){
-        ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
-        return shipTripStoreDB.deleteShipTrip(shipTripID);
+    public int deleteTruckTrip(int truckTripID){
+        TruckTripStoreDB truckTripStoreDB = this.company.getTruckTripStoreDB();
+        return truckTripStoreDB.deleteTruckTrip(truckTripID);
     }
 
 }
