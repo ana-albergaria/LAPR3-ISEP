@@ -94,5 +94,33 @@ class GetContainerRouteControllerTest {
         }
     }
 
+    //EXCEPTION 1: the container id is invalid, therefore raises ex_invalid_container_id exception
+    @Disabled
+    @Test
+    void getRouteIdExceptionInvalidContainerID() {
+        try {
+            String expectedException = "10 – invalid container id";
+            String route = ctrl.getContainerPath(12,2);
+            assertEquals(expectedException, route);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    //EXCEPTION 2: the container id is valid, but it was not leased by client, therefore raises ex_not_leased_client exception
+    @Disabled
+    @Test
+    void getRouteIdExceptionNotLeasedByClient() {
+        try {
+            String expectedException = "11 – container is not leased by client";
+            String routeId = ctrl.getContainerPath(9803333,2);
+            assertEquals(expectedException, routeId);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
+
 
 }

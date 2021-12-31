@@ -44,6 +44,9 @@ public class GetContainerRouteController {
         RouteStoreDB routeStoreDB = this.company.getRouteStoreDB();
         DatabaseConnection connection = App.getInstance().getConnection();
         String routeID = routeStoreDB.getRouteId(connection, containerID, registrationCode);
+        if(routeID.equals("10 – invalid container id") || routeID.equals("11 – container is not leased by client") || routeID.equals("Invalid Data"))
+            return routeID;
+
         String route = routeStoreDB.getContainerPath(connection, Integer.parseInt(routeID));
         return route;
     }
