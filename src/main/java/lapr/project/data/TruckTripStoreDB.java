@@ -52,6 +52,7 @@ public class TruckTripStoreDB {
     /**
      * Create truckTrip
      * @param truckTripID truck trip id
+     * @param routeID route id
      * @param truckID truck id
      * @param depLocation departure location
      * @param arriLocation arrival location
@@ -61,10 +62,10 @@ public class TruckTripStoreDB {
      * @param estArriDate estimates arrival date
      * @return -1 if the input information is wrong, otherwise it returns 1
      */
-    public int createTruckTripWithUnloading(int truckTripID, int truckID, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) throws SQLException {
+    public int createTruckTripWithUnloading(int truckTripID,int routeID, int truckID, int depLocation, int arriLocation, int loadCargID, int unloadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) throws SQLException {
         int result = 1;
         String createFunction = "create or replace function create_truckTrip_with_unloading\n" +
-                "(f_trucktrip_id trucktrip.trucktrip_id%type, f_truck_id trucktrip.truck_id%type, f_departure_location trucktrip.departure_location%type,\n" +
+                "(f_trucktrip_id trucktrip.trucktrip_id%type, f_route_id route.route_id%type,f_truck_id trucktrip.truck_id%type, f_departure_location trucktrip.departure_location%type,\n" +
                 "f_arrival_location trucktrip.arrival_location%type, f_loading_cargo_id trucktrip.loading_cargo_id%type, f_unloading_cargo_id trucktrip.unloading_cargo_id%type,\n" +
                 "f_est_departure_date trucktrip.est_departure_date%type, f_est_arrival_date trucktrip.est_arrival_date%type) return integer\n" +
                 "is\n" +
@@ -84,7 +85,7 @@ public class TruckTripStoreDB {
                 "if f_check3=0 then\n" +
                 "return -1;\n" +
                 "end if;\n" +
-                "insert into trucktrip (trucktrip_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_trucktrip_id, f_truck_id, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);\n" +
+                "insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_trucktrip_id, f_route_id, f_truck_id, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);\n" +
                 "return 1;\n" +
                 "exception\n" +
                 "when no_data_found then\n" +
@@ -98,13 +99,14 @@ public class TruckTripStoreDB {
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(truckTripID));
-            callableStatement.setString(3, String.valueOf(truckID));
-            callableStatement.setString(4, String.valueOf(depLocation));
-            callableStatement.setString(5, String.valueOf(arriLocation));
-            callableStatement.setString(6, String.valueOf(loadCargID));
-            callableStatement.setString(7, String.valueOf(unloadCargID));
-            callableStatement.setString(8, String.valueOf(estDepDate));
-            callableStatement.setString(9, String.valueOf(estArriDate));
+            callableStatement.setString(3, String.valueOf(routeID));
+            callableStatement.setString(4, String.valueOf(truckID));
+            callableStatement.setString(5, String.valueOf(depLocation));
+            callableStatement.setString(6, String.valueOf(arriLocation));
+            callableStatement.setString(7, String.valueOf(loadCargID));
+            callableStatement.setString(8, String.valueOf(unloadCargID));
+            callableStatement.setString(9, String.valueOf(estDepDate));
+            callableStatement.setString(10, String.valueOf(estArriDate));
 
             callableStatement.executeUpdate();
 

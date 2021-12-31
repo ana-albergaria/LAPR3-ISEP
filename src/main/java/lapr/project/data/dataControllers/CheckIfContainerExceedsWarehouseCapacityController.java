@@ -34,6 +34,7 @@ public class CheckIfContainerExceedsWarehouseCapacityController {
     /**
      * Try to create truck trip to see if the trigger is fired.
      * @param truckTripID truck trip id.
+     * @param routeID route id.
      * @param truckID truck id.
      * @param depLocation departure location.
      * @param arriLocation arrival location.
@@ -43,10 +44,10 @@ public class CheckIfContainerExceedsWarehouseCapacityController {
      * @param estArriDate estimates arrival date.
      * @return -1 if the input information is wrong, otherwise it returns 1.
      */
-    public int tryToCreateTruckTrip(int truckTripID, int truckID, int depLocation, int arriLocation, int loadCargID, int unloadCargID, Date estDepDate, Date estArriDate) throws SQLException {
+    public int tryToCreateTruckTrip(int truckTripID,int routeID, int truckID, int depLocation, int arriLocation, int loadCargID, int unloadCargID, Date estDepDate, Date estArriDate) throws SQLException {
         TruckTripStoreDB truckTripStoreDB = this.company.getTruckTripStoreDB();
         truckTripStoreDB.triggerContainersWarehouse();
-        int resultCreate = truckTripStoreDB.createTruckTripWithUnloading(truckTripID, truckID, depLocation, arriLocation, loadCargID, unloadCargID, estDepDate, estArriDate);
+        int resultCreate = truckTripStoreDB.createTruckTripWithUnloading(truckTripID, routeID, truckID, depLocation, arriLocation, loadCargID, unloadCargID, estDepDate, estArriDate);
         return truckTripStoreDB.checkIfTruckTripExists(truckTripID);
     }
 

@@ -28,7 +28,7 @@ end;
 
 --CREATE TRUCK TRIP WITH UNLOADING CARGO MANIFEST
 create or replace function create_truckTrip_with_unloading
-(f_trucktrip_id trucktrip.trucktrip_id%type, f_truck_id trucktrip.truck_id%type, f_departure_location trucktrip.departure_location%type,
+(f_trucktrip_id trucktrip.trucktrip_id%type, f_route_id route.route_id%type, f_truck_id trucktrip.truck_id%type, f_departure_location trucktrip.departure_location%type,
 f_arrival_location trucktrip.arrival_location%type, f_loading_cargo_id trucktrip.loading_cargo_id%type, f_unloading_cargo_id trucktrip.unloading_cargo_id%type,
 f_est_departure_date trucktrip.est_departure_date%type, f_est_arrival_date trucktrip.est_arrival_date%type) return integer
 is
@@ -48,7 +48,7 @@ f_check3:=check_if_cargoManifest_exists(f_unloading_cargo_id);
 if f_check3=0 then
 return -1;
 end if;
-insert into trucktrip (trucktrip_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_trucktrip_id, f_truck_id, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_trucktrip_id, f_route_id, f_truck_id, f_departure_location, f_arrival_location, f_loading_cargo_id, f_unloading_cargo_id, f_est_departure_date, f_est_arrival_date, NULL, NULL);
 return 1;
 exception
 when no_data_found then
