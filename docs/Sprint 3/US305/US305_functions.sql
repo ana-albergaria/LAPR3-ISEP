@@ -122,7 +122,7 @@ BEGIN
 END;
 /
 
---TESTS
+--TESTS -> get_route_id
 
 --the container id is invalid, therefore raises ex_invalid_container_id exception
 SET SERVEROUTPUT ON;
@@ -142,3 +142,28 @@ begin
     dbms_output.put_line('The route id is: '||get_route_id(9803333,6));
 end;
 
+--TESTS -> get_path_function
+
+--FIRST SITUATION: the container is at the a location
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line(get_path_function(7));
+end;
+
+--SECOND SITUATION: the container is in the middle of the ocean
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line(get_path_function(8));
+end;
+
+--THIRD SITUATION: the container is in a truck
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line(get_path_function(9));
+end;
+
+--FOURTH SITUATION: the container has arrived its destination
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line(get_path_function(10));
+end;
