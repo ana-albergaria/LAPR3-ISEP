@@ -3,8 +3,8 @@
 autonumber
 actor Client as C
 
-participant "GetContainerRouteUI" as UI
-participant "GetContainerRouteController" as CTRL
+participant "GetContainerSituationUI" as UI
+participant "GetContainerSituationController" as CTRL
 participant "Company" as COMPANY
 participant "App" as APP
 participant "databaseConnection:\nDatabaseConnection" as CONNECTION
@@ -16,7 +16,7 @@ necessário?'/
 
 
 activate C
-C -> "UI" : asks to obtain the situation of container to transport the goods
+C -> "UI" : asks to obtain the situation of container
 activate "UI"
 "UI" --> C : requests the registration code
 deactivate "UI"
@@ -26,7 +26,7 @@ UI --> C : requests the container id
 deactivate UI
 C -> UI : types the container id
 activate UI
-UI -> CTRL : getContainerPath(containerID, registrationCode)
+UI -> CTRL : getContainerSituation(containerID, registrationCode)
 activate CTRL
 CTRL -> COMPANY : routeStoreDB = getRouteStoreDB()
 activate COMPANY
@@ -37,12 +37,12 @@ deactivate APP
 CTRL -> ROUTE_STORE_DB : routeId = getRouteId(connection, containerID, registrationCode)
 activate ROUTE_STORE_DB
 deactivate ROUTE_STORE_DB
-CTRL -> ROUTE_STORE_DB : route = getContainerPath(connection, routeID)
+CTRL -> ROUTE_STORE_DB : containerLocation = getContainerSituation(connection, routeID)
 activate ROUTE_STORE_DB
 deactivate ROUTE_STORE_DB
-CTRL --> UI : route
+CTRL --> UI : containerLocation
 deactivate CTRL
-UI --> C : displays the route until current location
+UI --> C : displays the type and concrete instance of its current location
 deactivate UI
 deactivate C
 
