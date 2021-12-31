@@ -40,7 +40,6 @@ class ShipTrip{
     real_departure_date: date
     est_arrival_date : date
     real_arrival_date : date
-    phase:integer
 }
 /'class TripLeg{
 
@@ -167,7 +166,6 @@ class Shipment{
 class Route{
     **route_id**: integer
     --
-    total_phases : integer
 }
 
 class Border{
@@ -185,7 +183,8 @@ class Seadists{
 
 
 class Truck{
-    truckID
+    **truckID:integer**
+    name:varchar(40)
 }
 /'
 class Transports{
@@ -210,7 +209,6 @@ class TruckTrip {
     est_arrival_date date
     real_departure_date date
     real_arrival_date date
-    phase:integer
 }
 
 
@@ -252,5 +250,8 @@ Shipment "1..*" -- "1" Route
 Route "1" -- "*" ShipTrip
 Route "1" -- "*" TruckTrip
 Client "1" -- "1..*" Shipment
+
+Truck "1" -- "*" TruckTrip
+TruckTrip "1" -- "2" PlaceLocation
 
 @enduml
