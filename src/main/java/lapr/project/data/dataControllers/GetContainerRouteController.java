@@ -41,12 +41,10 @@ public class GetContainerRouteController {
      * @return current route of the container
      */
     public String getContainerPath(int containerID, int registrationCode) throws SQLException {
-        /*RouteStoreDB routeStoreDB = this.company.getRouteStoreDB();
+        RouteStoreDB routeStoreDB = this.company.getRouteStoreDB();
         DatabaseConnection connection = App.getInstance().getConnection();
         String routeID = routeStoreDB.getRouteId(connection, containerID, registrationCode);
         String route = routeStoreDB.getContainerPath(connection, Integer.parseInt(routeID));
         return route;
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
