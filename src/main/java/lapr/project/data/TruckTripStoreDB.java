@@ -91,7 +91,7 @@ public class TruckTripStoreDB {
                 "when no_data_found then\n" +
                 "return -1;\n" +
                 "end;";
-        String runFunction = "{? = call create_truckTrip_with_unloading(?,?,?,?,?,?,?,?)}";
+        String runFunction = "{? = call create_truckTrip_with_unloading(?,?,?,?,?,?,?,?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();

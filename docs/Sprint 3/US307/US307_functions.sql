@@ -1,7 +1,7 @@
 --TRIGGER FOR NUMBER OF CONTAINERS UNLOADING MANIFEST BECOMES GREATER THAN MAX NUMBER OF CONTAINERS WAREHOUSE
 create or replace trigger trgContainersWarehouse
 before insert or update on TruckTrip
-for each row
+                            for each row
 declare
 f_trucktrip_id trucktrip.trucktrip_id%type;
 f_cargoManifest_id cargomanifest.cargomanifest_id%type;
@@ -24,6 +24,7 @@ if f_containers_after>f_containers_max then
 raise_application_error(-20001,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');
 end if;
 end;
+
 /
 
 --CREATE TRUCK TRIP WITH UNLOADING CARGO MANIFEST
