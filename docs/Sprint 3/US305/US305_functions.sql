@@ -35,27 +35,6 @@ exception
 end;
 /
 
---TESTS
-
---the container id is invalid, therefore raises ex_invalid_container_id exception
-SET SERVEROUTPUT ON;
-begin
-    dbms_output.put_line('The route id is: '||get_route_id(12,2));
-end;
-
---the container id is valid, but it was not leased by client, therefore raises ex_not_leased_client exception
-SET SERVEROUTPUT ON;
-begin
-    dbms_output.put_line('The route id is: '||get_route_id(9803333,2));
-end;
-
---the container id is valid AND leased by the client, therefore it doesn't raise exception and returns route id
-SET SERVEROUTPUT ON;
-begin
-    dbms_output.put_line('The route id is: '||get_route_id(9803333,6));
-end;
-
-
 --get_path_function
 CREATE OR REPLACE FUNCTION get_path_function(f_route_id route.route_id%type) return varchar
 IS
@@ -122,16 +101,15 @@ BEGIN
 
       END IF;
 
-
-      IF c_real_departure_date IS NULL THEN --the container is at a departure location
+      IF c_real_departure_date IS NULL THEN --the container is at the location
         route := route || '  > Current Container Location: ' || departure_location || ' < ';
         return route;
       ELSE --the container is NOT in the location
-        route := route || 'Departure Location ID: ' || departure_location || ', Departure Date: ' || c_real_departure_date;
+        route := route || 'Departure Location: ' || departure_location || ', Departure Date: ' || c_real_departure_date;
         IF c_real_arrival_date IS NOT NULL THEN
-            route := route || ', Arrival Location ID: ' || arrival_location || ', Arrival Date: ' || c_real_arrival_date;
-        ELSE --the transport hasn't arrived to the departure location
-            route := route || chr(10) || '  > The ' || type_of_transport || ' is between location id: ' || c_departure_location || ' and location id: ' || c_arrival_location || ' < ';
+            route := route || ', Arrival Location: ' || arrival_location || ', Arrival Date: ' || c_real_arrival_date;
+        ELSE --the transport hasn't arrived to the location
+            route := route || chr(10) || '  > The ' || type_of_transport || ' is between ' || departure_location || ' and ' || arrival_location || ' < ';
             return route;
         END IF;
       END IF;
@@ -143,4 +121,24 @@ BEGIN
    return route;
 END;
 /
+
+--TESTS
+
+--the container id is invalid, therefore raises ex_invalid_container_id exception
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('The route id is: '||get_route_id(12,2));
+end;
+
+--the container id is valid, but it was not leased by client, therefore raises ex_not_leased_client exception
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('The route id is: '||get_route_id(9803333,2));
+end;
+
+--the container id is valid AND leased by the client, therefore it doesn't raise exception and returns route id
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('The route id is: '||get_route_id(9803333,6));
+end;
 
