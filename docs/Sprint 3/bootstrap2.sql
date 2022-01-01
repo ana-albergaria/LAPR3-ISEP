@@ -15526,3 +15526,8 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (3462818, 19852, -25);
 
 --END OF INSERTS FOR US307
+
+-- US 304
+update containerincargomanifest set temperature_kept = 2 where container_id=8950208 and CARGOMANIFEST_ID=11031
+
+

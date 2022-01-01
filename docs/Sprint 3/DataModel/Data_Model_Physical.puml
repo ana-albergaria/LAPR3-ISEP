@@ -12,6 +12,16 @@
 makes sense to know which containers are going to be offloaded?
 
 '/
+class AuditContainerInManifest{
+    aud_id : integer
+    ---
+    aud_who: varchar(100)
+    aud_when: timestamp
+    aud_operation: varchar(8)
+    ContainerId: Integer
+    cargoManifestId: integer
+    temperature_kept integer
+}
 
 class Ship{
     **MMSI: Integer**
@@ -253,5 +263,7 @@ Client "1" -- "1..*" Shipment
 
 Truck "1" -- "*" TruckTrip
 TruckTrip "1" -- "2" PlaceLocation
+
+ContainerInCargoManifest "1" -- "1..*" AuditContainerInManifest
 
 @enduml

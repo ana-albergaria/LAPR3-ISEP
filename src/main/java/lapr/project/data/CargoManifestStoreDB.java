@@ -14,6 +14,42 @@ public class CargoManifestStoreDB{
 
     }
 
+    public String getAuditTrailOfContainer(int containerId, int cargoManifestId){
+        StringBuilder result = new StringBuilder();
+        result.append("Audit trail:\n");
+        int n = 0;
+        String query = "select * from auditcontainerinmanifest where container_id=? AND cargomanifest_id=? order by AUD_WHEN";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (PreparedStatement createQuery = connection.prepareStatement(query)){
+             createQuery.setInt(1, containerId);
+             createQuery.setInt(2, cargoManifestId);
+
+            ResultSet queryResult = createQuery.executeQuery();
+            while(queryResult.next()){
+                n++;
+                result.append(String.format("Register number %d\n", n));
+                result.append(String.format("Audit id: %d,",queryResult.getInt(1)));
+                result.append(String.format("User: %s,", queryResult.getNString(2)));
+                result.append(String.format("Date: %s,", queryResult.getDate(3)));
+                result.append(String.format("Operation performed: %s,", queryResult.getNString(4)));
+                result.append(String.format("Container id: %d,",queryResult.getInt(5)));
+                result.append(String.format("Cargo manifest id: %d,",queryResult.getInt(6)));
+                result.append(String.format("Temperature kept: %f\n", queryResult.getDouble(7)));
+            }
+        } catch (SQLException e) {
+            result.append("ERROR GETTING THE AUDIT TRAIL OF THE CONTAINER OF THE CARGO MANIFEST");
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(n == 0){
+            return "No registers were found";
+        }
+        return result.toString();
+    }
+
     /*public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
         int result = 0;
         Date date = new Date(Calendar.getInstance().getTime().getTime());
