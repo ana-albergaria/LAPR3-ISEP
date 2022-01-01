@@ -6,6 +6,7 @@ import lapr.project.domain.model.Company;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -45,13 +46,13 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
         saem de: 111    |   data: 18/01/2022    |   qtd:2   |   ficam: 0
      */
 
-    /*
+    @Disabled
     @Test
     void testOccupancyRatesWarehouseValidValues1(){
         //whid: 11111
         try {
             int warehouseID = 11111;
-            int expResult = 20; //valor esperado
+            int expResult = 10; //valor esperado
             int result = ctrl.getOccupancyRateByWarehouseID(warehouseID);
             Assertions.assertEquals(expResult, result);
         } catch (SQLException ex) {
@@ -59,6 +60,7 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
         }
     }
 
+    @Disabled
     @Test
     void testOccupancyRatesWarehouseValidValues2(){
         //whid: 22222
@@ -72,6 +74,7 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
         }
     }
 
+    @Disabled
     @Test
     void testOccupancyRatesNonExistentWarehouse(){
         //whid: 99999
@@ -85,32 +88,35 @@ public class CheckOccupancyRatesAndEstimationsWarehouseControllerTest {
         }
     }
 
+    @Disabled
     @Test
     void testEstimationValidValues1(){
         //whid: 11111
+        //truck trips em que sai: 11113 (CM: 19823 -> 2), 11112 (CM: 19825 -> 2), 14111 (CM: 19848 -> 2)
         try{
         int warehouseID = 11111;
         int expResult = 2; //valor esperado
-        int result = ctrl.getContainersOut30Days(warehouseID); //vou ter de ir buscar com um cursor os loadings da warehouse para um truck e somar o nr de contentores nos loadings
+        int result = ctrl.getContainersOut30Days(warehouseID);
+        //vou ter de ir buscar com um cursor os loadings da warehouse para
+            // um truck e somar o nr de contentores nos loadings
         Assertions.assertEquals(expResult, result);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
+    @Disabled
     @Test
-    void testEstimationNonExistentWarehouse(){
+    void testEstimationNonExistentWarehouse() {
         //whid: 99999
         try {
-        int warehouseID = 99999;
-        int expResult = -1; //valor esperado
-        int result = ctrl.getContainersOut30Days(warehouseID);
-        Assertions.assertEquals(expResult, result);
+            int warehouseID = 99999;
+            int expResult = -1; //valor esperado
+            int result = ctrl.getContainersOut30Days(warehouseID);
+            Assertions.assertEquals(expResult, result);
         } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
-    
-     */
 
 }

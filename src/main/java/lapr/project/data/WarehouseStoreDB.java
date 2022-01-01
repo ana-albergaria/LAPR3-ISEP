@@ -22,20 +22,24 @@ public class WarehouseStoreDB {
         Date finalDate = new Date(sum30.getTime().getTime());
         String createFunction = "create or replace function get_num_containers_out_warehouse(f_warehouse_id warehouse.warehouse_id%type,f_currentDate truckTrip.est_departure_date%type, f_finalDate truckTrip.est_departure_date%type) return integer\n" +
                 "is\n" +
-                "f_num_containers_out_warehouse integer;\n" +
-                "f_warehouse_location warehouse.location_id%type;\n" +
+                "f_comp_manifest cargoManifest.cargoManifest_id%type;\n" +
+                "f_num_containers_out_warehouse integer:=0;\n" +
+                "cursor desiredManifests\n" +
+                "is\n" +
+                "(select loading_cargo_id from trucktrip where departure_location=(select location_id from warehouse where warehouse_id=f_warehouse_id)\n" +
+                "AND est_departure_date > f_currentDate and est_departure_date <= f_finalDate);\n" +
                 "begin\n" +
-                "select location_id into f_warehouse_location from warehouse where warehouse_id=f_warehouse_id;\n" +
-                "select count(*) into f_num_containers_out_warehouse\n" +
-                "from containerInCargoManifest\n" +
-                "where cargomanifest_id = (select loading_cargo_id from trucktrip where departure_location = f_warehouse_location) AND\n" +
-                "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND\n" +
-                "(select est_departure_date from truckTrip where departure_location = f_warehouse_location) <= f_finalDate;\n" +
+                "open desiredManifests;\n" +
+                "loop\n" +
+                "fetch desiredManifests into f_comp_manifest;\n" +
+                "exit when desiredManifests%notfound;\n" +
+                "f_num_containers_out_warehouse:=f_num_containers_out_warehouse+get_num_containers_per_cargoManifest(f_comp_manifest);\n" +
+                "end loop;\n" +
                 "return (f_num_containers_out_warehouse);\n" +
                 "exception\n" +
                 "when no_data_found then\n" +
                 "return 0;\n" +
-                "end;\n";
+                "end;";
         String runFunction = "{? = call get_num_containers_out_warehouse(?,?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();

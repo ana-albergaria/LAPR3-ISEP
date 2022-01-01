@@ -1,15 +1,19 @@
 --GET NUM CONTAINERS OUT WAREHOUSE NEXT 30 DAYS
 create or replace function get_num_containers_out_warehouse(f_warehouse_id warehouse.warehouse_id%type,f_currentDate truckTrip.est_departure_date%type, f_finalDate truckTrip.est_departure_date%type) return integer
 is
+f_comp_manifest cargoManifest.cargoManifest_id%type;
 f_num_containers_out_warehouse integer:=0;
-f_warehouse_location warehouse.location_id%type;
+cursor desiredManifests
+is
+(select loading_cargo_id from trucktrip where departure_location=(select location_id from warehouse where warehouse_id=f_warehouse_id)
+AND est_departure_date > f_currentDate and est_departure_date <= f_finalDate);
 begin
-select location_id into f_warehouse_location from warehouse where warehouse_id=f_warehouse_id;
-select count(*) into f_num_containers_out_warehouse
-from containerInCargoManifest
-where cargomanifest_id = (select loading_cargo_id from trucktrip where departure_location = f_warehouse_location) AND
-        (select est_departure_date from truckTrip where departure_location = f_warehouse_location) > f_currentDate AND
-        (select est_departure_date from truckTrip where departure_location = f_warehouse_location) <= f_finalDate;
+open desiredManifests;
+loop
+fetch desiredManifests into f_comp_manifest;
+exit when desiredManifests%notfound;
+f_num_containers_out_warehouse:=f_num_containers_out_warehouse+get_num_containers_per_cargoManifest(f_comp_manifest);
+end loop;
 return (f_num_containers_out_warehouse);
 exception
 when no_data_found then
