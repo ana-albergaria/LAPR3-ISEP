@@ -34,6 +34,7 @@ public class CheckIfContainerExceedsShipCapacityController {
     /**
      * Try to create ship trip to see if the trigger is fired.
      * @param shipTripID ship trip id.
+     * @param routeID route id.
      * @param mmsi ship mmsi.
      * @param depLocation departure location.
      * @param arriLocation arrival location.
@@ -42,11 +43,11 @@ public class CheckIfContainerExceedsShipCapacityController {
      * @param estArriDate estimates arrival date.
      * @return -1 if the input information is wrong, otherwise it returns 1.
      */
-    public int tryToCreateShipTrip(int shipTripID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) throws SQLException {
+    public int tryToCreateShipTrip(int shipTripID,int routeID, int mmsi, int depLocation, int arriLocation, int loadCargID, java.sql.Date estDepDate, java.sql.Date estArriDate) throws SQLException {
         ShipTripStoreDB shipTripStoreDB = this.company.getShipTripStoreDB();
         shipTripStoreDB.triggerContainers();
         shipTripStoreDB.triggerShipAvailability();
-        int resultCreate = shipTripStoreDB.createShipTrip(shipTripID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate);
+        int resultCreate = shipTripStoreDB.createShipTrip(shipTripID, routeID, mmsi, depLocation, arriLocation, loadCargID, estDepDate, estArriDate);
         return shipTripStoreDB.checkIfShipTripExists(shipTripID);
     }
 

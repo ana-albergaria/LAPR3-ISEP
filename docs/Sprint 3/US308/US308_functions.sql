@@ -57,10 +57,9 @@ end;
 
 --CREATE SHIP TRIP
 create or replace function create_shipTrip
-(f_shiptrip_id shiptrip.shiptrip_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,
+(f_shiptrip_id shiptrip.shiptrip_id%type, f_route_id route.route_id%type, f_mmsi shiptrip.mmsi%type, f_departure_location shiptrip.departure_location%type,
 f_arrival_location shiptrip.arrival_location%type, f_loading_cargo_id shiptrip.loading_cargo_id%type,
-f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type,
-f_real_departure_date shiptrip.real_departure_date%type, f_real_arrival_date shiptrip.real_arrival_date%type) return integer
+f_est_departure_date shiptrip.est_departure_date%type, f_est_arrival_date shiptrip.est_arrival_date%type) return integer
 is
 f_check integer;
 f_check2 integer;
@@ -73,7 +72,7 @@ f_check2:=check_if_cargoManifest_exists(f_loading_cargo_id);
 if f_check2=0 then
 return -1;
 end if;
-insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, NULL, f_est_departure_date, f_est_arrival_date, f_real_departure_date, f_real_arrival_date);
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (f_shiptrip_id, f_route_id, f_mmsi, f_departure_location, f_arrival_location, f_loading_cargo_id, NULL, f_est_departure_date, f_est_arrival_date, NULL, NULL);
 return 1;
 exception
 when no_data_found then

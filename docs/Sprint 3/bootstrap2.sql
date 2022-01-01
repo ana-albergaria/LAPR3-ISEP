@@ -15426,6 +15426,8 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (8364967, 82847, null);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (1736584, 82847, null);
 
+insert into route(route_id) values(1020);
+
 --END OF INSERTS FOR US308.
 
 --INSERTS FOR US306
