@@ -12,6 +12,34 @@ import java.util.logging.Logger;
 
 public class PortStoreDB implements Persistable {
 
+    /**
+     * Get the port max capacity by portID.
+     * @param portID port id.
+     * @return the port max capacity.
+     */
+    public int getPortMaxCapacity(int portID) {
+        throw new IllegalArgumentException("to develop");
+    }
+
+    /**
+     * Get the port occupancy in a day by portID and date.
+     * @param portID port id.
+     * @param date date.
+     * @return the port occupancy in a day.
+     */
+    public int getPortOccupancyInDay(int portID, Date date) {
+        throw new IllegalArgumentException("to develop");
+    }
+
+    /**
+     * Check if port exists by portID.
+     * @param portID port id.
+     * @return 1 if the port exists, otherwise returns 0.
+     */
+    public int checkIfPortExists(int portID) {
+        throw new IllegalArgumentException("to develop");
+    }
+
     public List<Port> getExistentPorts(DatabaseConnection databaseConnection){
         Connection connection = databaseConnection.getConnection();
         CountryStoreDb countryStoreDb = new CountryStoreDb();
@@ -367,4 +395,5 @@ public class PortStoreDB implements Persistable {
 
         return returnValue;
     }
+
 }

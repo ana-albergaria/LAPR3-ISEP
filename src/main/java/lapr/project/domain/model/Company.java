@@ -54,6 +54,11 @@ public class Company {
     private final TruckTripStoreDB truckTripStoreDB;
 
     /**
+     * The Port Store Data Base.
+     */
+    private final PortStoreDB portStoreDB;
+
+    /**
      * The Cargo Manifest Store Data Base.
      */
     private final CargoManifestStoreDB cargoManifestStoreDB;
@@ -78,6 +83,7 @@ public class Company {
         this.cargoManifestStoreDB=new CargoManifestStoreDB();
         this.warehouseStoreDB=new WarehouseStoreDB();
         this.routeStoreDB = new RouteStoreDB();
+        this.portStoreDB = new PortStoreDB();
         this.countryStore = new CountryStore();
         this.freightNetwork = new FreightNetwork();
     }
@@ -133,6 +139,15 @@ public class Company {
      */
     public TruckTripStoreDB getTruckTripStoreDB(){
         return truckTripStoreDB;
+    }
+
+    /**
+     * Returns the Port Store DataBase.
+     *
+     * @return the Port Store DataBase.
+     */
+    public PortStoreDB getPortStoreDB(){
+        return portStoreDB;
     }
 
     public ShipStoreDB getShipStoreDB() {
