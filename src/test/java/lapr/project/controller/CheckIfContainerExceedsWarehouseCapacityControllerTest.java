@@ -60,9 +60,10 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int expResult = 1; //valor esperado: 1 -> tem espaço
         Assertions.assertEquals(expResult, result);
     }
+
     @Disabled
     @Test
-    void testcheckIfCargoManifestExceedsWarehouseCapacityValidValuesNotEnoughSpace() throws SQLException {
+    void testcheckIfCargoManifestExceedsWarehouseCapacityValidValuesNotEnoughSpace() {
         //2+2=4 -> nao tem espaço
         ctrl.deleteTruckTrip(14112);
         int truckTripID = 14112;
@@ -74,10 +75,10 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int unloadCargID =19852; //sem espaço
         Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
         Date estArriDate = new Date(2022,12,1);
-        int result = ctrl.tryToCreateTruckTrip(truckTripID,routeID,truckID,depLocation,arriLocation,loadCargID,unloadCargID,estDepDate,estArriDate);
-        int expResult = 0; //valor esperado: 0 -> não tem espaço, logo ship trip nao é criada
-        Assertions.assertEquals(expResult, result);
+        Exception thrown = assertThrows(Exception.class, () -> ctrl.tryToCreateTruckTrip(truckTripID,routeID,truckID,depLocation,arriLocation,loadCargID,unloadCargID,estDepDate,estArriDate));
+        assertEquals("ORA-20030 - Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.", thrown.getMessage());
     }
+
     @Disabled
     @Test
     void testcheckIfCargoManifestExceedsWarehouseCapacityInvalidValueCargoManifestID() throws SQLException {
@@ -95,6 +96,7 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
     }
+
     @Disabled
     @Test
     void testcheckIfCargoManifestExceedsWarehouseCapacityInvalidValueTruckID() throws SQLException {

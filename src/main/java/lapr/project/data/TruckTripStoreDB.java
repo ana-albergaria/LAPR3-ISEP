@@ -38,7 +38,7 @@ public class TruckTripStoreDB {
                 "select maxCapacity into f_containers_max from Warehouse where warehouse_id=f_warehouse_id;\n" +
                 "f_containers_after:=f_containers_before+get_num_containers_per_cargomanifest(f_cargomanifest_id);\n" +
                 "if f_containers_after>f_containers_max then\n" +
-                "raise_application_error(-20001,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');\n" +
+                "raise_application_error(-20030,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');\n" +
                 "end if;\n" +
                 "end;";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();

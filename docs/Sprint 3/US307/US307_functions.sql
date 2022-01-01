@@ -21,7 +21,7 @@ f_containers_before:=get_current_containers_warehouse(f_warehouse_id,f_estArrDat
 select maxCapacity into f_containers_max from Warehouse where warehouse_id=f_warehouse_id;
 f_containers_after:=f_containers_before+get_num_containers_per_cargomanifest(f_cargomanifest_id);
 if f_containers_after>f_containers_max then
-raise_application_error(-20001,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');
+raise_application_error(-20030,'Currently, the destiny warehouse doesnt have enough capacity for the containers in the unloading cargo manifest.');
 end if;
 end;
 
