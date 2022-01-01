@@ -72,13 +72,13 @@ n/a
 
 # 4. Tests
 
-### ... class test:
+### CheckIfContainerExceedsWarehouseCapacityController class test:
 
 
-**Test 1:** Test to check if ...
+**Test 1:** Test to check that it's possible to create a truck trip when the unloading cargo manifest doesn't exceed the warehouse max capacity.
 
-**Test 2:** Test to check if ...
+**Test 2:** Test to check that it isn't possible to create a truck trip when the unloading cargo manifest exceeds the warehouse max capacity.
 
-**Test 3:** Test to check if ...
+**Test 3:** Test to check that it's possible to create a truck trip when the unloading cargo manifest doesn't exist.
 
-**Test 4:** Test to check if ...
+**Test 4:** Test to check that it's possible to create a truck trip when the truck doesn't exist.
