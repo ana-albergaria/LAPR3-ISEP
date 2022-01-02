@@ -61,6 +61,7 @@ create table placeLocation(
 create table port(
 	port_id integer constraint pk_port PRIMARY KEY,
 	name varchar(40) NOT NULL,
+    maxCapacity varchar(10),
     location_id integer not null,
 	constraint fk_port_placeLocation FOREIGN KEY (location_id) references placeLocation(location_id)
 );
