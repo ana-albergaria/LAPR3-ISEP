@@ -65,6 +65,9 @@ n/a
 
 # 4. Tests
 
-### ShipOccupancyRatesController class test:
+### AuditTrailController
 
+**Test 1**: Check if the audit trail is gotten correclty.
+
+**Test 2**: Check if there is no record for a given container of a cargo manifest it returns the correct message.
 
