@@ -44,30 +44,32 @@ public class CreateFreightNetworkController {
     public boolean createFreightNetworkFromDb(){
         this.countryStore = this.company.getCountryStore();
         this.portStore = this.company.getPortStore();
-        importDataFromDatabase();
+        importDataFromDatabase(); //o(n
 
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
-        List<Country> countries = countryStore.getCountriesList();
-        List<Port> ports = portStore.getPortsList();
+        List<Country> countries = countryStore.getCountriesList(); //1
+        List<Port> ports = portStore.getPortsList();//1
 
         for(Country country : countries){
-            freightNetwork.addLocation(country.getCapital());
+            freightNetwork.addLocation(country.getCapital()); //v2 * n
         }
         for (Port port : ports){
-            freightNetwork.addLocation(port);
+            freightNetwork.addLocation(port);//v2 * n
         }
 
-        for(Country country : countries){
-            Map<Country, Double> borders = countryStore.getBordersDistance(country);
+        for(Country country : countries){//n
+            Map<Country, Double> borders = countryStore.getBordersDistance(country); //n2
             for (Country toCountry : borders.keySet()){
-                freightNetwork.addDistance(country.getCapital(), toCountry.getCapital(), borders.get(toCountry));
+                freightNetwork.addDistance(country.getCapital(),
+                        toCountry.getCapital(), borders.get(toCountry));//n2
             }
 
             List<Port> countryPorts = portStore.getPortsByCountry(country.getName());
             if(countryPorts.size() > 0) {
                 Port closestPort = countryStore.getClosestPortFromCapital(country, countryPorts);
 
-                double capitalPortDistance = DistanceUtils.distanceBetweenInKm(country.getCapital().getLatitude(), closestPort.getLatitude(),
+                double capitalPortDistance = DistanceUtils.distanceBetweenInKm(
+                        country.getCapital().getLatitude(), closestPort.getLatitude(),
                         country.getCapital().getLongitude(), closestPort.getLongitude());
 
                 freightNetwork.addDistance(country.getCapital(), closestPort, capitalPortDistance);
@@ -78,7 +80,8 @@ public class CreateFreightNetworkController {
             if(port.getToPortsDistance() != null) {
                 for (int portId : port.getToPortsDistance().keySet()) {
                     Port toPort = portStore.getPortById(portId);
-                    freightNetwork.addDistance(port, toPort, port.getToPortsDistance().get(portId));
+                    freightNetwork.addDistance(port, toPort,
+                            port.getToPortsDistance().get(portId));
                 }
             }
         }

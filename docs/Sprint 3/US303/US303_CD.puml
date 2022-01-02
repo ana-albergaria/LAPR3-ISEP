@@ -48,7 +48,6 @@ interface Graph <<interface>> {}
 
 ClosenessPlacesController ..> Company
 Company "1" -- "1" FreightNetwork : knows >
-ColorMapController ..> FreightNetwork
 Location <|-- Port
 Location <|-- Capital
 FreightNetwork "*" -- "1..*" Location : of >
@@ -56,10 +55,5 @@ Country "1" -- "1" Capital : has >
 FreightNetwork ..> MatrixGraph
 CommonGraph <|- MatrixGraph
 CommonGraph --> Graph
-ColorMapController ..> Location
-ColorMapController ..> Capital
-ColorMapController ..> Port
-ColorMapController ..> MatrixGraph
-
 
 @enduml
