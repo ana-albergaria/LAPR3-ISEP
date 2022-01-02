@@ -25,17 +25,18 @@ public class CargoManifestStoreDB{
              createQuery.setInt(1, containerId);
              createQuery.setInt(2, cargoManifestId);
 
-            ResultSet queryResult = createQuery.executeQuery();
-            while(queryResult.next()){
-                n++;
-                result.append(String.format("Register number %d\n", n));
-                result.append(String.format("Audit id: %d,",queryResult.getInt(1)));
-                result.append(String.format("User: %s,", queryResult.getNString(2)));
-                result.append(String.format("Date: %s,", queryResult.getDate(3)));
-                result.append(String.format("Operation performed: %s,", queryResult.getNString(4)));
-                result.append(String.format("Container id: %d,",queryResult.getInt(5)));
-                result.append(String.format("Cargo manifest id: %d,",queryResult.getInt(6)));
-                result.append(String.format("Temperature kept: %f\n", queryResult.getDouble(7)));
+            try(ResultSet queryResult = createQuery.executeQuery()) {
+                while (queryResult.next()) {
+                    n++;
+                    result.append(String.format("Register number %d\n", n));
+                    result.append(String.format("Audit id: %d,", queryResult.getInt(1)));
+                    result.append(String.format("User: %s,", queryResult.getNString(2)));
+                    result.append(String.format("Date: %s,", queryResult.getDate(3)));
+                    result.append(String.format("Operation performed: %s,", queryResult.getNString(4)));
+                    result.append(String.format("Container id: %d,", queryResult.getInt(5)));
+                    result.append(String.format("Cargo manifest id: %d,", queryResult.getInt(6)));
+                    result.append(String.format("Temperature kept: %f\n", queryResult.getDouble(7)));
+                }
             }
         } catch (SQLException e) {
             result.append("ERROR GETTING THE AUDIT TRAIL OF THE CONTAINER OF THE CARGO MANIFEST");
