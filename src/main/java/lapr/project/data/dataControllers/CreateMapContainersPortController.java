@@ -84,6 +84,9 @@ public class CreateMapContainersPortController {
      * @throws SQLException sql exception.
      */
     public int[][] getOccupancyMap(int portID, int month, int year) throws SQLException {
+        if (month<1 || month>12){
+            return null;
+        }
         if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){
             return getMap31dMonth(portID, month, year);
         } else if (month==4 || month==6 || month==9 || month==11){
