@@ -72,13 +72,15 @@ n/a
 
 # 4. Tests
 
-### ShipOccupancyRatesController class test:
+### CreateMapContainersPortController class test:
 
 
-**Test 1:** ...
+**Test 1:** Test that the given map is correctly made.
 
-**Test 2:** ...
+**Test 2:** Test that the given map is correctly made.
 
-**Test 3:** ...
+**Test 3:** Test that the map is not made for an invalid port id.
 
-**Test 4:** ...
+**Test 4:** Test that the map is not made for an invalid date (month<1).
+
+**Test 5:** Test that the map is not made for an invalid date (month>12).
