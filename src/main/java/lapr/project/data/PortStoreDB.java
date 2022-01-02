@@ -19,8 +19,38 @@ public class PortStoreDB implements Persistable {
      * @return the port max capacity.
      */
     public int getPortMaxCapacity(int portID) {
+        int result = 1;
+        String createFunction = "create or replace function get_port_max_capacity(f_port_id port.port_id%type) return integer\n" +
+                "is\n" +
+                "f_max_capacity integer;\n" +
+                "begin\n" +
+                "select maxCapacity into f_max_capacity\n" +
+                "from port\n" +
+                "where port_id = f_port_id;\n" +
+                "return (f_max_capacity);\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;\n";
+        String runFunction = "{? = call get_port_max_capacity(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(portID));
 
-        throw new IllegalArgumentException("to develop");
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     /**
@@ -30,8 +60,27 @@ public class PortStoreDB implements Persistable {
      * @return the port occupancy in a day.
      */
     public int getPortOccupancyInDay(int portID, Date date) {
+        int result = 1;
+        String createFunction = "";
+        String runFunction = "{? = call (?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(portID));
 
-        throw new IllegalArgumentException("to develop");
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     /**

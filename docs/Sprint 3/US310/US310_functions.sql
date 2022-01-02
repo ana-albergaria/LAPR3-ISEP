@@ -4,6 +4,18 @@
 
 --GET PORT MAX CAPACITY
 
+create or replace function get_port_max_capacity(f_port_id port.port_id%type) return integer
+is
+f_max_capacity integer;
+begin
+select maxCapacity into f_max_capacity
+from port
+where port_id = f_port_id;
+return (f_max_capacity);
+exception
+when no_data_found then
+return 0;
+end;
 
 
 --CHECK IF PORT EXISTS
