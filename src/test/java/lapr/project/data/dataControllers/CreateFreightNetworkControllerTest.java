@@ -1,5 +1,6 @@
-package lapr.project.controller;
+package lapr.project.data.dataControllers;
 
+import lapr.project.controller.App;
 import lapr.project.data.dataControllers.CreateFreightNetworkController;
 import lapr.project.domain.model.*;
 import lapr.project.genericDataStructures.graphStructure.Edge;
