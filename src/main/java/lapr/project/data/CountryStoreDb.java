@@ -34,9 +34,6 @@ public class CountryStoreDb {
                     .log(Level.SEVERE, null, ex);
             databaseConnection.registerError(ex);
         }
-        for (Country country : countries){
-            System.out.println(country);
-        }
         return countries;
     }
 

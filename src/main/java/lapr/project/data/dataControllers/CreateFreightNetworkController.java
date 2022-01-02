@@ -75,9 +75,11 @@ public class CreateFreightNetworkController {
         }
 
         for(Port port : ports){
-            for(int portId : port.getToPortsDistance().keySet()){
-                Port toPort = portStore.getPortById(portId);
-                freightNetwork.addDistance(port, toPort, port.getToPortsDistance().get(portId));
+            if(port.getToPortsDistance() != null) {
+                for (int portId : port.getToPortsDistance().keySet()) {
+                    Port toPort = portStore.getPortById(portId);
+                    freightNetwork.addDistance(port, toPort, port.getToPortsDistance().get(portId));
+                }
             }
         }
 

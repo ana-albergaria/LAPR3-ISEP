@@ -135,7 +135,18 @@ public class FreightNetwork {
         for (Location location : dists.vertices()){
             sum = 0;
             Collection<Edge<Location, Double>> vertEdges = dists.incomingEdges(location); // can be either incoming or outcoming since its not directed
-
+            if(location.getCountry().equalsIgnoreCase("ireland")) {
+                System.out.println(location);
+                System.out.println(places.outgoingEdges(location).size());
+                System.out.println(dists.outgoingEdges(location).size());
+                System.out.println(places.outgoingEdges(location));
+            }
+            if(location.getCountry().equalsIgnoreCase("united kingdom")) {
+                System.out.println(location);
+                System.out.println(places.outgoingEdges(location).size());
+                System.out.println(dists.outgoingEdges(location).size());
+                System.out.println(places.outgoingEdges(location));
+            }
             for(Edge<Location,Double> edge : vertEdges){
                 sum += edge.getWeight();
             }
