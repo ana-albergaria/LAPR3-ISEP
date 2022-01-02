@@ -81,6 +81,9 @@ class FreightNetworkTest {
         map.addLocation(port3);
         map.addLocation(port4);
 
+        map.addDistance(h, port1, 25.0);
+        map.addDistance(j, port2, 23.0);
+
         map.addDistance(h, g, 1.0);
         map.addDistance(h, k, 1.0);
         map.addDistance(h, j, 4.0);

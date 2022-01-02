@@ -36,8 +36,8 @@ public class FreightNetwork {
 
         for (Location location : freightNetwork.vertices()) {
             if(location instanceof Capital) {
-                int numBorders = freightNetwork.adjVertices(location).size();
-                unorderedCapitals.put((Capital) location, numBorders);
+                int numBorders = getNumBorders((Capital) location);
+                unorderedCapitals.put((Capital) location, numBorders); //O(1)
             }
         }
 
@@ -47,9 +47,18 @@ public class FreightNetwork {
         return orderedCapitals;
     }
 
+    public int getNumBorders(Capital capital) {
+        int cont = 0;
+        for (Location location : freightNetwork.adjVertices(capital)) {
+            if(location instanceof Capital)
+                cont++;
+        }
+        return cont;
+    }
+
     public Map<Capital, Integer> fillCapitalsToColor(Map<Capital, Integer> capitalsToColor) {
 
-        List<Map.Entry<Capital,Integer>> orderedCapitals = getOrderedCapitalsList();
+        List<Map.Entry<Capital,Integer>> orderedCapitals = getOrderedCapitalsList(); //O(V x E)
 
         for (Map.Entry<Capital, Integer> entry : orderedCapitals) {
             Capital capital = entry.getKey();
