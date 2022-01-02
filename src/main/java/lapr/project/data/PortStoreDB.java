@@ -61,8 +61,62 @@ public class PortStoreDB implements Persistable {
      */
     public int getPortOccupancyInDay(int portID, Date date) {
         int result = 1;
-        String createFunction = "";
-        String runFunction = "{? = call (?)}";
+        String createFunction = "create or replace function get_current_num_containers_port(f_port_id port.port_id%type,\n" +
+                "f_date shipTrip.est_departure_date%type) return integer\n" +
+                "is\n" +
+                "f_current_num integer:=0;\n" +
+                "f_comp_cargo_id cargoManifest.cargoManifest_id%type;\n" +
+                "cursor cursorShipTripLoading\n" +
+                "is\n" +
+                "(select loading_cargo_id\n" +
+                "from shipTrip\n" +
+                "where departure_location=f_port_id AND est_departure_date < f_date);\n" +
+                "cursor cursorShipTripUnloading\n" +
+                "is\n" +
+                "(select unloading_cargo_id\n" +
+                "from shipTrip\n" +
+                "where arrival_location=f_port_id AND est_arrival_date < f_date);\n" +
+                "cursor cursorTruckTripLoading\n" +
+                "is\n" +
+                "(select loading_cargo_id\n" +
+                "from truckTrip\n" +
+                "where departure_location=(select location_id from port where port_id=f_port_id) AND est_departure_date < f_date);\n" +
+                "cursor cursorTruckTripUnloading\n" +
+                "is\n" +
+                "(select unloading_cargo_id\n" +
+                "from truckTrip\n" +
+                "where arrival_location=(select location_id from port where port_id=f_port_id) AND est_arrival_date < f_date);\n" +
+                "begin\n" +
+                "open cursorShipTripUnloading;\n" +
+                "loop\n" +
+                "fetch cursorShipTripUnloading into f_comp_cargo_id;\n" +
+                "exit when cursorShipTripUnloading%notfound;\n" +
+                "f_current_num:=f_current_num+get_num_containers_per_cargomanifest(f_comp_cargo_id);\n" +
+                "end loop;\n" +
+                "open cursorTruckTripUnloading;\n" +
+                "loop\n" +
+                "fetch cursorTruckTripUnloading into f_comp_cargo_id;\n" +
+                "exit when cursorTruckTripUnloading%notfound;\n" +
+                "f_current_num:=f_current_num+get_num_containers_per_cargomanifest(f_comp_cargo_id);\n" +
+                "end loop;\n" +
+                "open cursorShipTripLoading;\n" +
+                "loop\n" +
+                "fetch cursorShipTripLoading into f_comp_cargo_id;\n" +
+                "exit when cursorShipTripLoading%notfound;\n" +
+                "f_current_num:=f_current_num-get_num_containers_per_cargomanifest(f_comp_cargo_id);\n" +
+                "end loop;\n" +
+                "open cursorTruckTripLoading;\n" +
+                "loop\n" +
+                "fetch cursorTruckTripLoading into f_comp_cargo_id;\n" +
+                "exit when cursorTruckTripLoading%notfound;\n" +
+                "f_current_num:=f_current_num-get_num_containers_per_cargomanifest(f_comp_cargo_id);\n" +
+                "end loop;\n" +
+                "return f_current_num;\n" +
+                "exception\n" +
+                "when no_data_found then\n" +
+                "return 0;\n" +
+                "end;";
+        String runFunction = "{? = call get_current_num_containers_port(?,?)}";
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Connection connection = databaseConnection.getConnection();
         try (Statement createFunctionStat = connection.createStatement();
@@ -70,6 +124,7 @@ public class PortStoreDB implements Persistable {
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(portID));
+            callableStatement.setString(3, String.valueOf(date));
 
             callableStatement.executeUpdate();
 
