@@ -2207,3 +2207,300 @@ n/a
 **Test 4:** Test that the map is not made for an invalid date (month>12).
 
 **Test 5:** Test that the map is not made for months that have not ended yet.
+
+# US 302 - Color Map
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As a Traffic manager I wish to colour the map using as few colours as possible.
+
+### 1.2. Acceptance Criteria
+
+* Neighbouring countries must not share the same colour
+
+### 1.4. Found out Dependencies
+
+* US301: Import data from countries, ports, borders and seadists files from the database to build a freight network.
+
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * n/a
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* a Map containing each Capital with its respective color
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US302_SSD](./docs/Sprint 3/US302/US302_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US302_DM](./docs/Sprint 3/US302/US302_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US302_SD](./docs/Sprint 3/US302/US302_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US302_CD](./docs/Sprint 3/US302/US302_CD.svg)
+
+
+
+# 4. Tests
+
+### FreightNetwork class
+
+**Test 1:** Test to ensure getOrderedCapitalsList() is functioning correctly.
+
+- an expected list with all the capitals and its colors
+- the list through calling the method
+- checks whether the lists are equal
+
+
+**Test 2:** Test to ensure getCapitalsToColor() is functioning correctly.
+
+- an expected map with all the capitals and colors set to null
+- the map through calling the method
+- checks whether the maps are equal
+
+
+**Test 3:** Test to ensure colorMap() is functioning properly
+
+Situation 1:
+- an expected map with all the capitals and colors
+- the map through calling the method
+- checks whether the maps are equal
+
+Situation 2:
+- the expected minimum colors to be used
+- obtain the minimum colors actually used
+- checks whether the number of colors are equal
+
+Situation 3: (**for each capital**)
+- through the map containing the capitals and colors, obtain the **submap** containing **only** the neighbouring countries of the capital to be tested
+- obtain the color of the capital to be tested
+- check if the subMap does **not** contain the color of the capital to be tested, meaning **none of the neighbouring countries of the country being tested have the same color of it**
+
+
+### ColorMapController class
+
+**Test 1:** Test to ensure colorMap() is functioning correctly.
+
+- an expected map with all the capitals and colors set to null
+- the map through calling the method
+- checks whether the maps are equal
+
+
+
+
+# US 305 - Route of Container
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Client, I want to know the route of a specific container I am leasing.
+
+### 1.2. Acceptance Criteria
+
+* Users provide their registration code, the container identifier and get its
+  path, from source to current location indicating time of arrival and
+  departure at each location and mean of transport (ship or truck) between
+  each pair of locations.
+* When the provided identifier is not valid or, being valid, is not leased by
+  the client, a warning is returned.
+
+### 1.4. Found out Dependencies
+
+n/a
+
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * registration code
+  * container id
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* route of the container until its current location
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US305_SSD](./docs/Sprint 3/US305/US305_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US305_DM](./docs/Sprint 3/US305/US305_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US305_SD](./docs/Sprint 3/US305/US305_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US305_CD](./docs/Sprint 3/US305/US305_CD.svg)
+
+
+
+# 4. Tests
+
+Tests to ensure getRoudeID() is functioning correctly.
+
+**Test 1:** Check if it raises exception ex_invalid_container_id correctly
+
+**Test 2:** Check if it raises exception ex_not_leased_client
+
+**Test 3:** Check if it returns the route it correctly when there isn't any invalid data
+
+Tests to ensure get_path_function() is functioning correctly.
+
+**Test 1:** Test for: the container is at the a location
+
+**Test 2:** Test for: the container is in the middle of the ocean
+
+**Test 3:** Test for: the container is in a truck
+
+**Test 4:** Test for: the container has arrived its destination
+
+
+# US 312 - Get Container Situation
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Client, I want to know the current situation of a specific container being used to transport my goods.
+
+### 1.2. Acceptance Criteria
+
+* Clients provide the container identifier and get the type and the concrete
+  instance of its current location, e.g., PORT, Leixões or SHIP, WeFly.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Container ID
+  * Registration Code
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* type and concrete instance of container location
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US312-SSD](./docs/Sprint 3/US312/US312_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US312-MD](./docs/Sprint 3/US312/US312_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US312-SD](./docs/Sprint 3/US312/US312_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US312-CD](./docs/Sprint 3/US312/US312_CD.svg)
+
+# 4. Tests
+
+Tests to ensure getRoudeID() is functioning correctly.
+
+**Test 1:** Check if it raises exception ex_invalid_container_id correctly
+
+**Test 2:** Check if it raises exception ex_not_leased_client
+
+**Test 3:** Check if it returns the route it correctly when there isn't any invalid data
+
+Tests to ensure get_location() is functioning correctly.
+
+**Test 1:** Test for: the container is at the a location
+
+**Test 2:** Test for: the container is in the middle of the ocean
+
+**Test 3:** Test for: the container is in a truck
+
+**Test 4:** Test for: the container has arrived its destination
+
+
+
+
+
+
+
