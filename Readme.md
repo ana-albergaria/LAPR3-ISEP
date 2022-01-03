@@ -2208,6 +2208,98 @@ n/a
 
 **Test 5:** Test that the map is not made for months that have not ended yet.
 
+# US 301 - As a Traffic manager, I which to import data from countries, ports, borders and seadists files from the database to build a freight network.
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As a Traffic manager, I which to import data from countries, ports, borders and seadists files from the database to build a freight network.
+
+### 1.2. Acceptance Criteria
+
+**AC1**: The capital of a country has a direct connection with the capitals of the
+countries with which it borders.
+
+**AC1.1**: The ports of a country, besides connecting with all the ports of the same country, the port closest to the
+capital of the country connects with it;
+
+**AC1.2**: Each port of a country connects with the n closest ports of any other country
+
+**AC2**:The calculation of distances in Kms between capitals, and ports and
+capitals must be done using the GPS coordinates.
+
+**AC3**: The graph must be implemented using the adjacency matrix
+representation and ensuring the indistinct manipulation of capitals and
+seaports.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * n/a
+* Selected data:
+  * n/a
+
+**Output Data:**
+* succes or failure message
+### 1.6. System Sequence Diagram (SSD)
+
+![US204-SSD](US301_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US204-MD](US301_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US204-SD](US301_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US204-CD](US301_CD.svg)
+
+# 4. Tests
+
+For the tests, it is needed to instanciate a Datebaseconnection object and Callable Statement to connect with Data Base.
+
+### CountryStore class
+
+**Test 1:** Ensure Capitals and borders are retrieved correctly.
+
+**Test 2:** Ensure closest port from capital is correct.
+
+### PortStore class
+
+**Test 3:** Ensure Ports and seadists are retrieved correctly.
+
+**Test 4:** Ensure Ports of a given country are retrieved correctly.
+
+### DistanceUtils
+
+**Test 5:** Check if distances are calculated correctlly.
+
+### Controller
+
+**Test 6:** Check if the edges are being estabilished correctly.
+
 # US 302 - Color Map
 
 ## 1. Requirements Engineering
@@ -2320,6 +2412,166 @@ Situation 3: (**for each capital**)
 - checks whether the maps are equal
 
 
+# US 303 - Get closeness locals by continent
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As a Traffic manager I wish to know which places (cities or ports) are closest to all other places (closeness places).
+
+### 1.2. Acceptance Criteria
+
+* Return the n closeness locals by continent
+* The measure of proximity is calculated as the average of the shortest path
+  length from the local to all other locals in the network
+
+**From the client clarifications:**
+
+>Q1: In US303 we should return the n closest locals by continent, but should we calculate the closest locals by comparing them with locals from all over the world or just from their respective continent?
+>
+>A2: Should only consider the locations of the continent.
+>
+> [Link](https://moodle.isep.ipp.pt/mod/forum/discuss.php?d=12650)
+
+### 1.4. Found out Dependencies
+
+* US301: Import data from countries, ports, borders and seadists files from the database to build a freight network.
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * n/a
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* An Map<String, Map<String, Double>> with each continent closeness locals and it's indices.
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US302_SSD](US303_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US302_DM](US303_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US302_SD](US303_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US302_CD](US303_CD.svg)
+
+# 4. Tests
+
+### FreightNetwork class
+
+**Test 1** Check if existent continents of a locations freight network are obtained correctly.
+
+**Test 2** Check if subgraph of a continent is obtained correctly.
+
+**Test 3** Check if values of closeness are correct.
+
+**Test 4** Check if closeness sort order is correct by continent
+
+
+# RELATORY
+
+# US 304 - As Ship Captain, I want to have access to audit trails for a given container of a given cargo manifest
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Ship Captain, I want to have access to audit trails for a given container of a given cargo manifest
+### 1.2. Acceptance Criteria
+
+* There is a table for recording audit trails, i.e., record all write-operations
+  involving containers of a cargo manifest.
+* Proper mechanisms for recording write-operations involving containers
+  of a cargo manifest are implemented (INSERT, UPDATE, DELETE).
+* A simple and effective audit trail consultation process is implemented.
+
+### 1.3. Found out Dependencies
+
+Dependencies with the existence of cargo manifests and a given container loadaded in the database.
+
+### 1.4 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * Cargo manifest id
+  * Container id
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+
+* The audit trail for a given container of a given cargo manifest.
+
+### 1.5. System Sequence Diagram (SSD)
+
+![US_308_SSD](US_304_SSD.svg)
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US_308_DM](US_304_DM.svg)
+
+
+### 2.2. Other Remarks
+
+n/a
+
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US_308_SD](US_304_SD.svg)
+
+
+## 3.2. Class Diagram (CD)
+
+![US_308_CD](US_304_CD.svg)
+
+
+# 4. Tests
+
+### AuditTrailController
+
+**Test 1**: Check if the audit trail is gotten correclty.
+
+**Test 2**: Check if there is no record for a given container of a cargo manifest it returns the correct message.
+
 
 
 # US 305 - Route of Container
@@ -2414,6 +2666,75 @@ Tests to ensure get_path_function() is functioning correctly.
 **Test 3:** Test for: the container is in a truck
 
 **Test 4:** Test for: the container has arrived its destination
+
+# US 309 -As Traffic manager, I do not allow a cargo manifest for a particular trip to be registered in the system on a date when the ship is already in transit.
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As Traffic manager, I do not allow a cargo manifest for a particular trip to be registered in the system on a date when the ship is already in transit.
+
+### 1.2. Acceptance Criteria
+
+* The ship is properly identified.
+* Ship’s availability is properly computed.
+* A warning or an exception is triggered when required.
+
+### 1.4. Found out Dependencies
+
+n/a
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+  * the ship
+  * the cargo manifest
+
+* Selected data:
+  * n/a
+
+
+**Output Data:**
+n/a
+
+### 1.6. System Sequence Diagram (SSD)
+
+![US302_SSD](US309_SSD.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+n/a
+
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![US309_DM](US309_DM.svg)
+
+### 2.2. Other Remarks
+
+n/a
+
+## 3. Design - User Story Realization
+
+## 3.1. Sequence Diagram (SD)
+
+![US302_SD](US309_SD.svg)
+
+## 3.2. Class Diagram (CD)
+
+![US302_CD](US309_CD.svg)
+
+# 4. Tests
+
+### CheckIfContainerExceedsShipCapacityController
+
+**Test 1**: Check if the trigger exception is activated when trying to insert a cargo manifest for an occupied ship.
 
 
 # US 312 - Get Container Situation
