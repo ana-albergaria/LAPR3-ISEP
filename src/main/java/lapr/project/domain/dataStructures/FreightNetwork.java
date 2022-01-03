@@ -2,15 +2,12 @@ package lapr.project.domain.dataStructures;
 
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
-import lapr.project.domain.model.Port;
 import lapr.project.genericDataStructures.graphStructure.Algorithms;
 import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
 import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 
 import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.DoubleBinaryOperator;
 
 public class FreightNetwork {
     private final Graph<Location, Double> freightNetwork;

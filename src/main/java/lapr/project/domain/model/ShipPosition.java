@@ -74,7 +74,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
         checkTranscieverClass(transcieverClass);
         checkMMSI(mmsi);
         this.MMSI = mmsi;
-        this.baseDateTime=baseDateTime;
+        this.baseDateTime=new Date(baseDateTime.getTime());
         this.lat=lat;
         this.lon=lon;
         this.sog=sog;
@@ -84,7 +84,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
     }
 
     public ShipPosition(Date newDate) {
-        this.baseDateTime=newDate;
+        this.baseDateTime=new Date(newDate.getTime());
     }
 
     /**
@@ -92,7 +92,7 @@ public class ShipPosition implements Comparable<ShipPosition> {
      * @return the ShipPosition's base date time.
      */
     public Date getBaseDateTime() {
-        return baseDateTime;
+        return new Date(baseDateTime.getTime());
     }
 
     /**

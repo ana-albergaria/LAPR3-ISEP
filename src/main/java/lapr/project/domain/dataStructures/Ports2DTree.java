@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ports2DTree extends KDTree<Port> {
-    private List<Node<Port>> listOfPortNodes = new ArrayList<>();
+    private final List<Node<Port>> listOfPortNodes = new ArrayList<>();
 
     public Ports2DTree() {
         root = null;
