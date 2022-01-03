@@ -1061,6 +1061,7 @@ declare
 
      -- test select after update
 /
+    --US304
     update containerincargomanifest set temperature_kept = 2 where container_id=8950208 and CARGOMANIFEST_ID=11031;
     select * from auditContainerInManifest where container_id=8950208 and CARGOMANIFEST_ID=11031;
 
@@ -1127,3 +1128,4 @@ begin
 end;
 /
 
+--For User Stories 306, 307, 308 and 310, the created functions were called in the Controller Classes. By testing the controllers, the PL SQL functionalities were tested.
