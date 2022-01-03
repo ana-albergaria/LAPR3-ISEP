@@ -6,12 +6,7 @@ import lapr.project.domain.model.Company;
 import auth.AuthFacade;
 import auth.UserSession;
 import lapr.project.domain.shared.Constants;
-
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

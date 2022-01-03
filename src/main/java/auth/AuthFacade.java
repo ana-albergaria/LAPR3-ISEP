@@ -4,8 +4,6 @@ import auth.domain.model.User;
 import auth.domain.model.UserRole;
 import auth.domain.store.UserRoleStore;
 import auth.domain.store.UserStore;
-
-import java.io.Serializable;
 import java.util.Optional;
 
 /**

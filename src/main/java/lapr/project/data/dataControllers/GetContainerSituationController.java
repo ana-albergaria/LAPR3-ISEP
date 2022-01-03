@@ -3,7 +3,6 @@ package lapr.project.data.dataControllers;
 import lapr.project.controller.App;
 import lapr.project.data.DatabaseConnection;
 import lapr.project.data.RouteStoreDB;
-import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
 
 import java.sql.SQLException;

@@ -3,9 +3,6 @@ package auth.mappers;
 import auth.domain.model.UserRole;
 import auth.mappers.dto.UserRoleDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserRoleMapper {
 
     public UserRoleDTO toDTO(UserRole role)

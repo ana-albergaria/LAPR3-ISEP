@@ -1,9 +1,5 @@
 package lapr.project.controller;
 
-import auth.mappers.dto.UserRoleDTO;
-
-import java.util.List;
-
 /**
  *
  * @author Ana Albergaria <1201518@isep.ipp.pt> inspired in class by: Paulo Maio <pam@isep.ipp.pt>
