@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.domain.dataStructures.FreightNetwork;
-import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Location;
 

@@ -3,7 +3,6 @@ package lapr.project.data;
 import lapr.project.controller.App;
 
 import java.sql.*;
-import java.util.Calendar;
 
 /**
  * @author Marta Ribeiro (1201592)

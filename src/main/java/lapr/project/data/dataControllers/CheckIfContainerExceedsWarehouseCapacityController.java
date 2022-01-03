@@ -1,7 +1,6 @@
 package lapr.project.data.dataControllers;
 
 import lapr.project.controller.App;
-import lapr.project.data.ShipTripStoreDB;
 import lapr.project.data.TruckTripStoreDB;
 import lapr.project.domain.model.Company;
 

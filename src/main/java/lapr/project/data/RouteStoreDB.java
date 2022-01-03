@@ -1,7 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.controller.App;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;

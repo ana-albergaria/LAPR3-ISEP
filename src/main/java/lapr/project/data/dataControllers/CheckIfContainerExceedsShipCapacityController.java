@@ -1,11 +1,8 @@
 package lapr.project.data.dataControllers;
 
 import lapr.project.controller.App;
-import lapr.project.data.CargoManifestStoreDB;
 import lapr.project.data.ShipTripStoreDB;
 import lapr.project.domain.model.Company;
-
-import java.sql.Date;
 import java.sql.SQLException;
 
 public class CheckIfContainerExceedsShipCapacityController {
