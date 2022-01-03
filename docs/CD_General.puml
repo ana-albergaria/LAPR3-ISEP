@@ -16,6 +16,7 @@ class Company{
     + getShipTripStoreDB()
     + getShipStoreDB()
     + getCargoManifestStoreDB()
+    + getRouteStoreDB()
 }
 
 class BST{
@@ -223,7 +224,7 @@ class ShowPairsOfShipsController {
 }
 
 class GetContainerSituationController{
-    +getLocation(containerID, shipmentID)
+    +getContainerSituation(containerID, registrationCode)
 }
 
 class ShipOccupancyRatesController{
@@ -236,6 +237,49 @@ class ShipOccupancyRatesController{
     + getShipOccupancyRateByMmsiAndDate(mmsi, date)
     + getMmsiByCargoManifest(cargoManifestID)
 }
+
+class GetContainerRouteController{
+    +getContainerPath(containerID, registrationCode)
+}
+
+class ColorMapController {
+    +colorMap()
+}
+
+class FreightNetwork {
+    +getOrderedCapitalsList()
+    +fillCapitalsToColor(capitalsToColor)
+    +colorMap()
+}
+
+abstract class Location{
+    -latitude
+    -longitude
+    -countryName
+}
+
+class Port {
+    -identification
+    -name
+    -continent
+    -toPortsDistance
+}
+
+class Capital {
+    -name
+}
+
+class Country {
+    -continent
+    -name
+    -borders
+}
+
+class MatrixGraph {}
+
+abstract class CommonGraph {}
+
+interface Graph <<interface>> {}
 
 class ShipStoreDB{
     + checkIfShipExists(mmsi)
@@ -256,6 +300,14 @@ class CargoManifestStoreDB{
     + getNumContainersPerCargoManifest(cargoManifestID)
     + getCargoManifestByMmsiAndDate(mmsi, date)
 }
+
+class RouteStoreDB {
+    +getRouteId(databaseConnection, containerId, registrationCode)
+    +getContainerSituation(databaseConnection, routeId)
+}
+
+
+
 
 MovementSummaryController ..> Company
 MovementSummaryController ..> ShipStore
@@ -305,13 +357,36 @@ ShipsFileUtils ..> PositionDTO
 ImportShipsController ..> ShipsFileDTO
 ShipsFileDTO ..> PositionDTO
 GetContainerSituationController ..> Company
-GetContainerSituationController ..> ShipTripStoreDB
+GetContainerSituationController ..> RouteStoreDB
 Company "1" -- "1" ShipTripStoreDB : uses >
 FindAvailableShipsController ..> Company
 FindAvailableShipsController ..> ShipTripStoreDB
 
 BST <|- PositionsBST
 BST <|- ShipsBST
+
+/'US302'/
+ColorMapController ..> Company
+Company "1" -- "1" FreightNetwork : knows >
+ColorMapController ..> FreightNetwork
+Location <|-- Port
+Location <|-- Capital
+FreightNetwork "*" -- "1..*" Location : of >
+Country "1" -- "1" Capital : has >
+FreightNetwork ..> MatrixGraph
+CommonGraph <|- MatrixGraph
+CommonGraph --> Graph
+ColorMapController ..> Location
+ColorMapController ..> Capital
+ColorMapController ..> Port
+ColorMapController ..> MatrixGraph
+/'END US302'/
+
+/'US305'/
+GetContainerRouteController ..> Company
+GetContainerRouteController ..> RouteStoreDB
+Company "1" -- "1" RouteStoreDB : uses >
+/'END US305'/
 
 
 @enduml
