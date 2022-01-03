@@ -54,8 +54,8 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int arriLocation = 14011;
         int loadCargID = 19850;
         int unloadCargID = 19847; //com espaço
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
+        Date estDepDate = new Date(2022-1900,12-1,1);
+        Date estArriDate = new Date(2022-1900,12-1,10);
         int result = ctrl.tryToCreateTruckTrip(truckTripID,routeID,truckID,depLocation,arriLocation,loadCargID,unloadCargID,estDepDate,estArriDate);
         int expResult = 1; //valor esperado: 1 -> tem espaço
         Assertions.assertEquals(expResult, result);
@@ -64,7 +64,7 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
     @Disabled
     @Test
     void testcheckIfCargoManifestExceedsWarehouseCapacityValidValuesNotEnoughSpace() throws SQLException {
-        //2+2=4 -> nao tem espaço
+        //2+2=4 -> nao tem espaço   max:3
         ctrl.deleteTruckTrip(14112);
         int truckTripID = 14112;
         int routeID = 1402;
@@ -73,8 +73,8 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int arriLocation = 14011;
         int loadCargID = 19851;
         int unloadCargID =19852; //sem espaço
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
+        Date estDepDate = new Date(2022-1900,12-1,1);
+        Date estArriDate = new Date(2022-1900,12-1,10);
         int result = ctrl.tryToCreateTruckTrip(truckTripID,routeID,truckID,depLocation,arriLocation,loadCargID,unloadCargID,estDepDate,estArriDate);
         int expResult = 0; //valor esperado: 0 -> não tem espaço, logo ship trip nao é criada
         Assertions.assertEquals(expResult,result);
@@ -91,8 +91,8 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int arriLocation = 14011;
         int loadCargID = 19850;
         int unloadCargID = 19849; //invalido
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
+        Date estDepDate = new Date(2022-1900,12-1,1);
+        Date estArriDate = new Date(2022-1900,12-1,10);
         int result = ctrl.tryToCreateTruckTrip(truckTripID,routeID,truckID,depLocation,arriLocation,loadCargID,unloadCargID,estDepDate,estArriDate);
         int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
@@ -109,8 +109,8 @@ public class CheckIfContainerExceedsWarehouseCapacityControllerTest {
         int arriLocation = 14011;
         int loadCargID = 19850;
         int unloadCargID = 19847; //com espaço
-        Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
+        Date estDepDate = new Date(2022-1900,12-1,1);
+        Date estArriDate = new Date(2022-1900,12-1,10);
         int result = ctrl.tryToCreateTruckTrip(truckTripID,routeID,truckID,depLocation,arriLocation,loadCargID,unloadCargID,estDepDate,estArriDate);
         int expResult = 0; //valor esperado: 0 -> cargo manifest id invalido, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
