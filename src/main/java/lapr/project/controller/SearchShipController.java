@@ -33,7 +33,7 @@ public class SearchShipController {
 
     public String shipDetailsToString(Ship ship){
         String details = String.format("Ship details:\n MMSI:%d\nCallSign:%s\nIMO:%s\nVesselType:%d\nVesselName:%s\nLenght:%d\nWidth:%d\nDraft:%f\n Cargo:%s\n",
-                ship.getMMSI(), ship.getCallSign(), ship.getIMO(), ship.getVesselTypeID(), ship.getVesselName(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo());
+                ship.getMmsi(), ship.getCallSign(), ship.getImo(), ship.getVesselTypeID(), ship.getVesselName(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo());
         details = details.concat("Ship Positions:\n");
         for(ShipPosition p : ship.getPositionsBST().inOrder()){
             details = details.concat(String.format("%s\n", p.toString()));

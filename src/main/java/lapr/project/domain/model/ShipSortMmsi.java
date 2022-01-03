@@ -22,11 +22,11 @@ public class ShipSortMmsi extends Ship{
     }
     public ShipSortMmsi(int MMSI) {
         super();
-        this.setMMSI(MMSI);
+        this.setMmsi(MMSI);
     }
 
     @Override
     public int compareTo(Ship o) {
-        return this.getMMSI() - o.getMMSI();
+        return this.getMmsi() - o.getMmsi();
     }
 }

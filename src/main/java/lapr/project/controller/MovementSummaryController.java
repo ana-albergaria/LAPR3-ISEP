@@ -34,7 +34,7 @@ public class MovementSummaryController {
         Ship currentShip = shipStore.getShipByAnyCode(code);
         PositionsBST shipMovements = currentShip.getPositionsBST();
         String name = currentShip.getVesselName();
-        int mmsi = currentShip.getMMSI();
+        int mmsi = currentShip.getMmsi();
         Date startDate = shipMovements.getStartDate();
         Date endDate = shipMovements.getEndDate();
         double maxSog = shipMovements.getMaxSog();

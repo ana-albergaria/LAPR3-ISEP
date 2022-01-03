@@ -7,10 +7,8 @@ import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.store.ShipStore;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.logging.Level;
@@ -371,9 +369,9 @@ public class ShipStoreDB implements Persistable{
         try(PreparedStatement saveShipStatement =
                 connection.prepareStatement(
                         sqlCommand)) {
-            saveShipStatement.setInt(1, ship.getMMSI());
+            saveShipStatement.setInt(1, ship.getMmsi());
             saveShipStatement.setInt(2, ship.getVesselTypeID());
-            saveShipStatement.setString(3, ship.getIMO());
+            saveShipStatement.setString(3, ship.getImo());
             saveShipStatement.setString(4, ship.getCallSign());
             saveShipStatement.setString(5, ship.getVesselName());
             saveShipStatement.setString(6, ship.getCargo());
@@ -402,14 +400,14 @@ public class ShipStoreDB implements Persistable{
         try(PreparedStatement saveShipStatement =
                 connection.prepareStatement(
                         sqlCommand)) {
-            saveShipStatement.setInt(1, ship.getMMSI());
+            saveShipStatement.setInt(1, ship.getMmsi());
             saveShipStatement.setInt(2, ship.getVesselTypeID());
-            saveShipStatement.setString(3, ship.getIMO());
+            saveShipStatement.setString(3, ship.getImo());
             saveShipStatement.setString(4, ship.getCallSign());
             saveShipStatement.setString(5, ship.getVesselName());
             saveShipStatement.setString(6, ship.getCargo());
             saveShipStatement.setDouble(7, ship.getDraft());
-            saveShipStatement.setInt(8, ship.getMMSI());
+            saveShipStatement.setInt(8, ship.getMmsi());
             saveShipStatement.executeUpdate();
         }
     }
@@ -424,7 +422,7 @@ public class ShipStoreDB implements Persistable{
 
         try(PreparedStatement getShipPreparedStatement =
                 connection.prepareStatement(sqlCommand)) {
-            getShipPreparedStatement.setInt(1, ship.getMMSI());
+            getShipPreparedStatement.setInt(1, ship.getMmsi());
 
             try (ResultSet shipResultSet = getShipPreparedStatement.executeQuery()) {
 
@@ -452,7 +450,7 @@ public class ShipStoreDB implements Persistable{
             try (PreparedStatement deleteClienteAddressesPreparedStatement = connection.prepareStatement(
                     sqlCommand)) {
                 deleteClienteAddressesPreparedStatement.setInt(1,
-                        ship.getMMSI());
+                        ship.getMmsi());
                 deleteClienteAddressesPreparedStatement.executeUpdate();
             }
 

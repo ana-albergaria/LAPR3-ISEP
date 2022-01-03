@@ -44,8 +44,8 @@ public class ShipTreeMmsi extends ShipTree{
         if(node==null) return;
 
         if (!shipList.contains(node.getElement())){
-            if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).after(initialDate)
-                    && node.getElement().getPositionsBST().getShipDate(node.getElement().getMMSI()).before(finalDate)){
+            if(node.getElement().getPositionsBST().getShipDate(node.getElement().getMmsi()).after(initialDate)
+                    && node.getElement().getPositionsBST().getShipDate(node.getElement().getMmsi()).before(finalDate)){
 
                 shipList.add(node.getElement());
 
@@ -158,12 +158,12 @@ public class ShipTreeMmsi extends ShipTree{
         Collections.sort(list, comparator);
 
         for (Ship x : list) {
-            if (!map.containsKey(x.getMMSI())) {
+            if (!map.containsKey(x.getMmsi())) {
                 Set<Double> setter = new LinkedHashSet<>();
                 setter.add(x.getPositionsBST().getDeltaDistance());
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add((double) x.getPositionsBST().size());
-                map.put(x.getMMSI(), setter);
+                map.put(x.getMmsi(), setter);
             }
         }
     }
@@ -186,12 +186,12 @@ public class ShipTreeMmsi extends ShipTree{
         Collections.sort(list, comparator);
 
         for (Ship x : list) {
-            if (!map.containsKey(x.getMMSI())) {
+            if (!map.containsKey(x.getMmsi())) {
                 Set<Double> setter = new HashSet<>();
                 setter.add(x.getPositionsBST().getDeltaDistance());
                 setter.add(x.getPositionsBST().getTotalDistance());
                 setter.add((double) x.getPositionsBST().size());
-                map.put(x.getMMSI(), setter);
+                map.put(x.getMmsi(), setter);
             }
         }
     }
@@ -214,7 +214,7 @@ public class ShipTreeMmsi extends ShipTree{
             Double travelledDistance = positionsBST.getTotalDistance(); //O(n)
             int indexShip = listShipsWithIntendedTD.indexOf(ship);
 
-            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip); //O(n^2)
+            fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMmsi(), indexShip); //O(n^2)
 
             if(!infoPair.isEmpty())
                 listPairsOfShips.add(infoPair);
@@ -256,7 +256,7 @@ public class ShipTreeMmsi extends ShipTree{
                         int numMovs = positionsBST.size()-1, numMovs2 = positionsBST2.size()-1; //O(n)
                         double diffTravDist = Math.abs(travelledDistance - travelledDistance2);
                         String allInfo = String.format("%-15d%-15d%-15.3f%-15.3f%-15d%-15.3f%-15d%-15.3f%n",
-                                ship1MMSI, ship2.getMMSI(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
+                                ship1MMSI, ship2.getMmsi(), arrivalDistance, depDistance, numMovs, travelledDistance, numMovs2, travelledDistance2);
                         infoPair.put(diffTravDist, allInfo);
                     }
                 }

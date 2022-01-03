@@ -64,13 +64,13 @@ public class ImportShipsController {
         ShipStore store = this.company.getShipStore();
         ShipTreeMmsi mmsiTree = store.getShipsBstMmsi();
 
-        if (mmsiTree.getShipByMmsiCode(this.ship.getMMSI())==null){
+        if (mmsiTree.getShipByMmsiCode(this.ship.getMmsi())==null){
             store.saveShip(ship);
             return true;
-        } else if (mmsiTree.getShipByMmsiCode(this.ship.getMMSI())!=null){
+        } else if (mmsiTree.getShipByMmsiCode(this.ship.getMmsi())!=null){
             //AQUI
-            if (!mmsiTree.getShipByMmsiCode(this.ship.getMMSI()).getPositionsBST().hasPosition(this.shipPosition)) {
-                store.addPosition(this.ship.getMMSI(), this.shipPosition);
+            if (!mmsiTree.getShipByMmsiCode(this.ship.getMmsi()).getPositionsBST().hasPosition(this.shipPosition)) {
+                store.addPosition(this.ship.getMmsi(), this.shipPosition);
                 return true;
             }
         }

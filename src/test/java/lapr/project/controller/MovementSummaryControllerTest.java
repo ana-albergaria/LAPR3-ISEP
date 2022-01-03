@@ -66,7 +66,7 @@ class MovementSummaryControllerTest {
     public void integrationTestWithController(){
         MovementsSummaryDto expect = new MovementsSummaryDto(vesselName, d1[0], d1[2], s1.getPositionsBST().getMaxSog(), s1.getPositionsBST().getMeanSog(),
                 s1.getPositionsBST().getMeanCog(), s1.getPositionsBST().getDepartLatitude(), s1.getPositionsBST().getDepartLongitude(),
-                s1.getPositionsBST().getArrivalLatitude(), s1.getPositionsBST().getArrivalLongitude(), s1.getPositionsBST().getTotalDistance(), s1.getPositionsBST().getDeltaDistance(), s1.getMMSI());
+                s1.getPositionsBST().getArrivalLatitude(), s1.getPositionsBST().getArrivalLongitude(), s1.getPositionsBST().getTotalDistance(), s1.getPositionsBST().getDeltaDistance(), s1.getMmsi());
         MovementSummaryController controller = new MovementSummaryController(comp);
         MovementsSummaryDto mSummary = controller.getShipMovementsSummary("123456789");
         System.out.println(mSummary.toString());

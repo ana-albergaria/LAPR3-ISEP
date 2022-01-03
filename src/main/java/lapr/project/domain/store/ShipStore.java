@@ -37,12 +37,12 @@ public class ShipStore {
         if(!validateShip(ship)){
             return false;
         }
-        shipsBstMmsi.insert(shipsBstMmsi.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
-                ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
-        shipBstImo.insert(shipBstImo.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
-                ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
-        shipBstCallSign.insert(shipBstCallSign.createShip(ship.getPositionsBST(), ship.getMMSI(), ship.getVesselName(),
-                ship.getIMO(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
+        shipsBstMmsi.insert(shipsBstMmsi.createShip(ship.getPositionsBST(), ship.getMmsi(), ship.getVesselName(),
+                ship.getImo(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
+        shipBstImo.insert(shipBstImo.createShip(ship.getPositionsBST(), ship.getMmsi(), ship.getVesselName(),
+                ship.getImo(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
+        shipBstCallSign.insert(shipBstCallSign.createShip(ship.getPositionsBST(), ship.getMmsi(), ship.getVesselName(),
+                ship.getImo(), ship.getCallSign(), ship.getVesselTypeID(), ship.getLength(), ship.getWidth(), ship.getDraft(), ship.getCargo()));
        /* System.out.println("here???");
         shipStoreDatabase.save(App.getInstance().getConnection() ,ship);*/
         return true;
@@ -58,7 +58,7 @@ public class ShipStore {
         shipMmsi.addPosition(position);
         Ship shipCallSign = getShipByAnyCode(shipMmsi.getCallSign());
         shipCallSign.addPosition(position);
-        Ship shipImo = getShipByAnyCode(shipMmsi.getIMO());
+        Ship shipImo = getShipByAnyCode(shipMmsi.getImo());
         shipImo.addPosition(position);
        /* shipStoreDatabase.save(App.getInstance().getConnection() ,position);*/
     }

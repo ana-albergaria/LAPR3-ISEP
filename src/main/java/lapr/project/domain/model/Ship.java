@@ -21,7 +21,7 @@ public abstract class Ship implements Comparable<Ship> {
     /**
      * The Ship's MMSI.
      */
-    private int MMSI;
+    private int mmsi;
 
     /**
      * The Ship's vessel name.
@@ -31,7 +31,7 @@ public abstract class Ship implements Comparable<Ship> {
     /**
      * The Ship's IMO.
      */
-    private  String IMO;
+    private  String imo;
 
     /**
      * The Ship's call sign.
@@ -87,9 +87,9 @@ public abstract class Ship implements Comparable<Ship> {
         checkDraft(draft);
         checkCargo(cargo);
         checkCallSign(callSign);
-        this.MMSI = MMSI;
+        this.mmsi = MMSI;
         this.vesselName = vesselName;
-        this.IMO = IMO;
+        this.imo = IMO;
         this.callSign = callSign;
         this.positionsBST = positionsBST;
         this.vesselTypeID=vesselTypeID;
@@ -101,12 +101,12 @@ public abstract class Ship implements Comparable<Ship> {
 
     public Ship() {}
 
-    public void setIMO(String IMO) {
-        this.IMO = IMO;
+    public void setImo(String imo) {
+        this.imo = imo;
     }
 
-    public void setMMSI(int MMSI) {
-        this.MMSI = MMSI;
+    public void setMmsi(int mmsi) {
+        this.mmsi = mmsi;
     }
 
     public void setCallSign(String callSign) {
@@ -222,8 +222,8 @@ public abstract class Ship implements Comparable<Ship> {
      *
      * @return the Ship's MMSI.
      */
-    public int getMMSI() {
-        return MMSI;
+    public int getMmsi() {
+        return mmsi;
     }
 
     /**
@@ -240,8 +240,8 @@ public abstract class Ship implements Comparable<Ship> {
      *
      * @return the Ship's IMO.
      */
-    public String getIMO() {
-        return IMO;
+    public String getImo() {
+        return imo;
     }
 
     /**
@@ -328,11 +328,11 @@ public abstract class Ship implements Comparable<Ship> {
     @Override
     public String toString() {
         return "Ship{" +
-                "MMSI=" + MMSI +
+                "MMSI=" + mmsi +
                 ", vesselType=" + vesselTypeID +
                 ", positionsBST=" + positionsBST +
                 ", vesselName='" + vesselName + '\'' +
-                ", IMO='" + IMO + '\'' +
+                ", IMO='" + imo + '\'' +
                 ", callSign='" + callSign +
                 "vesselTypeID=" + vesselTypeID +
                 ", length=" + length +
@@ -359,7 +359,7 @@ public abstract class Ship implements Comparable<Ship> {
 
         Ship otherShip = (Ship) otherObject;
 
-        if(this.MMSI == otherShip.MMSI)
+        if(this.mmsi == otherShip.mmsi)
             return true;
         else
             return false;

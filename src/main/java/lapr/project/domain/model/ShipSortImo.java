@@ -23,11 +23,11 @@ public class ShipSortImo extends Ship{
 
     public ShipSortImo(String code){
         super();
-        this.setIMO(code);
+        this.setImo(code);
     }
 
     @Override
     public int compareTo(Ship o) {
-        return this.getIMO().compareTo(o.getIMO());
+        return this.getImo().compareTo(o.getImo());
     }
 }

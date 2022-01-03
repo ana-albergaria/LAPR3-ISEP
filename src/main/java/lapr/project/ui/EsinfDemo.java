@@ -89,7 +89,7 @@ public class EsinfDemo {
             Map<Ship,Set<Double>> x = topNMap.get(pos);
             System.out.println("[Travelled Distance, MeanSOG]");
             for (Ship shi : x.keySet()) {
-                System.out.println("MMSI - "+ shi.getMMSI());
+                System.out.println("MMSI - "+ shi.getMmsi());
                 System.out.println(x.get(shi));
 
            }

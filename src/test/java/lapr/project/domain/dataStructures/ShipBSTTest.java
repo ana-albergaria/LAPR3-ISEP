@@ -420,7 +420,7 @@ public class ShipBSTTest {
         PositionsBST positionsBST = ship.getPositionsBST();
         Double travelledDistance = positionsBST.getTotalDistance();
 
-        shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMMSI(), indexShip);
+        shipsBST3.fillTreeMapForEachShip(listShipsWithIntendedTD, infoPair, travelledDistance, positionsBST, ship.getMmsi(), indexShip);
 
         Assertions.assertEquals(expInfoPair.size(), infoPair.size());
     }

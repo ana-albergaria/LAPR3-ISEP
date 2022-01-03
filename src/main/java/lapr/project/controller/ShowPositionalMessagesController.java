@@ -86,7 +86,7 @@ public class ShowPositionalMessagesController {
         try {
 
             bw.write(String.format("Vessel Name: %s%nVessel Type ID: %d%nMMSI: %d%n%n",
-                    this.ship.getVesselName(), this.ship.getVesselTypeID(), this.ship.getMMSI()));
+                    this.ship.getVesselName(), this.ship.getVesselTypeID(), this.ship.getMmsi()));
             for (String shipPosition : listPositionalMessages) {
                 bw.write(shipPosition);
             }
