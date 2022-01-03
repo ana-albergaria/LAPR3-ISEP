@@ -2200,10 +2200,10 @@ n/a
 
 **Test 1:** Test that the given map is correctly made.
 
-**Test 2:** Test that the given map is correctly made.
+**Test 2:** Test that the map is not made for an invalid port id.
 
-**Test 3:** Test that the map is not made for an invalid port id.
+**Test 3:** Test that the map is not made for an invalid date (month<1).
 
-**Test 4:** Test that the map is not made for an invalid date (month<1).
+**Test 4:** Test that the map is not made for an invalid date (month>12).
 
-**Test 5:** Test that the map is not made for an invalid date (month>12).
+**Test 5:** Test that the map is not made for months that have not ended yet.

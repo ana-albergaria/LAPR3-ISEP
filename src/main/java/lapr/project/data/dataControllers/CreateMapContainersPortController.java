@@ -55,9 +55,6 @@ public class CreateMapContainersPortController {
      * @return port occupancy rate in percentage.
      */
     public int getOccupancyRateByPortIDandDate(int portID, int month, int year, int day) throws SQLException {
-        if (checkIfPortExists(portID)==0){
-            return -1; //inv
-        }
         PortStoreDB portStoreDB = this.company.getPortStoreDB();
         int maxCapacity = portStoreDB.getPortMaxCapacity(portID); //get with sql
         Date date = new Date(year,month,day);
@@ -84,7 +81,16 @@ public class CreateMapContainersPortController {
      * @throws SQLException sql exception.
      */
     public int[][] getOccupancyMap(int portID, int month, int year) throws SQLException {
-        if (month<1 || month>12){
+        Date current = new Date(Calendar.getInstance().getTime().getTime());
+        if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && new Date(year,month,31).after(current)){
+            return null;
+        } else if ((month==4 || month==6 || month==9 || month==11) && new Date(year,month,30).after(current)) {
+            return null;
+        } else if ((month==2) && (((year % 4 == 0) && (year % 100!= 0)) || (year % 400 == 0)) && new Date(year,month,29).after(current)) {
+            return null;
+        } else if ((month==2) && new Date(year,month,28).after(current)) {
+            return null;
+        } else if (month<1 || month>12 || checkIfPortExists(portID)==0){
             return null;
         }
         if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){
@@ -110,7 +116,6 @@ public class CreateMapContainersPortController {
         int[][] map = new int[28][2];
         int day=1;
         int result=0;
-        Date date;
         for (int i = 0; i < 28; i++) {
             map[i][0]=i+1;
         }
@@ -134,7 +139,6 @@ public class CreateMapContainersPortController {
         int[][] map = new int[29][2];
         int day=1;
         int result=0;
-        Date date;
         for (int i = 0; i < 29; i++) {
             map[i][0]=i+1;
         }
@@ -158,7 +162,6 @@ public class CreateMapContainersPortController {
         int[][] map = new int[30][2];
         int day=1;
         int result=0;
-        Date date;
         for (int i = 0; i < 30; i++) {
             map[i][0]=i+1;
         }
@@ -182,7 +185,6 @@ public class CreateMapContainersPortController {
         int[][] map = new int[31][2];
         int day=1;
         int result=0;
-        Date date;
         for (int i = 0; i < 31; i++) {
             map[i][0]=i+1;
         }

@@ -70,22 +70,22 @@ public class PortStoreDB implements Persistable {
                 "is\n" +
                 "(select loading_cargo_id\n" +
                 "from shipTrip\n" +
-                "where departure_location=f_port_id AND est_departure_date < f_date);\n" +
+                "where departure_location=f_port_id AND real_departure_date < f_date);\n" +
                 "cursor cursorShipTripUnloading\n" +
                 "is\n" +
                 "(select unloading_cargo_id\n" +
                 "from shipTrip\n" +
-                "where arrival_location=f_port_id AND est_arrival_date < f_date);\n" +
+                "where arrival_location=f_port_id AND real_arrival_date < f_date);\n" +
                 "cursor cursorTruckTripLoading\n" +
                 "is\n" +
                 "(select loading_cargo_id\n" +
                 "from truckTrip\n" +
-                "where departure_location=(select location_id from port where port_id=f_port_id) AND est_departure_date < f_date);\n" +
+                "where departure_location=(select location_id from port where port_id=f_port_id) AND real_departure_date < f_date);\n" +
                 "cursor cursorTruckTripUnloading\n" +
                 "is\n" +
                 "(select unloading_cargo_id\n" +
                 "from truckTrip\n" +
-                "where arrival_location=(select location_id from port where port_id=f_port_id) AND est_arrival_date < f_date);\n" +
+                "where arrival_location=(select location_id from port where port_id=f_port_id) AND real_arrival_date < f_date);\n" +
                 "begin\n" +
                 "open cursorShipTripUnloading;\n" +
                 "loop\n" +

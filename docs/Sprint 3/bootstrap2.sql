@@ -15527,7 +15527,27 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 
 --END OF INSERTS FOR US307
 
+--INSERTS FOR US10
+
+insert into route(route_id) values(81999);
+insert into route(route_id) values(81900);
+insert into route(route_id) values(81901);
+insert into route(route_id) values(81902);
+
+insert into truck (truck_id, name) values (81901, 'Blabla');
+
+insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (14099, 54.15087, 12.10543, 'Germany');
+
+insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (1401999, 'WarehouseLinda', 3, 14099);
+
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81901, 81999, 212351004, 10136, 16485, 19851, 19852, '06/02/2021', '08/02/2021', '26/02/2021', '30/04/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81903, 81999, 212351004, 10136, 16485, 19851, 19852, '08/02/2021', '10/02/2021', '02/05/2021', '03/05/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81904, 81900, 212351004, 10136, 16485, 19851, 19852, '08/02/2021', '10/02/2021', '03/05/2021', '04/05/2021');
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81905, 81901, 212351004, 10136, 16485, 19851, 19852, '08/02/2021', '10/02/2021', '04/05/2021', '05/05/2021');
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81906, 81902, 81901, 1741, 14099, 19851, 19852, '18/04/2022', '19/04/2022', '05/05/2021', '06/05/2021');
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (81907, 81902, 81901, 14099, 1741, 19851, 19852, '18/04/2022', '19/04/2022', '07/05/2021', '09/05/2021');
+
+--END OF INSERTS FOR US10
+
 -- US 304
 update containerincargomanifest set temperature_kept = 2 where container_id=8950208 and CARGOMANIFEST_ID=11031
-
-

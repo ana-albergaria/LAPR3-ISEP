@@ -241,8 +241,8 @@ create table truckTrip(
     constraint fk_trucktrip_loading_cargoManifest FOREIGN KEY (loading_cargo_id) references cargoManifest(cargoManifest_id),
     constraint fk_trucktrip_unloading_cargoManifest FOREIGN KEY (unloading_cargo_id) references cargoManifest(cargoManifest_id),
     constraint fk_trucktrip_truck FOREIGN KEY (truck_id) references truck(truck_id),
-    constraint fk_trucktrip_arrival_warehouse FOREIGN KEY (arrival_location) references placeLocation(location_id),
-    constraint fk_trucktrip_depart_warehouse FOREIGN KEY (departure_location) references placeLocation(location_id)
+    constraint fk_trucktrip_arrival FOREIGN KEY (arrival_location) references placeLocation(location_id),
+    constraint fk_trucktrip_depart FOREIGN KEY (departure_location) references placeLocation(location_id)
 );
 
 create or replace trigger TRG_AUDIT_CONTAINER_IN_MANIFEST

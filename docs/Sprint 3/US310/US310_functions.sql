@@ -9,22 +9,22 @@ cursor cursorShipTripLoading
 is
 (select loading_cargo_id
 from shipTrip
-where departure_location=f_port_id AND est_departure_date < f_date);
+where departure_location=f_port_id AND real_departure_date < f_date);
 cursor cursorShipTripUnloading
 is
 (select unloading_cargo_id
 from shipTrip
-where arrival_location=f_port_id AND est_arrival_date < f_date);
+where arrival_location=f_port_id AND real_arrival_date < f_date);
 cursor cursorTruckTripLoading
 is
 (select loading_cargo_id
 from truckTrip
-where departure_location=(select location_id from port where port_id=f_port_id) AND est_departure_date < f_date);
+where departure_location=(select location_id from port where port_id=f_port_id) AND real_departure_date < f_date);
 cursor cursorTruckTripUnloading
 is
 (select unloading_cargo_id
 from truckTrip
-where arrival_location=(select location_id from port where port_id=f_port_id) AND est_arrival_date < f_date);
+where arrival_location=(select location_id from port where port_id=f_port_id) AND real_arrival_date < f_date);
 begin
 open cursorShipTripUnloading;
 loop
@@ -55,6 +55,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 --GET PORT MAX CAPACITY
 
@@ -70,6 +71,7 @@ exception
 when no_data_found then
 return 0;
 end;
+/
 
 
 --CHECK IF PORT EXISTS
