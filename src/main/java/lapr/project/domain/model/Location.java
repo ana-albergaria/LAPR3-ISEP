@@ -6,17 +6,17 @@ public abstract class Location {
     /**
      * The location latitude.
      */
-    private double latitude;
+    private final double latitude;
     /**
      * The location longitude.
      */
-    private double longitude;
+    private final double longitude;
     /**
      * The location's country name.
      */
-    private String countryName;
+    private final String countryName;
 
-    private String continent;
+    private final String continent;
 
     /**
      * Constructs an instance of Location receiving the following parameters:
