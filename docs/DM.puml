@@ -151,7 +151,7 @@ class ShipTrip{
 }
 
 
-Company "1" -- "1..*" System : has >
+Company "1" - "1..*" System : has >
 User "1..*" -- "1" System : uses >
 /'FleetManager "1" -- "1" Employee : is of >'/
 TrafficManager "1" -- "1" User : relates to >
