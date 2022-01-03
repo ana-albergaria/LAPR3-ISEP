@@ -1,8 +1,6 @@
 package auth.domain.store;
 
 import auth.domain.model.UserRole;
-
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
