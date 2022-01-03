@@ -125,6 +125,7 @@ class Port {
     **portId**:INTEGER
     ---
     Name:varchar(40)
+    maxCapacity: integer
     fk_location_id: integer
 }
 
