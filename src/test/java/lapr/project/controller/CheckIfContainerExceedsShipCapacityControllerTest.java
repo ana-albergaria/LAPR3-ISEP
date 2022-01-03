@@ -2,7 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
 import lapr.project.data.dataControllers.CheckIfContainerExceedsShipCapacityController;
-import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Company;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,7 +75,7 @@ public class CheckIfContainerExceedsShipCapacityControllerTest {
         int arriLocation = 224858;
         int loadCargID = 82846;
         Date estDepDate = new Date(Calendar.getInstance().getTime().getTime());
-        Date estArriDate = new Date(2022,12,1);
+        Date estArriDate = new Date(2022-1900,12-1,1);
         int result = ctrl.tryToCreateShipTrip(shipTripID,routeID,mmsi,depLocation,arriLocation,loadCargID,estDepDate,estArriDate);
         int expResult = 0; //valor esperado: 0 -> não tem espaço, logo ship trip nao é criada
         Assertions.assertEquals(expResult, result);
