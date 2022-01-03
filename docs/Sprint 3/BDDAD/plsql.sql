@@ -755,7 +755,7 @@ end;
 /
 
 --US309
-
+--reused from us 210
 create or replace PROCEDURE check_availability_of_ship(daydate in date, ship in Ship.mmsi%type, isValid out boolean)
 IS
     estDepartDate date;
@@ -802,6 +802,17 @@ if not f_isValid then
 raise_application_error(-20010,'Currently, the ship is not available in this date.');
 end if;
 end;
+
+-- test
+/
+--should run correctly
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date)
+values (101001, 1020, 228339600, 13390, 20512, 34491, NULL, to_date('18/02/2021', 'dd/MM/YYYY'), to_date('21/03/2021', 'dd/MM/YYYY'), NULL, NULL);
+
+-- should trigger the warning
+insert into shiptrip (shiptrip_id, route_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date)
+values (101011, 1020, 228339600, 13390, 20512, 34491, NULL, to_date('18/02/2021', 'dd/MM/YYYY'), to_date('21/03/2021', 'dd/MM/YYYY'), NULL, NULL);
+
 /
 
 
@@ -1002,6 +1013,7 @@ END;
 
 
 --US304
+
 create or replace trigger TRG_AUDIT_CONTAINER_IN_MANIFEST
 after insert or update or delete on CONTAINERINCARGOMANIFEST
 for each row
@@ -1046,8 +1058,13 @@ declare
                     );
             end if;
         end;
-/
 
+     -- test select after update
+/
+    update containerincargomanifest set temperature_kept = 2 where container_id=8950208 and CARGOMANIFEST_ID=11031;
+    select * from auditContainerInManifest where container_id=8950208 and CARGOMANIFEST_ID=11031;
+
+/
 
 --TESTS -> get_route_id
 
