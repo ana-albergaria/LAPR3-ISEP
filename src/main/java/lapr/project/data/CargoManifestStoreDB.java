@@ -40,7 +40,7 @@ public class CargoManifestStoreDB{
             }
         } catch (SQLException e) {
             result.append("ERROR GETTING THE AUDIT TRAIL OF THE CONTAINER OF THE CARGO MANIFEST");
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,71 +50,6 @@ public class CargoManifestStoreDB{
         }
         return result.toString();
     }
-
-    /*public int checkIfCargoManifestExceedsShipCapacity(int cargoManifestID, int mmsi) {
-        int result = 0;
-        Date date = new Date(Calendar.getInstance().getTime().getTime());
-        String createFunction = "create or replace function check_if_cargoManifest_exceeds_ship_capacity\n" +
-                "(f_cargoManifest_id cargomanifest.cargomanifest_id%type, f_mmsi shipTrip.mmsi%type, f_date shipTrip.est_departure_date%type) return integer\n" +
-                "is\n" +
-                "f_result integer;\n" +
-                "f_numContainers integer;\n" +
-                "f_check integer;\n" +
-                "f_check2 integer;\n" +
-                "f_comp_cargoManifest_id cargomanifest.cargomanifest_id%type;\n" +
-                "f_maxCapacity integer;\n" +
-                "f_realDepDate shipTrip.real_departure_date%type;\n" +
-                "f_initialNumContainers integer;\n" +
-                "f_alreadyAddedRemovedContainersTripNum integer;\n" +
-                "f_resultado integer;\n" +
-                "begin\n" +
-                "f_check:=check_if_ship_exists(f_mmsi);\n" +
-                "if f_check=0 then\n" +
-                "return -1;\n" +
-                "end if;\n" +
-                "f_check2:=check_if_cargoManifest_exists(f_cargoManifest_id);\n" +
-                "if f_check2=0 then\n" +
-                "return -1;\n" +
-                "end if;\n" +
-                "f_numContainers:=get_num_containers_per_cargoManifest(f_cargoManifest_id);\n" +
-                "f_comp_cargoManifest_id:=get_cargo_manifest_by_mmsi_and_date(f_mmsi, f_date);\n" +
-                "f_maxCapacity:=get_max_capacity(f_comp_cargoManifest_id);\n" +
-                "f_realDepDate:=get_real_departure_date_from_ship_trip(f_comp_cargoManifest_id);\n" +
-                "f_initialNumContainers:=get_initial_num_containers_per_ship_trip(f_comp_cargoManifest_id,f_realDepDate,f_mmsi);\n" +
-                "f_alreadyAddedRemovedContainersTripNum:=get_added_removed_containers_ship_trip_moment(f_comp_cargoManifest_id);\n" +
-                "f_resultado:=f_initialNumContainers+f_alreadyAddedRemovedContainersTripNum;\n" +
-                "if (f_numContainers+f_resultado)>f_maxCapacity then\n" +
-                "return 0; --ultrapassa\n" +
-                "end if;\n" +
-                "if (f_numContainers+f_resultado)<=f_maxCapacity then\n" +
-                "return 1; --tem espaço suficiente\n" +
-                "end if;\n" +
-                "exception\n" +
-                "when no_data_found then\n" +
-                "return -1;\n" +
-                "end;";
-        String runFunction = "{? = call check_if_cargoManifest_exceeds_ship_capacity(?,?,?)}";
-        DatabaseConnection databaseConnection = App.getInstance().getConnection();
-        Connection connection = databaseConnection.getConnection();
-        try (Statement createFunctionStat = connection.createStatement();
-             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
-            createFunctionStat.execute(createFunction);
-            callableStatement.registerOutParameter(1, Types.INTEGER);
-            callableStatement.setString(2, String.valueOf(cargoManifestID));
-            callableStatement.setString(3, String.valueOf(mmsi));
-            callableStatement.setString(4, String.valueOf(date));
-
-            callableStatement.executeUpdate();
-
-            result = callableStatement.getInt(1);
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }*/
 
     /**
      * Check if cargo manifest exists in the data base.
@@ -148,7 +83,7 @@ public class CargoManifestStoreDB{
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,7 +123,7 @@ public class CargoManifestStoreDB{
 
             result = callableStatement.getInt(1);
         }catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,7 +182,7 @@ public class CargoManifestStoreDB{
 
             result = callableStatement.getInt(1);
         }catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
