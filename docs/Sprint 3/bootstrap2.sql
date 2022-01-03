@@ -15179,8 +15179,6 @@ insert into positionInVehicule (cargomanifest_id, container_id, containerpositio
 insert into positionInVehicule (cargomanifest_id, container_id, containerpositionX, containerpositionY, containerpositionZ) values (30009, 2802505, 11, 8, 3);
 --400 POSITIONS IN VEHICULE INSERTED
 
-insert into warehouse (warehouse_id, name, maxCapacity, location_id) values (1401111, 'WarehouseA', 3, 14011);
-insert into PlaceLocation (location_id, locationlatitude, locationLongitude, country) values (14011, 54.1505, 12.105, 'Germany');
 insert into route(route_id) values(1);
 insert into route(route_id) values(2);
 insert into route(route_id) values(3);
@@ -15516,7 +15514,7 @@ insert into containerincargomanifest (container_id, cargomanifest_id, temperatur
 insert into cargomanifest (cargomanifest_id) values (19850);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (4853420, 19850, -25);
 
-insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (14111, 1401, 11111, 111, 14011, 19848, 19846, '18/04/2022', '19/04/2022', null, null);
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (14111, 1401, 11111, 111, 14011, 19848, 19846, '18/12/2021', '19/12/2021', '28/12/2021', '29/12/2021');
 
 insert into cargomanifest (cargomanifest_id) values (19851);
 insert into containerincargomanifest (container_id, cargomanifest_id, temperature_kept) values (9608504, 19851, -25);
