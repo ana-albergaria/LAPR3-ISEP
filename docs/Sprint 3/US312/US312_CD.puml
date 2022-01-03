@@ -2,7 +2,7 @@
 
 skinparam classAttributeIconSize 0
 
-class GetContainerRouteController{
+class GetContainerSituationController{
     +getContainerSituation(containerID, registrationCode)
 }
 
@@ -16,8 +16,8 @@ class Company {
     +getRouteStoreDB()
 }
 
-GetContainerRouteController ..> Company
-GetContainerRouteController ..> RouteStoreDB
+GetContainerSituationController ..> Company
+GetContainerSituationController ..> RouteStoreDB
 Company "1" -- "1" RouteStoreDB : uses >
 
 @enduml
