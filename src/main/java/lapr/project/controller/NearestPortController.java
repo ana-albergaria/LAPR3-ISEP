@@ -35,7 +35,7 @@ public class NearestPortController {
      * @return Ship
      */
     public Ship getShipByCallSign(String callSign) {
-        ShipStore shipStore = company.getShipStore();;
+        ShipStore shipStore = company.getShipStore();
         return shipStore.getShipByAnyCode(callSign);
     }
 

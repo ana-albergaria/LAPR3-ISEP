@@ -6,7 +6,7 @@ package lapr.project.controller;
  */
 public class AuthController {
 
-    private App app;
+    private final App app;
 
     public AuthController()
     {
@@ -22,17 +22,6 @@ public class AuthController {
             return false;
         }
     }
-
-    /*
-    public List<UserRoleDTO> getUserRoles()
-    {
-        if (this.app.getCurrentUserSession().isLoggedIn())
-        {
-            return this.app.getCurrentUserSession().getUserRoles();
-        }
-        return null;
-    }
-     */
 
     public void doLogout()
     {
