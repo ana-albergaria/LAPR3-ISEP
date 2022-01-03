@@ -45,7 +45,7 @@ public class PortStoreDB implements Persistable {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +130,7 @@ public class PortStoreDB implements Persistable {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +170,7 @@ public class PortStoreDB implements Persistable {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();

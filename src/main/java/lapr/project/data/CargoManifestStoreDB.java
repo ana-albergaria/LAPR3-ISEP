@@ -10,10 +10,6 @@ import java.util.Calendar;
  */
 public class CargoManifestStoreDB{
 
-//    public void createShipTripTriggerWarningOccupancy(int shipTripID){
-//
-//    }
-
     public String getAuditTrailOfContainer(int containerId, int cargoManifestId){
         StringBuilder result = new StringBuilder();
         result.append("Audit trail:\n");
