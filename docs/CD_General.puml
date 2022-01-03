@@ -237,6 +237,45 @@ class ShipOccupancyRatesController{
     + getMmsiByCargoManifest(cargoManifestID)
 }
 
+class ColorMapController {
+    +colorMap()
+}
+
+class FreightNetwork {
+    +getOrderedCapitalsList()
+    +fillCapitalsToColor(capitalsToColor)
+    +colorMap()
+}
+
+abstract class Location{
+    -latitude
+    -longitude
+    -countryName
+}
+
+class Port {
+    -identification
+    -name
+    -continent
+    -toPortsDistance
+}
+
+class Capital {
+    -name
+}
+
+class Country {
+    -continent
+    -name
+    -borders
+}
+
+class MatrixGraph {}
+
+abstract class CommonGraph {}
+
+interface Graph <<interface>> {}
+
 class ShipStoreDB{
     + checkIfShipExists(mmsi)
     + getShipCargo(cargoManifestID)
@@ -256,6 +295,8 @@ class CargoManifestStoreDB{
     + getNumContainersPerCargoManifest(cargoManifestID)
     + getCargoManifestByMmsiAndDate(mmsi, date)
 }
+
+
 
 MovementSummaryController ..> Company
 MovementSummaryController ..> ShipStore
@@ -312,6 +353,23 @@ FindAvailableShipsController ..> ShipTripStoreDB
 
 BST <|- PositionsBST
 BST <|- ShipsBST
+
+/'US302'/
+ColorMapController ..> Company
+Company "1" -- "1" FreightNetwork : knows >
+ColorMapController ..> FreightNetwork
+Location <|-- Port
+Location <|-- Capital
+FreightNetwork "*" -- "1..*" Location : of >
+Country "1" -- "1" Capital : has >
+FreightNetwork ..> MatrixGraph
+CommonGraph <|- MatrixGraph
+CommonGraph --> Graph
+ColorMapController ..> Location
+ColorMapController ..> Capital
+ColorMapController ..> Port
+ColorMapController ..> MatrixGraph
+/'END US302'/
 
 
 @enduml
