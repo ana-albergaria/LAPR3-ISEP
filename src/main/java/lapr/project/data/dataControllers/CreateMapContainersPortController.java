@@ -54,7 +54,7 @@ public class CreateMapContainersPortController {
      * @param day day.
      * @return port occupancy rate in percentage.
      */
-    public int getOccupancyRateByPortIDandDate(int portID, int month, int year, int day) throws SQLException {
+    public int getOccupancyRateByPortIDandDate(int portID, int month, int year, int day) {
         PortStoreDB portStoreDB = this.company.getPortStoreDB();
         int maxCapacity = portStoreDB.getPortMaxCapacity(portID); //get with sql
         Date date = new Date(year,month,day);
@@ -112,7 +112,7 @@ public class CreateMapContainersPortController {
      * @return a map of the occupation of the existing resources in the port during a 28 days month.
      * @throws SQLException sql exception.
      */
-    public int[][] getMap28dMonth(int portID, int month, int year) throws SQLException {
+    public int[][] getMap28dMonth(int portID, int month, int year) {
         int[][] map = new int[28][2];
         int day=1;
         int result=0;
