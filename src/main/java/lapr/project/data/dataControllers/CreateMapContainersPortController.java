@@ -57,7 +57,7 @@ public class CreateMapContainersPortController {
     public int getOccupancyRateByPortIDandDate(int portID, int month, int year, int day) {
         PortStoreDB portStoreDB = this.company.getPortStoreDB();
         int maxCapacity = portStoreDB.getPortMaxCapacity(portID); //get with sql
-        Date date = new Date(year,month,day);
+        Date date = new Date(year-1900,month-1,day);
         int currentCapacity = portStoreDB.getPortOccupancyInDay(portID, date); //get with sql
         return calculateOccupancyRate(maxCapacity,currentCapacity);
     }
@@ -82,13 +82,13 @@ public class CreateMapContainersPortController {
      */
     public int[][] getOccupancyMap(int portID, int month, int year) throws SQLException {
         Date current = new Date(Calendar.getInstance().getTime().getTime());
-        if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && new Date(year,month,31).after(current)){
+        if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && new Date(year-1900,month-1,31).after(current)){
             return null;
-        } else if ((month==4 || month==6 || month==9 || month==11) && new Date(year,month,30).after(current)) {
+        } else if ((month==4 || month==6 || month==9 || month==11) && new Date(year-1900,month-1,30).after(current)) {
             return null;
-        } else if ((month==2) && (((year % 4 == 0) && (year % 100!= 0)) || (year % 400 == 0)) && new Date(year,month,29).after(current)) {
+        } else if ((month==2) && (((year % 4 == 0) && (year % 100!= 0)) || (year % 400 == 0)) && new Date(year-1900,month-1,29).after(current)) {
             return null;
-        } else if ((month==2) && new Date(year,month,28).after(current)) {
+        } else if ((month==2) && new Date(year-1900,month-1,28).after(current)) {
             return null;
         } else if (month<1 || month>12 || checkIfPortExists(portID)==0){
             return null;
@@ -115,7 +115,7 @@ public class CreateMapContainersPortController {
     public int[][] getMap28dMonth(int portID, int month, int year) {
         int[][] map = new int[28][2];
         int day=1;
-        int result=0;
+        int result;
         for (int i = 0; i < 28; i++) {
             map[i][0]=i+1;
         }
