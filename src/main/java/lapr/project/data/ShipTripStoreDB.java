@@ -142,7 +142,7 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,7 +183,7 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,7 +247,7 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
             if(e.getErrorCode() == 20010){
                 throw new SQLException("ORA-20010 - Currently, the ship is not available in this date.");
@@ -295,7 +295,7 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -345,7 +345,7 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -386,7 +386,7 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getDate(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -440,31 +440,13 @@ public class ShipTripStoreDB {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
-
-    /*
-    public String getLocation(DatabaseConnection databaseConnection, int shipTripId) {
-        try {
-            Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call get_location(?)}");
-            cs.setInt(2, shipTripId);
-            cs.registerOutParameter(1, Types.VARCHAR);
-            cs.executeUpdate();
-            String location = cs.getString(1);
-            cs.close();
-            return location;
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
-    }
-     */
 
     /**
      * method to get the id of the nest Port in the Route
@@ -486,7 +468,6 @@ public class ShipTripStoreDB {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 
