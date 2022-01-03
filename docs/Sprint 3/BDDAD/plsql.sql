@@ -1047,3 +1047,65 @@ declare
             end if;
         end;
 /
+
+
+--TESTS -> get_route_id
+
+--the container id is invalid, therefore raises ex_invalid_container_id exception
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('The route id is: '||get_route_id(12,2));
+end;
+/
+--the container id is valid, but it was not leased by client, therefore raises ex_not_leased_client exception
+begin
+    dbms_output.put_line('The route id is: '||get_route_id(9803333,2));
+end;
+/
+--the container id is valid AND leased by the client, therefore it doesn't raise exception and returns route id
+begin
+    dbms_output.put_line('The route id is: '||get_route_id(9803333,6));
+end;
+/
+--TESTS -> get_path_function
+
+--FIRST SITUATION: the container is at the a location
+begin
+    dbms_output.put_line(get_path_function(7));
+end;
+/
+--SECOND SITUATION: the container is in the middle of the ocean
+begin
+    dbms_output.put_line(get_path_function(8));
+end;
+/
+--THIRD SITUATION: the container is in a truck
+begin
+    dbms_output.put_line(get_path_function(9));
+end;
+/
+--FOURTH SITUATION: the container has arrived its destination
+begin
+    dbms_output.put_line(get_path_function(10));
+end;
+/
+--FIRST SITUATION: the container is at the a location
+begin
+    dbms_output.put_line(get_location(7));
+end;
+/
+--SECOND SITUATION: the container is in the middle of the ocean (ship: VARAMO)
+begin
+    dbms_output.put_line(get_location(8));
+end;
+/
+--THIRD SITUATION: the container is in a truck (truck: blaze)
+begin
+    dbms_output.put_line(get_location(9));
+end;
+/
+--FOURTH SITUATION: the container has arrived its destination
+begin
+    dbms_output.put_line(get_location(10));
+end;
+/
