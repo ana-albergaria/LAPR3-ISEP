@@ -129,17 +129,6 @@ class FreightNetworkTest {
 
         List<Map.Entry<Capital, Integer>> list = map.getOrderedCapitalsList();
 
-        /*for (Map.Entry<Capital,Integer> entry : list) {
-            System.out.println("Capital: " + entry.getKey().getName() + "   | Borders: " + entry.getValue());
-        }
-         */
-
-        /*List<Map.Entry<Capital, Integer>> mapList = map.getOrderedCapitalsList();
-        for (Map.Entry<Capital,Integer> entry : mapList) {
-            System.out.println("Capital: " + entry.getKey().getName() + "   | Borders: " + entry.getValue());
-        }
-         */
-
         assertEquals(expList, list);
 
     }
@@ -163,24 +152,12 @@ class FreightNetworkTest {
         Map<Capital, Integer> capitalsToColor = new LinkedHashMap<>();
         map.fillCapitalsToColor(capitalsToColor);
 
-        /*for (Map.Entry<Capital,Integer> entry : map.entrySet()) {
-            System.out.println("Capital: " + entry.getKey().getName() + "   | Color: " + entry.getValue());
-        }
-         */
-
         assertEquals(expMap, capitalsToColor);
     }
 
     @Test
     void colorMap() {
         Map<Capital, Integer> coloredCapitals = map.colorMap();
-
-        /*for (Map.Entry<Capital,Integer> entry : coloredCapitals.entrySet()) {
-            System.out.println("Capital: " + entry.getKey().getName() + " | Color: " + entry.getValue());
-        }
-        System.out.println();
-         */
-
 
         Map<Capital, Integer> expMap = new LinkedHashMap<>();
         expMap.put(h, 0);
@@ -344,12 +321,6 @@ class FreightNetworkTest {
 
         assertFalse(containsColorC);
         subListCapitals.clear();
-
-        /*for (Map.Entry<Capital,Integer> entry : subMap.entrySet()) {
-            System.out.println("Capital: " + entry.getKey().getName() + " | Color: " + entry.getValue());
-        }
-        System.out.println();
-         */
     }
     @Test
     public void getNetworkContinentsTest(){
