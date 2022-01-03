@@ -14,10 +14,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class EsinfDemoSprint3 {
     public static void main(String[] args) throws IOException, ParseException {
@@ -33,11 +30,27 @@ public class EsinfDemoSprint3 {
         //US302
         ColorMapController controller = new ColorMapController(comp);
         Map<Capital, Integer> map = controller.colorMap();
+        System.out.println("### ALL THE CAPITALS AND ITS COLORS ###");
         for(Capital c : map.keySet()){
-            System.out.print("Capital: " + c);
+            System.out.print("Capital: " + c.getName());
             System.out.print(" Color: " + map.get(c));
             System.out.println();
         }
+
+        System.out.println("\n### EACH CAPITAL AND BORDERS AND THEIR COLORS ###");
+        for (Capital c : map.keySet()) {
+            System.out.println("Capital: " + c.getName() + "| Color: " + map.get(c));
+            for (Capital cap : map.keySet()) {
+                if(freightNetwork.getFreightNetwork().adjVertices(c).contains(cap)) {
+                    System.out.println("Border: " + cap.getName() + " | Color: " + map.get(cap));
+                }
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+        int colorsInMap = new HashSet<>(map.values()).size();
+        System.out.println("NUMBERS OF COLORS USED: " + colorsInMap);
 
 
         //US303
