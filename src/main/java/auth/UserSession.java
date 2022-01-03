@@ -5,10 +5,6 @@ import auth.domain.model.User;
 import auth.mappers.UserRoleMapper;
 import auth.mappers.dto.UserRoleDTO;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
-
 /**
  *
  * @author João Wolff <1200049@isep.ipp.pt> inspired in class by: Paulo Maio <pam@isep.ipp.pt>
