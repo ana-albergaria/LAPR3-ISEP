@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
-import lapr.project.data.dataControllers.CheckIfContainerExceedsShipCapacityController;
 import lapr.project.data.dataControllers.CheckIfContainerExceedsWarehouseCapacityController;
 import lapr.project.domain.model.Company;
 import org.junit.jupiter.api.Assertions;
@@ -11,10 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Calendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 public class CheckIfContainerExceedsWarehouseCapacityControllerTest {

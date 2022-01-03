@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 class RouteStoreDBTest {
     private DatabaseConnection databaseConnection;

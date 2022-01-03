@@ -1,6 +1,5 @@
 package lapr.project.utils;
 
-import lapr.project.domain.model.Port;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
