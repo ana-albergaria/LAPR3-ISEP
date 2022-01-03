@@ -57,6 +57,7 @@ class Port {
 /'new'/
 class Truck {
     -truckId
+    -name
 }
 
 class Route {
@@ -93,7 +94,7 @@ Route "1" -- "1..*" ShipTrip : contains >
 /'ShipTrip "*" -- "1" Port : to >'/
 /'pode ter --- em baixo'/
 ShipTrip "1" -- "2" CargoManifest : relates to >
-Truck "1" -- "1" Container : transports >
+Truck "*" -- "1" Container : transports >
 Truck "1" -- "*" Route : does >
 Route "1" -- "*" TruckTrip : contains >
 TruckTrip "1" -- "2" CargoManifest : relates to >
