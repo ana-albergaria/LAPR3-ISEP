@@ -16,6 +16,14 @@ import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
 
+    public int getShipMaxCapacity(int shipID) {
+        throw new IllegalArgumentException("to develop");
+    }
+
+    public int getShipOccupancyInDay(int shipID, Date someDate) {
+        throw new IllegalArgumentException("to develop");
+    }
+
     /**
      * Check if ship exists in the data base.
      * @param mmsi Ship's mmsi.
@@ -467,4 +475,5 @@ public class ShipStoreDB implements Persistable{
 
         return returnValue;
     }
+
 }
