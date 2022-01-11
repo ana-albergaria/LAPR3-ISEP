@@ -1,3 +1,5 @@
+--
+
 create or replace trigger TRG_AUDIT_CONTAINER_IN_MANIFEST
 after insert or update or delete on CONTAINERINCARGOMANIFEST
 for each row

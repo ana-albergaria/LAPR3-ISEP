@@ -27,6 +27,8 @@ public class EsinfDemoSprint3 {
             out.println(freightNetwork.getFreightNetwork());
         }
 
+        System.out.println(freightNetwork.getFreightNetwork().numEdges());
+
         //US302
         ColorMapController controller = new ColorMapController(comp);
         Map<Capital, Integer> map = controller.colorMap();

@@ -18,6 +18,7 @@ class AuditTrailControllerTest {
 
         AuditTrailController auditTrailController = new AuditTrailController();
         String resutl = auditTrailController.getContainerAuditTrail(8950208, 11031);
+        System.out.println(resutl);
         assertEquals(expected, resutl);
 
         String result2 = auditTrailController.getContainerAuditTrail(0, 0);

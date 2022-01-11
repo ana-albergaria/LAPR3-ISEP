@@ -182,7 +182,7 @@ public class PortStoreDB implements Persistable {
         Connection connection = databaseConnection.getConnection();
         CountryStoreDb countryStoreDb = new CountryStoreDb();
         List<Port> ports = new ArrayList<>();
-        String sqlCommand = "select * from port";
+        String sqlCommand = "select port_id, name, location_id from port";
         String name, countryName, continentName;
         int locationId, portId;
         double latitude, longitude;
