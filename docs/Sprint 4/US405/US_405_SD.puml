@@ -1,0 +1,30 @@
+@startuml
+autonumber
+'hide footbox
+actor "Fleet Manager" as SC
+participant ":AverageOccupancyShipTimeUI  " as UI
+participant ":AverageOccupancyShipTimeController" as CTRL
+participant ":Company" as CMP
+participant ":ShipStoreDB" as CMS
+
+activate SC
+SC -> UI : asks to know the average occupancy rate per manifest of a given ship during a given period
+activate UI
+UI --> SC : asks for data(i.e.,shipID, month1, year1, day1, month2, year2, day2)
+deactivate UI
+SC -> UI : inserts needed data
+activate UI
+UI -> CTRL : getAverageOccupancyRateByShipIDandDates(shipID, month1, year1, day1, month2, year2, day2)
+activate CTRL
+alt if ship exists and dates are valid
+
+'.......
+
+end
+CTRL --> UI : result
+deactivate CTRL
+UI --> SC : informs of operation success or fail
+deactivate UI
+deactivate SC
+
+@enduml
