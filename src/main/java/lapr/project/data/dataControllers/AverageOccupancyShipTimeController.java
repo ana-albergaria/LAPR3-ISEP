@@ -68,16 +68,26 @@ public class AverageOccupancyShipTimeController {
         } else if (year1==year2 && month1==month2 && day1>day2){
             return -1;
         }
+        if(month1<1 || month1>12 || month2<1 || month2>12){
+            return -1;
+        }else if (day1<1 || day1>31 || day2<1 || day2>31){
+            return -1;
+        }else if (((month1==4 || month1==6 || month1==9 || month1==11) && day1>30) || ((month2==4 || month2==6 || month2==9 || month2==11) && day2>30)){
+            return -1;
+        } else if ((month1==2 && day1>29) || (month2==2 && day2>29)){
+            return -1;
+        } else if ((!(((year1 % 4 == 0) && (year1 % 100!= 0)) || (year1 % 400 == 0)) && month1==2 && day1>28) || (!(((year2 % 4 == 0) && (year2 % 100!= 0)) || (year2 % 400 == 0)) && month2==2 && day2>28)){
+            return -1;
+        }
         ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
         int maxCapacity = shipStoreDB.getShipMaxCapacity(shipID); //get with sql
-        int t1,t2,t3;
         Date bDate = new Date(year1-1900,month1-1,day1);
         Date eDate = new Date(year2-1900,month2-1,day2);
         int numData=0, sumData=0, capacityTime;
         Date someDate = bDate;
         while (someDate!=eDate){
             numData++;
-            capacityTime = shipStoreDB.getShipOccupancyInDay(shipID, someDate);
+            capacityTime = shipStoreDB.getNumContainersShipDay(shipID, someDate);
             sumData=sumData+calculateOccupancyRate(maxCapacity,capacityTime);
             someDate=new java.sql.Date(someDate.getTime() + 24*60*60*1000);
         }
