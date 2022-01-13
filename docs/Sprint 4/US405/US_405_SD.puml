@@ -17,13 +17,28 @@ activate UI
 UI -> CTRL : getAverageOccupancyRateByShipIDandDates(shipID, month1, year1, day1, month2, year2, day2)
 activate CTRL
 alt if ship exists and dates are valid
-
-'.......
-
-end
-CTRL --> UI : result
+CTRL -> CMP : getShipStoreDB()
+activate CMP
+|||
+deactivate CMP
+CTRL -> CMS : maxCapacity = getShipMaxCapacity(shipID)
+activate CMS
+|||
+deactivate CMS
+alt for each of the dates in the interval
+CTRL -> CMS: capacityTime = getNumContainersShipDay(shipID, someDate)
+activate CMS
+|||
+deactivate CMS
+CTRL -> CTRL : occupancyRateDay = calculateOccupancyRate(maxCapacity, capacityTime)
+activate CTRL
+|||
 deactivate CTRL
-UI --> SC : informs of operation success or fail
+end
+end
+CTRL --> UI : return average ship's occupancy rate
+deactivate CTRL
+UI --> SC : informs the average occupancy rate of the given ship during a period of time
 deactivate UI
 deactivate SC
 
