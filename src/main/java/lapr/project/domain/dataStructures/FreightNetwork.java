@@ -2,12 +2,15 @@ package lapr.project.domain.dataStructures;
 
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
+import lapr.project.domain.model.Port;
 import lapr.project.genericDataStructures.graphStructure.Algorithms;
 import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
 import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
 
 import java.util.*;
+
+import static java.util.Map.*;
 
 public class FreightNetwork {
     private final Graph<Location, Double> freightNetwork;
@@ -22,6 +25,19 @@ public class FreightNetwork {
 
     public void addDistance(Location locOrigin, Location locDestination, Double distance) {
         freightNetwork.addEdge(locOrigin, locDestination, distance);
+    }
+
+    public List<Map.Entry<Location, Integer>> getMostCentralPorts(){
+        List<Location> locations = this.freightNetwork.vertices();
+        Map<Location, Integer> ports = new HashMap<>();
+        for (Location l : locations){
+            if(l instanceof Port){
+                ports.put(l, freightNetwork.incomingEdges(l).size());
+            }
+        }
+        List<Map.Entry<Location, Integer>> toBeSortedMap = new ArrayList<>(ports.entrySet());
+        toBeSortedMap.sort(Comparator.comparing(Map.Entry<Location, Integer>::getValue).reversed());
+        return toBeSortedMap;
     }
 
     public Graph<Location, Double> getFreightNetwork() {
@@ -39,7 +55,7 @@ public class FreightNetwork {
         }
 
         List<Map.Entry<Capital,Integer>> orderedCapitals = new ArrayList<>(unorderedCapitals.entrySet());
-        orderedCapitals.sort( Map.Entry.<Capital, Integer> comparingByValue().reversed() );
+        orderedCapitals.sort( Entry.<Capital, Integer> comparingByValue().reversed() );
 
         return orderedCapitals;
     }
@@ -148,7 +164,7 @@ public class FreightNetwork {
             countriesMap.put(location, closenessNumber);
         }
         List<Map.Entry<Location, Double>> toBeSortedMap = new ArrayList<>(countriesMap.entrySet());
-        toBeSortedMap.sort(Map.Entry.<Location, Double> comparingByValue());
+        toBeSortedMap.sort(Entry.<Location, Double> comparingByValue());
         return toBeSortedMap;
     }
 
