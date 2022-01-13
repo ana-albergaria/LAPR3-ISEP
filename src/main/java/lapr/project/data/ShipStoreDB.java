@@ -121,7 +121,7 @@ public class ShipStoreDB implements Persistable{
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(mmsi));
-            callableStatement.setString(2, String.valueOf(someDate));
+            callableStatement.setString(3, String.valueOf(someDate));
 
             callableStatement.executeUpdate();
 

@@ -2,7 +2,6 @@ package lapr.project.controller;
 
 import lapr.project.data.DatabaseConnection;
 import lapr.project.data.dataControllers.AverageOccupancyShipTimeController;
-import lapr.project.data.dataControllers.CreateMapContainersPortController;
 import lapr.project.domain.model.Company;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 
 public class AverageOccupancyShipTimeControllerTest {
@@ -53,7 +51,7 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=9;
         int month2=2;
         int year2=2021;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
         double expected=1.2;
         Assertions.assertEquals(expected,actual);
     }
@@ -68,8 +66,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=9;
         int month2=2;
         int year2=2021;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -83,8 +81,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=23;
         int month2=7;
         int year2=2020;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -98,8 +96,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=1;
         int month2=2;
         int year2=2021;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -113,8 +111,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=5;
         int month2=5;
         int year2=2020;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -128,8 +126,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=6;
         int month2=5;
         int year2=2020;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -137,14 +135,14 @@ public class AverageOccupancyShipTimeControllerTest {
     @Test
     void testNoAverageWhen29dMonthInvalidDays() throws SQLException {
         int shipID=636092948;
-        int day1=29;
+        int day1=30;
         int month1=2;
         int year1=2020;
         int day2=5;
         int month2=5;
         int year2=2020;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -158,8 +156,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=5;
         int month2=3;
         int year2=2021;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -173,8 +171,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=4;
         int month2=4;
         int year2=2025;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
@@ -188,8 +186,8 @@ public class AverageOccupancyShipTimeControllerTest {
         int day2=4;
         int month2=4;
         int year2=2020;
-        double actual=averageOccupancyShipTimeController.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
-        double expected=-1;
+        double actual=ctrl.getAverageOccupancyRateByShipIDandDates(shipID,month1,year1,day1,month2,year2,day2);
+        double expected=-1.0;
         Assertions.assertEquals(expected,actual);
     }
 
