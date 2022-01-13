@@ -16,12 +16,123 @@ import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
 
-    public int getShipMaxCapacity(int shipID) {
-        throw new IllegalArgumentException("to develop");
+    /**
+     * Get ship's max capacity by mmsi.
+     * @param mmsi ship's mmsi.
+     * @return ship's max capacity.
+     */
+    public int getShipMaxCapacity(int mmsi) {
+        int result = 0;
+        String createFunction = "create or replace function get_ship_max_capacity(f_mmsi ship.mmsi%type) return integer\n" +
+                "is\n" +
+                "\n" +
+                "    f_max_capacity integer;\n" +
+                "\n" +
+                "begin\n" +
+                "\n" +
+                "    select to_number(currentCapacity) into f_max_capacity\n" +
+                "        from ship\n" +
+                "        where mmsi = f_mmsi;\n" +
+                "\n" +
+                "    return (f_max_capacity);\n" +
+                "\n" +
+                "    exception\n" +
+                "        when no_data_found then\n" +
+                "        return 0;\n" +
+                "        \n" +
+                "end;";
+        String runFunction = "{? = call get_ship_max_capacity(?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(mmsi));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public int getShipOccupancyInDay(int shipID, Date someDate) {
-        throw new IllegalArgumentException("to develop");
+    /**
+     * Get number of container in ship on a day.
+     * @param mmsi ship's mmsi.
+     * @param someDate day to be analysed.
+     * @return number of container in ship on a day.
+     */
+    public int getNumContainersShipDay(int mmsi, Date someDate) {
+        int result = 0;
+        String createFunction = "create or replace function get_num_containers_ship_day(f_mmsi ship.mmsi%type, f_date shipTrip.real_departure_date%type) return integer\n" +
+                "is\n" +
+                "\n" +
+                "    f_current_num integer:=0;\n" +
+                "    f_shiptrip_id shipTrip.shiptrip_id%type;\n" +
+                "    f_loading_cargo_id shipTrip.loading_cargo_id%type;\n" +
+                "    f_unloading_cargo_id shipTrip.unloading_cargo_id%type;\n" +
+                "    \n" +
+                "    cursor loadingCargos\n" +
+                "        is\n" +
+                "        (select loading_cargo_id\n" +
+                "        from shipTrip\n" +
+                "        where mmsi=f_mmsi AND real_departure_date < f_date);\n" +
+                "        \n" +
+                "    cursor unloadingCargos\n" +
+                "        is\n" +
+                "        (select unloading_cargo_id\n" +
+                "        from shipTrip\n" +
+                "        where mmsi=f_mmsi AND real_arrival_date < f_date);\n" +
+                "        \n" +
+                "begin\n" +
+                "    \n" +
+                "    open loadingCargos;\n" +
+                "    loop\n" +
+                "        fetch loadingCargos into f_loading_cargo_id;\n" +
+                "        exit when loadingCargos%notfound;\n" +
+                "        f_current_num := f_current_num + get_num_containers_per_cargoManifest(f_loading_cargo_id);\n" +
+                "    end loop;\n" +
+                "    \n" +
+                "    open unloadingCargos;\n" +
+                "    loop\n" +
+                "        fetch unloadingCargos into f_unloading_cargo_id;\n" +
+                "        exit when unloadingCargos%notfound;\n" +
+                "        f_current_num := f_current_num + get_num_containers_per_cargoManifest(f_unloading_cargo_id);\n" +
+                "    end loop;\n" +
+                "    \n" +
+                "    return f_current_num;\n" +
+                "    \n" +
+                "    exception\n" +
+                "        when no_data_found then\n" +
+                "        return 0;\n" +
+                "        \n" +
+                "end;\n";
+        String runFunction = "{? = call get_num_containers_ship_day(?,?)}";
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Connection connection = databaseConnection.getConnection();
+        try (Statement createFunctionStat = connection.createStatement();
+             CallableStatement callableStatement = connection.prepareCall(runFunction)) {
+            createFunctionStat.execute(createFunction);
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2, String.valueOf(mmsi));
+            callableStatement.setString(2, String.valueOf(someDate));
+
+            callableStatement.executeUpdate();
+
+            result = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     /**
