@@ -57,7 +57,7 @@ public class AverageOccupancyShipTimeController {
      * @param day2 ending day.
      * @return ship occupancy rate in percentage.
      */
-    public int getAverageOccupancyRateByShipIDandDates(int shipID, int month1, int year1, int day1, int month2, int year2, int day2) {
+    public double getAverageOccupancyRateByShipIDandDates(int shipID, int month1, int year1, int day1, int month2, int year2, int day2) {
         if (checkIfShipExists(shipID)==0){
             return -1;
         }
