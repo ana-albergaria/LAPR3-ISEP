@@ -79,10 +79,14 @@ public class AverageOccupancyShipTimeController {
         } else if ((!(((year1 % 4 == 0) && (year1 % 100!= 0)) || (year1 % 400 == 0)) && month1==2 && day1>28) || (!(((year2 % 4 == 0) && (year2 % 100!= 0)) || (year2 % 400 == 0)) && month2==2 && day2>28)){
             return -1;
         }
-        ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
-        int maxCapacity = shipStoreDB.getShipMaxCapacity(shipID); //get with sql
+        Date current = new Date(Calendar.getInstance().getTime().getTime());
         Date bDate = new Date(year1-1900,month1-1,day1);
         Date eDate = new Date(year2-1900,month2-1,day2);
+        if (current.before(eDate)){
+            return -1;
+        }
+        ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
+        int maxCapacity = shipStoreDB.getShipMaxCapacity(shipID); //get with sql
         int numData=0, sumData=0, capacityTime;
         Date someDate = bDate;
         while (someDate!=eDate){
