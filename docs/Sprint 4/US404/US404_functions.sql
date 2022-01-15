@@ -71,6 +71,8 @@ BEGIN
 END;
 /
 
+--ATTENTION: this tests were made when sysdate='14-01-2022' therefore the result will change in the future
+
 --TESTS FOR check_ship_idle_day
 
 SET SERVEROUTPUT ON;
