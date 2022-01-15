@@ -17,19 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
-    public static void main(String[] args) {
 
-        /*DatabaseConnection databaseConnection = App.getInstance().getConnection();
-
-        String ships = getIdleShips(databaseConnection);
-        System.out.println(ships);
-
-         */
-
-    }
-
-    public static String getIdleShips(DatabaseConnection databaseConnection) {
-        /*try {
+    public String getIdleShips(DatabaseConnection databaseConnection) {
+        try {
             Connection connection = databaseConnection.getConnection();
             CallableStatement cs = connection.prepareCall("{? = call all_ships_idle(?)}");
 
@@ -49,8 +39,6 @@ public class ShipStoreDB implements Persistable{
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-         */
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
     }
 

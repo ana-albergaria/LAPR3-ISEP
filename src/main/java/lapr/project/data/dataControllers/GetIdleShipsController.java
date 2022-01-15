@@ -37,10 +37,9 @@ public class GetIdleShipsController {
      * @return number of days in which each ship which has been idle since the beginning of the current year
      */
     public String getIdleShips() {
-        /*ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
+        ShipStoreDB shipStoreDB = this.company.getShipStoreDB();
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         String idleShips = shipStoreDB.getIdleShips(databaseConnection);
-        return idleShips;*/
-        throw new UnsupportedOperationException("Not Supported Yet.");
+        return idleShips;
     }
 }

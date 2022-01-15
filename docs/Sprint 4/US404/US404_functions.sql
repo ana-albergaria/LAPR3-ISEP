@@ -13,7 +13,7 @@ BEGIN
     LOOP
     FETCH c_trips into c_shiptrip_id, c_real_departure_date, c_real_arrival_date;
         EXIT WHEN c_trips%notfound;
-        --if the ship had at least a shiptrip where it has left OR arrived in that date OR the trip is still occuring in that date, it means the ship was not idle in that day
+        --if the ship had at least a shiptrip where it has left OR arrived in that date OR the date was in the middle of the trip in that date, it means the ship was not idle in that day
         IF (f_day_date >= c_real_departure_date AND f_day_date <= c_real_arrival_date) THEN
             return false;
         END IF;
@@ -23,6 +23,51 @@ BEGIN
 
     return true;
 
+END;
+/
+
+--function to count the days a ship has been idle since the beginning of the year
+CREATE OR REPLACE FUNCTION check_ship_idle_year(f_ship_mmsi ship.mmsi%type, f_start_year date) return integer
+IS
+    count_days integer := 0;
+    current_date date := f_start_year;
+    isIdleOnDay boolean;
+
+BEGIN
+    WHILE to_char(current_date, 'DD-MM-YYYY') != to_char(sysdate+1, 'DD-MM-YYYY')
+    LOOP
+        isIdleOnDay := check_ship_idle_day(f_ship_mmsi, current_date);
+        IF isIdleOnDay THEN
+            count_days := count_days+1;
+        END IF;
+        current_date := current_date+1;
+    END LOOP;
+
+    return count_days;
+END;
+/
+
+--function to get for each ship the idle days
+CREATE OR REPLACE FUNCTION all_ships_idle(f_start_year varchar) return varchar
+IS
+    c_mmsi  ship.mmsi%type;
+    ships varchar(32700);
+    idle_days integer := 0;
+    start_year date := TO_DATE(f_start_year, 'DD-MM-YYYY');
+
+    CURSOR c_ships is
+      SELECT mmsi FROM SHIP;
+BEGIN
+    OPEN c_ships;
+    LOOP
+    FETCH c_ships into c_mmsi;
+      EXIT WHEN c_ships%notfound;
+    idle_days := check_ship_idle_year(c_mmsi, start_year);
+    ships := ships || 'Ship MMSI: ' || c_mmsi || ' | Number of Idle Days: ' || idle_days || chr(10);
+    END LOOP;
+    CLOSE c_ships;
+
+    return ships;
 END;
 /
 
@@ -63,27 +108,6 @@ end;
 
 
 
---function to count the days a ship has been idle since the beginning of the year
-CREATE OR REPLACE FUNCTION check_ship_idle_year(f_ship_mmsi ship.mmsi%type, f_start_year date) return integer
-IS
-    count_days integer := 0;
-    current_date date := f_start_year;
-    isIdleOnDay boolean;
-
-BEGIN
-    WHILE to_char(current_date, 'DD-MM-YYYY') != to_char(sysdate+1, 'DD-MM-YYYY')
-    LOOP
-        isIdleOnDay := check_ship_idle_day(f_ship_mmsi, current_date);
-        IF isIdleOnDay THEN
-            count_days := count_days+1;
-        END IF;
-        current_date := current_date+1;
-    END LOOP;
-
-    return count_days;
-END;
-/
-
 
 --TESTS FOR check_ship_idle_year
 
@@ -122,25 +146,3 @@ end;
 
 
 
---function to get for each ship the idle days
-CREATE OR REPLACE FUNCTION all_ships_idle(f_start_year date) return varchar
-IS
-    c_mmsi  ship.mmsi%type;
-    ships varchar(32700);
-    idle_days integer := 0;
-
-    CURSOR c_ships is
-      SELECT mmsi FROM SHIP;
-BEGIN
-    OPEN c_ships;
-    LOOP
-    FETCH c_ships into c_mmsi;
-      EXIT WHEN c_ships%notfound;
-    idle_days := check_ship_idle_year(c_mmsi, f_start_year);
-    ships := ships || 'Ship MMSI: ' || c_mmsi || ' | Number of Idle Days: ' || idle_days || chr(10);
-    END LOOP;
-    CLOSE c_ships;
-
-    return ships;
-END;
-/
