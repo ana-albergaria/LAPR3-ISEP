@@ -142,7 +142,9 @@ begin
     dbms_output.put_line(check_ship_idle_year(210950000, '01-01-2022'));
 end;
 
---FALTA SHIPS WITH NO IDLE TIME
+begin
+    dbms_output.put_line(all_ships_idle('01-01-2022'));
+end;
 
 
 

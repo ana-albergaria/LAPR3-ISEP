@@ -36,8 +36,13 @@ class Route {
     -route_id
 }
 
+class Company{
+    -designation
+}
+
 FleetManager "1" -- "1..*" Ship : controls >
 Ship "1" -- "*" Route : does >
 Route "1" -- "1..*" ShipTrip : contains >
+Company "1" -- "1..*" Ship : owns >
 
 @enduml
