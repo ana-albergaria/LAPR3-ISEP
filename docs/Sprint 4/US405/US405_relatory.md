@@ -73,13 +73,25 @@ n/a
 
 # 4. Tests
 
-### ... class test:
+### AverageOccupancyShipTimeController class test:
 
 
-**Test 1:** Test to check 
+**Test 1:** Test to check that the average in correctly calculated for valid values.
 
-**Test 2:** Test to check 
+**Test 2:** Test to check that the average is -1 (invalid) when shipID doesn't exist.
 
-**Test 3:** Test to check 
+**Test 3:** Test to check that the average is -1 (invalid) when month is minor than 1.
 
-**Test 4:** Test to check 
+**Test 4:** Test to check that the average is -1 (invalid) when month is bigger than 12.
+
+**Test 5:** Test to check that the average is -1 (invalid) when 31 days month has more than 31 days.
+
+**Test 6:** Test to check that the average is -1 (invalid) when 30 days month has more than 30 days.
+
+**Test 7:** Test to check that the average is -1 (invalid) when 29 days month has more than 29 days.
+
+**Test 8:** Test to check that the average is -1 (invalid) when 28 days month has more than 28 days.
+
+**Test 9:** Test to check that the average is -1 (invalid) when ending date comes after current date.
+
+**Test 10:** Test to check that the average is -1 (invalid) when beginning date comes after ending date.

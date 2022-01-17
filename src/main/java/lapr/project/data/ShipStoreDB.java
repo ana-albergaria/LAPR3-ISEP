@@ -7,14 +7,40 @@ import lapr.project.domain.model.ShipSortMmsi;
 import lapr.project.domain.store.ShipStore;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
+
+    public String getIdleShips(DatabaseConnection databaseConnection) {
+        try {
+            Connection connection = databaseConnection.getConnection();
+            CallableStatement cs = connection.prepareCall("{? = call all_ships_idle(?)}");
+
+            Calendar cal = Calendar.getInstance();
+            int currentYear =  cal.get(Calendar.YEAR);
+            cal.set(currentYear, 0, 1);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String dateString = sdf.format(cal.getTime());
+            cs.setString(2, dateString);
+            cs.registerOutParameter(1, Types.VARCHAR);
+            cs.executeUpdate();
+            String ships = cs.getString(1);
+            cs.close();
+            return ships;
+
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+    }
 
     /**
      * Get ship's max capacity by mmsi.
@@ -121,7 +147,7 @@ public class ShipStoreDB implements Persistable{
             createFunctionStat.execute(createFunction);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.setString(2, String.valueOf(mmsi));
-            callableStatement.setString(2, String.valueOf(someDate));
+            callableStatement.setString(3, String.valueOf(someDate));
 
             callableStatement.executeUpdate();
 

@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class GetUnloadingLoadingMapController{
+    +getUnloadingLoadingMap()
+}
+
+class Company {
+    +getShipStoreDB()
+}
+
+class CargoManifestStoreDB {
+    +getUnloadingLoadingMap(dataBaseConnection)
+}
+
+GetUnloadingLoadingMapController ..> Company
+GetUnloadingLoadingMapController ..> CargoManifestStoreDB
+Company "1" -- "1" CargoManifestStoreDB : uses >
+
+@enduml
