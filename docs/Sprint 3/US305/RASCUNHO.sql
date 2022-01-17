@@ -81,6 +81,7 @@ insert into route(route_id) values(5);
 --insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (70007, 258692000, 21556, 11174, 53304, 69477, '03/03/2021', '13/06/2021', '02/03/2021', '02/04/2021');
 --insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (34710, 636019825, 13012, 27792, 45228, 73258, '31/03/2021', '08/06/2021', '02/02/2021', '16/05/2021');
 
+--us407
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (74072, 303267000, 29239, 22522, 52328, 723, '05/03/2021', '22/05/2021', '21/02/2021', '29/05/2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (65759, 258692000, 21206, 18476, 79225, 77328, '07/02/2021', '14/06/2021', '23/03/2021', '07/05/2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (55009, 256888000, 18937, 10563, 9062, 25442, '06/02/2021', '16/06/2021', '15/02/2021', '14/05/2021');
@@ -104,6 +105,10 @@ insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, l
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (52877, 636092932, 14277, 29239, 54561, 9062, '31/03/2021', '13/05/2021', '17/02/2021', '20/04/2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (98427, 636091400, 18867, 29749, 87507, 77328, '22/02/2021', '03/06/2021', '12/03/2021', '03/04/2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (95119, 228339600, 15107, 29749, 67603, 723, '18/02/2021', '23/04/2021', '14/03/2021', '25/05/2021');
+--end us407
+
+
+
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (84683, 258692000, 21206, 21381, 723, 62698, '19/02/2021', '02/04/2021', '04/02/2021', '20/05/2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (20458, 212180000, 27728, 24795, 82845, 723, '21/03/2021', '06/04/2021', '10/02/2021', '10/05/2021');
 insert into shiptrip (shiptrip_id, mmsi, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (1792, 229767000, 16737, 24795, 3598, 80342, '22/02/2021', '28/04/2021', '01/03/2021', '12/04/2021');
