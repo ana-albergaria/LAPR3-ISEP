@@ -19,8 +19,11 @@ public class CargoManifestStoreDB{
     /*public static void main(String[] args) {
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Map<String, String> map = getUnLoadingLoadingMap(databaseConnection);
+        System.out.println(map.get("25/01/2022"));
 
-    }*/
+    }
+    
+     */
 
     public static Map<String, String> getUnLoadingLoadingMap(DatabaseConnection databaseConnection) {
         Map<String, String> map = new LinkedHashMap<>();
