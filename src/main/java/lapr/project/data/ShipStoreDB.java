@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class ShipStoreDB implements Persistable{
 
-    public static String getIdleShips(DatabaseConnection databaseConnection) {
+    public String getIdleShips(DatabaseConnection databaseConnection) {
         try {
             Connection connection = databaseConnection.getConnection();
             CallableStatement cs = connection.prepareCall("{? = call all_ships_idle(?)}");
