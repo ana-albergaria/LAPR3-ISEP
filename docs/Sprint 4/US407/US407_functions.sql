@@ -141,5 +141,5 @@ IS
     day_date date := TO_DATE(f_day_date, 'DD-MM-YYYY');
     info varchar(32700);
 BEGIN
-    return get_info_unloading_day(f_day_date) || chr(10) || chr(10) || get_info_loading_day(f_day_date);
+    return get_info_unloading_day(day_date) || chr(10) || chr(10) || get_info_loading_day(day_date);
 END;
