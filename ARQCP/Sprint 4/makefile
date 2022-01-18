@@ -1,8 +1,8 @@
 #Makefile
 
 INCLUDES = 
-SOURCES = main.c maindinamico.c 
-OBJFILES = main.o maindinamico.o
+SOURCES = main.c is_refrigerated.s energy.c maindinamico.c 
+OBJFILES = main.o is_refrigerated.o energy.o maindinamico.o
 EXEC = matrix
 
 .SUFFIXES : .c .o

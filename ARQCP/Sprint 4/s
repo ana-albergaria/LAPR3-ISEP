@@ -1,9 +1,9 @@
 .section .data
-	.equ TOTAL_SIZE, 36
-	.equ X_OFFSET, 28
-	.equ Y_OFFSET, 30
-	.equ Z_OFFSET, 32
-	.equ TEMPERATURE_OFFSET, 34
+	.equ TOTAL_SIZE, 60
+	.equ X_OFFSET, 52
+	.equ Y_OFFSET, 54
+	.equ Z_OFFSET, 56
+	.equ TEMPERATURE_OFFSET, 58
 .section .text
 	.global is_refrigerated		
 	
@@ -16,24 +16,22 @@
 		# ###########################################
 		movslq %esi, %rsi # making size quad to compare with counter
 		movq $0, %r9 # counter is quad to be part of the offset
-		movq $0, %r10 # will be the array offset mover since we cannot use the offset normally because of the size not being literal i.e size>8
+		movq $0, %r10
 		find_container:
-		# here improvising the offset function with 4 (multiple of total size 36) to move the array r10 will be updated with 9 values every time (9*4=36)
 			cmpw X_OFFSET(%rdi,%r10, 4), %dx # compare x
 			jne keep_search
-			cmpw Y_OFFSET(%rdi, %r10, 4), %cx # compare y
+			cmpw Y_OFFSET(%rdi, %r10, 4), %cx # compare x
 			jne keep_search
-			cmpw Z_OFFSET(%rdi, %r10, 4), %r8w # compare z
+			cmpw Z_OFFSET(%rdi, %r10, 4), %r8w # compare x
 			jne keep_search
 
-		# found the container now pass the address to check the refrigeration
 			leaq (%rdi, %r10, 4), %rbx
 			movq %rbx, %rdi
 			jmp check_refrigeration
 
 		keep_search:
 			incq %r9
-			addq $9, %r10
+			addq $15, %r10
 			cmpq %rsi, %r9
 			jl find_container
 

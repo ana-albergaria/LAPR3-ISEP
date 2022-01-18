@@ -1,13 +1,63 @@
 package lapr.project.data;
 
+
 import lapr.project.controller.App;
 
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Marta Ribeiro (1201592)
  */
 public class CargoManifestStoreDB{
+    /*public static void main(String[] args) {
+        DatabaseConnection databaseConnection = App.getInstance().getConnection();
+        Map<String, String> map = getUnLoadingLoadingMap(databaseConnection);
+
+    }*/
+
+    public static Map<String, String> getUnLoadingLoadingMap(DatabaseConnection databaseConnection) {
+        Map<String, String> map = new LinkedHashMap<>();
+
+        //obtaining the beginning of next week
+        LocalDate dt = LocalDate.of(2022, Month.JANUARY, 24);
+        //LocalDate dt = LocalDate.now();
+        LocalDate currentDate = dt.with( TemporalAdjusters.nextOrSame( DayOfWeek.MONDAY ) ) ;
+        String date = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        //obtaining the end of the week
+        String endWeek = currentDate.with(TemporalAdjusters.next( DayOfWeek.MONDAY )).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+            try {
+
+                Connection connection = databaseConnection.getConnection();
+                CallableStatement cs = connection.prepareCall("{? = call get_loading_unloading_day(?)}");
+
+                while(!date.equals(endWeek)) {
+                    cs.setString(2, date);
+                    cs.registerOutParameter(1, Types.VARCHAR);
+                    cs.executeUpdate();
+                    String dayMap = cs.getString(1);
+
+                    map.put(date, dayMap);
+
+                    currentDate = currentDate.plusDays(1);
+                    date = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                }
+
+                cs.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+        return map;
+        //throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+    }
 
     public String getAuditTrailOfContainer(int containerId, int cargoManifestId){
         StringBuilder result = new StringBuilder();
