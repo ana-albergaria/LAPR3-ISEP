@@ -33,20 +33,6 @@ public class AverageOccupancyShipTimeController {
     }
 
     /**
-     * Calculate occupancy rate with maxCapacity and currentCapacity.
-     * @param maxCapacity warehouse max capacity.
-     * @param currentCapacity number of containers in the ship at a time.
-     * @return ship occupancy rate at a time.
-     */
-    public double calculateOccupancyRate(double maxCapacity, double currentCapacity){
-        if (currentCapacity>maxCapacity){
-            return -1; //when invalid
-        } else {
-            return (currentCapacity*100.0/maxCapacity);
-        }
-    }
-
-    /**
      * Get ship average occupancy rate by ship id and two dates.
      * @param shipID ship id.
      * @param month1 beginning month.
@@ -94,7 +80,7 @@ public class AverageOccupancyShipTimeController {
         do{
             numData++;
             capacityTime = shipStoreDB.getNumContainersShipDay(shipID, someDate);
-            sumData=sumData+calculateOccupancyRate(maxCapacity,capacityTime);
+            sumData=sumData+shipStoreDB.calculateOccupancyRate(maxCapacity,capacityTime);
             someDate=new java.sql.Date(someDate.getTime() + 24*60*60*1000);
             prevSomeDate=new java.sql.Date(someDate.getTime() - 24*60*60*1000);
         } while (!prevSomeDate.toString().equals(eDate.toString()));
