@@ -3,6 +3,7 @@ package lapr.project.domain.model;
 import auth.AuthFacade;
 import lapr.project.data.*;
 import lapr.project.domain.dataStructures.FreightNetwork;
+import lapr.project.domain.store.CapitalStore;
 import lapr.project.domain.store.CountryStore;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.store.ShipStore;
@@ -39,6 +40,12 @@ public class Company {
      * The Port Store.
      */
     private final PortStore portStore;
+
+    /**
+     * The Capital Store.
+     */
+    private final CapitalStore capitalStore;
+
     /**
      * The Ship Trip Store Data Base.
      */
@@ -77,6 +84,7 @@ public class Company {
         this.designation=designation;
         this.shipsStore = new ShipStore();
         this.portStore = new PortStore();
+        this.capitalStore = new CapitalStore();
         this.shipTripStoreDB = new ShipTripStoreDB();
         this.truckTripStoreDB = new TruckTripStoreDB();
         this.shipStoreDB = new ShipStoreDB();
@@ -113,6 +121,15 @@ public class Company {
      */
     public PortStore getPortStore() {
         return portStore;
+    }
+
+    /**
+     * Returns the Capital Store.
+     *
+     * @return the Capital Store.
+     */
+    public CapitalStore getCapitalStore(){
+        return capitalStore;
     }
 
     /**
