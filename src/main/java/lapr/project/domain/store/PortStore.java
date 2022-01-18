@@ -108,4 +108,13 @@ public class PortStore {
         throw new IllegalArgumentException("Could not find a port with the given id: " + id);
     }
 
+    public Port getPortByCoordinatesIfExists(double lat, double lon){
+        for (Port port: portsList){
+            if (port.getLatitude()==lat && port.getLongitude()==lon){
+                return port;
+            }
+        }
+        return null;
+    }
+
 }
