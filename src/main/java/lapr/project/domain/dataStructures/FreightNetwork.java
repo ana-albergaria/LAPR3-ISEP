@@ -192,6 +192,5 @@ public class FreightNetwork {
         LinkedList<Location> shortestPath = new LinkedList<>();
         Double dists = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPath);
 
-
     }
 }

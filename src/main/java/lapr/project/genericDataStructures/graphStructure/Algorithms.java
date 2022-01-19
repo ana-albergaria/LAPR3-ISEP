@@ -199,34 +199,6 @@ public class Algorithms {
         return lengthPath;
     }
 
-    //shortest-path between voInf and vdInf
-    /*
-    public static <V, E> double shortestPath(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> shortPath) {
-
-        if (!g.validVertex(vDest) || !g.validVertex(vOrig)) {
-            return 0;
-        }
-
-        int destIdx = g.getKey(vDest);
-
-        boolean[] knownVertices = new boolean[g.numVertices()];
-        int[] pathKeys = new int[g.numVertices()];
-        double[] minDist = new double[g.numVertices()];
-
-        shortestPathLength(g, vOrig, g.allkeyVerts(), knownVertices, pathKeys, minDist);
-
-        if (minDist[destIdx] == -1 || minDist[destIdx] == Double.MAX_VALUE) {
-            return -1;
-        }
-        getPath(g, vOrig, vDest, g.allkeyVerts(), pathKeys, shortPath);
-        revPath(shortPath);
-        if (minDist[destIdx] == 0) {
-            return 0;
-        }
-
-        return minDist[destIdx];
-    }*/
-
     /** Shortest-path between a vertex and all other vertices
      *
      * @param g graph
