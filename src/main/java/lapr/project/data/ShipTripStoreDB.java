@@ -597,4 +597,50 @@ public class ShipTripStoreDB {
         throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
 
     }
+
+    /**
+     * Method to get the list of voyages with an occupancy rate below 66%
+     * @return List with voyages with an occupancy rate below 66%
+     */
+    public List<Integer> getListVoyages(DatabaseConnection databaseConnection) {
+        List<Integer> listID = new LinkedList<>();
+        Connection connection = databaseConnection.getConnection();
+
+        ShipStoreDB shipStoreDB = App.getInstance().getCompany().getShipStoreDB();
+
+        try (CallableStatement cs = connection.prepareCall("{? = call  get_all_voyages()}")) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.executeUpdate();
+
+
+            ResultSet cs1 = (ResultSet) cs.getObject(1);
+
+            int i=0;
+            while (cs1.next()) {
+                int shipID = cs1.getInt(1);
+                System.out.println(shipID);
+
+                int maxCapacity = shipStoreDB.getShipMaxCapacity(shipID);
+
+                int tripID = cs1.getInt(2);
+
+                int departureID = cs1.getInt(3);
+                int arrivalID = cs1.getInt(4);
+                Date departureDate = cs1.getDate(5);
+                int capacityTime = shipStoreDB.getNumContainersShipDay(shipID, departureDate);
+
+                Date arrivalDate = cs1.getDate(6);
+
+                if (shipStoreDB.calculateOccupancyRate(maxCapacity, capacityTime) < 66) {
+                    listID.add(tripID);
+                }
+
+            }
+            return listID;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        throw new UnsupportedOperationException("Some error with the Data Base occured. Please try again.");
+    }
 }

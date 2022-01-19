@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompanyTest {
 
 
+
     @Test
     public void TestCompanyInstance(){
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Company(""));

@@ -43,14 +43,20 @@ class ContainerTest {
 
     @Test
     void getTotalThermalResistance() {
-        double expected = 0.2759;
-        Container container = new Container(id, payload, tare, gross, iso, layers);
+        double expected = 0.2784;
+        Container container = new Container(id, payload, tare, gross, iso, layers, 7.0);
         double value = Math.round((container.getTotalThermalResistance(72.5)*10000));
         value = value /10000;
 
         assertEquals(expected, value);
     }
 
+    @Test
+    void getTempTest(){
+        Container c1 = new Container(id, payload, tare, gross, iso, layers, 7);
+        double exp = 7;
+        assertEquals(exp, c1.getTemperature());
+    }
 
     @Test
     public void ensureThicknessNotNegative(){
@@ -78,39 +84,39 @@ class ContainerTest {
 
     @Test
     public void ensureNegativeIdNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(-281, payload, tare, gross, iso, layers));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(-281, payload, tare, gross, iso, layers, 7.0));
         assertEquals("Identification has to be above 0.", thrown.getMessage());
     }
 
     @Test
     public void ensureZeroIdNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(0, payload, tare, gross, iso, layers));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(0, payload, tare, gross, iso, layers, 7.0));
         assertEquals("Identification has to be above 0.", thrown.getMessage());
     }
 
 
     @Test
     public void ensureNegativeTareNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, -10, gross, iso, layers));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, -10, gross, iso, layers, 7.0));
         assertEquals("Tare has to be above 0.", thrown.getMessage());
     }
 
     @Test
     public void ensureZeroTareNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, 0, gross, iso, layers));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, 0, gross, iso, layers, 7.0));
         assertEquals("Tare has to be above 0.", thrown.getMessage());
     }
 
 
     @Test
     public void ensureNullIsoNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, tare, gross, null, layers));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, tare, gross, null, layers, 7.0));
         assertEquals("Iso cannot be null.", thrown.getMessage());
     }
 
     @Test
     public void ensureEmptyListNotAllowed(){
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, tare, gross, iso, new ArrayList<>()));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new Container(id, payload, tare, gross, iso, new ArrayList<>(), 7.0));
         assertEquals("Tha layers of the container cannot be empty", thrown.getMessage());
     }
 

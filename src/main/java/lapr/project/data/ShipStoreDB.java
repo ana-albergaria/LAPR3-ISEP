@@ -614,4 +614,19 @@ public class ShipStoreDB implements Persistable{
         return returnValue;
     }
 
+
+    /**
+     * Calculate occupancy rate with maxCapacity and currentCapacity.
+     * @param maxCapacity warehouse max capacity.
+     * @param currentCapacity number of containers in the ship at a time.
+     * @return ship occupancy rate at a time.
+     */
+    public double calculateOccupancyRate(double maxCapacity, double currentCapacity){
+        if (currentCapacity>maxCapacity){
+            return -1; //when invalid
+        } else {
+            return (currentCapacity*100.0/maxCapacity);
+        }
+    }
+
 }

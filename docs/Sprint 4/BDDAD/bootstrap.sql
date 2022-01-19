@@ -15583,4 +15583,6 @@ insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arr
 --US304
 update containerincargomanifest set temperature_kept = 2 where container_id=8950208 and CARGOMANIFEST_ID=11031;
 
-
+--US407
+insert into trucktrip (trucktrip_id, route_id, truck_id, departure_location, arrival_location, loading_cargo_id, unloading_cargo_id, est_departure_date, est_arrival_date, real_departure_date, real_arrival_date) values (84683, 1, 11111, 1741, 111, 723, 62698, '24/01/2022', '25/01/2022', '24/01/2022', '25/01/2022');
+--END US407

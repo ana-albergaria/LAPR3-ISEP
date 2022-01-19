@@ -15,9 +15,11 @@ public class Container {
 
     private final String iso;
 
+    private double temperature;
+
     private final List<ContainerLayer> layers;
 
-    public Container(int id, double payload, double tare, double gross, String iso, List<ContainerLayer> layers) {
+    public Container(int id, double payload, double tare, double gross, String iso, List<ContainerLayer> layers, double temperature) {
         checkIdentification(id);
         checkIso(iso);
         checkLayers(layers);
@@ -28,6 +30,7 @@ public class Container {
         this.gross = gross;
         this.iso = iso;
         this.layers = layers;
+        this.temperature = temperature;
     }
 
     public void checkIso(String iso){
@@ -54,10 +57,18 @@ public class Container {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
     public double getTotalThermalResistance(double area){
         double totalThermal=0.0;
         for(ContainerLayer containerLayer : this.layers){
-            totalThermal =+ containerLayer.getThermalResistance(area);
+            totalThermal += containerLayer.getThermalResistance(area);
         }
         return totalThermal;
     }
