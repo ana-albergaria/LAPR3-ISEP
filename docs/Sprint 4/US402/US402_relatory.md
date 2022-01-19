@@ -35,6 +35,7 @@ This US has dependencies with USs.....................
 **Output Data:**
 
 * the shortest path between the two desired locals
+* the path's total distance
 
 
 ### 1.5. System Sequence Diagram (SSD)
