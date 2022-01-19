@@ -43,7 +43,7 @@ class ContainerTest {
 
     @Test
     void getTotalThermalResistance() {
-        double expected = 0.2759;
+        double expected = 0.2784;
         Container container = new Container(id, payload, tare, gross, iso, layers, 7.0);
         double value = Math.round((container.getTotalThermalResistance(72.5)*10000));
         value = value /10000;
