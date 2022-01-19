@@ -28,12 +28,21 @@ public class FreightNetwork {
     }
 
     public List<Map.Entry<Location, Integer>> getMostCentralPorts(){
-        List<Location> locations = this.freightNetwork.vertices();
         Map<Location, Integer> ports = new HashMap<>();
-        for (Location l : locations){
-            if(l instanceof Port){
-                ports.put(l, freightNetwork.incomingEdges(l).size());
+        ArrayList<LinkedList<Location>> paths = new ArrayList<>();
+        ArrayList<Double> dists = new ArrayList<>();
+
+        for (Location location : freightNetwork.vertices()){
+            Algorithms.shortestPaths(freightNetwork, location, Double::compare, Double::sum, 0.0, paths, dists);
+            for (LinkedList<Location> path : paths){
+                for (Location loc : path){
+                    if(loc instanceof Port){
+                        ports.merge(loc, 1, Integer::sum);
+                    }
+                }
             }
+            paths.clear();
+            dists.clear();
         }
         List<Map.Entry<Location, Integer>> toBeSortedMap = new ArrayList<>(ports.entrySet());
         toBeSortedMap.sort(Comparator.comparing(Map.Entry<Location, Integer>::getValue).reversed());

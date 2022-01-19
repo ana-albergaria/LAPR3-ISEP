@@ -122,7 +122,7 @@ class MatrixAlgorithmsTest {
      */
     @Test
     public void testShortestPath() {
-        /*System.out.println("Test of shortest path");
+        System.out.println("Test of shortest path");
 
         LinkedList<String> shortPath = new LinkedList<>();
 
@@ -160,7 +160,6 @@ class MatrixAlgorithmsTest {
         assertEquals(365, lenPath, "Length path should be 0 if vertices are the same");
         assertEquals(Arrays.asList("Porto", "Aveiro", "Leiria", "Castelo Branco"), shortPath, "Shortest Path Porto - Castelo Branco");
 
-         */
 
 
     }
@@ -170,13 +169,19 @@ class MatrixAlgorithmsTest {
      */
     @Test
     public void testShortestPaths() {
-        /*System.out.println("Test of shortest path");
+        System.out.println("Test of shortest path");
 
         ArrayList<LinkedList<String>> paths = new ArrayList<>();
         ArrayList<Integer> dists = new ArrayList<>();
 
         Algorithms.shortestPaths(completeMap, "Porto", Integer::compare, Integer::sum, 0, paths, dists);
 
+        for (LinkedList<String> s : paths){
+            for (String ss : s){
+                System.out.println(ss);
+            }
+            System.out.println();
+        }
         assertEquals(paths.size(), dists.size(), "There should be as many paths as sizes");
         assertEquals(completeMap.numVertices(), paths.size(), "There should be a path to every vertex");
         assertEquals(Arrays.asList("Porto"), paths.get(completeMap.key("Porto")), "Number of nodes should be 1 if source and vertex are the same");
@@ -200,7 +205,6 @@ class MatrixAlgorithmsTest {
         Algorithms.shortestPaths(incompleteMap, "Braga", Integer::compare, Integer::sum, 0, paths, dists);
         assertEquals(255, dists.get(completeMap.key("Leiria")), "Path between Braga and Leiria should be 255 Km");
         assertEquals(Arrays.asList("Braga", "Porto", "Aveiro", "Leiria"), paths.get(completeMap.key("Leiria")), "Path to Leiria");
-         */
     }
     
     /**
