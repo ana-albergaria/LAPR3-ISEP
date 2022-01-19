@@ -24,8 +24,9 @@ This US has dependencies with USs.....................
 **Input Data:**
 
 * Typed data:
-    * local 1 (city or port)
-    * local 2 (city or port)
+    * local 1 (city or port)'s lat and lon
+    * local 2 (city or port)'s lat and lon
+    * desired path type (land path, maritime path, or land or sea path)
 
 * Selected data:
     * n/a
@@ -73,7 +74,7 @@ n/a
 
 # 4. Tests
 
-### ...Controller class test:
+### ShortestPathController class test:
 
 
 **Test 1:** Test to check that ...
