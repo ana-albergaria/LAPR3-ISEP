@@ -187,10 +187,10 @@ public class FreightNetwork {
         return  continentNetwork;
     }
 
-    //NÃO VAI SER VOID
-    private void getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+    //VAI RETORNAR O CAMINHO MAIS PEQUENO
+    private LinkedList<Location> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
         LinkedList<Location> shortestPath = new LinkedList<>();
-        Double dists = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPath);
-
+        Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPath);
+        return shortestPath;
     }
 }
