@@ -22,7 +22,6 @@ public class CargoManifestStoreDB{
         System.out.println(map.get("25/01/2022"));
 
     }
-    
      */
 
     public static Map<String, String> getUnLoadingLoadingMap(DatabaseConnection databaseConnection) {
