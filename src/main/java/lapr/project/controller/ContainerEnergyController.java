@@ -49,10 +49,8 @@ public class ContainerEnergyController {
         for (Container container : allContainers){
             double totalResistance = container.getTotalThermalResistance(area);
             double contTemperature = container.getTemperature();
-            System.out.printf("%f\n", PhysicsUtils.calculateEnergyPowerForContainer(externalTemp, contTemperature, totalResistance));
+            System.out.printf("id: %s,consumption: %f\n",container.getId(), PhysicsUtils.calculateEnergyPowerForContainer(externalTemp, contTemperature, totalResistance));
             consumptionTotal += PhysicsUtils.calculateEnergyPowerForContainer(externalTemp, contTemperature, totalResistance); //give in power already
-            System.out.printf("%f\n", consumptionTotal);
-
         }
 
         consumptionTotal = consumptionTotal / 1000; // watts to killowatts

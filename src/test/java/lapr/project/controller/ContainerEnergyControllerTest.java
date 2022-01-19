@@ -101,8 +101,8 @@ class ContainerEnergyControllerTest {
     void numberOfGenerators(){
         ContainerEnergyController controller = new ContainerEnergyController(cmp1);
         double containerArea = ((6*2.5)*4)+(2.5*2.5)*2; // considering all sides exposed and a 6x2.5 container.
-
-        System.out.println(controller.getNumberOfAuxiliaryPower(75, containerArea, 20));
+        int exp = 1; //1 needed generator of 75kw is expected for the 12 containers in the list, 6 of 7 degrees and 6 of -5
+        assertEquals(exp, controller.getNumberOfAuxiliaryPower(75, containerArea, 20));
 
     }
 
