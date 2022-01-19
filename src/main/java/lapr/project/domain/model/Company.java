@@ -3,6 +3,7 @@ package lapr.project.domain.model;
 import auth.AuthFacade;
 import lapr.project.data.*;
 import lapr.project.domain.dataStructures.FreightNetwork;
+import lapr.project.domain.store.ContainerStore;
 import lapr.project.domain.store.CountryStore;
 import lapr.project.domain.store.PortStore;
 import lapr.project.domain.store.ShipStore;
@@ -65,6 +66,8 @@ public class Company {
 
     private final CountryStore countryStore;
 
+    private final ContainerStore containerStore;
+
     public final FreightNetwork freightNetwork;
     /**
      * Constructs an instance of Company receiving as a parameter the Company's designation
@@ -86,6 +89,7 @@ public class Company {
         this.portStoreDB = new PortStoreDB();
         this.countryStore = new CountryStore();
         this.freightNetwork = new FreightNetwork();
+        this.containerStore = new ContainerStore();
     }
 
     /**
@@ -171,6 +175,7 @@ public class Company {
         return authFacade;
     }
 
+    public ContainerStore getContainerStore() {return containerStore;}
 
     public CountryStore getCountryStore(){return this.countryStore;}
 

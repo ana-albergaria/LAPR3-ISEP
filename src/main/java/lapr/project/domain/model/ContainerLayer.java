@@ -26,7 +26,7 @@ public class ContainerLayer {
     }
 
     public double getThermalResistance(double area){
-        return thickness/(thermalConstant*area);
+        return (thickness/(thermalConstant*area));
     }
 
 }
