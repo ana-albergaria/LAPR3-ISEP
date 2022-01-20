@@ -19,19 +19,18 @@ public class CargoManifestStoreDB{
     /*public static void main(String[] args) {
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
         Map<String, String> map = getUnLoadingLoadingMap(databaseConnection);
-        System.out.println(map.get("30/01/2022"));
-
+        System.out.println(map.get("31/01/2022"));
     }*/
 
 
-    public static Map<String, String> getUnLoadingLoadingMap(DatabaseConnection databaseConnection) {
+    public Map<String, String> getUnLoadingLoadingMap(DatabaseConnection databaseConnection) {
         Map<String, String> map = new LinkedHashMap<>();
 
         //obtaining the beginning of next week
-        LocalDate dt = LocalDate.of(2022, Month.JANUARY, 24);
-        //LocalDate dt = LocalDate.now();
+        LocalDate dt = LocalDate.now();
         LocalDate currentDate = dt.with( TemporalAdjusters.nextOrSame( DayOfWeek.MONDAY ) ) ;
         String date = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         //obtaining the end of the week
         String endWeek = currentDate.with(TemporalAdjusters.next( DayOfWeek.MONDAY )).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
