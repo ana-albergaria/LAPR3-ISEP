@@ -4,7 +4,7 @@ import jdk.internal.net.http.common.Pair;
 import lapr.project.domain.dataStructures.FreightNetwork;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Location;
-import lapr.project.domain.store.CapitalStore;
+import lapr.project.domain.store.CountryStore;
 import lapr.project.domain.store.PortStore;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class ShortestPathController {
 
     public Pair<List<String>,Double> getShortestLandPath(double lat1, double lon1, double lat2, double lon2){
         PortStore portStore = this.company.getPortStore();
-        CapitalStore capitalStore = this.company.getCapitalStore();
+        CountryStore countryStore = this.company.getCountryStore();
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
         Location beg, end;
         Pair<LinkedList<Location>,Double> result;
@@ -56,29 +56,29 @@ public class ShortestPathController {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
                 return new Pair<>(strings, result.second);
-            } else if (capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
-                end=capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2);
+            } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
+                end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 //begPort and endCap
                 result=freightNetwork.getShortestLandOrSeaPath(beg,end);
                 for (Location loc:result.first) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
                 return new Pair<>(strings, result.second);
             }
-        } else if (capitalStore.getCapitalByCoordinatesIfExists(lat1,lon1)!=null){
-            beg=capitalStore.getCapitalByCoordinatesIfExists(lat1,lon1);
+        } else if (countryStore.getCapitalByCoordinatesIfExists(lat1,lon1)!=null){
+            beg=countryStore.getCapitalByCoordinatesIfExists(lat1,lon1);
             if (portStore.getPortByCoordinatesIfExists(lat2,lon2)!=null){
                 end=portStore.getPortByCoordinatesIfExists(lat2,lon2);
                 //begCap and endPort
@@ -87,14 +87,14 @@ public class ShortestPathController {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
                 return new Pair<>(strings, result.second);
-            } else if (capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
-                end=capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2);
+            } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
+                end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 if (beg==end){
                     return null;
                 }
@@ -104,8 +104,8 @@ public class ShortestPathController {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
@@ -139,7 +139,7 @@ public class ShortestPathController {
 
     public Pair<List<String>,Double> getShortestLandOrSeaPath(double lat1, double lon1, double lat2, double lon2){
         PortStore portStore = this.company.getPortStore();
-        CapitalStore capitalStore = this.company.getCapitalStore();
+        CountryStore countryStore = this.company.getCountryStore();
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
         Pair<LinkedList<Location>,Double> result;
         List<String> strings = new ArrayList<>();
@@ -158,29 +158,29 @@ public class ShortestPathController {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
                 return new Pair<>(strings, result.second);
-            } else if (capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
-                end=capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2);
+            } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
+                end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 //begPort and endCap
                 result=freightNetwork.getShortestLandOrSeaPath(beg,end);
                 for (Location loc:result.first) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
                 return new Pair<>(strings, result.second);
             }
-        } else if (capitalStore.getCapitalByCoordinatesIfExists(lat1,lon1)!=null){
-            beg=capitalStore.getCapitalByCoordinatesIfExists(lat1,lon1);
+        } else if (countryStore.getCapitalByCoordinatesIfExists(lat1,lon1)!=null){
+            beg=countryStore.getCapitalByCoordinatesIfExists(lat1,lon1);
             if (portStore.getPortByCoordinatesIfExists(lat2,lon2)!=null){
                 end=portStore.getPortByCoordinatesIfExists(lat2,lon2);
                 //begCap and endPort
@@ -189,14 +189,14 @@ public class ShortestPathController {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
                 return new Pair<>(strings, result.second);
-            } else if (capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
-                end=capitalStore.getCapitalByCoordinatesIfExists(lat2,lon2);
+            } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
+                end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 if (beg==end){
                     return null;
                 }
@@ -206,8 +206,8 @@ public class ShortestPathController {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
-                    } else if (capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
-                        toAdd="Capital: " + capitalStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
+                    } else if (countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
+                        toAdd="Capital: " + countryStore.getCapitalByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
                     }
                 }
