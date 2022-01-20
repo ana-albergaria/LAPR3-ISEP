@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -297,5 +299,106 @@ public class ShipTest {
     }
 
 
+    //US418
+    @Test
+    void getTotalArea() {
+        //Container Ship
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.0);
+
+        double expResult = 10689.0;
+        double result = s1.getTotalArea();
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void getProportionOfMass() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.0);
+
+        double expResult = s1.getProportionOfMass(m1);
+        double result = 0.88;
+        assertEquals(expResult, result, 0.001);
+
+        expResult = s1.getProportionOfMass(m2);
+        result = 0.098;
+        assertEquals(expResult, result, 0.001);
+
+        expResult = s1.getProportionOfMass(m3);
+        result = 0.021;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getCertainMass() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.0);
+
+        double expResult = s1.getCertainMass(m1);
+        double result = 136.424;
+        assertEquals(expResult, result, 0.001);
+
+        expResult = s1.getCertainMass(m2);
+        result = 15.312;
+        assertEquals(expResult, result, 0.001);
+
+        expResult = s1.getCertainMass(m3);
+        result = 3.262;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getUnloadenCenterOfMassX() {
+        //Container Ship
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.000000);
+
+        double expResult = s1.getUnloadenCenterOfMassX();
+        double result = 158.303;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getUnloadenCenterOfMassY() {
+        //Container Ship
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.000000);
+
+        double expResult = s1.getUnloadenCenterOfMassY();
+        double result = 16.0;
+        assertEquals(expResult, result, 0.001);
+
+    }
 }
 

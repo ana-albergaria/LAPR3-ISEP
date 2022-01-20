@@ -4,6 +4,7 @@ import lapr.project.domain.dataStructures.PositionsBST;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -62,6 +63,14 @@ public abstract class Ship implements Comparable<Ship> {
      * The ship cargo.
      */
     private  String cargo;
+    /**
+     * The masses which compose the ship.
+     */
+    private List<Mass> masses;
+    /**
+     * The total mass of the ship.
+     */
+    private double totalMass;
 
     /**
      * Constructs an instance of Ship receiving as a parameter the Ship's positions BST, MMSI, vessel name, IMO, call sign, vessel type, length, width, draft and cargo.
@@ -97,6 +106,23 @@ public abstract class Ship implements Comparable<Ship> {
         this.width=width;
         this.draft=draft;
         this.cargo=cargo;
+    }
+
+    //Constructor for US418
+    public Ship(PositionsBST positionsBST, int mmsi,
+                String vesselName, String imo, String callSign, int vesselTypeID, int length, int width, double draft, String cargo, List<Mass> masses, double totalMass) {
+        this.positionsBST = positionsBST;
+        this.mmsi = mmsi;
+        this.vesselName = vesselName;
+        this.imo = imo;
+        this.callSign = callSign;
+        this.vesselTypeID = vesselTypeID;
+        this.length = length;
+        this.width = width;
+        this.draft = draft;
+        this.cargo = cargo;
+        this.masses = masses;
+        this.totalMass = totalMass;
     }
 
     public Ship() {}
@@ -319,6 +345,37 @@ public abstract class Ship implements Comparable<Ship> {
      */
     public Double getTravelledDistance() {
         return this.positionsBST.getTotalDistance();
+    }
+
+    public double getTotalArea() {
+        double totalArea = 0;
+
+        for (Mass mass : masses) {
+            totalArea += mass.getArea();
+        }
+        return totalArea;
+    }
+
+    public double getProportionOfMass(Mass mass) {
+        double totalArea = getTotalArea();
+        return mass.getArea() / totalArea;
+    }
+
+    public double getCertainMass(Mass mass) {
+        double proportionOfMass = getProportionOfMass(mass);
+        return proportionOfMass * totalMass;
+    }
+
+    public double getUnloadenCenterOfMassX() {
+        double cmX = 0;
+        for (Mass mass : masses) {
+            cmX += getCertainMass(mass) * mass.getX();
+        }
+        return cmX / totalMass;
+    }
+
+    public double getUnloadenCenterOfMassY() {
+        return width / 2.0;
     }
 
     /**
