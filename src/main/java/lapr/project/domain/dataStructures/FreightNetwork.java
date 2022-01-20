@@ -5,8 +5,6 @@ import jdk.internal.net.http.common.Pair;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
-import lapr.project.domain.store.CapitalStore;
-import lapr.project.domain.store.PortStore;
 import lapr.project.genericDataStructures.graphStructure.Algorithms;
 import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
@@ -32,16 +30,16 @@ public class FreightNetwork {
         freightNetwork.addEdge(locOrigin, locDestination, distance);
     }
 
-    public List<Map.Entry<Location, Integer>> getMostCentralPorts(){
+    public List<Map.Entry<Location, Integer>> getMostCentralPorts() {
         Map<Location, Integer> ports = new HashMap<>();
         ArrayList<LinkedList<Location>> paths = new ArrayList<>();
         ArrayList<Double> dists = new ArrayList<>();
 
-        for (Location location : freightNetwork.vertices()){
+        for (Location location : freightNetwork.vertices()) {
             Algorithms.shortestPaths(freightNetwork, location, Double::compare, Double::sum, 0.0, paths, dists);
-            for (LinkedList<Location> path : paths){
-                for (Location loc : path){
-                    if(loc instanceof Port){
+            for (LinkedList<Location> path : paths) {
+                for (Location loc : path) {
+                    if (loc instanceof Port) {
                         ports.merge(loc, 1, Integer::sum);
                     }
                 }
@@ -58,18 +56,18 @@ public class FreightNetwork {
         return freightNetwork;
     }
 
-    public List< Map.Entry<Capital,Integer> > getOrderedCapitalsList() {
+    public List<Map.Entry<Capital, Integer>> getOrderedCapitalsList() {
         Map<Capital, Integer> unorderedCapitals = new LinkedHashMap<>();
 
         for (Location location : freightNetwork.vertices()) {
-            if(location instanceof Capital) {
+            if (location instanceof Capital) {
                 int numBorders = getNumBorders((Capital) location);
                 unorderedCapitals.put((Capital) location, numBorders); //O(1)
             }
         }
 
-        List<Map.Entry<Capital,Integer>> orderedCapitals = new ArrayList<>(unorderedCapitals.entrySet());
-        orderedCapitals.sort( Entry.<Capital, Integer> comparingByValue().reversed() );
+        List<Map.Entry<Capital, Integer>> orderedCapitals = new ArrayList<>(unorderedCapitals.entrySet());
+        orderedCapitals.sort(Entry.<Capital, Integer>comparingByValue().reversed());
 
         return orderedCapitals;
     }
@@ -77,7 +75,7 @@ public class FreightNetwork {
     public int getNumBorders(Capital capital) {
         int cont = 0;
         for (Location location : freightNetwork.adjVertices(capital)) {
-            if(location instanceof Capital)
+            if (location instanceof Capital)
                 cont++;
         }
         return cont;
@@ -85,7 +83,7 @@ public class FreightNetwork {
 
     public Map<Capital, Integer> fillCapitalsToColor(Map<Capital, Integer> capitalsToColor) {
 
-        List<Map.Entry<Capital,Integer>> orderedCapitals = getOrderedCapitalsList(); //O(V x E)
+        List<Map.Entry<Capital, Integer>> orderedCapitals = getOrderedCapitalsList(); //O(V x E)
 
         for (Map.Entry<Capital, Integer> entry : orderedCapitals) {
             Capital capital = entry.getKey();
@@ -104,7 +102,7 @@ public class FreightNetwork {
 
         Arrays.fill(availableColors, true);
 
-        List<Capital> listCapitals = new ArrayList<>( result.keySet() );
+        List<Capital> listCapitals = new ArrayList<>(result.keySet());
         Capital firstCapital = listCapitals.get(0);
         result.put(firstCapital, 0);
 
@@ -116,13 +114,13 @@ public class FreightNetwork {
 
     private void colorMap(boolean[] availableColors, Map<Capital, Integer> result, int capKey, List<Capital> listCapitals) {
 
-        if(listCapitals.size() <= capKey)
+        if (listCapitals.size() <= capKey)
             return;
 
         Capital capital = listCapitals.get(capKey);
 
         for (Location vAdj : freightNetwork.adjVertices(capital)) {
-            if(vAdj instanceof Capital && result.get((Capital) vAdj) != null) {
+            if (vAdj instanceof Capital && result.get((Capital) vAdj) != null) {
                 availableColors[result.get((Capital) vAdj)] = false;
             }
         }
@@ -132,7 +130,7 @@ public class FreightNetwork {
         result.put(capital, color);
         Arrays.fill(availableColors, true);
 
-        colorMap(availableColors, result, capKey+1, listCapitals);
+        colorMap(availableColors, result, capKey + 1, listCapitals);
     }
 
 
@@ -145,60 +143,74 @@ public class FreightNetwork {
                 "It isn't possible to assign more colors than the number of vertices.");
     }
 
-    protected HashSet<String> getNetworkContinents(){
+    protected HashSet<String> getNetworkContinents() {
         HashSet<String> currentContinents = new HashSet<>();
-        for(Location location : freightNetwork.vertices()){
+        for (Location location : freightNetwork.vertices()) {
             currentContinents.add(location.getContinent());
         }
         return currentContinents;
     }
 
-    public Map<String, List<Map.Entry<Location, Double>>> closenessPlacesByContinent(){
+    public Map<String, List<Map.Entry<Location, Double>>> closenessPlacesByContinent() {
         Map<String, List<Map.Entry<Location, Double>>> closenessPlacesByContinent = new HashMap<>();
         HashSet<String> continents = getNetworkContinents();
-        for(String continent : continents){
+        for (String continent : continents) {
             Graph<Location, Double> contGraph = getSubGraphByContinent(continent);
             closenessPlacesByContinent.put(continent, getClosenessPlaces(contGraph));
         }
         return closenessPlacesByContinent;
     }
 
-    private List<Map.Entry<Location, Double>> getClosenessPlaces(Graph<Location, Double> places){
+    private List<Map.Entry<Location, Double>> getClosenessPlaces(Graph<Location, Double> places) {
         Graph<Location, Double> dists = Algorithms.minDistGraph(places, Double::compare, Double::sum);
         Map<Location, Double> countriesMap = new HashMap<>();
         assert dists != null;
         double sum, closenessNumber;
-        for (Location location : dists.vertices()){
+        for (Location location : dists.vertices()) {
             sum = 0;
             Collection<Edge<Location, Double>> vertEdges = dists.incomingEdges(location); // can be either incoming or outcoming since its not directed
-            for(Edge<Location,Double> edge : vertEdges){
+            for (Edge<Location, Double> edge : vertEdges) {
                 sum += edge.getWeight();
             }
-            closenessNumber = sum / (dists.vertices().size()-1);
+            closenessNumber = sum / (dists.vertices().size() - 1);
             countriesMap.put(location, closenessNumber);
         }
         List<Map.Entry<Location, Double>> toBeSortedMap = new ArrayList<>(countriesMap.entrySet());
-        toBeSortedMap.sort(Entry.<Location, Double> comparingByValue());
+        toBeSortedMap.sort(Entry.<Location, Double>comparingByValue());
         return toBeSortedMap;
     }
 
-    public Graph<Location, Double> getSubGraphByContinent(String continent){
+    public Graph<Location, Double> getSubGraphByContinent(String continent) {
         Graph<Location, Double> continentNetwork = new MatrixGraph<>(this.freightNetwork);
-        for(Location location : continentNetwork.vertices()){
-            if(!location.getContinent().equalsIgnoreCase(continent)){
+        for (Location location : continentNetwork.vertices()) {
+            if (!location.getContinent().equalsIgnoreCase(continent)) {
                 continentNetwork.removeVertex(location);
             }
         }
-        return  continentNetwork;
+        return continentNetwork;
     }
 
-    //VAI RETORNAR O CAMINHO MAIS PEQUENO
-    private Pair<LinkedList<Location>,Double> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+    //VAI RETORNAR O CAMINHO MAIS PEQUENO E A DIST
+    public Pair<LinkedList<Location>, Double> getShortestLandOrSeaPath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
-        Pair<LinkedList<Location>, Double> shortestPathAllInfo = new Pair<>(shortestPathLocations, dist);
-        return shortestPathAllInfo;
+        Double dist = Algorithms.shortestPath(freightNetwork, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        return new Pair<>(shortestPathLocations, dist);
     }
 
+    public Pair<LinkedList<Location>, Double> getShortestLandPath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
+        LinkedList<Location> shortestPathLocations = new LinkedList<>();
+        Graph<Location, Double> places = null;
+        //PREENCHER PLACES COM PORTOS E COM CAPITAIS, MAS SEM LIGAÇÕES ENTRE PORTOS
+        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        return new Pair<>(shortestPathLocations, dist);
+    }
 
+    public Pair<LinkedList<Location>, Double> getShortestMaritimePath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
+        LinkedList<Location> shortestPathLocations = new LinkedList<>();
+        Graph<Location, Double> places = null;
+        //PREENCHER PLACES COM PORTOS
+        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        return new Pair<>(shortestPathLocations, dist);
+    }
 }
+
