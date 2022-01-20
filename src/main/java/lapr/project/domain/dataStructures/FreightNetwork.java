@@ -198,18 +198,22 @@ public class FreightNetwork {
     public LinkedList<Location> getShortestLandPath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
         //PORTOS E CAPITAIS, MAS SEM LIGAÇÕES ENTRE PORTOS
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        Graph<Location, Double> places = null;
-        Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        shortestPathLocations.add(origin);
 
+        //...
+
+        shortestPathLocations.add(destination);
         return shortestPathLocations;
     }
 
     public LinkedList<Location> getShortestMaritimePath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
         //PORTOS
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        Graph<Location, Double> places = null;
-        Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        shortestPathLocations.add(origin);
 
+        //...
+
+        shortestPathLocations.add(destination);
         return shortestPathLocations;
     }
 }
