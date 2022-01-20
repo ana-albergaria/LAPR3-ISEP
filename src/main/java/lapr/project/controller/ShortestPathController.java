@@ -1,6 +1,5 @@
 package lapr.project.controller;
 
-import jdk.internal.net.http.common.Pair;
 import lapr.project.domain.dataStructures.FreightNetwork;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Location;
