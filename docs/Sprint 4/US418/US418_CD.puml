@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class GetUnladenCenterMassController{
+    +getUnLadenCenterOfMassOfShip(mmsi)
+}
+
+class Company {
+    +getShipStore()
+}
+
+class ShipStore {
+    +getShipByAnyCode(mmsi)
+}
+
+GetUnladenCenterMassController ..> Company
+GetUnladenCenterMassController ..> ShipStore
+Company "1" -- "1" ShipStore : uses >
+
+@enduml
