@@ -23,7 +23,7 @@ public class ShortestPathController {
         this.company=company;
     }
 
-    public Pair<List<String>,Double> getShortestPath(double lat1, double lon1, double lat2, double lon2, int path){
+    public List<String> getShortestPath(double lat1, double lon1, double lat2, double lon2, int path){
         //1: land path | 2: maritime path | 3: land or sea path
         if (path==1){
             return getShortestLandPath(lat1,lon1,lat2,lon2);
@@ -35,12 +35,12 @@ public class ShortestPathController {
         return null;
     }
 
-    public Pair<List<String>,Double> getShortestLandPath(double lat1, double lon1, double lat2, double lon2){
+    public List<String> getShortestLandPath(double lat1, double lon1, double lat2, double lon2){
         PortStore portStore = this.company.getPortStore();
         CountryStore countryStore = this.company.getCountryStore();
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
         Location beg, end;
-        Pair<LinkedList<Location>,Double> result;
+        LinkedList<Location> result;
         List<String> strings = new ArrayList<>();
         String toAdd;
         if (portStore.getPortByCoordinatesIfExists(lat1,lon1)!=null){
@@ -51,8 +51,8 @@ public class ShortestPathController {
                     return null;
                 }
                 //begPort and endPort
-                result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                result=freightNetwork.getShortestLandPath(beg,end);
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -61,12 +61,12 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
                 end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 //begPort and endCap
-                result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                result=freightNetwork.getShortestLandPath(beg,end);
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -75,15 +75,15 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             }
         } else if (countryStore.getCapitalByCoordinatesIfExists(lat1,lon1)!=null){
             beg=countryStore.getCapitalByCoordinatesIfExists(lat1,lon1);
             if (portStore.getPortByCoordinatesIfExists(lat2,lon2)!=null){
                 end=portStore.getPortByCoordinatesIfExists(lat2,lon2);
                 //begCap and endPort
-                result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                result=freightNetwork.getShortestLandPath(beg,end);
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -92,15 +92,15 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
                 end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 if (beg==end){
                     return null;
                 }
                 //begCap and endCap
-                result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                result=freightNetwork.getShortestLandPath(beg,end);
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -109,13 +109,13 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             }
         }
         return null;
     }
 
-    public Pair<List<String>,Double> getShortestMaritimePath(double lat1, double lon1, double lat2, double lon2){
+    public List<String> getShortestMaritimePath(double lat1, double lon1, double lat2, double lon2){
         PortStore portStore = this.company.getPortStore();
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
         Location beg, end;
@@ -124,24 +124,24 @@ public class ShortestPathController {
         if (beg==null || end==null || beg==end){
             return null;
         }
-        Pair<LinkedList<Location>,Double> result;
+        LinkedList<Location> result;
         List<String> strings = new ArrayList<>();
-        result=freightNetwork.getShortestLandOrSeaPath(beg,end);
+        result=freightNetwork.getShortestMaritimePath(beg,end);
         String toAdd;
-        for (Location loc:result.first) {
+        for (Location loc:result) {
             if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                 toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                 strings.add(toAdd);
             }
         }
-        return new Pair<>(strings, result.second);
+        return strings;
     }
 
-    public Pair<List<String>,Double> getShortestLandOrSeaPath(double lat1, double lon1, double lat2, double lon2){
+    public List<String> getShortestLandOrSeaPath(double lat1, double lon1, double lat2, double lon2){
         PortStore portStore = this.company.getPortStore();
         CountryStore countryStore = this.company.getCountryStore();
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
-        Pair<LinkedList<Location>,Double> result;
+        LinkedList<Location> result;
         List<String> strings = new ArrayList<>();
         String toAdd;
         Location beg, end;
@@ -154,7 +154,7 @@ public class ShortestPathController {
                 }
                 //begPort and endPort
                 result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -163,12 +163,12 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
                 end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 //begPort and endCap
                 result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -177,7 +177,7 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             }
         } else if (countryStore.getCapitalByCoordinatesIfExists(lat1,lon1)!=null){
             beg=countryStore.getCapitalByCoordinatesIfExists(lat1,lon1);
@@ -185,7 +185,7 @@ public class ShortestPathController {
                 end=portStore.getPortByCoordinatesIfExists(lat2,lon2);
                 //begCap and endPort
                 result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -194,7 +194,7 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             } else if (countryStore.getCapitalByCoordinatesIfExists(lat2,lon2)!=null){
                 end=countryStore.getCapitalByCoordinatesIfExists(lat2,lon2);
                 if (beg==end){
@@ -202,7 +202,7 @@ public class ShortestPathController {
                 }
                 //begCap and endCap
                 result=freightNetwork.getShortestLandOrSeaPath(beg,end);
-                for (Location loc:result.first) {
+                for (Location loc:result) {
                     if (portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude())!=null){
                         toAdd="Port: " + portStore.getPortByCoordinatesIfExists(loc.getLatitude(),loc.getLongitude()).getName();
                         strings.add(toAdd);
@@ -211,7 +211,7 @@ public class ShortestPathController {
                         strings.add(toAdd);
                     }
                 }
-                return new Pair<>(strings, result.second);
+                return strings;
             }
         }
         return null;
