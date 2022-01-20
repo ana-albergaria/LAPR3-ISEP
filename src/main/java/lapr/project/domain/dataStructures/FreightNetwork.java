@@ -4,8 +4,6 @@ import jdk.internal.net.http.common.Pair;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
-import lapr.project.domain.store.CapitalStore;
-import lapr.project.domain.store.PortStore;
 import lapr.project.genericDataStructures.graphStructure.Algorithms;
 import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
@@ -191,11 +189,10 @@ public class FreightNetwork {
         return  continentNetwork;
     }
 
-    //VAI RETORNAR O CAMINHO MAIS PEQUENO
-    private Pair<LinkedList<Location>,Double> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+    //VAI RETORNAR O CAMINHO MAIS PEQUENO E A DIST
+    public Pair<LinkedList<Location>,Double> getShortestLandOrSeaPath(Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
-        Pair<LinkedList<Location>, Double> shortestPathAllInfo = new Pair<>(shortestPathLocations, dist);
-        return shortestPathAllInfo;
+        Double dist = Algorithms.shortestPath(freightNetwork, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        return new Pair<>(shortestPathLocations, dist);
     }
 }
