@@ -192,14 +192,10 @@ public class FreightNetwork {
     }
 
     //VAI RETORNAR O CAMINHO MAIS PEQUENO
-    private Pair<List<String>,Double> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+    private Pair<LinkedList<Location>,Double> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        List<String> shortestPathNames = new ArrayList<>();
         Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
-        for (Location loc:shortestPathLocations) {
-            //inserir o nome das cidades ou dos portos no shortestPathNames e se é cidade ou porto
-        }
-        Pair<List<String>, Double> shortestPathAllInfo = new Pair<>(shortestPathNames, dist);
+        Pair<LinkedList<Location>, Double> shortestPathAllInfo = new Pair<>(shortestPathLocations, dist);
         return shortestPathAllInfo;
     }
 }
