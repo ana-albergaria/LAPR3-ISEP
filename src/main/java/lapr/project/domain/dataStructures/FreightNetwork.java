@@ -1,5 +1,6 @@
 package lapr.project.domain.dataStructures;
 
+
 import jdk.internal.net.http.common.Pair;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
@@ -198,4 +199,6 @@ public class FreightNetwork {
         Pair<LinkedList<Location>, Double> shortestPathAllInfo = new Pair<>(shortestPathLocations, dist);
         return shortestPathAllInfo;
     }
+
+
 }
