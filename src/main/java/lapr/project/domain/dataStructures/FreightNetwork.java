@@ -1,8 +1,11 @@
 package lapr.project.domain.dataStructures;
 
+import jdk.internal.net.http.common.Pair;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
+import lapr.project.domain.store.CapitalStore;
+import lapr.project.domain.store.PortStore;
 import lapr.project.genericDataStructures.graphStructure.Algorithms;
 import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
@@ -13,6 +16,7 @@ import java.util.*;
 import static java.util.Map.*;
 
 public class FreightNetwork {
+
     private final Graph<Location, Double> freightNetwork;
 
     public FreightNetwork() {
@@ -188,9 +192,14 @@ public class FreightNetwork {
     }
 
     //VAI RETORNAR O CAMINHO MAIS PEQUENO
-    private LinkedList<Location> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
-        LinkedList<Location> shortestPath = new LinkedList<>();
-        Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPath);
-        return shortestPath;
+    private Pair<List<String>,Double> getShortestPath(Graph<Location,Double> places, Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+        LinkedList<Location> shortestPathLocations = new LinkedList<>();
+        List<String> shortestPathNames = new ArrayList<>();
+        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        for (Location loc:shortestPathLocations) {
+            //inserir o nome das cidades ou dos portos no shortestPathNames e se é cidade ou porto
+        }
+        Pair<List<String>, Double> shortestPathAllInfo = new Pair<>(shortestPathNames, dist);
+        return shortestPathAllInfo;
     }
 }
