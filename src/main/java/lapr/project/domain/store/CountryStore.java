@@ -69,13 +69,4 @@ public class CountryStore {
         return closest;
     }
 
-    public Capital getCapitalByCoordinatesIfExists(double lat, double lon){
-        for (Country country : countriesList){
-            if (country.getCapital().getLatitude()==lat && country.getCapital().getLongitude()==lon){
-                return country.getCapital();
-            }
-        }
-        return null;
-    }
-
 }
