@@ -195,4 +195,20 @@ public class FreightNetwork {
         Double dist = Algorithms.shortestPath(freightNetwork, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
         return new Pair<>(shortestPathLocations, dist);
     }
+
+    public Pair<LinkedList<Location>,Double> getShortestLandPath(Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+        LinkedList<Location> shortestPathLocations = new LinkedList<>();
+        Graph<Location, Double> places=null;
+        //PREENCHER PLACES COM PORTOS E COM CAPITAIS, MAS SEM LIGAÇÕES ENTRE PORTOS
+        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        return new Pair<>(shortestPathLocations, dist);
+    }
+
+    public Pair<LinkedList<Location>,Double> getShortestMaritimePath(Location origin, Location destination){ //Recebe todos os lugares (capitais e portos)
+        LinkedList<Location> shortestPathLocations = new LinkedList<>();
+        Graph<Location, Double> places=null;
+        //PREENCHER PLACES COM PORTOS
+        Double dist = Algorithms.shortestPath(places, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
+        return new Pair<>(shortestPathLocations, dist);
+    }
 }
