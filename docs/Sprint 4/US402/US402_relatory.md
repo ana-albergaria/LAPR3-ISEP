@@ -24,8 +24,8 @@ This US has dependencies with USs.....................
 **Input Data:**
 
 * Typed data:
-    * local 1 (city or port)'s lat and lon
-    * local 2 (city or port)'s lat and lon
+    * local 1 (city or port)
+    * local 2 (city or port)
     * desired path type (land path, maritime path, or land or sea path)
 
 * Selected data:
@@ -78,8 +78,20 @@ n/a
 ### ShortestPathController class test:
 
 
-**Test 1:** Test to check that ...
+**Test 1:** Test to check that the land path is null when the beginning and ending locations are the same.
 
-**Test 2:** Test to check that ...
+**Test 2:** Test to check that the maritime path is null when the beginning and ending locations are the same.
 
-**Test 3:** Test to check that ...
+**Test 3:** Test to check that the land or sea path is null when the beginning and ending locations are the same.
+
+**Test 4:** Test to check that the land path is null when the beginning location is null.
+
+**Test 5:** Test to check that the maritime path is null when the beginning location is null.
+
+**Test 6:** Test to check that the land or sea path is null when the beginning location is null.
+
+**Test 7:** Test to check that the land path is null when the ending location is null.
+
+**Test 8:** Test to check that the maritime path is null when the ending location is null.
+
+**Test 9:** Test to check that the land or sea path is null when the ending location is null.

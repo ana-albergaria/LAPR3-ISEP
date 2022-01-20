@@ -3,7 +3,6 @@ package lapr.project.controller;
 import lapr.project.domain.dataStructures.FreightNetwork;
 import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Company;
-import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -112,63 +111,63 @@ public class ShortestPathControllerTest {
     @Test
     public void getShortestLandPathSameBegEndTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestLandPath( port1,port1);
+        List<String> actual = shortestPathController.getShortestPath(port1,port1,1);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestMaritimePathSameBegEndTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestMaritimePath(port1,port1);
+        List<String> actual = shortestPathController.getShortestPath(port1,port1,2);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestLandOrSeaPathSameBegEndTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestLandOrSeaPath(port1,port1);
+        List<String> actual = shortestPathController.getShortestPath(port1,port1,3);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestLandPathNonExBegTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestLandPath(null,port1);
+        List<String> actual = shortestPathController.getShortestPath(null,port1,1);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestMaritimePathNonExBegTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestMaritimePath(null,port1);
+        List<String> actual = shortestPathController.getShortestPath(null,port1,2);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestLandOrSeaPathNonExBegTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestLandOrSeaPath(null,port1);
+        List<String> actual = shortestPathController.getShortestPath(null,port1,3);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestLandPathNonExEndTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestLandPath(port1,null);
+        List<String> actual = shortestPathController.getShortestPath(port1,null,1);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestMaritimePathNonExEndTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestMaritimePath(port1,null);
+        List<String> actual = shortestPathController.getShortestPath(port1,null,2);
         Assertions.assertNull(actual);
     }
 
     @Test
     public void getShortestLandOrSeaPathNonExEndTest(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> actual = shortestPathController.getShortestLandOrSeaPath(port1,null);
+        List<String> actual = shortestPathController.getShortestPath(port1,null,3);
         Assertions.assertNull(actual);
     }
 
