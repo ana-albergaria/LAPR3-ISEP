@@ -79,6 +79,20 @@ class ContainerEnergyControllerTest {
         containerStore.saveContainer(c10);
         containerStore.saveContainer(c11);
         containerStore.saveContainer(c12);
+
+        int [] extraIds = new int[29];
+
+        for (int i = 1; i<29;i++){
+            extraIds[i] =(i+10);
+        }
+
+        for (int i = 1; i<19;i++){ //now total 7 degrees containers are 25
+            containerStore.saveContainer(new Container(extraIds[i], payloads[3], tare[3], gross[3], iso[3], layerSeven, 7));
+        }
+
+        for (int i = 19; i<29;i++){ //now total -5 degrees containers are 15
+            containerStore.saveContainer(new Container(extraIds[i], payloads[3], tare[3], gross[3], iso[3], layersMinus5, -5));
+        }
     }
 
 
@@ -102,8 +116,76 @@ class ContainerEnergyControllerTest {
         ContainerEnergyController controller = new ContainerEnergyController(cmp1);
         double containerArea = ((6*2.5)*4)+(2.5*2.5)*2; // considering all sides exposed and a 6x2.5 container.
         int exp = 1; //1 needed generator of 75kw is expected for the 12 containers in the list, 6 of 7 degrees and 6 of -5
+
         assertEquals(exp, controller.getNumberOfAuxiliaryPower(75, containerArea, 20));
 
     }
+    @Test
+    void distinguishBySideContainerEnergyTestToException(){
+        ContainerEnergyController controller = new ContainerEnergyController(cmp1);
+
+        double [] minutesOfStepsTrip = {90, 105};
+        double [] temperatures = {20, 28};
+
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> controller.distinguishBySideContainerEnergy(-1,minutesOfStepsTrip, 1, temperatures));
+        assertEquals("Unknown side", thrown.getMessage());
+
+        IllegalArgumentException thrown2 = assertThrows(IllegalArgumentException.class, () -> controller.distinguishBySideContainerEnergy(7,minutesOfStepsTrip, 1, temperatures));
+        assertEquals("Unknown side", thrown2.getMessage());
+    }
+
+    @Test
+    void distinguishBySideContainerEnergyTest(){
+        ContainerEnergyController controller = new ContainerEnergyController(cmp1);
+
+        double [] minutesOfStepsTrip = {90, 105};
+        double [] temperatures = {20, 28};
+
+        double totalEnergy = 0.0;
+
+        System.out.printf("40 containers of 2.5x2.5x6 (two equal sides) meters in a 5x2x4 disposition would have\n" +
+                "8 faces with axb + bxc (or ab + ac) = type 0\n" +
+                "4 faces with ab + bc + ac = type 1\n" +
+                "20 faces of bxc(or axc) = type 3\n" +
+                "8 faces of axb = type 2\n" +
+                "so the calculations would be like this:\n\n");
+
+
+        List<Container> cargo = containerStore.getContainersList();
+        System.out.println("type 0 to be added 4 containers of 7 degrees and 4 of -5 degrees");
+        for(int i=0; i<8;i++){
+            System.out.println(cargo.get(i).getTemperature());
+            System.out.println(controller.distinguishBySideContainerEnergy(0,minutesOfStepsTrip, cargo.get(i).getId(), temperatures));
+            totalEnergy += controller.distinguishBySideContainerEnergy(0,minutesOfStepsTrip, cargo.get(i).getId(), temperatures);
+        }
+        System.out.println();
+
+        System.out.println("type 1 to be added 2 containers of 7 degrees and 2 of -5 degrees");
+        for(int i=8; i<12;i++){
+            System.out.println(cargo.get(i).getTemperature());
+            System.out.println(controller.distinguishBySideContainerEnergy(1,minutesOfStepsTrip, cargo.get(i).getId(), temperatures));
+            totalEnergy += controller.distinguishBySideContainerEnergy(1,minutesOfStepsTrip, cargo.get(i).getId(), temperatures);
+        }
+
+        System.out.println();
+
+        System.out.println("type 2 to be added 8 containers of -5 degrees");
+        for(int i=32; i<40;i++){
+            System.out.println(cargo.get(i).getTemperature());
+            System.out.println(controller.distinguishBySideContainerEnergy(2,minutesOfStepsTrip, cargo.get(i).getId(), temperatures));
+            totalEnergy += controller.distinguishBySideContainerEnergy(2,minutesOfStepsTrip, cargo.get(i).getId(), temperatures);
+        }
+        System.out.println();
+        System.out.println("type 3 to be added 19 containers of 7 degrees and 1 of -5 degrees");
+        for(int i=12; i<32;i++){
+            System.out.println(cargo.get(i).getTemperature());
+            System.out.println(controller.distinguishBySideContainerEnergy(3,minutesOfStepsTrip, cargo.get(i).getId(), temperatures));
+            totalEnergy += controller.distinguishBySideContainerEnergy(3,minutesOfStepsTrip, cargo.get(i).getId(), temperatures);
+        }
+        double expected = 225.0;
+        System.out.println("The result is " + (totalEnergy/1000000) +" MJ/s");
+        assertEquals(expected,Math.round(totalEnergy/1000000), "Should result in 225 MJ");
+    }
+
 
 }

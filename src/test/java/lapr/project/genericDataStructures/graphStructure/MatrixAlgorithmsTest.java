@@ -176,12 +176,7 @@ class MatrixAlgorithmsTest {
 
         Algorithms.shortestPaths(completeMap, "Porto", Integer::compare, Integer::sum, 0, paths, dists);
 
-        for (LinkedList<String> s : paths){
-            for (String ss : s){
-                System.out.println(ss);
-            }
-            System.out.println();
-        }
+
         assertEquals(paths.size(), dists.size(), "There should be as many paths as sizes");
         assertEquals(completeMap.numVertices(), paths.size(), "There should be a path to every vertex");
         assertEquals(Arrays.asList("Porto"), paths.get(completeMap.key("Porto")), "Number of nodes should be 1 if source and vertex are the same");
