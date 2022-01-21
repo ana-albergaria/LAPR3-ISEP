@@ -23,9 +23,21 @@ activate NET
 |||
 deactivate NET
 else if the desired path is a maritime path
-
+CTRL -> COMPANY : freightNetwork = getFreightNetwork()
+activate COMPANY
+deactivate COMPANY
+CTRL -> NET : getShortestMaritimePath(beg,end)
+activate NET
+|||
+deactivate NET
 else if the desired path is a land or sea path
-
+CTRL -> COMPANY : freightNetwork = getFreightNetwork()
+activate COMPANY
+deactivate COMPANY
+CTRL -> NET : getShortestLandOrSeaPath(beg,end)
+activate NET
+|||
+deactivate NET
 end
 CTRL --> UI : shortestPath
 deactivate CTRL
