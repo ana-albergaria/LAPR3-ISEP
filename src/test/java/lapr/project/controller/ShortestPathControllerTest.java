@@ -86,7 +86,7 @@ public class ShortestPathControllerTest {
 
         map.addDistance(h, g, 1.0);
         map.addDistance(h, k, 1.0);
-        map.addDistance(h, j, 4.0);
+        /*map.addDistance(h, j, 4.0);*/
         map.addDistance(h, i, 1.0);
         map.addDistance(h, a, 6.0);
 
@@ -184,6 +184,13 @@ public class ShortestPathControllerTest {
         ShortestPathController shortestPathController = new ShortestPathController(company);
         List<String> actual = shortestPathController.getShortestPath(port1,port2,4);
         Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void workingTest(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(h,j,1);
+        System.out.println(actual);
     }
 
 

@@ -98,6 +98,7 @@ class ContainerEnergyControllerTest {
 
     @Test
     void caculateEnergyFor2Point5hours(){
+        //us 412
         ContainerEnergyController controller = new ContainerEnergyController(cmp1);
         double containerArea = ((6*2.5)*4)+(2.5*2.5)*2; // considering all sides exposed and a 6x2.5 container.
         //energy for 7 degrees container with 20 external
@@ -112,13 +113,34 @@ class ContainerEnergyControllerTest {
     }
 
     @Test
+    void calculateTripSectionWithoutDiff(){
+        ContainerEnergyController controller = new ContainerEnergyController(cmp1);
+
+        double [] minutesOfStepsTrip = {90, 105};
+        double [] temperatures = {20, 28};
+
+        double totalEnergy = 0.0;
+
+
+        List<Container> cargo = containerStore.getContainersList();
+
+        for(int i=0; i<40;i++){
+            System.out.println(cargo.get(i).getTemperature());
+            System.out.println(controller.distinguishBySideContainerEnergy(6,minutesOfStepsTrip, cargo.get(i).getId(), temperatures));
+            totalEnergy += controller.distinguishBySideContainerEnergy(6,minutesOfStepsTrip, cargo.get(i).getId(), temperatures);
+        }
+        double expected = 269.0;
+        System.out.println("The result is " + (totalEnergy/1000000) +" MJ/s");
+        assertEquals(expected,Math.round(totalEnergy/1000000), "Should result in 225 MJ");
+    }
+
+    @Test
     void numberOfGenerators(){
         ContainerEnergyController controller = new ContainerEnergyController(cmp1);
         double containerArea = ((6*2.5)*4)+(2.5*2.5)*2; // considering all sides exposed and a 6x2.5 container.
         int exp = 1; //1 needed generator of 75kw is expected for the 12 containers in the list, 6 of 7 degrees and 6 of -5
 
         assertEquals(exp, controller.getNumberOfAuxiliaryPower(75, containerArea, 20));
-
     }
     @Test
     void distinguishBySideContainerEnergyTestToException(){
