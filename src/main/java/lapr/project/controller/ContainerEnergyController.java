@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Container;
+import lapr.project.domain.shared.Constants;
 import lapr.project.domain.store.ContainerStore;
 
 import lapr.project.utils.PhysicsUtils;
@@ -54,9 +55,25 @@ public class ContainerEnergyController {
         }
 
         consumptionTotal = consumptionTotal / 1000; // watts to killowatts
+        System.out.println(consumptionTotal);
+        return (consumptionTotal % auxiliaryPower) != 0 ? (int) ((consumptionTotal / auxiliaryPower)+1) : (int) (consumptionTotal / auxiliaryPower);
+    }
 
-        int neededGenerators =  (consumptionTotal % auxiliaryPower) != 0 ? (int) ((consumptionTotal / auxiliaryPower)+1) : (int) (consumptionTotal / auxiliaryPower);
+    public double distinguishBySideContainerEnergy(int side, double [] minutesOfSections, int id, double [] externalTempSections){
+        ContainerStore containerStore = this.company.getContainerStore();
 
-        return neededGenerators;
+        if(side > 6 || side < 0){
+            throw new IllegalArgumentException("Unknown side");
+        }
+        double total = 0.0;
+
+        for(int i=0; i< minutesOfSections.length; i++) {
+            double area1 = Constants.AREAS[side];
+            double baseArea = Constants.AREAS[Constants.AREAS.length-1]-area1;
+            total += getEnergyConsumptionOfContainer(minutesOfSections[i], id,area1, externalTempSections[i]);
+            total += getEnergyConsumptionOfContainer(minutesOfSections[i], id, baseArea, externalTempSections[0]);
+        }
+
+        return total;
     }
 }

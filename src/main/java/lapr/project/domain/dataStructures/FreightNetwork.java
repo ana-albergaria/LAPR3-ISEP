@@ -188,32 +188,53 @@ public class FreightNetwork {
         return continentNetwork;
     }
 
-    //VAI RETORNAR O CAMINHO MAIS PEQUENO E A DIST
-    public LinkedList<Location> getShortestLandOrSeaPath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
+    /**
+     * Get the shortest land or sea path given a beginning and ending location.
+     * @param origin beginning location
+     * @param destination ending location
+     * @return a list with the locals of the path
+     */
+    public LinkedList<Location> getShortestLandOrSeaPath(Location origin, Location destination) { //capitais e portos
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
         Algorithms.shortestPath(freightNetwork, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
         return shortestPathLocations;
     }
 
-    public LinkedList<Location> getShortestLandPath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
-        //PORTOS E CAPITAIS, MAS SEM LIGAÇÕES ENTRE PORTOS
+    /**
+     * Get the shortest land path given a beginning and ending location.
+     * @param origin beginning location
+     * @param destination ending location
+     * @return a list with the locals of the path
+     */
+    public LinkedList<Location> getShortestLandPath(Location origin, Location destination) { //capitais e portos, mas nao podem haver 2 portos seguidos
+        LinkedList<Location> shortestPath = new LinkedList<>();
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        shortestPathLocations.add(origin);
-
-        //...
-
-        shortestPathLocations.add(destination);
+        Algorithms.shortestPath(freightNetwork,origin,destination,Double::compare,Double::sum,0.0,shortestPath);
+        Location prev=null;
+        for (Location loc : shortestPath){
+            if (!(prev instanceof Port && loc instanceof Port)){
+                shortestPathLocations.add(loc);
+            }
+            prev = loc;
+        }
         return shortestPathLocations;
     }
 
-    public LinkedList<Location> getShortestMaritimePath(Location origin, Location destination) { //Recebe todos os lugares (capitais e portos)
-        //PORTOS
+    /**
+     * Get the shortest maritime path given a beginning and ending location.
+     * @param origin beginning location
+     * @param destination ending location
+     * @return a list with the locals of the path
+     */
+    public LinkedList<Location> getShortestMaritimePath(Location origin, Location destination) { //portos
+        LinkedList<Location> shortestPath = new LinkedList<>();
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
-        shortestPathLocations.add(origin);
-
-        //...
-
-        shortestPathLocations.add(destination);
+        Algorithms.shortestPath(freightNetwork,origin,destination,Double::compare,Double::sum,0.0,shortestPath);
+        for (Location loc : shortestPath){
+            if (loc instanceof Port){
+                shortestPathLocations.add(loc);
+            }
+        }
         return shortestPathLocations;
     }
 }
