@@ -188,13 +188,24 @@ public class FreightNetwork {
         return continentNetwork;
     }
 
-    //VAI RETORNAR O CAMINHO MAIS PEQUENO (E QUANDO TINHA O PAIR TAMBEM RETORNAVA A DIST)
+    /**
+     * Get the shortest land or sea path given a beginning and ending location.
+     * @param origin beginning location
+     * @param destination ending location
+     * @return a list with the locals of the path
+     */
     public LinkedList<Location> getShortestLandOrSeaPath(Location origin, Location destination) { //capitais e portos
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
         Algorithms.shortestPath(freightNetwork, origin, destination, Double::compare, Double::sum, 0.0, shortestPathLocations);
         return shortestPathLocations;
     }
 
+    /**
+     * Get the shortest land path given a beginning and ending location.
+     * @param origin beginning location
+     * @param destination ending location
+     * @return a list with the locals of the path
+     */
     public LinkedList<Location> getShortestLandPath(Location origin, Location destination) { //capitais e portos, mas nao podem haver 2 portos seguidos
         LinkedList<Location> shortestPath = new LinkedList<>();
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
@@ -209,6 +220,12 @@ public class FreightNetwork {
         return shortestPathLocations;
     }
 
+    /**
+     * Get the shortest maritime path given a beginning and ending location.
+     * @param origin beginning location
+     * @param destination ending location
+     * @return a list with the locals of the path
+     */
     public LinkedList<Location> getShortestMaritimePath(Location origin, Location destination) { //portos
         LinkedList<Location> shortestPath = new LinkedList<>();
         LinkedList<Location> shortestPathLocations = new LinkedList<>();
