@@ -1,9 +1,11 @@
 package lapr.project.domain.model;
 
 import lapr.project.domain.dataStructures.PositionsBST;
+import lapr.project.domain.shared.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Objects;
 
@@ -108,9 +110,9 @@ public abstract class Ship implements Comparable<Ship> {
         this.cargo=cargo;
     }
 
-    //Constructor for US418
+    //Constructor for US418, US420
     public Ship(PositionsBST positionsBST, int mmsi,
-                String vesselName, String imo, String callSign, int vesselTypeID, int length, int width, double draft, String cargo, List<Mass> masses, double totalMass) {
+                String vesselName, String imo, String callSign, int vesselTypeID, int length, int width, String cargo, List<Mass> masses, double totalMass) {
         this.positionsBST = positionsBST;
         this.mmsi = mmsi;
         this.vesselName = vesselName;
@@ -119,10 +121,10 @@ public abstract class Ship implements Comparable<Ship> {
         this.vesselTypeID = vesselTypeID;
         this.length = length;
         this.width = width;
-        this.draft = draft;
         this.cargo = cargo;
         this.masses = masses;
         this.totalMass = totalMass;
+        this.draft = getHeightWaterLevel(totalMass);
     }
 
     public Ship() {}
@@ -219,9 +221,16 @@ public abstract class Ship implements Comparable<Ship> {
      * @param cargo the Ship's Cargo.
      */
     private void checkCargo(String cargo){
-        if (!cargo.equals("NA") && Integer.parseInt(cargo)<0){
+        if(!cargo.equals("NA")) {
+            if (Integer.parseInt(cargo)<0) {
+                throw new IllegalArgumentException("Cargo cannot be negative.");
+            }
+        }
+        /*if (!cargo.equals("NA") && Integer.parseInt(cargo)<0){
             throw new IllegalArgumentException("Cargo cannot be negative.");
         }
+
+         */
     }
 
     /**
@@ -347,6 +356,7 @@ public abstract class Ship implements Comparable<Ship> {
         return this.positionsBST.getTotalDistance();
     }
 
+    // for US418
     public double getTotalArea() {
         double totalArea = 0;
 
@@ -377,6 +387,58 @@ public abstract class Ship implements Comparable<Ship> {
     public double getUnloadenCenterOfMassY() {
         return width / 2.0;
     }
+
+    public Point2D.Double getUnladenCenterOfMass() {
+        double x = getUnloadenCenterOfMassX();
+        double y = getUnloadenCenterOfMassY();
+        return new Point2D.Double(x, y);
+    }
+
+    // for us420 - difference in height that the vessel has suffered, above water level
+    public double totalMassPlaced(int numContainers) {
+        return numContainers * Constants.CONTAINER_MASS;
+    }
+
+    public double getTotalMassWithContainers(int numContainers) {
+        return totalMass + totalMassPlaced(numContainers);
+    }
+
+    public double getImmersedVolume(double mass) {
+        return mass / Constants.SALTED_WATER_VOLUMIC_MASS;
+    }
+
+    public double getHeightWaterLevel(double mass) {
+        double immersedVolume = getImmersedVolume(mass);
+        return immersedVolume / (length * width);
+    }
+
+    public double getDiffHeightAboveWaterLevel(int numContainers) {
+        double totalMassWithContainers = getTotalMassWithContainers(numContainers);
+        return getHeightWaterLevel(totalMassWithContainers) - getHeightWaterLevel(totalMass);
+    }
+
+    //for us420 - pressure
+    public double getWeightWithContainers(int numContainers) {
+        double totalMassWithContainers = getTotalMassWithContainers(numContainers);
+        return totalMassWithContainers * Constants.GRAVITY_ACCELERATION;
+    }
+
+    public double getImmersedAreaForPressure(int numContainers) {
+        double totalMassWithContainers = getTotalMassWithContainers(numContainers);
+        double heightWaterLevel = getHeightWaterLevel(totalMassWithContainers);
+        return (2 * length * heightWaterLevel) + (2 * width * heightWaterLevel) + (length * width);
+    }
+
+    public double getPressure(int numContainers) {
+        double force = getWeightWithContainers(numContainers);
+        double immersedArea = getImmersedAreaForPressure(numContainers);
+        return force / immersedArea;
+    }
+
+
+
+
+
 
     /**
      * Method toString.

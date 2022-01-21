@@ -4,6 +4,7 @@ import lapr.project.domain.dataStructures.PositionsBST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -310,7 +311,7 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.0);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155.0);
 
         double expResult = 10689.0;
         double result = s1.getTotalArea();
@@ -327,7 +328,7 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.0);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155.0);
 
         double expResult = s1.getProportionOfMass(m1);
         double result = 0.88;
@@ -351,7 +352,7 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.0);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155.0);
 
         double expResult = s1.getCertainMass(m1);
         double result = 136.424;
@@ -376,7 +377,7 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155000000);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000);
 
         double expResult = s1.getUnloadenCenterOfMassX();
         double result = 158.303;
@@ -392,7 +393,7 @@ public class ShipTest {
         masses.add(m2);
         masses.add(m3);
         masses.add(m4);
-        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, 0.0, "N/A", masses, 900000000);
+        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
 
         expResult = s2.getUnloadenCenterOfMassX();
         result = 178.541;
@@ -406,7 +407,7 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s3 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, 0.0, "N/A", masses, 900000000);
+        Ship s3 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
 
         expResult = s3.getUnloadenCenterOfMassX();
         result = 185.974;
@@ -423,7 +424,7 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, 0.0, "N/A", masses, 155.000000);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155.000000);
 
         double expResult = s1.getUnloadenCenterOfMassY();
         double result = 16.0;
@@ -439,7 +440,7 @@ public class ShipTest {
         masses.add(m2);
         masses.add(m3);
         masses.add(m4);
-        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, 0.0, "N/A", masses, 900000000);
+        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
 
         expResult = s2.getUnloadenCenterOfMassY();
         result = 32.5;
@@ -453,13 +454,234 @@ public class ShipTest {
         masses.add(m1);
         masses.add(m2);
         masses.add(m3);
-        Ship s3 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, 0.0, "N/A", masses, 900000000);
+        Ship s3 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
 
         expResult = s2.getUnloadenCenterOfMassY();
         result = 32.5;
         assertEquals(expResult, result, 0.001);
+    }
 
+    @Test
+    void getUnloadenCenterOfMass() {
+        //Container Ship - Panamax
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000);
+
+        Point2D.Double expCenterOfMass = new Point2D.Double(158.303, 16.0);
+        double expX = expCenterOfMass.x;
+        double expY = expCenterOfMass.y;
+
+        double x = s1.getUnladenCenterOfMass().x;
+        double y = s1.getUnladenCenterOfMass().y;
+        assertEquals(expX, x, 0.001);
+        assertEquals(expY, y, 0.001);
+
+        //Lake Freighter - Chinamax
+        m1 = new Mass(180.0, 360.0, 65.0);
+        m2 = new Mass(46.0, 92.0, 65.0);
+        m3 = new Mass(329.5, 61.0, 65.0);
+        Mass m4 = new Mass(325.5, 39.0, 27.9);
+        masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        masses.add(m4);
+        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
+
+        expCenterOfMass = new Point2D.Double(178.541, 32.5);
+        expX = expCenterOfMass.x;
+        expY = expCenterOfMass.y;
+
+        x = s2.getUnladenCenterOfMass().x;
+        y = s2.getUnladenCenterOfMass().y;
+        assertEquals(expX, x, 0.001);
+        assertEquals(expY, y, 0.001);
+
+        //Bulk Carrier Ship (Bridge in the stern) - Chinamax
+        m1 = new Mass(180.0, 360.0, 65.0);
+        m2 = new Mass(15.5, 31.0, 46.0);
+        m3 = new Mass(341.0, 38.0, 65.0);
+        masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s3 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
+
+        expCenterOfMass = new Point2D.Double(185.974, 32.5);
+        expX = expCenterOfMass.x;
+        expY = expCenterOfMass.y;
+
+        x = s3.getUnladenCenterOfMass().x;
+        y = s3.getUnladenCenterOfMass().y;
+        assertEquals(expX, x, 0.001);
+        assertEquals(expY, y, 0.001);
+    }
+
+    @Test
+    void getTotalMassWithContainers() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000.0);
+
+        double result = s1.getTotalMassWithContainers(20000);
+        double expResult = 165000000;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getImmersedVolume() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000.0);
+
+        //get Immersed Volume when the ship is empty
+        double result = s1.getImmersedVolume(155000000);
+        double expResult = 151426.338;
+        assertEquals(expResult, result, 0.001);
+
+        //get Immersed Volume when the ship has 100 containers
+        result = s1.getImmersedVolume(s1.getTotalMassWithContainers(20000));
+        expResult = 161195.779;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getHeightWaterLevel() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000.0);
+
+        //get Height Water Level when ship is empty
+        double result = s1.getHeightWaterLevel(155000000);
+        double expResult = 16.095;
+        assertEquals(expResult, result, 0.001);
+
+        //get Height Water Level when ship has 100 containers
+        result = s1.getHeightWaterLevel(s1.getTotalMassWithContainers(20000));
+        expResult = 17.1339;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getDiffHeightAboveWaterLevel() {
+        //Container Ship - Panamax
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000.0);
+
+        double result = s1.getDiffHeightAboveWaterLevel(20000);
+        double expResult = 1.038;
+        assertEquals(expResult, result, 0.001);
+
+        //Chinamax Dimensions
+        m1 = new Mass(180.0, 360.0, 65.0);
+        m2 = new Mass(46.0, 92.0, 65.0);
+        m3 = new Mass(329.5, 61.0, 65.0);
+        Mass m4 = new Mass(325.5, 39.0, 27.9);
+        masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        masses.add(m4);
+        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "N/A", masses, 900000000);
+
+        result = s2.getDiffHeightAboveWaterLevel(20000);
+        expResult = 0.417;
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getWeightWithContainers() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "N/A", masses, 155000000.0);
+
+        double expResult = 1617000000.0;
+        double result = s1.getWeightWithContainers(20000);
+        assertEquals(expResult, result, 0.001);
+    }
+
+    @Test
+    void getImmersedAreaForPressure() {
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "NA", masses, 155000000.0);
+
+        double expResult = 20579.306;
+        double result = s1.getImmersedAreaForPressure(20000);
+        assertEquals(expResult, result, 0.001);
 
     }
+
+    @Test
+    void getPressure() {
+        //Container Ship - Panamax
+        Mass m1 = new Mass(147.0, 294.0, 32.0);
+        Mass m2 = new Mass(277.5, 33.0, 32.0);
+        Mass m3 = new Mass(71.5, 25.0, 9.0);
+        List<Mass> masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        Ship s1 = new ShipSortMmsi(positionsBST, mmsi1, "Panamax", imo, callSign, 70, 294, 32, "NA", masses, 155000000.0);
+
+        double result = s1.getPressure(20000);
+        double expResult = 78574.077;
+        assertEquals(expResult, result, 0.001);
+
+        //Chinamax Dimensions
+        m1 = new Mass(180.0, 360.0, 65.0);
+        m2 = new Mass(46.0, 92.0, 65.0);
+        m3 = new Mass(329.5, 61.0, 65.0);
+        Mass m4 = new Mass(325.5, 39.0, 27.9);
+        masses = new ArrayList<>();
+        masses.add(m1);
+        masses.add(m2);
+        masses.add(m3);
+        masses.add(m4);
+        Ship s2 = new ShipSortMmsi(positionsBST, mmsi1, "Chinamax", imo, callSign, 70, 360, 65, "NA", masses, 900000000);
+
+        result = s2.getPressure(20000);
+        expResult = 160126.605;
+        assertEquals(expResult, result, 0.001);
+    }
+
+
 }
 

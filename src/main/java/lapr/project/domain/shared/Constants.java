@@ -14,5 +14,9 @@ public class Constants {
     public static final Double RADIUS_OF_EARTH_IN_METERS = 6371000.0;
     public static final Double LIMIT_TRAVELLED_DISTANCE = 10.0;
     public static final Double LIMIT_COORDINATES = 5.0;
+
+    public static final double CONTAINER_MASS = 500;
+    public static final double SALTED_WATER_VOLUMIC_MASS = 1023.6;
+    public static final double GRAVITY_ACCELERATION = 9.8;
 }
 

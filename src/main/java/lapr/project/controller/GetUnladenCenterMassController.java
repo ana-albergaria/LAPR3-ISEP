@@ -1,6 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.domain.model.Company;
+import lapr.project.domain.model.Ship;
+import lapr.project.domain.store.ShipStore;
+
+import java.awt.geom.Point2D;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class GetUnladenCenterMassController {
     /**
@@ -21,4 +28,11 @@ public class GetUnladenCenterMassController {
     public GetUnladenCenterMassController(Company company) {
         this.company=company;
     }
+
+    public Point2D.Double getUnladenCenterOfMass(Ship ship) {
+        Point2D.Double unladenCenterOfMass = ship.getUnladenCenterOfMass();
+        return unladenCenterOfMass;
+    }
+
+
 }

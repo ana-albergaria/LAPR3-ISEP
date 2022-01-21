@@ -23,8 +23,8 @@ public class ShipSortMmsi extends Ship{
         super(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, draft, cargo);
     }
 
-    public ShipSortMmsi(PositionsBST positionsBST, int MMSI, String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, String cargo, List<Mass> masses, double totalMass) {
-        super(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, draft, cargo, masses, totalMass);
+    public ShipSortMmsi(PositionsBST positionsBST, int MMSI, String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, String cargo, List<Mass> masses, double totalMass) {
+        super(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, cargo, masses, totalMass);
     }
 
 
