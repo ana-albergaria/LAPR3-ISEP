@@ -95,3 +95,7 @@ n/a
 **Test 8:** Test to check that the maritime path is null when the ending location is null.
 
 **Test 9:** Test to check that the land or sea path is null when the ending location is null.
+
+**Test 10:** Test to check that the land or sea path is null when path type is below 1.
+
+**Test 11:** Test to check that the land or sea path is null when path type is above 3.

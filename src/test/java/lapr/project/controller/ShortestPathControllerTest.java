@@ -6,6 +6,7 @@ import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Port;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -169,6 +170,35 @@ public class ShortestPathControllerTest {
         ShortestPathController shortestPathController = new ShortestPathController(company);
         List<String> actual = shortestPathController.getShortestPath(port1,null,3);
         Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void getShortestPathInvalidPathTypeBelow1(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(port1,port2,0);
+        Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void getShortestPathInvalidPathTypeAbove3(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(port1,port2,4);
+        Assertions.assertNull(actual);
+    }
+
+
+    //ESTÁ VAZIA PORQUÊ???
+    @Disabled
+    @Test
+    public void testUS(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> result = shortestPathController.getShortestPath(port1,port4,3);
+        int i=1;
+        for (String string:result) {
+            System.out.println(i);
+            System.out.println(string);
+            i++;
+        }
     }
 
 }
