@@ -6,13 +6,17 @@ create or replace function get_ship_max_capacity(f_mmsi ship.mmsi%type) return i
 is
 
     f_max_capacity integer;
+    teste varchar(10);
 
 begin
 
-select to_number(currentCapacity) into f_max_capacity
-from ship
-where mmsi = f_mmsi;
+    select currentCapacity into teste
+        from ship
+        where mmsi = f_mmsi;
 
+if teste = 'NA' then return null;
+    else f_max_capacity := to_number(teste);
+end if;
 return (f_max_capacity);
 
 exception
