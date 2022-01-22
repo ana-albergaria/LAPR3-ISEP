@@ -370,28 +370,18 @@ public abstract class Ship implements Comparable<Ship> {
     }
 
     public double getCenterOfMassX() {
-        double aux = getAuxiliarCalculusForCenterMassX();
-        return aux / totalMass;
-    }
-
-    public double getAuxiliarCalculusForCenterMassX() {
         double aux = 0;
         for (Mass mass : masses) {
             aux += getCertainMass(mass) * mass.getX();
         }
-        return aux;
+        return aux / totalMass;
     }
 
-    public double getAuxiliarCalculusForCenterMassY() {
+    public double getCenterOfMassY() {
         double aux = 0;
         for (Mass mass : masses) {
             aux += getCertainMass(mass) * mass.getY();
         }
-        return aux;
-    }
-
-    public double getCenterOfMassY() {
-        double aux = getAuxiliarCalculusForCenterMassY();
         return aux / totalMass;
     }
 
