@@ -5,16 +5,11 @@ class GetUnladenCenterMassController{
     +getUnLadenCenterOfMassOfShip(mmsi)
 }
 
-class Company {
-    +getShipStore()
-}
-
-class ShipStore {
-    +getShipByAnyCode(mmsi)
-}
+class Company {}
 
 
 class Ship {
+    +addNewBlockOfContainersToShip(mass, nContainers)
     +getTotalArea()
     +getCenterOfMassX()
     +getCenterOfMassY()
@@ -27,10 +22,8 @@ class Mass {
 }
 
 GetUnladenCenterMassController ..> Company
-GetUnladenCenterMassController ..> ShipStore
 GetUnladenCenterMassController ..> Ship
 GetUnladenCenterMassController ..> Mass
-Company "1" -- "1" ShipStore : uses >
-ShipStore "1" -- "1..*" Ship : owns >
+Company "1" -- "1..*" Ship : owns >
 Ship "1" -- "1..*" Mass : has >
 @enduml

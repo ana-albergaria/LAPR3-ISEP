@@ -66,7 +66,7 @@ class GetCenterOfMassOfLoadedShipControllerTest {
     }
 
     @Test
-    void getCenterOfMassLoadedShip() throws ParseException {
+    void getCenterOfMassLoadedShip() {
         //Container Ship
         Point2D.Double expCenterOfMass = new Point2D.Double(158.303, 16.0);
         double expX = expCenterOfMass.x;
@@ -75,7 +75,7 @@ class GetCenterOfMassOfLoadedShipControllerTest {
         Mass blockOne = new Mass(147.0, 30.0, 125.0, 4.0);
         Mass blockTwo = new Mass(147.0, 2.0, 125.0, 4.0);
 
-        Point2D.Double cm = ctrl.getCenterOfMassLoadedShip(containerShip, 50, blockOne, blockTwo);
+        Point2D.Double cm = ctrl.getCenterOfMassLoadedShip(containerShip, 100, blockOne, blockTwo);
 
         double x = cm.x;
         double y = cm.y;
@@ -90,7 +90,7 @@ class GetCenterOfMassOfLoadedShipControllerTest {
         blockOne = new Mass(180.0, 61.0, 125.0, 4.0);
         blockTwo = new Mass(180.0, 4.0, 125.0, 4.0);
 
-        cm = ctrl.getCenterOfMassLoadedShip(lakeFreighter, 50, blockOne, blockTwo);
+        cm = ctrl.getCenterOfMassLoadedShip(lakeFreighter, 100, blockOne, blockTwo);
 
         x = cm.x;
         y = cm.y;
@@ -105,7 +105,7 @@ class GetCenterOfMassOfLoadedShipControllerTest {
         blockOne = new Mass(180.0, 61.0, 125.0, 4.0);
         blockTwo = new Mass(180.0, 4.0, 125.0, 4.0);
 
-        cm = ctrl.getCenterOfMassLoadedShip(bulkCarrier, 50, blockOne, blockTwo);
+        cm = ctrl.getCenterOfMassLoadedShip(bulkCarrier, 100, blockOne, blockTwo);
 
         x = cm.x;
         y = cm.y;

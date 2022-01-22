@@ -30,10 +30,10 @@ public class GetCenterOfMassOfLoadedShipController {
     }
 
     public Point2D.Double getCenterOfMassLoadedShip(Ship ship, int nContainers,
-                                                    Mass blockOne, Mass blockTwo) throws ParseException {
+                                                    Mass blockOne, Mass blockTwo) {
 
-        ship.addNewBlockOfContainersToShip(blockOne, nContainers);
-        ship.addNewBlockOfContainersToShip(blockTwo, nContainers);
+        ship.addNewBlockOfContainersToShip(blockOne, nContainers / 2);
+        ship.addNewBlockOfContainersToShip(blockTwo, nContainers / 2);
 
         Point2D.Double loadCenterOfMass = ship.getCenterOfMass();
         return loadCenterOfMass;
