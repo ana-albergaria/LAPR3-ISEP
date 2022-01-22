@@ -5,8 +5,11 @@ import lapr.project.domain.model.Capital;
 import lapr.project.domain.model.Company;
 import lapr.project.domain.model.Location;
 import lapr.project.domain.model.Port;
+import lapr.project.genericDataStructures.graphStructure.Edge;
+import lapr.project.genericDataStructures.graphStructure.Graph;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,13 +64,33 @@ public class ShortestPathController {
      */
     public List<String> getShortestLandPath(Location beg, Location end){
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
-        LinkedList<Location> result;
-        List<String> strings = new ArrayList<>();
-        String toAdd;
         if (beg==end || beg==null || end==null){
             return null;
         }
-        result=freightNetwork.getShortestLandPath(beg,end);
+        Graph<Location,Double> noPortsEdges = freightNetwork.getFreightNetwork().clone();
+        Collection<Edge<Location,Double>> outgoingEdges;
+        Collection<Edge<Location,Double>> incomingEdges;
+        for (Location loc: noPortsEdges.vertices()) {
+            if (loc instanceof Port){
+                incomingEdges=noPortsEdges.incomingEdges(loc);
+                outgoingEdges=noPortsEdges.outgoingEdges(loc);
+                for (Edge<Location,Double> edge:outgoingEdges) {
+                    if (edge.getVOrig() instanceof Port && edge.getVDest() instanceof Port)
+                        noPortsEdges.removeEdge(edge.getVOrig(),edge.getVDest());
+                }
+                for (Edge<Location,Double> edge:incomingEdges) {
+                    if (edge.getVOrig() instanceof Port && edge.getVDest() instanceof Port)
+                        noPortsEdges.removeEdge(edge.getVOrig(),edge.getVDest());
+                }
+            }
+        }
+        LinkedList<Location> result;
+        List<String> strings = new ArrayList<>();
+        String toAdd;
+        result=freightNetwork.getShortestPath(noPortsEdges,beg,end);
+        if (!result.contains(beg) || !result.contains(end)){
+            return null;
+        }
         for (Location loc:result) {
             if (loc instanceof Port){
                 toAdd="Port: " + ((Port) loc).getName();
@@ -91,15 +114,32 @@ public class ShortestPathController {
         if (beg==null || end==null || beg==end || beg instanceof Capital || end instanceof Capital){
             return null;
         }
+        Graph<Location,Double> onlyPorts = freightNetwork.getFreightNetwork().clone();
+        Collection<Edge<Location,Double>> outgoingEdges;
+        Collection<Edge<Location,Double>> incomingEdges;
+        for (Location loc: onlyPorts.vertices()) {
+            if (loc instanceof Capital){
+                incomingEdges=onlyPorts.incomingEdges(loc);
+                outgoingEdges=onlyPorts.outgoingEdges(loc);
+                for (Edge<Location,Double> edge:outgoingEdges) {
+                    onlyPorts.removeEdge(edge.getVOrig(),edge.getVDest());
+                }
+                for (Edge<Location,Double> edge:incomingEdges) {
+                    onlyPorts.removeEdge(edge.getVOrig(),edge.getVDest());
+                }
+                onlyPorts.removeVertex(loc);
+            }
+        }
         LinkedList<Location> result;
         List<String> strings = new ArrayList<>();
-        result=freightNetwork.getShortestMaritimePath(beg,end);
+        result=freightNetwork.getShortestPath(onlyPorts,beg,end);
+        if (!result.contains(beg) || !result.contains(end)){
+            return null;
+        }
         String toAdd;
         for (Location loc:result) {
-            if (loc instanceof Port){ //JÁ DEVE SER PORQUE O METODO NAO VAI METER CAPITAIS
-                toAdd="Port: " + ((Port) loc).getName();
-                strings.add(toAdd);
-            }
+            toAdd="Port: " + ((Port) loc).getName();
+            strings.add(toAdd);
         }
         return strings;
     }
@@ -118,7 +158,10 @@ public class ShortestPathController {
         if (beg==end || beg==null || end==null){
             return null;
         }
-        result=freightNetwork.getShortestLandOrSeaPath(beg,end);
+        result=freightNetwork.getShortestPath(freightNetwork.getFreightNetwork(),beg,end);
+        if (!result.contains(beg) || !result.contains(end)){
+            return null;
+        }
         for (Location loc:result) {
             if (loc instanceof Port){
                 toAdd="Port: " + ((Port) loc).getName();

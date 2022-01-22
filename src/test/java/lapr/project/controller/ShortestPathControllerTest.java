@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,28 +85,36 @@ public class ShortestPathControllerTest {
         map.addLocation(port3);
         map.addLocation(port4);
 
+        //addDistance com capitais
         map.addDistance(h, g, 1.0);
         map.addDistance(h, k, 1.0);
         /*map.addDistance(h, j, 4.0);*/
         map.addDistance(h, i, 1.0);
         map.addDistance(h, a, 6.0);
-
         map.addDistance(k, g, 1.0);
         map.addDistance(k, e, 5.0);
         map.addDistance(k, j, 13.0);
         map.addDistance(k, d, 1.0);
-
         map.addDistance(d, i, 1.0);
         map.addDistance(d, c, 1.0);
         map.addDistance(d, b, 3.0);
-
         map.addDistance(g, f, 1.0);
-
         map.addDistance(i, j, 1.0);
-
         map.addDistance(a, b, 7.0);
-
         map.addDistance(e, f, 1.0);
+
+        //addDistance com portos
+        map.addDistance(port1,port2,2.0);
+        map.addDistance(port2,port3,2.0);
+        map.addDistance(port3,port4,2.0);
+        map.addDistance(port1,port4,4.0);
+        map.addDistance(port1,port3,5.0);
+
+        //addDistance com portos e capitais
+        map.addDistance(port1,a,1.0);
+        map.addDistance(a,port3,1.0);
+        map.addDistance(b,port2,8.0);
+        map.addDistance(c,port4,12.0);
 
     }
 
@@ -187,25 +196,44 @@ public class ShortestPathControllerTest {
     }
 
     @Test
-    public void workingTest(){
+    public void testLandPath1(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(h,j,1);
+        List<String> expected = new ArrayList<>();
+        expected.add("Capital: H");
+        expected.add("Capital: I");
+        expected.add("Capital: J");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testMaritimePath1(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(port1,port3,2);
+        List<String> expected = new ArrayList<>();
+        expected.add("Port: Port1");
+        expected.add("Port: Port2");
+        expected.add("Port: Port3");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testLandOrSeaPath1(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(port1,port3,3);
+        List<String> expected = new ArrayList<>();
+        expected.add("Port: Port1");
+        expected.add("Capital: A");
+        expected.add("Port: Port3");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Disabled
+    @Test
+    public void checkActualResults(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
         List<String> actual = shortestPathController.getShortestPath(h,j,1);
         System.out.println(actual);
-    }
-
-
-    //ESTÁ VAZIA PORQUÊ???
-    @Disabled
-    @Test
-    public void testUS(){
-        ShortestPathController shortestPathController = new ShortestPathController(company);
-        List<String> result = shortestPathController.getShortestPath(port1,port4,3);
-        int i=1;
-        for (String string:result) {
-            System.out.println(i);
-            System.out.println(string);
-            i++;
-        }
     }
 
 }
