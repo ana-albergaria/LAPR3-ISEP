@@ -618,10 +618,9 @@ public class ShipTripStoreDB {
             int i=0;
             while (cs1.next()) {
                 int shipID = cs1.getInt(1);
-                System.out.println(shipID);
+
 
                 int maxCapacity = shipStoreDB.getShipMaxCapacity(shipID);
-
                 int tripID = cs1.getInt(2);
 
                 int departureID = cs1.getInt(3);
@@ -631,7 +630,7 @@ public class ShipTripStoreDB {
 
                 Date arrivalDate = cs1.getDate(6);
 
-                if (shipStoreDB.calculateOccupancyRate(maxCapacity, capacityTime) < 66) {
+                if (shipStoreDB.calculateOccupancyRate(maxCapacity, capacityTime) < 66 && !listID.contains(tripID) && maxCapacity!=0) {
                     listID.add(tripID);
                 }
 

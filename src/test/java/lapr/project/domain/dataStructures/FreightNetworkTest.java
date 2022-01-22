@@ -383,7 +383,13 @@ class FreightNetworkTest {
         double expDistance= 8.0;
         exptMap.put(expList, expDistance);
 
-        assertEquals(exptMap, resultMap);
+        assertEquals(exptMap.size(), resultMap.size());
+
+        for (List<Location> loc : exptMap.keySet()) {
+            for (List<Location> local : resultMap.keySet()){
+                assertEquals(loc.containsAll(local), local.containsAll(loc));
+            }
+        }
 
     }
 }

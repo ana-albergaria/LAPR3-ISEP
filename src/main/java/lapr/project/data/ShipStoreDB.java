@@ -54,13 +54,17 @@ public class ShipStoreDB implements Persistable{
                 "is\n" +
                 "\n" +
                 "    f_max_capacity integer;\n" +
+                "    teste varchar(10);\n" +
                 "\n" +
                 "begin\n" +
                 "\n" +
-                "    select to_number(currentCapacity) into f_max_capacity\n" +
+                "    select currentCapacity into teste\n" +
                 "        from ship\n" +
                 "        where mmsi = f_mmsi;\n" +
                 "\n" +
+                "    if teste = 'NA' then return null;\n" +
+                "    else f_max_capacity := to_number(teste);\n" +
+                "    end if;\n" +
                 "    return (f_max_capacity);\n" +
                 "\n" +
                 "    exception\n" +
