@@ -45,7 +45,8 @@ public class PortStoreDB implements Persistable {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, String.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage()));
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +131,8 @@ public class PortStoreDB implements Persistable {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, String.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage()));
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +172,8 @@ public class PortStoreDB implements Persistable {
 
             result = callableStatement.getInt(1);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage());
+            Logger.getLogger(PortStoreDB.class.getName())
+                    .log(Level.SEVERE, String.format("SQL State: %s%n%s", e.getSQLState(), e.getMessage()));
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -300,7 +303,7 @@ public class PortStoreDB implements Persistable {
         Port port = (Port) object;
 
         String sqlCommand = "select * from port where port_id = ?";
-        boolean returnValue = false;
+        boolean returnValue;
         try (PreparedStatement getShipPositionStatement = connection.prepareStatement(
                 sqlCommand)) {
             getShipPositionStatement.setInt(1, port.getIdentification());
@@ -329,7 +332,7 @@ public class PortStoreDB implements Persistable {
             if(createOrUpdateContinent(databaseConnection, port)){
                 if(!createOrUpdateCountry(databaseConnection, port)){
                     status = false;
-                };
+                }
             }
         }
         if(!existsCountry(databaseConnection, port)){

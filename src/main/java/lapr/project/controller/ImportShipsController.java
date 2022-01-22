@@ -1,5 +1,7 @@
 package lapr.project.controller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.domain.dataStructures.PositionsBST;
 import lapr.project.domain.dataStructures.ShipTreeMmsi;
 import lapr.project.domain.model.Ship;
@@ -35,12 +37,6 @@ public class ImportShipsController {
      */
     private PositionsBST positionsBST;
 
-    /**
-     * Constructor for the controller.
-     */
-    public ImportShipsController(){
-        this(App.getInstance().getCompany());
-    }
 
     /**
      * Constructor receiving the company as an argument.
@@ -93,7 +89,7 @@ public class ImportShipsController {
                         shipsFileDTO.getPositionDTO().getSogDto(), shipsFileDTO.getPositionDTO().getCogDto(),
                         shipsFileDTO.getPositionDTO().getHeadingDto(), shipsFileDTO.getPositionDTO().getTranscieverClassDto());
             }catch (IllegalArgumentException e){
-                System.out.println("NOT ADDED : " + e);
+                Logger.getLogger("Importing Ships").log(Level.INFO,"NOT ADDED : " + e);
                 return false;
             }
             return saveShip();
@@ -105,7 +101,7 @@ public class ImportShipsController {
                         shipsFileDTO.getPositionDTO().getSogDto(), shipsFileDTO.getPositionDTO().getCogDto(),
                         shipsFileDTO.getPositionDTO().getHeadingDto(), shipsFileDTO.getPositionDTO().getTranscieverClassDto());
             }catch (IllegalArgumentException e){
-                System.out.println("NOT ADDED : " + e);
+                Logger.getLogger("Importing Ships").log(Level.INFO,"NOT ADDED : " + e);
                 return false;
             }
             try {
@@ -114,7 +110,7 @@ public class ImportShipsController {
                     return saveShip();
                 }
             }catch (IllegalArgumentException e){
-                System.out.println("NOT ADDED : " + e);
+                Logger.getLogger("Importing Ships").log(Level.INFO,"NOT ADDED : " + e);
             }
         }
         return false;
