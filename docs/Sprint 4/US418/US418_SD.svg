@@ -29,7 +29,7 @@ CTRL -> STORE : ship = getShipByAnyCode(mmsi)
 activate STORE
 deactivate STORE
 
-CTRL -> SHIP : unladenCenterOfMass = getUnladenCenterOfMass()
+CTRL -> SHIP : unladenCenterOfMass = getCenterOfMass()
 activate SHIP
 deactivate SHIP
 

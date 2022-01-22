@@ -221,16 +221,9 @@ public abstract class Ship implements Comparable<Ship> {
      * @param cargo the Ship's Cargo.
      */
     private void checkCargo(String cargo){
-        if(!cargo.equals("NA")) {
-            if (Integer.parseInt(cargo)<0) {
-                throw new IllegalArgumentException("Cargo cannot be negative.");
-            }
-        }
-        /*if (!cargo.equals("NA") && Integer.parseInt(cargo)<0){
+        if (!cargo.equals("NA") && Integer.parseInt(cargo)<0){
             throw new IllegalArgumentException("Cargo cannot be negative.");
         }
-
-         */
     }
 
     /**
@@ -376,22 +369,46 @@ public abstract class Ship implements Comparable<Ship> {
         return proportionOfMass * totalMass;
     }
 
-    public double getUnloadenCenterOfMassX() {
-        double cmX = 0;
-        for (Mass mass : masses) {
-            cmX += getCertainMass(mass) * mass.getX();
-        }
-        return cmX / totalMass;
+    public double getCenterOfMassX() {
+        double aux = getAuxiliarCalculusForCenterMassX();
+        return aux / totalMass;
     }
 
-    public double getUnloadenCenterOfMassY() {
+    public double getAuxiliarCalculusForCenterMassX() {
+        double aux = 0;
+        for (Mass mass : masses) {
+            aux += getCertainMass(mass) * mass.getX();
+        }
+        return aux;
+    }
+
+    public double getAuxiliarCalculusForCenterMassY() {
+        double aux = 0;
+        for (Mass mass : masses) {
+            aux += getCertainMass(mass) * mass.getY();
+        }
+        return aux;
+    }
+
+    public double getCenterOfMassY() {
+        double aux = getAuxiliarCalculusForCenterMassY();
+        return aux / totalMass;
+    }
+
+    public double getUnladenCenterOfMassY() {
         return width / 2.0;
     }
 
-    public Point2D.Double getUnladenCenterOfMass() {
-        double x = getUnloadenCenterOfMassX();
-        double y = getUnloadenCenterOfMassY();
+    public Point2D.Double getCenterOfMass() {
+        double x = getCenterOfMassX();
+        double y = getCenterOfMassY();
         return new Point2D.Double(x, y);
+    }
+
+    //for us419
+    public void addNewBlockOfContainersToShip(Mass mass, int nContainers) {
+        this.masses.add(mass);
+        this.totalMass = totalMass + (nContainers * Constants.CONTAINER_MASS);
     }
 
     // for us420 - difference in height that the vessel has suffered, above water level
@@ -434,10 +451,6 @@ public abstract class Ship implements Comparable<Ship> {
         double immersedArea = getImmersedAreaForPressure(numContainers);
         return force / immersedArea;
     }
-
-
-
-
 
 
     /**

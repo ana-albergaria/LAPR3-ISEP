@@ -14,9 +14,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetUnladenCenterMassControllerTest {
+class GetCenterOfMassOfLoadedShipControllerTest {
     private Company company;
-    private GetUnladenCenterMassController ctrl;
+    private GetCenterOfMassOfLoadedShipController ctrl;
     private ShipPosition shipPosition;
     private PositionsBST positionsBST;
     private Date date;
@@ -27,7 +27,7 @@ class GetUnladenCenterMassControllerTest {
     @BeforeEach
     void setUp() throws ParseException {
         company = new Company("Shipping Company");
-        ctrl = new GetUnladenCenterMassController(company);
+        ctrl = new GetCenterOfMassOfLoadedShipController(company);
         positionsBST = new PositionsBST();
         date = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2020");
         shipPosition = new ShipPosition(211331640, date, 36.39094, -122.71335, 19.7, 145.5, 147, "B");
@@ -66,15 +66,20 @@ class GetUnladenCenterMassControllerTest {
     }
 
     @Test
-    void getUnladenCenterOfMass() {
+    void getCenterOfMassLoadedShip() throws ParseException {
         //Container Ship
         Point2D.Double expCenterOfMass = new Point2D.Double(158.303, 16.0);
         double expX = expCenterOfMass.x;
         double expY = expCenterOfMass.y;
 
-        double x = ctrl.getUnladenCenterOfMass(containerShip).x;
-        double y = ctrl.getUnladenCenterOfMass(containerShip).y;
-        assertEquals(expX, x, 0.001);
+        Mass blockOne = new Mass(147.0, 30.0, 125.0, 4.0);
+        Mass blockTwo = new Mass(147.0, 2.0, 125.0, 4.0);
+
+        Point2D.Double cm = ctrl.getCenterOfMassLoadedShip(containerShip, 50, blockOne, blockTwo);
+
+        double x = cm.x;
+        double y = cm.y;
+        assertEquals(expX, x, 1.0);
         assertEquals(expY, y, 0.3);
 
         //Lake Freighter
@@ -82,9 +87,14 @@ class GetUnladenCenterMassControllerTest {
         expX = expCenterOfMass.x;
         expY = expCenterOfMass.y;
 
-        x = lakeFreighter.getCenterOfMass().x;
-        y = lakeFreighter.getCenterOfMass().y;
-        assertEquals(expX, x, 0.001);
+        blockOne = new Mass(180.0, 61.0, 125.0, 4.0);
+        blockTwo = new Mass(180.0, 4.0, 125.0, 4.0);
+
+        cm = ctrl.getCenterOfMassLoadedShip(lakeFreighter, 50, blockOne, blockTwo);
+
+        x = cm.x;
+        y = cm.y;
+        assertEquals(expX, x, 0.05);
         assertEquals(expY, y, 0.6);
 
         //Bulk Carrier
@@ -92,10 +102,14 @@ class GetUnladenCenterMassControllerTest {
         expX = expCenterOfMass.x;
         expY = expCenterOfMass.y;
 
-        x = bulkCarrier.getCenterOfMass().x;
-        y = bulkCarrier.getCenterOfMass().y;
-        assertEquals(expX, x, 0.001);
+        blockOne = new Mass(180.0, 61.0, 125.0, 4.0);
+        blockTwo = new Mass(180.0, 4.0, 125.0, 4.0);
+
+        cm = ctrl.getCenterOfMassLoadedShip(bulkCarrier, 50, blockOne, blockTwo);
+
+        x = cm.x;
+        y = cm.y;
+        assertEquals(expX, x, 0.3);
         assertEquals(expY, y, 0.5);
     }
-
 }
