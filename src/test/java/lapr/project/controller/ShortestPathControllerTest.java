@@ -88,7 +88,6 @@ public class ShortestPathControllerTest {
         //addDistance com capitais
         map.addDistance(h, g, 1.0);
         map.addDistance(h, k, 1.0);
-        /*map.addDistance(h, j, 4.0);*/
         map.addDistance(h, i, 1.0);
         map.addDistance(h, a, 6.0);
         map.addDistance(k, g, 1.0);
@@ -112,6 +111,7 @@ public class ShortestPathControllerTest {
 
         //addDistance com portos e capitais
         map.addDistance(port1,a,1.0);
+        map.addDistance(port1,b,14.0);
         map.addDistance(a,port3,1.0);
         map.addDistance(b,port2,8.0);
         map.addDistance(c,port4,12.0);
@@ -207,6 +207,17 @@ public class ShortestPathControllerTest {
     }
 
     @Test
+    public void testLandPath2(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(port1,b,1);
+        List<String> expected = new ArrayList<>();
+        expected.add("Port: Port1");
+        expected.add("Capital: A");
+        expected.add("Capital: B");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
     public void testMaritimePath1(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
         List<String> actual = shortestPathController.getShortestPath(port1,port3,2);
@@ -218,6 +229,16 @@ public class ShortestPathControllerTest {
     }
 
     @Test
+    public void testMaritimePath2(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(port1,port4,2);
+        List<String> expected = new ArrayList<>();
+        expected.add("Port: Port1");
+        expected.add("Port: Port4");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
     public void testLandOrSeaPath1(){
         ShortestPathController shortestPathController = new ShortestPathController(company);
         List<String> actual = shortestPathController.getShortestPath(port1,port3,3);
@@ -225,6 +246,17 @@ public class ShortestPathControllerTest {
         expected.add("Port: Port1");
         expected.add("Capital: A");
         expected.add("Port: Port3");
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testLandOrSeaPath2(){
+        ShortestPathController shortestPathController = new ShortestPathController(company);
+        List<String> actual = shortestPathController.getShortestPath(b,port1,3);
+        List<String> expected = new ArrayList<>();
+        expected.add("Capital: B");
+        expected.add("Capital: A");
+        expected.add("Port: Port1");
         Assertions.assertEquals(expected,actual);
     }
 
