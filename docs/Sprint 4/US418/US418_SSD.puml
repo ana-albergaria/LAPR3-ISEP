@@ -11,7 +11,7 @@ activate ":System"
 
 PM -> ":System" : types ship mmsi
 
-activate ":System"
+
 ":System" --> PM : returns successfully unladen center of mass
 
 
