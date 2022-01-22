@@ -365,4 +365,25 @@ class FreightNetworkTest {
         assertEquals(0, result.get("Europe").get(0).getValue(), "First value is 0 since port3 doesn't have any connection");
         assertEquals(expectedCapitalK, result.get("Europe").get(1).getValue(), "Second value should be capital k with 2.36 value");
     }
+
+    @Test
+    public void getCircuit(){
+        Map<List<Location>, Double> resultMap = map.getTotalDistanceMinorCost();
+
+        Map<List<Location>, Double> exptMap = map.getTotalDistanceMinorCost();
+
+        List<Location> expList = new ArrayList<>();
+        expList.add(i);
+        expList.add(j);
+        expList.add(h);
+        expList.add(k);
+        expList.add(d);
+        expList.add(i);
+
+        double expDistance= 8.0;
+        exptMap.put(expList, expDistance);
+
+        assertEquals(exptMap, resultMap);
+
+    }
 }
