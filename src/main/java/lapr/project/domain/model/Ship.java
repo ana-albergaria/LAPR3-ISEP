@@ -1,9 +1,12 @@
 package lapr.project.domain.model;
 
 import lapr.project.domain.dataStructures.PositionsBST;
+import lapr.project.domain.shared.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -62,6 +65,14 @@ public abstract class Ship implements Comparable<Ship> {
      * The ship cargo.
      */
     private  String cargo;
+    /**
+     * The masses which compose the ship.
+     */
+    private List<Mass> masses;
+    /**
+     * The total mass of the ship.
+     */
+    private double totalMass;
 
     /**
      * Constructs an instance of Ship receiving as a parameter the Ship's positions BST, MMSI, vessel name, IMO, call sign, vessel type, length, width, draft and cargo.
@@ -97,6 +108,23 @@ public abstract class Ship implements Comparable<Ship> {
         this.width=width;
         this.draft=draft;
         this.cargo=cargo;
+    }
+
+    //Constructor for US418, US420
+    public Ship(PositionsBST positionsBST, int mmsi,
+                String vesselName, String imo, String callSign, int vesselTypeID, int length, int width, String cargo, List<Mass> masses, double totalMass) {
+        this.positionsBST = positionsBST;
+        this.mmsi = mmsi;
+        this.vesselName = vesselName;
+        this.imo = imo;
+        this.callSign = callSign;
+        this.vesselTypeID = vesselTypeID;
+        this.length = length;
+        this.width = width;
+        this.cargo = cargo;
+        this.masses = masses;
+        this.totalMass = totalMass;
+        this.draft = getHeightWaterLevel(totalMass);
     }
 
     public Ship() {}
@@ -320,6 +348,110 @@ public abstract class Ship implements Comparable<Ship> {
     public Double getTravelledDistance() {
         return this.positionsBST.getTotalDistance();
     }
+
+    // for US418
+    public double getTotalArea() {
+        double totalArea = 0;
+
+        for (Mass mass : masses) {
+            totalArea += mass.getArea();
+        }
+        return totalArea;
+    }
+
+    public double getProportionOfMass(Mass mass) {
+        double totalArea = getTotalArea();
+        return mass.getArea() / totalArea;
+    }
+
+    public double getCertainMass(Mass mass) {
+        double proportionOfMass = getProportionOfMass(mass);
+        return proportionOfMass * totalMass;
+    }
+
+    public double getCenterOfMassX() {
+        double aux = getAuxiliarCalculusForCenterMassX();
+        return aux / totalMass;
+    }
+
+    public double getAuxiliarCalculusForCenterMassX() {
+        double aux = 0;
+        for (Mass mass : masses) {
+            aux += getCertainMass(mass) * mass.getX();
+        }
+        return aux;
+    }
+
+    public double getAuxiliarCalculusForCenterMassY() {
+        double aux = 0;
+        for (Mass mass : masses) {
+            aux += getCertainMass(mass) * mass.getY();
+        }
+        return aux;
+    }
+
+    public double getCenterOfMassY() {
+        double aux = getAuxiliarCalculusForCenterMassY();
+        return aux / totalMass;
+    }
+
+    public double getUnladenCenterOfMassY() {
+        return width / 2.0;
+    }
+
+    public Point2D.Double getCenterOfMass() {
+        double x = getCenterOfMassX();
+        double y = getCenterOfMassY();
+        return new Point2D.Double(x, y);
+    }
+
+    //for us419
+    public void addNewBlockOfContainersToShip(Mass mass, int nContainers) {
+        this.masses.add(mass);
+        this.totalMass = totalMass + (nContainers * Constants.CONTAINER_MASS);
+    }
+
+    // for us420 - difference in height that the vessel has suffered, above water level
+    public double totalMassPlaced(int numContainers) {
+        return numContainers * Constants.CONTAINER_MASS;
+    }
+
+    public double getTotalMassWithContainers(int numContainers) {
+        return totalMass + totalMassPlaced(numContainers);
+    }
+
+    public double getImmersedVolume(double mass) {
+        return mass / Constants.SALTED_WATER_VOLUMIC_MASS;
+    }
+
+    public double getHeightWaterLevel(double mass) {
+        double immersedVolume = getImmersedVolume(mass);
+        return immersedVolume / (length * width);
+    }
+
+    public double getDiffHeightAboveWaterLevel(int numContainers) {
+        double totalMassWithContainers = getTotalMassWithContainers(numContainers);
+        return getHeightWaterLevel(totalMassWithContainers) - getHeightWaterLevel(totalMass);
+    }
+
+    //for us420 - pressure
+    public double getWeightWithContainers(int numContainers) {
+        double totalMassWithContainers = getTotalMassWithContainers(numContainers);
+        return totalMassWithContainers * Constants.GRAVITY_ACCELERATION;
+    }
+
+    public double getImmersedAreaForPressure(int numContainers) {
+        double totalMassWithContainers = getTotalMassWithContainers(numContainers);
+        double heightWaterLevel = getHeightWaterLevel(totalMassWithContainers);
+        return (2 * length * heightWaterLevel) + (2 * width * heightWaterLevel) + (length * width);
+    }
+
+    public double getPressure(int numContainers) {
+        double force = getWeightWithContainers(numContainers);
+        double immersedArea = getImmersedAreaForPressure(numContainers);
+        return force / immersedArea;
+    }
+
 
     /**
      * Method toString.

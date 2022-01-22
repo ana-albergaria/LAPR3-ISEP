@@ -370,7 +370,7 @@ class FreightNetworkTest {
     public void getCircuit(){
         Map<List<Location>, Double> resultMap = map.getTotalDistanceMinorCost();
 
-        Map<List<Location>, Double> exptMap = map.getTotalDistanceMinorCost();
+        Map<List<Location>, Double> exptMap = new HashMap<>();
 
         List<Location> expList = new ArrayList<>();
         expList.add(i);

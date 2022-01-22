@@ -2,6 +2,8 @@ package lapr.project.domain.model;
 
 import lapr.project.domain.dataStructures.PositionsBST;
 
+import java.util.List;
+
 public class ShipSortMmsi extends Ship{
     /**
      * Constructs an instance of Ship receiving as a parameter the Ship's positions BST, MMSI, vessel name, IMO, call sign, vessel type, length, width, draft and cargo.
@@ -20,10 +22,18 @@ public class ShipSortMmsi extends Ship{
     public ShipSortMmsi(PositionsBST positionsBST, int MMSI, String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, double draft, String cargo) {
         super(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, draft, cargo);
     }
+
+    public ShipSortMmsi(PositionsBST positionsBST, int MMSI, String vesselName, String IMO, String callSign, int vesselTypeID, int length, int width, String cargo, List<Mass> masses, double totalMass) {
+        super(positionsBST, MMSI, vesselName, IMO, callSign, vesselTypeID, length, width, cargo, masses, totalMass);
+    }
+
+
     public ShipSortMmsi(int MMSI) {
         super();
         this.setMmsi(MMSI);
     }
+
+
 
     @Override
     public int compareTo(Ship o) {

@@ -33,10 +33,9 @@ public class GetUnloadingLoadingMapController {
     }
 
     public Map<String, String> getUnloadingLoadingMap() {
-        /*CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
+        CargoManifestStoreDB cargoManifestStoreDB = this.company.getCargoManifestStoreDB();
         DatabaseConnection databaseConnection = App.getInstance().getConnection();
-        Map<String, String> map = cargoManifestStoreDB.getUnloadingLoadingMap(databaseConnection);
-         */
-        throw new UnsupportedOperationException("Not Supported Yet.");
+        Map<String, String> map = cargoManifestStoreDB.getUnLoadingLoadingMap(databaseConnection);
+        return map;
     }
 }

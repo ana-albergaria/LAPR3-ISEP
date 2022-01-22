@@ -107,8 +107,8 @@ public class Algorithms {
     public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
+
+
     /**
      * Computes shortest-path distance from a source vertex to all reachable
      * vertices of a graph g with non-negative edge weights
@@ -120,13 +120,42 @@ public class Algorithms {
      * @param pathKeys minimum path vertices keys
      * @param dist     minimum distances
      */
+    //resolução professora
     private static <V, E> void shortestPathDijkstra(Graph<V, E> g, V vOrig,
                                                     Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                                     boolean[] visited, V [] pathKeys, E [] dist) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int vKey = g.key(vOrig);
+        dist[vKey] = zero; //vetor dos custos
+        pathKeys[vKey] = vOrig; //vetor dos antecessores
+
+        while(vOrig != null) {
+            vKey = g.key(vOrig);
+            visited[vKey] = true;
+            for (Edge<V, E> edge : g.outgoingEdges(vOrig)) { //outgoingEdges(vOrig) -> ramos que partem do vértice origem
+                int vKeyAdj = g.key(edge.getVDest());   //para obter cada vértice adjacente de cada ramo
+                if(!visited[vKeyAdj]) {
+                    E s = sum.apply(dist[vKey], edge.getWeight());
+                    if(dist[vKeyAdj] == null || ce.compare(dist[vKeyAdj], s) > 0) {
+                        dist[vKeyAdj] = s;
+                        pathKeys[vKeyAdj] = vOrig;
+                    }
+                }
+
+            }
+            E minDist = null;   //next vertice, that has minimum dist
+            vOrig = null;
+            for (V vert : g.vertices()) {
+                int i = g.key(vert);
+                if(!visited[i] && dist[i] != null && (minDist == null || ce.compare(dist[i], minDist) < 0)) {
+                    minDist = dist[i];
+                    vOrig = vert;
+                }
+            }
+        }
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-   
+
     /** Shortest-path between two vertices
      *
      * @param g graph
@@ -138,10 +167,36 @@ public class Algorithms {
      * @param shortPath returns the vertices which make the shortest path
      * @return if vertices exist in the graph and are connected, true, false otherwise
      */
+    //resolução professora
     public static <V, E> E shortestPath(Graph<V, E> g, V vOrig, V vDest,
                                         Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                         LinkedList<V> shortPath) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(!g.validVertex(vOrig) || !g.validVertex(vDest)) {
+            return null;
+        }
+
+        shortPath.clear();
+        int numVerts = g.numVertices();
+        boolean[] visited = new boolean[numVerts];
+        @SuppressWarnings("unchecked")
+        V[] pathkeys = (V[]) new Object[numVerts];
+        @SuppressWarnings("unchecked")
+        E[] dist = (E[]) new Object[numVerts];
+
+        for (int i = 0; i < numVerts; i++) {
+            dist[i] = null;
+            pathkeys[i] = null;
+        }
+
+        shortestPathDijkstra(g, vOrig, ce, sum, zero, visited, pathkeys, dist);
+
+        E lengthPath = dist[g.key(vDest)]; //para saber se conseguimos alcançar o vértice destino
+
+        if(lengthPath == null)
+            return null;
+
+        getPath(g, vOrig, vDest, pathkeys, shortPath);
+        return lengthPath;
     }
 
     /** Shortest-path between a vertex and all other vertices
@@ -155,11 +210,48 @@ public class Algorithms {
      * @param dists returns the corresponding minimum distances
      * @return if vOrig exists in the graph true, false otherwise
      */
+    //resolução professora
     public static <V, E> boolean shortestPaths(Graph<V, E> g, V vOrig,
                                                Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                                ArrayList<LinkedList<V>> paths, ArrayList<E> dists) {
+        if(!g.validVertex(vOrig)) {
+            return false;
+        }
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        dists.clear();
+        paths.clear();
+
+        int numVerts = g.numVertices();
+
+        for (int i = 0; i < numVerts; i++) {
+            dists.add(null);
+            paths.add(null);
+        }
+
+        boolean[] visited = new boolean[numVerts];
+        @SuppressWarnings("unchecked")
+        V[] pathkeys = (V[]) new Object[numVerts];
+        @SuppressWarnings("unchecked")
+        E[] dist = (E[]) new Object[numVerts];
+
+        for (int i = 0; i < numVerts; i++) {
+            dist[i] = null;
+            pathkeys[i] = null;
+        }
+        //dists -> cada índice é o vetor destino e conteúdo é o custo até esse vértice
+
+        shortestPathDijkstra(g, vOrig, ce, sum, zero, visited, pathkeys, dist);
+
+        for (V vDest : g.vertices()) {
+            int v = g.key(vDest);
+            if(dist[v] != null) {
+                LinkedList<V> shortPath = new LinkedList<>();
+                getPath(g, vOrig, vDest, pathkeys, shortPath);
+                paths.set(v, shortPath);
+                dists.set(v, dist[v]);
+            }
+        }
+        return true;
     }
 
     /**
@@ -174,8 +266,14 @@ public class Algorithms {
      */
     private static <V, E> void getPath(Graph<V, E> g, V vOrig, V vDest,
                                        V [] pathKeys, LinkedList<V> path) {
-
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(vDest.equals(vOrig)) {
+            path.push(vDest);
+        } else {
+            path.push(vDest);
+            int vKey = g.key(vDest);
+            vDest = pathKeys[vKey];
+            getPath(g,vOrig,vDest,pathKeys,path);
+        }
     }
 
     /** Calculates the minimum distance graph using Floyd-Warshall
