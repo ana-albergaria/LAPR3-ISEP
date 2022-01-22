@@ -15,9 +15,7 @@ class Company {
 }
 
 class FreightNetwork {
-    +getShortestLandPath(beg,end)
-    +getShortestMaritimePath(beg,end)
-    +getShortestLandOrSeaPath(beg,end)
+    +getShortestPath(net,beg,end)
 }
 
 abstract class Location{
@@ -29,16 +27,12 @@ class Port {
     -name
     -latitude
     -longitude
-    -country
-    -continent
 }
 
 class Capital{
     -name
     -latitude
     -longitude
-    -country
-    -continent
 }
 
 class MatrixGraph {}
