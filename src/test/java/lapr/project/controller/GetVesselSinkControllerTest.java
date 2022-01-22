@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,6 +63,33 @@ class GetVesselSinkControllerTest {
 
     @Test
     void getHowMuchSinkShip() {
+        //Container Ship
+        Map expMap = new HashMap();
+        expMap.put("Total Mass Placed", 1.0E7);
+        expMap.put("Pressure", 78574.07766190727);
+        expMap.put("Difference in Height", 1.0384184936186287);
+        Map map = ctrl.getHowMuchSinkShip(containerShip, 20000);
 
+        assertEquals(expMap, map);
+
+        //Lake Freighter
+        expMap = new HashMap();
+        expMap.put("Total Mass Placed", 1.0E7);
+        expMap.put("Pressure", 160126.60568683236);
+        expMap.put("Difference in Height", 0.417497486665134);
+        map = ctrl.getHowMuchSinkShip(lakeFreighter, 20000);
+
+        assertEquals(expMap, map);
+
+        //Bulk Carrier
+        expMap = new HashMap();
+        expMap.put("Total Mass Placed", 1.0E7);
+        expMap.put("Pressure", 160126.60568683236);
+        expMap.put("Difference in Height", 0.417497486665134);
+        map = ctrl.getHowMuchSinkShip(bulkCarrier, 20000);
+
+        assertEquals(expMap, map);
     }
+
+
 }
