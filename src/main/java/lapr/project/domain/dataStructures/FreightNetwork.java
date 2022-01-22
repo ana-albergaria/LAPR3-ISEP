@@ -195,7 +195,7 @@ public class FreightNetwork {
      * @param destination ending location
      * @return a list with the locals of the path
      */
-    public LinkedList<Location> getShortestPath(Graph<Location,Double> g, Location origin, Location destination) { //portos
+    public LinkedList<Location> getShortestPath(Graph<Location,Double> g, Location origin, Location destination) {
         LinkedList<Location> shortestPath = new LinkedList<>();
         Algorithms.shortestPath(g,origin,destination,Double::compare,Double::sum,0.0,shortestPath);
         return shortestPath;
