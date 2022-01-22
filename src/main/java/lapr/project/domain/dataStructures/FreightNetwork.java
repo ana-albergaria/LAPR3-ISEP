@@ -7,6 +7,7 @@ import lapr.project.genericDataStructures.graphStructure.Algorithms;
 import lapr.project.genericDataStructures.graphStructure.Edge;
 import lapr.project.genericDataStructures.graphStructure.Graph;
 import lapr.project.genericDataStructures.graphStructure.matrix.MatrixGraph;
+import lapr.project.utils.DistanceUtils;
 
 import java.util.*;
 
@@ -25,6 +26,10 @@ public class FreightNetwork {
 
     public void addDistance(Location locOrigin, Location locDestination, Double distance) {
         freightNetwork.addEdge(locOrigin, locDestination, distance);
+    }
+
+    public double getDistance(Location edge1, Location edge2) {
+        return freightNetwork.edge(edge1, edge2).getWeight();
     }
 
     public List<Map.Entry<Location, Integer>> getMostCentralPorts(){
@@ -176,5 +181,127 @@ public class FreightNetwork {
             }
         }
         return  continentNetwork;
+    }
+
+    public Map<List<Location>, Double> getTotalDistanceMinorCost(){
+        Map<List<Location>, Double> allCircuits = getAllCircuitsAndDistances();
+        int size = 0;
+        List<Location> biggestCircuit = new LinkedList<>();
+        double distance = 0.00;
+
+        for (List<Location> circuit : allCircuits.keySet()) {
+            if (circuit.size()==size) {
+                if (allCircuits.get(circuit)<distance) {
+                    size = circuit.size();
+                    biggestCircuit.clear();
+                    biggestCircuit.addAll(circuit);
+                    distance = allCircuits.get(circuit);
+                }
+            }
+            if (circuit.size()>size) {
+                size = circuit.size();
+                biggestCircuit.clear();
+                biggestCircuit.addAll(circuit);
+                distance = allCircuits.get(circuit);
+            }
+        }
+        biggestCircuit.add(biggestCircuit.get(0));
+
+        Map<List<Location>, Double> result = new HashMap<>();
+
+        result.put(biggestCircuit, distance);
+
+        return result;
+    }
+
+    /**
+     * Method to get the biggest circuit possible starting from all vertices and the smaller distance
+     * @return smaller distance that goes through more locations
+     */
+    private Map<List<Location>, Double> getAllCircuitsAndDistances(){
+        Map<List<Location>, Double> allCircuits = new HashMap<>();  //Lista=circuitos, Double=peso de cada circuito
+        List<Location> tempLocations;
+        List<Location> visited;
+        List<Double> tempWeights;
+        double initialDistance;
+
+
+        for (Location local : freightNetwork.vertices()) {
+            visited = new ArrayList<>();
+
+            initialDistance = 0.00;
+            do {
+                tempLocations = new ArrayList<>();
+                tempWeights = new ArrayList<>();
+                getCircuitAndDistance(tempLocations, tempWeights, visited, initialDistance, local);
+                initialDistance = 0.00;
+                checkCircuit(local, tempLocations, visited, tempWeights, allCircuits);//retira a ultima posição se não tiver edge
+
+            }while(tempLocations.size()!=1);
+        }
+        return allCircuits;
+    }
+
+    /**
+     * Method to get the circuit for each Location in the Freight Network
+     * @param circuit Circuit List to add the circuit
+     * @param weights Weights List to get the distance of the circuit
+     * @param initialDistance Initial Distance of the circuit
+     * @param local Initial Location for the Circuit
+     */
+    private void getCircuitAndDistance(List<Location> circuit, List<Double> weights, List<Location> visited, Double initialDistance, Location local){
+        if (circuit.contains(local)) {return;}
+        circuit.add(local);
+        int counter = 0;
+
+        List<Location> adjs = new LinkedList<>(freightNetwork.adjVertices(local));
+        int index = 0;
+
+        for (Location location : adjs) {
+            Double weight = freightNetwork.edge(local, location).getWeight();
+
+            if ((initialDistance == 0.00 || weight <= initialDistance) && !visited.contains(location)){
+                if (!circuit.contains(location)) {
+                    counter++;
+                    //System.out.println("adjacente: " + location);
+                initialDistance = weight;
+                index = adjs.indexOf(location);
+                }
+            }
+
+        }
+        if (counter == 0) return;
+        weights.add(initialDistance);
+        initialDistance = 0.00;
+        getCircuitAndDistance(circuit, weights, visited, initialDistance, adjs.get(index));
+    }
+
+    /**
+     * Method to check if the last position in the List of Locations is connected with the first Location
+     * @param local First Location
+     * @param circuit List with Locations of circuit
+     */
+    private void checkCircuit(Location local, List<Location> circuit, List<Location> visited, List<Double> weights, Map<List<Location>, Double> allCircuits) {
+        if (circuit.size()==1){
+            return;
+        }
+
+        Location lastLocation = circuit.get(circuit.size()-1);
+        if(freightNetwork.edge(lastLocation, local)==null){
+            circuit.remove(lastLocation);
+            if (!visited.contains(lastLocation)) visited.add(lastLocation);
+            return;
+        }
+
+        double initialDistance = 0.00;
+        weights.add(freightNetwork.edge(lastLocation, local).getWeight());
+
+        for (double values : weights) {
+            initialDistance = initialDistance + values;
+        }
+
+        List<Location> temp = new ArrayList<>(circuit);
+        allCircuits.put(temp, initialDistance);
+        visited.add(lastLocation);
     }
 }
