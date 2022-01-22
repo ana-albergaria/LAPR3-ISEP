@@ -30,9 +30,7 @@ public class TripThresholdConrtollerTest {
 
         List<Integer> actList = new LinkedList<>();
         try {
-            //when(ctrl.getVoyagesBelowThreshold()).thenReturn(expList);
-            databaseConnection = App.getInstance().getConnection();
-            ctrl = new TripThresholdController();
+            when(ctrl.getVoyagesBelowThreshold()).thenReturn(expList);
             actList = ctrl.getVoyagesBelowThreshold();
             Assertions.assertEquals(expList, actList);
         } catch (Exception e) {
