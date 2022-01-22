@@ -34,10 +34,9 @@ public class CargoManifestStoreDB{
         //obtaining the end of the week
         String endWeek = currentDate.with(TemporalAdjusters.next( DayOfWeek.MONDAY )).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-            try {
+            try(Connection connection = databaseConnection.getConnection();
+                CallableStatement cs = connection.prepareCall("{? = call get_loading_unloading_day(?)}")) {
 
-                Connection connection = databaseConnection.getConnection();
-                CallableStatement cs = connection.prepareCall("{? = call get_loading_unloading_day(?)}");
 
                 while(!date.equals(endWeek)) {
                     cs.setString(2, date);
