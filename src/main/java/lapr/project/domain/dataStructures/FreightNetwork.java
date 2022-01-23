@@ -39,10 +39,10 @@ public class FreightNetwork {
         ArrayList<LinkedList<Location>> paths = new ArrayList<>();
         ArrayList<Double> dists = new ArrayList<>();
 
-        for (Location location : freightNetwork.vertices()) {
-            Algorithms.shortestPaths(freightNetwork, location, Double::compare, Double::sum, 0.0, paths, dists);
-            for (LinkedList<Location> path : paths) {
-                for (Location loc : path) {
+        for (Location location : freightNetwork.vertices()) { //v
+            Algorithms.shortestPaths(freightNetwork, location, Double::compare, Double::sum, 0.0, paths, dists); //v²*v = v³
+            for (LinkedList<Location> path : paths) { //v*v=v²
+                for (Location loc : path) { //v²*v = v³
                     if (loc instanceof Port) {
                         ports.merge(loc, 1, Integer::sum);
                     }

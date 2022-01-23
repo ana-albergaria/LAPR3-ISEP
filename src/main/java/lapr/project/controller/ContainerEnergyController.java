@@ -16,13 +16,6 @@ public class ContainerEnergyController {
     private Company company;
 
     /**
-     * Constructor for the controller.
-     */
-    public ContainerEnergyController() {
-        this(App.getInstance().getCompany());
-    }
-
-    /**
      * Constructor receiving the company as an argument.
      *
      * @param company instance of company to be used.
@@ -55,12 +48,10 @@ public class ContainerEnergyController {
         }
 
         consumptionTotal = consumptionTotal / 1000; // watts to killowatts
-        System.out.println(consumptionTotal);
         return (consumptionTotal % auxiliaryPower) != 0 ? (int) ((consumptionTotal / auxiliaryPower)+1) : (int) (consumptionTotal / auxiliaryPower);
     }
 
     public double distinguishBySideContainerEnergy(int side, double [] minutesOfSections, int id, double [] externalTempSections){
-        ContainerStore containerStore = this.company.getContainerStore();
 
         if(side > 6 || side < 0){
             throw new IllegalArgumentException("Unknown side");

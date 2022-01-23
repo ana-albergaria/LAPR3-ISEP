@@ -20,9 +20,8 @@ import java.util.logging.Logger;
 public class ShipStoreDB implements Persistable{
 
     public String getIdleShips(DatabaseConnection databaseConnection) {
-        try {
-            Connection connection = databaseConnection.getConnection();
-            CallableStatement cs = connection.prepareCall("{? = call all_ships_idle(?)}");
+        try (Connection connection = databaseConnection.getConnection();
+             CallableStatement cs = connection.prepareCall("{? = call all_ships_idle(?)}");){
 
             Calendar cal = Calendar.getInstance();
             int currentYear =  cal.get(Calendar.YEAR);
