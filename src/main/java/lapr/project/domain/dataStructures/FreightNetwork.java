@@ -243,7 +243,7 @@ public class FreightNetwork {
      * @return smaller distance that goes through more locations
      */
     private Map<List<Location>, Double> getAllCircuitsAndDistances(){
-        Map<List<Location>, Double> allCircuits = new HashMap<>();  //Lista=circuitos, Double=peso de cada circuito
+        Map<List<Location>, Double> allCircuits = new HashMap<>();
         List<Location> tempLocations;
         List<Location> visited;
         List<Double> tempWeights;
@@ -259,7 +259,7 @@ public class FreightNetwork {
                 tempWeights = new ArrayList<>();
                 getCircuitAndDistance(tempLocations, tempWeights, visited, initialDistance, local);
                 initialDistance = 0.00;
-                checkCircuit(local, tempLocations, visited, tempWeights, allCircuits);//retira a ultima posição se não tiver edge
+                checkCircuit(local, tempLocations, visited, tempWeights, allCircuits);
 
             }while(tempLocations.size()!=1);
         }
@@ -274,22 +274,21 @@ public class FreightNetwork {
      * @param local Initial Location for the Circuit
      */
     private void getCircuitAndDistance(List<Location> circuit, List<Double> weights, List<Location> visited, Double initialDistance, Location local){
-        if (circuit.contains(local)) {return;}
-        circuit.add(local);
+        if (circuit.contains(local)) {return;}//O(N)
+        circuit.add(local);//O(1)
         int counter = 0;
 
-        List<Location> adjs = new LinkedList<>(freightNetwork.adjVertices(local));
+        List<Location> adjs = new LinkedList<>(freightNetwork.adjVertices(local));//O(E)
         int index = 0;
 
-        for (Location location : adjs) {
-            Double weight = freightNetwork.edge(local, location).getWeight();
+        for (Location location : adjs) {//O(E)
+            Double weight = freightNetwork.edge(local, location).getWeight();//O(1)
 
-            if ((initialDistance == 0.00 || weight <= initialDistance) && !visited.contains(location)){
-                if (!circuit.contains(location)) {
+            if ((initialDistance == 0.00 || weight <= initialDistance) && !visited.contains(location)){//O(N)
+                if (!circuit.contains(location)) {//0(N)
                     counter++;
-                    //System.out.println("adjacente: " + location);
                 initialDistance = weight;
-                index = adjs.indexOf(location);
+                index = adjs.indexOf(location);//O(N)
                 }
             }
 

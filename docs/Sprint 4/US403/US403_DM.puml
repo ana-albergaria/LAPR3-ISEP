@@ -24,6 +24,15 @@ class Port {
     -toPortsDistance
 }
 
+class Capital{
+    -name
+    -latitude
+    -longitude
+    -country
+    -continent
+}
+
+
 
 
 class TrafficManager {}
@@ -36,5 +45,6 @@ Location <|-- Port
 FreightNetwork "*" -- "1..*" Location : of >
 /'Dúvidas'/
 TrafficManager "1..*" -- "1" FreightNetwork : manages >
+Location <|-- Capital
 
 @enduml

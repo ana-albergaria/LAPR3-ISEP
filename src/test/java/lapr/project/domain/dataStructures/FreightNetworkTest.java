@@ -391,5 +391,11 @@ class FreightNetworkTest {
             }
         }
 
+        for (Double weight: exptMap.values()){
+            for (Double weight2: resultMap.values()) {
+                assertEquals(weight, weight2);
+            }
+        }
+
     }
 }
