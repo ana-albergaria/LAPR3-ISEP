@@ -64,21 +64,21 @@ public class ShortestPathController {
      */
     public List<String> getShortestLandPath(Location beg, Location end){
         FreightNetwork freightNetwork = this.company.getFreightNetwork();
-        if (beg==end || beg==null || end==null){
+        if (beg==end || beg==null || end==null){ //O(1)
             return null;
         }
         Graph<Location,Double> noPortsEdges = freightNetwork.getFreightNetwork().clone();
         Collection<Edge<Location,Double>> outgoingEdges;
         Collection<Edge<Location,Double>> incomingEdges;
-        for (Location loc: noPortsEdges.vertices()) {
-            if (loc instanceof Port){
+        for (Location loc: noPortsEdges.vertices()) { //O(v)
+            if (loc instanceof Port){ //O(1)
                 incomingEdges=noPortsEdges.incomingEdges(loc);
                 outgoingEdges=noPortsEdges.outgoingEdges(loc);
-                for (Edge<Location,Double> edge:outgoingEdges) {
-                    if (edge.getVOrig() instanceof Port && edge.getVDest() instanceof Port)
-                        noPortsEdges.removeEdge(edge.getVOrig(),edge.getVDest());
+                for (Edge<Location,Double> edge:outgoingEdges) { //O(E)
+                    if (edge.getVOrig() instanceof Port && edge.getVDest() instanceof Port)  //O(1)
+                        noPortsEdges.removeEdge(edge.getVOrig(),edge.getVDest()); //O(1)
                 }
-                for (Edge<Location,Double> edge:incomingEdges) {
+                for (Edge<Location,Double> edge:incomingEdges) { //O(E)
                     if (edge.getVOrig() instanceof Port && edge.getVDest() instanceof Port)
                         noPortsEdges.removeEdge(edge.getVOrig(),edge.getVDest());
                 }
@@ -87,7 +87,7 @@ public class ShortestPathController {
         LinkedList<Location> result;
         List<String> strings = new ArrayList<>();
         String toAdd;
-        result=freightNetwork.getShortestPath(noPortsEdges,beg,end);
+        result=freightNetwork.getShortestPath(noPortsEdges,beg,end); //Dijkstra O(V^2)
         if (!result.contains(beg) || !result.contains(end)){
             return null;
         }
@@ -158,7 +158,7 @@ public class ShortestPathController {
         if (beg==end || beg==null || end==null){
             return null;
         }
-        result=freightNetwork.getShortestPath(freightNetwork.getFreightNetwork(),beg,end);
+        result=freightNetwork.getShortestPath(freightNetwork.getFreightNetwork(),beg,end); //O(V^2)
         if (!result.contains(beg) || !result.contains(end)){
             return null;
         }

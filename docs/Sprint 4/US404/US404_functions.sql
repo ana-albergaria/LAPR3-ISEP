@@ -23,6 +23,9 @@ BEGIN
 
     return true;
 
+    exception
+        when no_data_found then
+            return false;
 END;
 /
 
@@ -44,6 +47,10 @@ BEGIN
     END LOOP;
 
     return count_days;
+
+    exception
+        when no_data_found then
+            return null;
 END;
 /
 
@@ -68,6 +75,10 @@ BEGIN
     CLOSE c_ships;
 
     return ships;
+
+    exception
+        when no_data_found then
+            return ('No data found');
 END;
 /
 

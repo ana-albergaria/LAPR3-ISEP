@@ -44,6 +44,10 @@ BEGIN
     CLOSE c_positions;
 
     return containers_info;
+
+    exception
+            when no_data_found then
+                return 'No Data Found';
 END;
 /
 
@@ -58,6 +62,10 @@ BEGIN
       ELSE
         return 'Ship';
       END IF;
+
+      exception
+        when no_data_found then
+          return 'No Data Found';
 END;
 /
 
@@ -104,6 +112,10 @@ BEGIN
     END LOOP;
     CLOSE c_trips;
     return info;
+
+    exception
+        when no_data_found then
+                return 'No Data Found';
 END;
 /
 
@@ -149,6 +161,10 @@ BEGIN
     END LOOP;
     CLOSE c_trips;
     return info;
+
+    exception
+            when no_data_found then
+                    return 'No Data Found';
 END;
 /
 
@@ -192,5 +208,9 @@ BEGIN
     CLOSE c_containers;
 
     return containers_info;
+
+    exception
+            when no_data_found then
+                    return 'No Data Found';
 END;
 /
