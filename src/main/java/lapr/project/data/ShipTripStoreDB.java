@@ -617,21 +617,32 @@ public class ShipTripStoreDB {
 
             int i=0;
             while (cs1.next()) {
-                int shipID = cs1.getInt(1);
 
+                int shipID = cs1.getInt(1);
 
                 int maxCapacity = shipStoreDB.getShipMaxCapacity(shipID);
                 int tripID = cs1.getInt(2);
 
                 int departureID = cs1.getInt(3);
+
                 int arrivalID = cs1.getInt(4);
+
                 Date departureDate = cs1.getDate(5);
+
                 int capacityTime = shipStoreDB.getNumContainersShipDay(shipID, departureDate);
 
                 Date arrivalDate = cs1.getDate(6);
 
                 if (shipStoreDB.calculateOccupancyRate(maxCapacity, capacityTime) < 66 && !listID.contains(tripID) && maxCapacity!=0) {
                     listID.add(tripID);
+                    System.out.println("\n");
+                    System.out.println("Ship ID: " + shipID);
+                    System.out.println("Ship Trip ID: " + tripID);
+                    System.out.println("Departure location ID: " + departureID);
+                    System.out.println("Arrival location ID: " + arrivalID);
+                    System.out.println("Departure date: " + departureDate.toString());
+                    System.out.println("Arrival date: " + arrivalDate.toString());
+                    System.out.println("Occupancy rate: " + shipStoreDB.calculateOccupancyRate(maxCapacity, capacityTime));
                 }
 
             }
