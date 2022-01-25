@@ -214,3 +214,13 @@ BEGIN
                     return 'No Data Found';
 END;
 /
+
+--com trucktrip
+begin
+    dbms_output.put_line(get_loading_unloading_day('24/01/2022'));
+end;
+
+--no results
+begin
+    dbms_output.put_line(get_loading_unloading_day('01/03/2022'));
+end;
